@@ -68,7 +68,7 @@
     /* Hero: el titular entra letra por letra */
     const chars = $$('.hero-copy .split').flatMap(splitChars);
     gsap.from(chars, {yPercent:110, autoAlpha:0, rotate:6, duration:.9, ease:'power4.out', stagger:.018, delay:.15});
-    gsap.from('.hero-copy p, .hero-copy .ctas', {y:20, autoAlpha:0, duration:.8, ease:'power3.out', delay:.75, stagger:.1});
+    gsap.from('.hero-copy p, .hero-copy .ctas, .hero-copy .hero-links', {y:20, autoAlpha:0, duration:.8, ease:'power3.out', delay:.75, stagger:.1});
 
     /* ---------- El escenario: un gesto de scroll = un paso ----------
        La consulta es una línea de tiempo pausada con 5 posiciones (S): portátil cerrado y los

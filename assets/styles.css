@@ -1175,6 +1175,60 @@ a.post .txt .meta{margin-top:auto}
 .js .stage:not(.ready) .hero-copy h1,
 .js .stage:not(.ready) .hero-copy p,
 .js .stage:not(.ready) .hero-copy .ctas,
+.js .stage:not(.ready) .hero-copy .hero-links,
 .js .stage:not(.ready) .scroll-hint{opacity:0;visibility:hidden;animation:stage-fallback 0s 4s forwards}
 @keyframes stage-fallback{to{opacity:1;visibility:visible}}
 .stage .device-wrap{transition:opacity .5s var(--ease)}
+
+/* Accesos directos desde el inicio */
+.hero-links{margin-top:22px;display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.hero-links a{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.05);color:#dbe3ee;text-decoration:none;font-weight:600;font-size:.93rem;transition:background .25s,border-color .25s,color .25s,transform .25s var(--ease)}
+.hero-links a::after{content:"";width:7px;height:7px;border-top:2px solid currentColor;border-right:2px solid currentColor;transform:rotate(45deg);transition:transform .25s var(--ease)}
+.hero-links a:hover{background:rgba(255,255,255,.12);border-color:#fff;color:#fff;transform:translateY(-2px)}
+.hero-links a:hover::after{transform:rotate(45deg) translate(2px,-2px)}
+
+.explore{padding:110px 0 30px}
+.explore .sec-head h2{font-size:clamp(2.2rem,5vw,3.4rem)}
+.xgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:44px}
+.xtile{position:relative;display:flex;flex-direction:column;justify-content:space-between;min-height:320px;padding:26px;border-radius:var(--r-xl);text-decoration:none;overflow:hidden;isolation:isolate;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.xtile:hover{transform:translateY(-6px);box-shadow:var(--sh-xl)}
+.xtile .xtxt b{display:block;font-family:var(--f-display);font-size:1.75rem;letter-spacing:-.03em;line-height:1.05}
+.xtile .xtxt em{display:block;margin-top:10px;font-style:normal;font-size:1rem;line-height:1.4;max-width:15rem}
+.xtile .xmini{position:absolute;right:10px;top:10px;width:150px;height:auto;z-index:-1;opacity:.95}
+.xtile .xgo{position:relative;align-self:flex-start;width:44px;height:44px;border-radius:50%;margin-top:26px;transition:transform .35s var(--ease)}
+.xtile .xgo::before{content:"";position:absolute;left:50%;top:50%;width:11px;height:11px;margin:-5px 0 0 -8px;border-top:2.5px solid currentColor;border-right:2.5px solid currentColor;transform:rotate(45deg)}
+.xtile:hover .xgo{transform:translateX(6px)}
+.t-dark{background:var(--deep);color:#fff}
+.t-dark em{color:#b9c5d8}.t-dark .xgo{background:rgba(255,255,255,.12);color:#fff}
+.t-blue{background:linear-gradient(150deg,#2f6fe0,#1a4fa0);color:#fff}
+.t-blue em{color:#dbe8ff}.t-blue .xgo{background:rgba(255,255,255,.18);color:#fff}
+.t-mint{background:var(--mint-soft);color:var(--deep);border:1px solid #c9ecdb}
+.t-mint em{color:#2c5a49}.t-mint .xgo{background:#fff;color:#0d6249}
+.t-light{background:var(--surface);color:var(--deep);border:1px solid var(--line-strong)}
+.t-light em{color:var(--ink-soft)}.t-light .xgo{background:var(--accent-soft);color:var(--accent)}
+/* Motivos pequeños de cada tarjeta */
+.xmini .o-line{stroke:#9fe3ff;stroke-opacity:.5}
+.xmini .xn{fill:rgba(255,255,255,.14);stroke:rgba(255,255,255,.3);animation:bob 6s ease-in-out infinite}
+.xmini .o-ring{stroke:#9fe3ff}
+.xmini .tk{stroke:rgba(255,255,255,.28);stroke-width:4}
+.t-blue .xmini .tk{animation-name:tick-w}
+@keyframes tick-w{0%,6%{stroke:rgba(255,255,255,.25)}12%,62%{stroke:#fff}80%,100%{stroke:rgba(255,255,255,.25)}}
+.xnum{font-family:var(--f-display);font-weight:700;font-size:26px;fill:#fff}
+.t-mint .xmini .sh-body{fill:#fff;stroke:#13795b}
+.t-mint .xmini .sh-ck{stroke:#13795b}
+.t-light .xmini .dc-card{fill:var(--surface);stroke:var(--line-strong)}
+.xtile .sh-body,.xtile .sh-ck{stroke-dasharray:1;stroke-dashoffset:1}
+.xtile.in .sh-body{animation:drawin 1.6s var(--ease) .2s forwards}
+.xtile.in .sh-ck{animation:drawin 1s var(--ease) 1.2s forwards}
+.xtile:not(.in) *{animation-play-state:paused}
+.xbar{margin-top:22px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:22px 28px;border-radius:var(--r-lg);background:var(--ice-soft);border:1px solid #e1ebf8}
+.xbar span{font-family:var(--f-display);font-weight:600;font-size:1.25rem;color:var(--deep)}
+@media (max-width:1024px){.xgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.xtile{min-height:250px}}
+@media (max-width:600px){.xgrid{grid-template-columns:1fr}.xtile{min-height:210px}.xtile .xmini{width:120px}.hero-links a{padding:8px 14px;font-size:.88rem}.xbar{padding:20px}}
+@media (prefers-reduced-motion:reduce){.xmini .xn,.xmini .tk{animation:none}.xtile .sh-body,.xtile .sh-ck{stroke-dashoffset:0}}
+/* Tarjetas de Explore: el motivo va arriba y el texto debajo, sin encimarse */
+.xtile{justify-content:flex-start}
+.xtile .xmini{position:static;order:-1;width:140px;height:98px;margin:-4px 0 18px -6px;z-index:auto;align-self:flex-start}
+.xtile .xtxt{flex:1}
+.xtile .xgo{margin-top:22px}
+@media (max-width:600px){.xtile .xmini{width:120px;height:84px}}
