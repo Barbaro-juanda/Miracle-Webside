@@ -589,8 +589,8 @@ footer{border-top:1px solid var(--line);background:var(--surface)}
 .steps-panel{position:absolute;z-index:3;left:max(20px,calc((100vw - 1180px)/2 + 20px));top:50%;transform:translateY(-50%);width:min(380px,32vw)}
 .sp-count{display:flex;align-items:center;gap:14px;font-family:var(--f-display);font-weight:600;color:var(--d-ink);font-variant-numeric:tabular-nums}
 .sp-count .of{color:var(--d-muted)}
-.sp-bar{flex:1;height:2px;border-radius:2px;background:var(--d-line);overflow:hidden}
-.sp-bar i{display:block;height:100%;background:var(--glow);transform-origin:left;transform:scaleX(.25)}
+.sp-bar{flex:1;height:3px;border-radius:3px;background:var(--d-line);overflow:hidden}
+.sp-bar i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,#2f6fe0,#37c9fd 70%,#b7f0ff);box-shadow:0 0 12px rgba(55,201,253,.75);transform-origin:left;transform:scaleX(0);will-change:transform}
 .sp-items{position:relative;margin-top:26px;min-height:230px}
 .sp-item{position:absolute;inset:0 0 auto 0}
 .sp-item h2{font-size:clamp(1.9rem,3vw,2.6rem);letter-spacing:-.03em}
@@ -1430,7 +1430,9 @@ body.anim .statement{min-height:100vh;min-height:100svh;display:flex;align-items
       const t = tl.time();
       const k = t >= 6.8 ? 3 : t >= 5.1 ? 2 : t >= 3.3 ? 1 : 0;
       spNum.textContent = '0' + (k + 1);
-      spBar.style.transform = `scaleX(${(k + 1) / 4})`;
+      // La barra avanza continua con la línea de tiempo (no a saltos por paso): 25 % al terminar el paso 01 y 100 % en el 04.
+      const bp = t <= S[1] ? .25 * Math.max(0, t) / S[1] : .25 + .75 * Math.min(1, (t - S[1]) / (S[MAX] - S[1]));
+      spBar.style.transform = `scaleX(${bp.toFixed(4)})`;
       if (t < 1.6) { rec.className = 'app-rec'; recLabel.textContent = 'Lista para grabar'; clock.textContent = '00:00'; }
       else if (t < 6.8) { rec.className = 'app-rec live'; recLabel.textContent = 'Grabando consulta';
         const s = Math.round((t - 1.6) / (6.8 - 1.6) * 252); clock.textContent = String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
@@ -1446,6 +1448,16 @@ body.anim .statement{min-height:100vh;min-height:100svh;display:flex;align-items
       tl.tweenTo(S[to], {duration:long ? 2.7 : 1.8, ease:'power2.inOut', onComplete:() => { busy = false; }});
     }
     window.__go = go;
+
+    /* Al salir del paso 04 hacia abajo, el portátil se cierra y vuelve a donde está el titular, ligado al scroll
+       (y se reabre si se sube). Solo pasa cuando la consulta ya terminó. */
+    ScrollTrigger.create({trigger:stage, start:'top top', end:() => '+=' + Math.round(innerHeight * 1.1), pin:true, anticipatePin:1, invalidateOnRefresh:true,
+      onUpdate:self => {
+        if (idx !== MAX || busy || !tl) return;
+        // Primero se recogen los pasos (30 % del recorrido) y el resto del recorrido es el portátil cerrándose.
+        const p = self.progress, K = .3;
+        tl.time(p < K ? S[MAX] - (S[MAX] - S[1]) * (p / K) : S[1] * (1 - (p - K) / (1 - K)));
+      }});
 
     /* Entradas: rueda, tacto y teclado. Solo cuentan arriba de todo: si la página ya bajó, el scroll es normal. */
     const atTop = () => scrollY < 2;
