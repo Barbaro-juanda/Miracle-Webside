@@ -1356,7 +1356,7 @@ footer{border-top:1px solid var(--line);background:var(--surface)}
 
     /* Scroll suave */
     if (window.Lenis) {
-      lenis = window.lenis = new Lenis({lerp:.14, wheelMultiplier:1.1, smoothWheel:true});
+      lenis = window.lenis = new Lenis({lerp:.14, wheelMultiplier:1, smoothWheel:true});
       lenis.on('scroll', ScrollTrigger.update);
       gsap.ticker.add(t => lenis.raf(t * 1000));
       gsap.ticker.lagSmoothing(0);
@@ -1381,6 +1381,9 @@ footer{border-top:1px solid var(--line);background:var(--surface)}
     const rec = $('#appRec'), recLabel = $('#appRecLabel'), clock = $('#appClock'), saved = $('#appSaved');
     const spNum = $('#spNum'), spBar = $('#spBar');
     const STEP_T = [2.0, 3.3, 4.9, 6.1];
+    // La animación se mide en frames: 30 por segundo de línea de tiempo, y un giro de rueda (100 px) avanza 5 frames.
+    const FPS = 30, FRAMES_PER_NOTCH = 5, NOTCH_PX = 100, PX_PER_FRAME = NOTCH_PX / FRAMES_PER_NOTCH;
+    let stagePx = 4000;
 
     gsap.set(dw, {xPercent:-50, yPercent:-50});
     const mm = gsap.matchMedia();
@@ -1399,7 +1402,7 @@ footer{border-top:1px solid var(--line);background:var(--surface)}
 
       const tl = gsap.timeline({
         defaults:{ease:'none'},
-        scrollTrigger:{trigger:stage, start:'top top', end:() => '+=' + innerHeight * 4, scrub:true, pin:true, anticipatePin:1, invalidateOnRefresh:true,
+        scrollTrigger:{trigger:stage, start:'top top', end:() => '+=' + stagePx, scrub:true, pin:true, anticipatePin:1, invalidateOnRefresh:true,
           onUpdate:self => {
             const t = tl.time();
             let k = 0; STEP_T.forEach((s, i) => { if (t >= s - .2) k = i; });
@@ -1441,6 +1444,8 @@ footer{border-top:1px solid var(--line);background:var(--surface)}
         .to(items[3], {autoAlpha:1, y:0, duration:.3}, STEP_T[3] + .15)
         .to(sign, {autoAlpha:1, y:0, duration:.35, ease:'back.out(1.6)'}, STEP_T[3] + .25)
         .to({}, {duration:.7});
+      stagePx = Math.round(tl.duration() * FPS * PX_PER_FRAME);
+      tl.scrollTrigger.refresh();
       return () => { wsets.flat().forEach(w => w.style.opacity = ''); };
     });
 
