@@ -18,7 +18,7 @@
   --ease:cubic-bezier(.22,1,.36,1);
 }
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:84px;-webkit-text-size-adjust:100%}
+html{scroll-padding-top:84px;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--f-sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img,svg{display:block;max-width:100%}
 a{color:inherit}
@@ -778,3 +778,17 @@ a.post .txt .meta{margin-top:auto}
 .solo-copy h2{margin-top:18px;font-size:clamp(1.8rem,3.4vw,2.6rem);letter-spacing:-.03em;color:var(--d-ink)}
 .blog-intro{max-width:46rem;margin:0 0 40px;font-size:1.12rem;color:var(--ink-soft)}
 .done h2{margin-top:18px;font-size:1.5rem}
+
+/* Enlaces de cada paso de "Cómo funciona" */
+.sp-cta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:22px}
+.btn-sm{min-height:44px;padding:0 20px;font-size:.92rem}
+.sp-link{color:#9fe3ff;font-weight:600;font-size:.9rem;text-decoration:none;border-bottom:1px solid rgba(159,227,255,.4);padding:2px 0;margin-left:4px}
+.sp-link:hover{border-color:#9fe3ff}
+.sp-items{min-height:290px}
+@media (max-width:899px){
+  .sp-items{min-height:215px}
+  .sp-cta{margin-top:12px;gap:8px}
+  .btn-sm{min-height:42px;padding:0 16px;font-size:.88rem}
+  .sp-link{display:none}
+}
+.static .sp-items{min-height:0}

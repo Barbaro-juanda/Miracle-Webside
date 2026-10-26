@@ -26,6 +26,17 @@
   }
   addEventListener('scroll', headerTheme, {passive:true}); headerTheme();
 
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href]'); if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || a.target === '_blank') return;
+    const u = new URL(a.href, location.href);
+    if (u.origin !== location.origin || u.pathname.replace(/\/$/, '') !== location.pathname.replace(/\/$/, '') || !u.hash || u.hash === '#') return;
+    const el = document.getElementById(decodeURIComponent(u.hash.slice(1)));
+    if (!el) return;
+    e.preventDefault();
+    el.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'start'});
+    history.pushState(null, '', u.hash);
+  });
+
   const menuBtn = $('.menu-btn'), mnav = $('#mnav');
   const setMenu = open => { mnav.classList.toggle('open', open); menuBtn.setAttribute('aria-expanded', open); menuBtn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú'); };
   menuBtn.addEventListener('click', () => setMenu(!mnav.classList.contains('open')));
@@ -79,6 +90,8 @@
   if (!animate) { countUp(document); }
   else {
     gsap.registerPlugin(ScrollTrigger);
+    // La barra de direcciones del celular cambia la altura y no debe recalcular (ni mover) el scroll.
+    ScrollTrigger.config({ignoreMobileResize:true});
 
     if (onHome) {
     /* Hero: el titular entra letra por letra */
@@ -166,56 +179,95 @@
       if (spCue) spCue.textContent = k === 3 ? 'Siga bajando' : 'Desplácese para el siguiente paso';
     }
 
+    /* ---------- Entrada: un gesto = un paso, sin descartar gestos y sin escaparse ----------
+       Estados:
+         busy    la línea de tiempo se está moviendo (paso o rebobinado)
+         cooling pausa corta al terminar, para tragarse la cola de la inercia del trackpad
+         queued  gestos distintos que llegaron mientras tanto (máximo 3): se ejecutan al terminar, en orden
+       Reglas:
+         - Solo cuenta arriba de todo; si la página ya bajó, el scroll es el normal.
+         - Mientras hay animación, los eventos se bloquean (no mueven la página).
+         - En el paso 04 (hacia abajo) o en el cerrado (hacia arriba), en cuanto termina la animación el
+           scroll sigue normal en ese mismo gesto: "baja apenas termina el 04".
+         - Una rueda girando sin parar avanza un paso por animación; un flick suelto, uno. */
+    let cooling = false, queued = 0, qDir = 0;
+    function finish() {
+      busy = false; cooling = true;
+      setTimeout(() => { cooling = false; flush(); }, 160);
+    }
     function go(to) {
       to = Math.max(0, Math.min(MAX, to));
-      if (to === idx || !tl) return;
+      if (to === idx || !tl) return false;
       const long = (idx === 0 && to === 1) || (idx === 1 && to === 0);
       idx = to; busy = true;
-      tl.tweenTo(S[to], {duration:long ? 2.7 : 1.8, ease:'power2.inOut', onComplete:() => { busy = false; }});
+      tl.tweenTo(S[to], {duration:long ? 2.7 : 1.8, ease:'power2.inOut', onComplete:finish});
+      return true;
+    }
+    function flush() {
+      if (!queued || busy || cooling) return;
+      const to = idx + qDir; queued--;
+      if (to < 0 || to > MAX) { queued = 0; return; }
+      go(to);
+    }
+    function enqueue(dir) {
+      if (dir !== qDir) { queued = 0; qDir = dir; }
+      const to = idx + dir * (queued + 1);
+      if (to >= 0 && to <= MAX && queued < 3) queued++;
     }
     if (location.hash === '#debug') window.__go = go;
 
-    /* Al terminar el paso 04 el portátil se queda abierto y la página sigue hacia abajo con scroll normal.
-       Si se baja y se vuelve a subir hasta el portátil, la consulta se rebobina sola, en un solo movimiento continuo:
+    /* Al volver a subir hasta el portátil con la consulta terminada, se rebobina sola de corrido:
        04 → 03 → 02 → 01 y el portátil se cierra. Al bajar de nuevo (un gesto por paso) se reabre. */
     function rewind() {
       if (idx !== MAX || busy || !tl) return;
-      idx = 0; busy = true;
-      tl.tweenTo(0, {duration:5, ease:'sine.inOut', onComplete:() => { busy = false; }});
+      idx = 0; busy = true; queued = 0;
+      tl.tweenTo(0, {duration:5, ease:'sine.inOut', onComplete:finish});
     }
-    ScrollTrigger.create({trigger:stage, start:'top top', end:() => '+=' + Math.round(innerHeight * .5), onEnterBack:rewind});
+    // Se rebobina en cuanto se vuelve a subir hasta el portátil (la mitad de la pantalla), aunque se haya bajado poco.
+    let lastY = scrollY, wentDown = false;
+    addEventListener('scroll', () => {
+      const y = scrollY;
+      if (idx !== MAX) wentDown = false;
+      else if (y > 120) wentDown = true;
+      if (wentDown && y < lastY && y < innerHeight * .5) { wentDown = false; rewind(); }
+      lastY = y;
+    }, {passive:true});
 
-    /* Entradas: rueda, tacto y teclado. Solo cuentan arriba de todo: si la página ya bajó, el scroll es normal. */
     const atTop = () => scrollY < 2;
     const inField = e => /^(input|textarea|select)$/i.test(e.target.tagName) || e.target.isContentEditable;
-    /* Un gesto = una serie de eventos de rueda separados por menos de 140 ms (incluye la inercia del trackpad).
-       Al empezar un gesto se fija, para todo el gesto:
-         - si empezó arriba de la página (si no, el scroll es normal),
-         - si empezó con una animación en curso (entonces se ignora entero),
-         - en qué paso estaba (solo un gesto que EMPIEZA en el paso 04 deja pasar el scroll hacia abajo;
-           el gesto que acaba de llegar al 04 sigue bloqueado hasta que se suelte). */
-    let lastWheel = 0, gOk = false, gBlocked = false, gIdx = 0, gUsed = false;
+    const atEnd = down => down ? idx === MAX : idx === 0;
+
+    let lastEvt = 0, acc = 0;
     addEventListener('wheel', e => {
       if (e.ctrlKey) return;
-      const now = performance.now();
-      if (now - lastWheel > 140) { gOk = atTop(); gBlocked = busy; gIdx = idx; gUsed = false; }
-      lastWheel = now;
-      if (!gOk || Math.abs(e.deltaY) < 1) return;
-      const down = e.deltaY > 0;
-      if (!gBlocked && (down ? gIdx === MAX : gIdx === 0)) return;   // empezó en el final (o en el inicio): scroll normal
+      const now = performance.now(), gap = now - lastEvt;
+      lastEvt = now;
+      if (!atTop()) { acc = 0; return; }
+      let dy = e.deltaY;
+      if (e.deltaMode === 1) dy *= 40; else if (e.deltaMode === 2) dy *= innerHeight;
+      if (Math.abs(dy) < 1) return;
+      const down = dy > 0, locked = busy || cooling;
+      if (atEnd(down) && !locked) return;              // sin más pasos en esa dirección: scroll normal
       e.preventDefault();
-      if (gBlocked || gUsed || busy) return;
-      gUsed = true; go(idx + (down ? 1 : -1));
+      if (gap > 200) acc = 0;
+      if (locked) {
+        if (!atEnd(down) && gap > 140) enqueue(down ? 1 : -1);   // otro gesto: queda en fila
+        return;
+      }
+      acc += Math.abs(dy);
+      if (acc >= 30) { acc = 0; go(idx + (down ? 1 : -1)); }
     }, {passive:false});
 
-    let ty = null, tOk = false, tBlocked = false, tIdx = 0, tUsed = false;
-    addEventListener('touchstart', e => { ty = e.touches[0].clientY; tOk = atTop(); tBlocked = busy; tIdx = idx; tUsed = false; }, {passive:true});
+    let ty = null, tOk = false, tUsed = false;
+    addEventListener('touchstart', e => { ty = e.touches[0].clientY; tOk = atTop(); tUsed = false; }, {passive:true});
     addEventListener('touchmove', e => {
       if (ty === null || !tOk) return;
-      const dy = ty - e.touches[0].clientY, down = dy > 0;
-      if (!tBlocked && (down ? tIdx === MAX : tIdx === 0)) return;
+      const dy = ty - e.touches[0].clientY, down = dy > 0, locked = busy || cooling;
+      if (atEnd(down) && !locked) return;
       if (e.cancelable) e.preventDefault();
-      if (!tBlocked && !tUsed && !busy && Math.abs(dy) > 28) { tUsed = true; go(idx + (down ? 1 : -1)); }
+      if (tUsed || Math.abs(dy) < 28) return;
+      tUsed = true;
+      if (locked) { if (!atEnd(down)) enqueue(down ? 1 : -1); } else go(idx + (down ? 1 : -1));
     }, {passive:false});
     addEventListener('touchend', () => { ty = null; });
 
@@ -224,9 +276,11 @@
       const down = ['ArrowDown', 'PageDown', ' '].includes(e.key) && !e.shiftKey;
       const up = ['ArrowUp', 'PageUp'].includes(e.key) || (e.key === ' ' && e.shiftKey);
       if (!down && !up) return;
-      if (busy) { e.preventDefault(); return; }                      // una tecla mantenida no se salta pasos ni se sale
-      if (down ? idx === MAX : idx === 0) return;
-      e.preventDefault(); go(idx + (down ? 1 : -1));
+      const locked = busy || cooling;
+      if (atEnd(down) && !locked) return;
+      e.preventDefault();
+      if (locked) { if (!e.repeat && !atEnd(down)) enqueue(down ? 1 : -1); return; }
+      go(idx + (down ? 1 : -1));
     });
 
     /* Ritmo de la página: la escena del párrafo es la más lenta (se fija 1,6 pantallas y las palabras se
