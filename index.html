@@ -1458,7 +1458,14 @@ body.anim .statement{min-height:100vh;min-height:100svh;display:flex;align-items
     if (location.hash === '#debug') window.__go = go;
 
     /* Al terminar el paso 04 el portátil se queda abierto y la página sigue hacia abajo con scroll normal.
-       Al volver arriba, cada gesto hacia arriba retrocede 04 → 03 → 02 → 01 y cierra el portátil; al bajar se reabre. */
+       Si se baja y se vuelve a subir hasta el portátil, la consulta se rebobina sola, en un solo movimiento continuo:
+       04 → 03 → 02 → 01 y el portátil se cierra. Al bajar de nuevo (un gesto por paso) se reabre. */
+    function rewind() {
+      if (idx !== MAX || busy || !tl) return;
+      idx = 0; busy = true;
+      tl.tweenTo(0, {duration:5, ease:'sine.inOut', onComplete:() => { busy = false; }});
+    }
+    ScrollTrigger.create({trigger:stage, start:'top top', end:() => '+=' + Math.round(innerHeight * .5), onEnterBack:rewind});
 
     /* Entradas: rueda, tacto y teclado. Solo cuentan arriba de todo: si la página ya bajó, el scroll es normal. */
     const atTop = () => scrollY < 2;
