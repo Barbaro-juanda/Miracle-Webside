@@ -7,7 +7,8 @@ Sitio estático de varias páginas (sin framework). Se sirve tal cual en Vercel.
 | Ruta | Fuente |
 |---|---|
 | `/` | `src/pages/index.html` (portátil animado, párrafo, circuito, cifra, resúmenes de planes y blog) |
-| `/soluciones` | `src/pages/soluciones.html` |
+| `/soluciones` | `src/pages/soluciones.html` (portada breve de los tres productos) |
+| `/notes`, `/auditorias`, `/analytics` | `src/pages/notes.html`, `auditorias.html`, `analytics.html` (una página corta por producto) |
 | `/planes` | `src/pages/planes.html` |
 | `/blog` y `/blog/<slug>` | `src/pages/blog.html` y `src/posts.json` |
 | `/seguridad` | `src/pages/seguridad.html` |
@@ -30,13 +31,13 @@ Sitio estático de varias páginas (sin framework). Se sirve tal cual en Vercel.
 |---|---|
 | `assets/styles.css` | todas |
 | `assets/core.js` (menú, cabecera, anclas, aparición al entrar) | todas |
-| GSAP + ScrollTrigger (CDN) | inicio y soluciones |
+| GSAP + ScrollTrigger (CDN) | inicio y las tres páginas de producto |
 | `assets/home.js` (escena del portátil, párrafo, circuito, cifra) | solo inicio |
-| `assets/solutions.js` (bloques y cifras de Analytics) | solo soluciones |
+| `assets/solutions.js` (animación de la tarjeta y cifras de cada producto) | solo notes, auditorias y analytics |
 | `assets/agendar.js` (calendario y formulario) | solo agendar |
 | librería del QR (CDN) | solo el inicio, y se pide cuando el cierre está cerca |
 
-Planes, seguridad, blog y artículos solo cargan `core.js`.
+Soluciones, planes, seguridad, blog y artículos solo cargan `core.js`.
 
 ## Pendientes del jefe (marcados `PENDIENTE` en el código)
 

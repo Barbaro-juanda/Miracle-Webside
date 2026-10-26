@@ -13,9 +13,21 @@ const pages = [
   { path: '/', src: 'index', out: 'index.html', gsap: true, js: 'home',
     title: 'Historia clínica con IA para médicos e IPS | Miracle',
     desc: 'Miracle escucha la consulta, escribe la nota clínica, sugiere CIE-10 y CUPS y audita cada historia antes de firmar. Agende una demo para su consultorio o IPS.' },
-  { path: '/soluciones', src: 'soluciones', out: 'soluciones.html', gsap: true, js: 'solutions', crumbs: [['Soluciones']], app: true, faq: true,
+  { path: '/soluciones', src: 'soluciones', out: 'soluciones.html', crumbs: [['Soluciones']], faq: true,
     title: 'Notes, Analytics y Auditorías para médicos e IPS | Miracle',
-    desc: 'Notes escribe la historia clínica mientras usted atiende, Analytics muestra el servicio a la gerencia y Auditorías revisa cada nota antes de que se firme.' },
+    desc: 'Tres productos para una misma consulta: Notes escribe la historia clínica, Auditorías la revisa antes de firmar y Analytics muestra el servicio a la gerencia.' },
+  { path: '/notes', src: 'notes', out: 'notes.html', gsap: true, js: 'solutions', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Notes']],
+    app: { name: 'Miracle Notes', description: 'Escribe la nota clínica a partir de la consulta, sugiere códigos CIE-10 y CUPS, permite firma electrónica y exporta a PDF y RIPS.' },
+    title: 'Notes: la nota clínica escrita por la IA | Miracle',
+    desc: 'Notes escucha la consulta, arma la nota por secciones con la plantilla de su especialidad, sugiere CIE-10 y CUPS y queda lista para que usted la firme.' },
+  { path: '/auditorias', src: 'auditorias', out: 'auditorias.html', gsap: true, js: 'solutions', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Auditorías']],
+    app: { name: 'Miracle Auditorías', description: 'Revisa cada nota clínica antes de firmar y señala lo que falta, con la frase de la consulta que lo respalda.' },
+    title: 'Auditorías: cada nota revisada antes de firmar | Miracle',
+    desc: 'Auditorías compara la nota con lo que se habló en la consulta y le dice qué falta, con la frase exacta, antes de firmar y antes de que la nota llegue a RIPS.' },
+  { path: '/analytics', src: 'analytics', out: 'analytics.html', gsap: true, js: 'solutions', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Analytics']],
+    app: { name: 'Miracle Analytics', description: 'Reportes de gerencia con la adopción por médico y servicio, las notas firmadas y los lotes RIPS de la institución.' },
+    title: 'Analytics: el servicio de su IPS, en números | Miracle',
+    desc: 'Analytics convierte lo que ya pasa en cada consulta en reportes para la dirección médica: adopción, notas firmadas el mismo día y lotes RIPS listos para exportar.' },
   { path: '/planes', src: 'planes', out: 'planes.html', crumbs: [['Planes']], faq: true,
     title: 'Planes para médicos independientes e IPS | Miracle',
     desc: 'Notes con 14 días de prueba para el médico independiente y licencias a la medida para IPS, clínicas y hospitales. Compare los dos planes y resuelva sus dudas.' },
@@ -69,7 +81,7 @@ const footer = `<footer>
   <div class="wrap foot">
     <div><a href="/" class="logo" aria-label="Miracle, inicio"><svg width="30" height="30" aria-hidden="true"><use href="#orb"/></svg><span>Miracle</span></a>
       <p>Para que el médico mire al paciente, no la pantalla.</p></div>
-    <div><p class="fh">Productos</p><ul><li><a href="/soluciones#solo-notes">Notes</a></li><li><a href="/soluciones#solo-analytics">Analytics</a></li><li><a href="/soluciones#solo-audit">Auditorías</a></li><li><a href="/planes">Planes</a></li></ul></div>
+    <div><p class="fh">Productos</p><ul><li><a href="/notes">Notes</a></li><li><a href="/analytics">Analytics</a></li><li><a href="/auditorias">Auditorías</a></li><li><a href="/planes">Planes</a></li></ul></div>
     <div><p class="fh">Miracle</p><ul><li><a href="/#como-funciona">Cómo funciona</a></li><li><a href="/seguridad">Seguridad</a></li><li><a href="/blog">Blog</a></li><li><a href="https://itsmiracleai.com.co/login">Ingresar</a></li></ul></div>
     <div><p class="fh">Contacto</p><ul><li><a href="/agendar">Agendar demo</a></li><li><a href="https://wa.me/573134582806" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:dev@itsmiracleai.com">dev@itsmiracleai.com</a></li></ul></div>
   </div>
@@ -104,8 +116,8 @@ function schemaFor(pg, body) {
   const g = [...orgGraph];
   if (pg.crumbs) g.push({ '@type': 'BreadcrumbList', itemListElement: [['Inicio', '/'], ...pg.crumbs.map(([l, h], i) => [l, i === pg.crumbs.length - 1 ? pg.path : h])]
     .map(([name, item], i) => ({ '@type': 'ListItem', position: i + 1, name, item: abs(item) })) });
-  if (pg.app) g.push({ '@type': 'SoftwareApplication', name: 'Miracle Notes', applicationCategory: 'HealthApplication', operatingSystem: 'Web', inLanguage: 'es-CO',
-    description: 'Escribe la nota clínica a partir de la consulta, sugiere códigos CIE-10 y CUPS, permite firma electrónica y exporta a PDF y RIPS.', publisher: { '@id': SITE.url + '/#org' } });
+  if (pg.app) g.push({ '@type': 'SoftwareApplication', name: pg.app.name, applicationCategory: 'HealthApplication', operatingSystem: 'Web', inLanguage: 'es-CO',
+    description: pg.app.description, publisher: { '@id': SITE.url + '/#org' } });
   if (pg.faq) {
     const qa = [...body.matchAll(/<summary>(.*?)<span class="pm"[^>]*><\/span><\/summary><p>(.*?)<\/p>/gs)];
     g.push({ '@type': 'FAQPage', mainEntity: qa.map(m => ({ '@type': 'Question', name: m[1], acceptedAnswer: { '@type': 'Answer', text: m[2] } })) });

@@ -1,171 +1,48 @@
-<section class="sub-hero dark" data-theme="dark" aria-labelledby="h1">
+<section class="sub-hero" aria-labelledby="h1">
   <div class="wrap">
     @@CRUMBS@@
     <h1 id="h1">Tres productos, una sola consulta</h1>
-    <p class="lead">Notes escribe la historia clínica mientras usted atiende. Analytics le muestra a la gerencia cómo va el servicio. Auditorías revisa que cada nota esté completa antes de firmar.</p>
-    <div class="chips-nav" aria-label="Ir a un producto"><a href="#solo-notes">Notes</a><a href="#solo-audit">Auditorías</a><a href="#solo-analytics">Analytics</a></div>
+    <p class="lead">Todo sale de la misma consulta. Elija el que le interesa.</p>
   </div>
 </section>
-<section class="solo dark" data-theme="dark">
+
+<section class="sec" style="padding-top:30px" aria-labelledby="h-prods">
   <div class="wrap">
-    <div class="solo-rows">
-      <div class="solo-row" id="solo-notes">
-        <div class="solo-copy">
-          <span class="badge-only">Notes</span>
-          <h2>Una plantilla para cada una de 49 especialidades</h2>
-          <p>No es lo mismo una consulta de psiquiatría que una de urgencias. Notes sabe qué secciones lleva cada una, y usted puede crear las suyas.</p>
-          <p>Usted elige la plantilla, inicia la grabación con el consentimiento del paciente y conversa como siempre. Miracle transcribe en vivo y, al terminar, arma la nota por secciones: motivo de consulta, enfermedad actual, examen, diagnóstico y plan. Queda escrita en lenguaje técnico y sin siglas sueltas, y cada sección se puede editar, con autoguardado.</p>
-          <p>Después usted revisa, ajusta y firma. Si necesita agregar algo, puede dictarlo por voz o usar atajos que se activan con «/». Al firmar, la nota queda sellada con una huella digital SHA-256 y ya no se puede modificar.</p>
-          <p><b>Un ejemplo.</b> En una consulta inicial de psiquiatría, la nota identifica el patrón de consumo, recoge las hospitalizaciones previas y separa el plan farmacológico del tratamiento actual. En neuropsicología infantil, la reunión con los padres y la sesión de pruebas con el niño llevan cada una su propia plantilla.</p>
-          <ul class="checks">
-            <li>Psiquiatría separa el plan farmacológico del tratamiento actual</li>
-            <li>Neuropsicología infantil tiene reunión con padres y sesión con el niño</li>
-            <li>La identificación del paciente cambia según la especialidad</li>
-            <li>CIE-10 y CUPS sugeridos, con su nivel de confianza</li>
-            <li>Exportación a PDF y lote RIPS desde el mismo lugar</li>
-            <li>Agenda del día, que también se importa desde una foto</li>
-            <li>Informe de patología a partir de la hoja manuscrita</li>
-          </ul>
-          <a class="more-link" href="/planes">Ver los planes de Notes</a>
-        </div>
-        <div class="mock reveal" aria-hidden="true">
-          <div class="mock-top"><i></i><i></i><i></i><span>Notes · Nueva consulta</span></div>
-          <div class="mock-in">
-            <div class="tpl">
-              <div class="sel"><b>Psiquiatría</b>Consulta inicial</div>
-              <div><b>Urgencias</b>Triage</div>
-              <div><b>Pediatría</b>Control</div>
-            </div>
-            <div class="docmini">
-              <div class="h5">Examen mental</div>
-              <p>Alerta, orientada en las tres esferas. Afecto ansioso, pensamiento lógico, sin ideas de muerte.</p>
-              <div class="h5">Plan farmacológico</div>
-              <p>Inicia sertralina 50 mg al día. Control en cuatro semanas.</p>
-              <div class="row"><span>Autoguardado hace 2 s</span><span class="pill ok">Firmada</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="solo-row" id="solo-audit">
-        <div class="solo-copy">
-          <span class="badge-only">Auditorías</span>
-          <!-- PENDIENTE (jefe): confirmar qué es "Lics" (¿RIPS?, ¿HIS?) para ajustar este bloque. -->
-          <h2>Cada hallazgo trae la frase exacta de la consulta</h2>
-          <p>Auditorías compara la nota con lo que se habló. Si el paciente mencionó una alergia y no quedó escrita, se lo muestra con la cita, antes de firmar y antes de que llegue a RIPS.</p>
-          <p>Es un conjunto de reglas, no un modelo de IA que opina: revisa las secciones, los códigos, el estado y la firma de cada nota, y solo marca lo que puede comprobar. Por eso cada hallazgo es real y accionable, y trae una severidad: crítico, advertencia o sugerencia.</p>
-          <p>Para el médico, la revisión aparece en la propia consulta, antes de firmar. Para auditoría y calidad, hay un panel con las notas por revisar de toda la institución, el porcentaje de completitud de cada una y un registro de quién cambió qué y cuándo.</p>
-          <p><b>Un ejemplo.</b> La paciente dice «soy alérgica a la penicilina» y el plan no lo registra. Auditorías lo marca como advertencia, le muestra la frase exacta y le indica dónde agregarlo. La corrección toma segundos, con la consulta todavía fresca.</p>
-          <ul class="checks">
-            <li>Hallazgos críticos, advertencias y sugerencias</li>
-            <li>Coherencia entre diagnóstico, códigos y plan</li>
-            <li>Panel de notas por revisar para el auditor</li>
-            <li>Porcentaje de completitud de cada nota</li>
-            <li>Registro de cada cambio, con quién y cuándo</li>
-          </ul>
-          <a class="more-link" href="/seguridad">Cómo cuidamos cada nota</a>
-        </div>
-        <div class="mock reveal" aria-hidden="true">
-          <div class="mock-top"><i></i><i></i><i></i><span>Auditoría · Consulta de hoy, 10:40</span></div>
-          <div class="mock-in">
-            <div class="audit-head"><div><b>Completitud de la nota</b><small>3 hallazgos antes de firmar</small></div><div class="ring" style="--p:82"><span>82 %</span></div></div>
-            <ul class="finds">
-              <li><div class="t"><span class="pill bad">Crítico</span><b>El plan no tiene diagnóstico codificado</b></div>Agregue el CIE-10 sugerido o elija otro.</li>
-              <li><div class="t"><span class="pill warn">Advertencia</span><b>Alergias sin registrar</b></div>Se mencionaron en la consulta y no aparecen en la nota.<q>Soy alérgica a la penicilina, doctora.</q></li>
-              <li><div class="t"><span class="pill info">Sugerencia</span><b>Especifique la duración del tratamiento</b></div>La dosis está, los días no.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="solo-row" id="solo-analytics">
-        <div class="solo-copy">
-          <span class="badge-only">Analytics</span>
-          <h2>La gerencia ve el servicio sin pedirle un informe a nadie</h2>
-          <p>Analytics toma lo que ya pasa en cada consulta y lo convierte en números: cuántas notas se firman el mismo día, qué servicios adoptaron la herramienta y qué lotes RIPS están listos.</p>
-          <p>Los reportes salen de los datos reales de su institución y se pueden ver por rango de fechas. Los ven los perfiles de administrador, supervisor y jefe de área, cada uno con lo que su rol permite.</p>
-          <p>Sirven para saber qué servicios ya documentan con Miracle, cuántas notas quedan firmadas el mismo día y cuánto tiempo de grabación se está usando, y para preparar los lotes RIPS desde el mismo lugar, sin pedirle un informe a nadie.</p>
-          <p><b>Un ejemplo.</b> La dirección médica abre el reporte del mes, ve en qué servicios la adopción va más lenta y decide dónde acompañar primero, con datos y no con impresiones.</p>
-          <ul class="checks">
-            <li>Adopción por médico, por área y por servicio</li>
-            <li>Tiempo de grabación y de documentación</li>
-            <li>Reportes descargables para la junta</li>
-            <li>Lotes RIPS listos para exportar</li>
-          </ul>
-          <a class="more-link" href="/agendar">Ver Analytics en una demo</a>
-        </div>
-        <div class="mock reveal" aria-hidden="true">
-          <div class="mock-top"><i></i><i></i><i></i><span>Analytics · Últimos 30 días</span></div>
-          <div class="mock-in">
-            <div class="kpis">
-              <div class="kpi"><small>Notas firmadas</small><strong data-count="1284">1.284</strong><span>+18 % vs. mes anterior</span></div>
-              <div class="kpi"><small>Firmadas el mismo día</small><strong data-count="92" data-suffix=" %">92 %</strong><span>+11 puntos</span></div>
-              <div class="kpi"><small>Médicos activos</small><strong data-count="37">37</strong><span>de 40</span></div>
-            </div>
-            <div class="chart">
-              <div class="chart-h">Consultas por semana<div class="legend"><span><i style="background:var(--accent)"></i>Grabadas</span><span><i style="background:#0f9b6c"></i>Firmadas</span></div></div>
-              <div class="bars">
-                <div class="bar"><b style="--h:52%"></b><b style="--h:44%"></b><small>S1</small></div>
-                <div class="bar"><b style="--h:61%"></b><b style="--h:55%"></b><small>S2</small></div>
-                <div class="bar"><b style="--h:58%"></b><b style="--h:54%"></b><small>S3</small></div>
-                <div class="bar"><b style="--h:74%"></b><b style="--h:70%"></b><small>S4</small></div>
-                <div class="bar"><b style="--h:82%"></b><b style="--h:79%"></b><small>S5</small></div>
-                <div class="bar"><b style="--h:90%"></b><b style="--h:88%"></b><small>S6</small></div>
-              </div>
-            </div>
-            <p class="sample">Datos de ejemplo</p>
-          </div>
-        </div>
-      </div>
-
+    <h2 id="h-prods" class="skip">Los tres productos</h2>
+    <div class="hub-grid">
+      <a class="hub-card" href="/notes" data-reveal>
+        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></div>
+        <h3>Notes</h3><p>La nota clínica, escrita mientras usted atiende.</p><span class="go">Ver Notes</span>
+      </a>
+      <a class="hub-card" href="/auditorias" data-reveal="2">
+        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <h3>Auditorías</h3><p>Cada nota, revisada antes de firmar.</p><span class="go">Ver Auditorías</span>
+      </a>
+      <a class="hub-card" href="/analytics" data-reveal="3">
+        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></div>
+        <h3>Analytics</h3><p>El servicio, en números.</p><span class="go">Ver Analytics</span>
+      </a>
     </div>
   </div>
 </section>
-<section class="sec" style="padding-top:110px" data-theme="light" aria-labelledby="h-bento">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2 id="h-bento">Todo lo que necesita para cerrar la consulta</h2>
-      <p>Lo que hoy hace en tres programas distintos, en una sola pantalla.</p>
-    </div>
-    <div class="bento">
-      <div class="bx a">
-        <h3>Firma electrónica con huella digital</h3>
-        <p>Al firmar, la nota queda sellada. Cualquier cambio posterior se nota, y cada acción queda registrada con quién y cuándo.</p>
-        <div class="vis"><div class="sig"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#b7f0d8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><div>Firmada por la Dra. Restrepo<code>sha256 · 3f9a8e41d07b…c21e</code></div></div></div>
-      </div>
-      <div class="bx b"><h3>CIE-10 y CUPS sugeridos</h3><p>Con nivel de confianza. Usted acepta o cambia.</p><div class="vis chips"><span>J03.9 · 96 %</span><span>890201 · 99 %</span><span>R50.9 · 71 %</span></div></div>
-      <div class="bx c"><h3>RIPS y PDF</h3><p>La nota firmada sale lista para la historia clínica y el lote RIPS sale desde Reportes.</p></div>
-      <div class="bx d"><h3>Agenda desde una foto</h3><p>Tome una foto de la agenda del día y Notes la carga.</p></div>
-      <div class="bx e"><h3>Dictado por voz</h3><p>Para agregar algo a una sección sin escribir.</p></div>
-      <div class="bx f"><h3>Patología por foto</h3><p>El informe sale a partir de la hoja manuscrita.</p></div>
-    </div>
-  </div>
-</section>
-
 
 <section class="sec" style="padding-top:20px" aria-labelledby="h-flow">
   <div class="wrap">
-    <div class="sec-head" data-reveal>
-      <h2 id="h-flow">Cómo se conectan los tres</h2>
-      <p>Todo sale de la misma consulta, así que no hay que digitar nada dos veces.</p>
-    </div>
-    <div class="sec-grid" style="margin-top:44px">
-      <div class="sec-card" data-reveal><h3>1. Notes escribe</h3><p>La consulta se graba, se transcribe y se convierte en una nota por secciones, con la plantilla de la especialidad y los códigos sugeridos.</p></div>
-      <div class="sec-card" data-reveal="2"><h3>2. Auditorías revisa</h3><p>Antes de firmar, cada nota se revisa contra lo que se habló. Lo que falta o no cuadra aparece mientras todavía se puede corregir.</p></div>
-      <div class="sec-card" data-reveal="3"><h3>3. Analytics suma</h3><p>Las notas firmadas, los tiempos y la adopción de cada servicio se vuelven reportes para la gerencia, sin reunir datos a mano.</p></div>
+    <div class="sec-head" data-reveal><h2 id="h-flow">Cómo se conectan</h2></div>
+    <div class="steps-long three">
+      <div data-reveal><h3>Notes escribe</h3><p>La consulta se vuelve una nota por secciones, con códigos sugeridos.</p></div>
+      <div data-reveal="2"><h3>Auditorías revisa</h3><p>Antes de firmar, le avisa lo que falta o no cuadra.</p></div>
+      <div data-reveal="3"><h3>Analytics suma</h3><p>Las notas firmadas se vuelven reportes para la gerencia.</p></div>
     </div>
   </div>
 </section>
 
 <section class="sec" style="padding-top:0" aria-labelledby="h-faq">
   <div class="wrap">
-    <div class="sec-head center"><h2 id="h-faq">Preguntas sobre los productos</h2></div>
+    <div class="sec-head center"><h2 id="h-faq">Preguntas rápidas</h2></div>
     <div class="faq">
       <details><summary>¿Necesito los tres productos?<span class="pm" aria-hidden="true"></span></summary><p>No. El médico independiente usa Notes, con la auditoría de cada nota incluida. Analytics y el panel para auditores hacen parte de la licencia institucional.</p></details>
-      <details><summary>¿Auditorías usa inteligencia artificial?<span class="pm" aria-hidden="true"></span></summary><p>No. Es un conjunto de reglas que revisa las secciones, los códigos y la firma de cada nota. Solo marca lo que puede comprobar, para que cada hallazgo sea real y accionable.</p></details>
-      <details><summary>¿Qué pasa si no estoy de acuerdo con un código sugerido?<span class="pm" aria-hidden="true"></span></summary><p>Usted decide. Cada sugerencia trae un nivel de confianza y puede aceptarla, cambiarla o descartarla. El código final siempre lo elige el médico.</p></details>
-      <details><summary>¿Puedo crear mis propias plantillas?<span class="pm" aria-hidden="true"></span></summary><p>Sí. Notes trae plantillas para 49 especialidades y usted puede crear las suyas.</p></details>
-      <details><summary>¿Cómo llevo la nota a mi sistema de historia clínica?<span class="pm" aria-hidden="true"></span></summary><p>La nota firmada se exporta a PDF y se prepara el lote RIPS. Para instituciones, revisamos en la demo cómo conectarla con su sistema.</p></details>
+      <details><summary>¿Se pueden usar por separado?<span class="pm" aria-hidden="true"></span></summary><p>Sí, pero funcionan mejor juntos: todo sale de la misma consulta, así que no hay que digitar nada dos veces.</p></details>
     </div>
   </div>
 </section>
