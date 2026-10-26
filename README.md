@@ -33,7 +33,7 @@ Sitio estático de varias páginas (sin framework). Se sirve tal cual en Vercel.
 | `assets/core.js` (menú, cabecera, anclas, aparición al entrar) | todas |
 | GSAP + ScrollTrigger (CDN) | inicio y las tres páginas de producto |
 | `assets/home.js` (escena del portátil, párrafo, circuito, cifra) | solo inicio |
-| `assets/solutions.js` (animación de la tarjeta y cifras de cada producto) | solo notes, auditorias y analytics |
+| `assets/product.js` (animación de la tarjeta y cifras de cada producto) | solo notes, auditorias y analytics |
 | `assets/agendar.js` (calendario y formulario) | solo agendar |
 | librería del QR (CDN) | solo el inicio, y se pide cuando el cierre está cerca |
 

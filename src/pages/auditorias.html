@@ -21,23 +21,53 @@
   </div>
 </section>
 
-<section class="sec" aria-labelledby="h-que">
+<section class="sec" aria-labelledby="h-who">
+  <div class="wrap two-col">
+    <div class="txt" data-reveal><h2 id="h-who">Para quién es</h2><p>Auditorías es para el médico que quiere firmar una nota completa y para el equipo de auditoría y calidad de la institución. Revisa cada nota cuando todavía se puede corregir, y no semanas después, cuando ya no hay cómo arreglarla.</p></div>
+    <div data-reveal="2"><h2>Lo que incluye</h2><ul class="checks" data-reveal><li>Hallazgos críticos, advertencias y sugerencias</li><li>Cita textual de la consulta en cada hallazgo</li><li>Coherencia entre diagnóstico, códigos y plan</li><li>Porcentaje de completitud de cada nota</li><li>Panel de notas por revisar</li><li>Registro de cada cambio, con quién y cuándo</li></ul></div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:10px" aria-labelledby="h-que">
   <div class="wrap">
     <div class="sec-head" data-reveal><h2 id="h-que">Qué hace</h2></div>
-    <div class="sec-grid" style="margin-top:36px"><div class="sec-card" data-reveal><h3>Encuentra lo que falta</h3><p>Diagnósticos sin código, alergias sin registrar, tratamientos sin duración.</p></div><div class="sec-card" data-reveal="2"><h3>Muestra la prueba</h3><p>Cada hallazgo trae la frase de la consulta que lo respalda.</p></div><div class="sec-card" data-reveal="3"><h3>Da prioridad</h3><p>Crítico, advertencia o sugerencia: sabe qué corregir primero.</p></div></div>
+    <div class="sec-grid" style="margin-top:36px"><div class="sec-card" data-reveal><span class="ico2"><svg class="dr" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle pathLength="1" cx="11" cy="11" r="7"/><path pathLength="1" d="m21 21-4.3-4.3"/></svg></span><h3>Encuentra lo que falta</h3><p>Revisa las secciones, los códigos y el estado de cada nota: diagnósticos sin codificar, alergias sin registrar, tratamientos sin duración, planes sin control.</p></div><div class="sec-card" data-reveal=2><span class="ico2"><svg class="dr" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M9 7a4 4 0 0 0-4 4v6h5v-6H5M19 7a4 4 0 0 0-4 4v6h5v-6h-5"/></svg></span><h3>Muestra la prueba</h3><p>Cada hallazgo trae la frase de la consulta que lo respalda, para ir directo al punto. No inventa: si algo no se puede comprobar, no lo afirma.</p></div><div class="sec-card" data-reveal=3><span class="ico2"><svg class="dr" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M4 22V4M4 4h13l-2 4 2 4H4"/></svg></span><h3>Da prioridad</h3><p>Los hallazgos son críticos, advertencias o sugerencias, y cada uno dice cómo corregirlo. Así sabe qué arreglar primero.</p></div></div>
   </div>
 </section>
 
-<section class="sec" style="padding-top:10px" aria-labelledby="h-pasos">
+<section class="sec walk-sec" aria-labelledby="h-pasos">
   <div class="wrap">
-    <div class="sec-head" data-reveal><h2 id="h-pasos">En tres pasos</h2></div>
-    <div class="steps-long three"><div data-reveal><h3>Termine la consulta</h3><p>La revisión corre sola, antes de firmar.</p></div><div data-reveal="2"><h3>Corrija</h3><p>Cada hallazgo dice cómo arreglarlo.</p></div><div data-reveal="3"><h3>Firme</h3><p>Y el auditor ve el resto en un panel.</p></div></div>
-    <p class="example" data-reveal><b>Un ejemplo</b>La paciente dice «soy alérgica a la penicilina» y el plan no lo registra. Auditorías lo marca y le muestra la frase.</p>
-    
+    <div class="sec-head" data-reveal><h2 id="h-pasos">Paso a paso</h2><p>Siga el recorrido: la imagen cambia con cada paso.</p></div>
+    <div class="walk">
+      <div class="walk-steps"><div class="walk-step"><span class="n">1</span><h3>Termine la consulta</h3><p>La revisión corre sola, antes de que usted firme. Compara la nota con lo que se habló y con los datos de la propia nota.</p></div><div class="walk-step"><span class="n">2</span><h3>Corrija</h3><p>Cada hallazgo señala dónde está el problema y cómo arreglarlo. La corrección toma segundos, con la consulta todavía fresca.</p></div><div class="walk-step"><span class="n">3</span><h3>Firme y siga el panel</h3><p>Con la nota completa, usted firma. El supervisor y el administrador ven en un panel las notas por revisar y el porcentaje de completitud de cada una.</p></div></div>
+      <div class="walk-vis"><div class="vz vz-aud" data-step="1" aria-hidden="true">
+  <div class="vz-bar"><b>Revisión de la nota</b><span class="ring-wrap"><svg width="44" height="44" viewBox="0 0 44 44"><circle class="ring-bg" cx="22" cy="22" r="18"/><circle class="ring-fg" cx="22" cy="22" r="18"/></svg><span class="pct p82">82 %</span><span class="pct p100">100 %</span></span></div>
+  <div class="vz-stage">
+    <div class="vz-layer l1">
+      <div class="ntext" style="--i:0"><p>Paciente de 34 años con odinofagia y fiebre nocturna de tres días.</p><p>Plan: <mark class="red">sin diagnóstico codificado</mark>. Antibiótico y analgésico.</p><p>Alergias: <mark>sin registrar</mark>.</p><p>Control: <mark>sin fecha</mark>.</p></div>
+    </div>
+    <div class="vz-layer l2">
+      <div class="fnd" style="--i:0"><span class="pill bad">Crítico</span><div><b>El plan no tiene diagnóstico codificado</b>Agregue el CIE-10 sugerido o elija otro.</div></div>
+      <div class="fnd" style="--i:1"><span class="pill warn">Advertencia</span><div><b>Alergias sin registrar</b><q>Soy alérgica a la penicilina, doctora.</q></div></div>
+      <div class="fnd" style="--i:2"><span class="pill info">Sugerencia</span><div><b>Indique cuándo debe volver el paciente</b>El plan no tiene fecha de control.</div></div>
+    </div>
+    <div class="vz-layer l3">
+      <div class="okcard" style="--i:0"><span class="big"><svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><path class="ck" pathLength="1" d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#13795b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>Nota completa</b><small>Sin hallazgos críticos. Lista para firmar.</small></div>
+    </div>
+  </div>
+</div></div>
+    </div>
   </div>
 </section>
 
-<section class="sec" style="padding-top:0" aria-labelledby="h-faq">
+<section class="sec" style="padding-bottom:30px" aria-labelledby="h-ej">
+  <div class="wrap">
+    <h2 id="h-ej" class="skip">Un ejemplo</h2>
+    <p class="example" data-reveal><b>Un ejemplo</b>La paciente dice «soy alérgica a la penicilina» y el plan no lo registra. Auditorías lo marca como advertencia, le muestra la frase exacta y le indica dónde agregarlo.</p>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:30px" aria-labelledby="h-faq">
   <div class="wrap">
     <div class="sec-head center"><h2 id="h-faq">Preguntas rápidas</h2></div>
     <div class="faq"><details><summary>¿Auditorías usa inteligencia artificial?<span class="pm" aria-hidden="true"></span></summary><p>No. Es un conjunto de reglas que revisa las secciones, los códigos y la firma de cada nota. Solo marca lo que puede comprobar.</p></details><details><summary>¿Quién ve el panel de auditoría?<span class="pm" aria-hidden="true"></span></summary><p>El supervisor y el administrador de la institución, con las notas por revisar y el porcentaje de completitud de cada una.</p></details></div>
@@ -47,7 +77,7 @@
 <section class="sec" style="padding-top:0" aria-labelledby="h-also">
   <div class="wrap">
     <div class="sec-head" data-reveal><h2 id="h-also">Los otros productos</h2></div>
-    <div class="also"><a class="also-card" href="/notes" data-reveal><b>Notes</b><span>La nota clínica, escrita mientras usted atiende</span><i>Ver Notes</i></a><a class="also-card" href="/analytics" data-reveal><b>Analytics</b><span>El servicio, en números</span><i>Ver Analytics</i></a></div>
+    <div class="also"><a class="also-card" href="/notes" data-reveal><b>Notes</b><span>La nota, escrita mientras atiende</span><i>Ver Notes</i></a><a class="also-card" href="/analytics" data-reveal><b>Analytics</b><span>El servicio, en números</span><i>Ver Analytics</i></a></div>
   </div>
 </section>
 @@CTABAND@@
