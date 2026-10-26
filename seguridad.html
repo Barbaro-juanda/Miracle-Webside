@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seguridad clínica: roles, trazabilidad y firma | Miracle</title>
+<meta name="description" content="Revisión humana, datos aislados por institución, roles y permisos, trazabilidad y firma con huella digital. Lo que Miracle hace hoy para cuidar cada nota.">
+<link rel="canonical" href="https://itsmiracleai.com.co/seguridad">
+<meta name="theme-color" content="#0c1424">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_CO">
+<meta property="og:site_name" content="Miracle">
+<meta property="og:title" content="Seguridad clínica: roles, trazabilidad y firma | Miracle">
+<meta property="og:description" content="Revisión humana, datos aislados por institución, roles y permisos, trazabilidad y firma con huella digital. Lo que Miracle hace hoy para cuidar cada nota.">
+<meta property="og:url" content="https://itsmiracleai.com.co/seguridad">
+<meta property="og:image" content="https://itsmiracleai.com.co/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Schibsted+Grotesk:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="/assets/styles.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Organization",
+   "@id": "https://itsmiracleai.com.co/#org",
+   "name": "Miracle",
+   "url": "https://itsmiracleai.com.co/",
+   "description": "Software clínico con IA para Colombia: notas clínicas, analítica para la gerencia y auditoría de historias clínicas.",
+   "logo": "https://itsmiracleai.com.co/icon-512.png",
+   "email": "dev@itsmiracleai.com",
+   "areaServed": "CO",
+   "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "sales",
+    "telephone": "+57-313-458-2806",
+    "availableLanguage": "es"
+   }
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://itsmiracleai.com.co/#web",
+   "url": "https://itsmiracleai.com.co/",
+   "name": "Miracle",
+   "inLanguage": "es-CO",
+   "publisher": {
+    "@id": "https://itsmiracleai.com.co/#org"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Inicio",
+     "item": "https://itsmiracleai.com.co/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Seguridad",
+     "item": "https://itsmiracleai.com.co/seguridad"
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body class="page-seguridad">
+<a class="skip" href="#main">Saltar al contenido</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="orb-core" cx="43%" cy="41%" r="64%"><stop offset="0%" stop-color="#57d2fd"/><stop offset="30%" stop-color="#37c9fd"/><stop offset="62%" stop-color="#12aef2"/><stop offset="100%" stop-color="#0a9aea"/></radialGradient>
+    <radialGradient id="orb-rim" cx="50%" cy="50%" r="50%"><stop offset="68%" stop-color="#fff" stop-opacity="0"/><stop offset="88%" stop-color="#c8ecff" stop-opacity=".45"/><stop offset="97%" stop-color="#fff" stop-opacity=".92"/><stop offset="100%" stop-color="#fff"/></radialGradient>
+    <radialGradient id="orb-halo" cx="50%" cy="50%" r="50%"><stop offset="52%" stop-color="#7fd8ff" stop-opacity=".42"/><stop offset="72%" stop-color="#7fd8ff" stop-opacity=".18"/><stop offset="100%" stop-color="#7fd8ff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="orb-spec" cx="32%" cy="30%" r="42%"><stop offset="0%" stop-color="#fff" stop-opacity=".5"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <symbol id="orb" viewBox="0 0 512 512">
+      <circle cx="256" cy="256" r="240" fill="url(#orb-halo)"/><circle cx="256" cy="256" r="168" fill="url(#orb-core)"/><circle cx="256" cy="256" r="168" fill="url(#orb-spec)"/><circle cx="256" cy="256" r="168" fill="url(#orb-rim)"/>
+      <circle cx="256" cy="256" r="166" fill="none" stroke="#fff" stroke-opacity=".95" stroke-width="4"/><path d="M152 194A166 166 0 0 1 322 93" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".85"/>
+    </symbol>
+  </defs>
+</svg>
+<header class="hdr" id="top">
+  <div class="wrap">
+    <a href="/" class="logo" aria-label="Miracle, inicio"><svg width="34" height="34" aria-hidden="true"><use href="#orb"/></svg><span>Miracle</span></a>
+    <nav class="nav" aria-label="Principal">
+      <a href="/soluciones">Soluciones</a>
+      <a href="/#como-funciona">Cómo funciona</a>
+      <a href="/planes">Planes</a>
+      <a href="/blog">Blog</a>
+      <a href="/seguridad" aria-current="page">Seguridad</a>
+    </nav>
+    <div class="hdr-cta">
+      <a class="login" href="https://itsmiracleai.com.co/login">Ingresar</a>
+      <a class="btn btn-primary" href="/agendar">Agendar demo</a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="mnav" aria-label="Abrir menú"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<nav class="mnav" id="mnav" aria-label="Menú móvil">
+  <a href="/soluciones">Soluciones</a>
+  <a href="/#como-funciona">Cómo funciona</a>
+  <a href="/planes">Planes</a>
+  <a href="/blog">Blog</a>
+  <a href="/seguridad">Seguridad</a>
+  <a href="/agendar">Agendar demo</a>
+  <a href="https://itsmiracleai.com.co/login">Ingresar</a>
+</nav>
+<main id="main">
+<section class="sub-hero" aria-labelledby="h1">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Ruta"><ol><li><a href="/">Inicio</a></li><li><span aria-current="page">Seguridad</span></li></ol></nav>
+    <h1 id="h1">La última palabra la tiene el médico</h1>
+    <p class="lead">Miracle propone y usted decide. La información de cada institución es solo suya, cada acción queda registrada y la nota firmada no se puede modificar.</p>
+    <div class="ctas"><a class="btn btn-primary" href="/agendar">Hablar con el equipo</a></div>
+  </div>
+</section>
+
+<!-- PENDIENTE (jefe): confirmar con el equipo legal las políticas de tratamiento de datos (Ley 1581 de 2012) y cualquier certificación antes de nombrarlas aquí. Esta página solo afirma lo que hoy hace el producto. -->
+<section class="sec" style="padding-top:40px" aria-labelledby="h-how">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <h2 id="h-how">Cómo se cuida cada consulta</h2>
+      <p>Seis cosas que el producto hace hoy, de la grabación a la firma.</p>
+    </div>
+    <div class="sec-grid" style="margin-top:48px">
+      <div class="sec-card" data-reveal>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m16 11 2 2 4-4"/></svg>
+        <h3>Revisión humana</h3><p>La IA propone la nota y los códigos. Nada entra a la historia clínica sin que el médico lo revise, lo corrija y lo firme.</p>
+      </div>
+      <div class="sec-card" data-reveal="2">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <h3>Datos aislados por institución</h3><p>Cada IPS o clínica ve solo su información. El aislamiento está en la base de datos, no solo en la pantalla.</p>
+      </div>
+      <div class="sec-card" data-reveal="3">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <h3>Roles y permisos</h3><p>El rol de cada persona vive en la base de datos, no en el navegador, así que nadie se puede dar más permisos de los que tiene.</p>
+      </div>
+      <div class="sec-card" data-reveal>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15l2 2 4-4"/></svg>
+        <h3>Trazabilidad</h3><p>Cada acción sobre una nota queda en un registro de auditoría de solo agregar: quién hizo qué y cuándo.</p>
+      </div>
+      <div class="sec-card" data-reveal="2">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+        <h3>Firma con huella digital</h3><p>Al firmar, la nota queda sellada con una huella SHA-256. Después de firmada no se puede modificar.</p>
+      </div>
+      <div class="sec-card" data-reveal="3">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1v4M12 19v4M4.2 4.2l2.8 2.8M17 17l2.8 2.8M1 12h4M19 12h4M4.2 19.8 7 17M17 7l2.8-2.8"/><circle cx="12" cy="12" r="4"/></svg>
+        <h3>Audio directo a la transcripción</h3><p>La grabación se hace con el consentimiento del paciente. El audio va del navegador al servicio de transcripción; nuestro servidor solo entrega el permiso temporal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:20px" aria-labelledby="h-roles">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <h2 id="h-roles">Quién ve qué en una institución</h2>
+      <p>Cuatro roles, con lo que cada uno puede hacer.</p>
+    </div>
+    <div class="rolegrid" data-reveal>
+      <div><b>Médico</b><p>Atiende, ve sus propios pacientes, consultas y notas. Es el único que inicia consultas.</p></div>
+      <div><b>Supervisor</b><p>Ve todo lo de su institución, con Auditoría y Reportes.</p></div>
+      <div><b>Jefe de área</b><p>Gestiona su área: sus médicos, su operación y sus reportes.</p></div>
+      <div><b>Administrador</b><p>Lo del supervisor, más la gestión de usuarios, roles y configuración.</p></div>
+    </div>
+    <div class="not-do" data-reveal>
+      <h2>Lo que Miracle no hace</h2>
+      <ul>
+        <li>No firma por usted.</li>
+        <li>No toma decisiones clínicas.</li>
+        <li>No mezcla la información de dos instituciones.</li>
+        <li>No cambia una nota después de firmada.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section class="cta-band" aria-labelledby="h-cta"><div class="wrap"><div class="box" data-reveal>
+  <div><h2 id="h-cta">¿Lo vemos funcionando en su consulta?</h2><p>Son 30 minutos, con una consulta de su especialidad.</p></div>
+  <div class="ctas"><a class="btn btn-light" href="/agendar">Agendar una demo</a><a class="btn btn-dark-ghost" href="https://itsmiracleai.com.co/registro">Probar Notes gratis</a></div>
+</div></div></section>
+
+</main>
+<footer>
+  <div class="wrap foot">
+    <div><a href="/" class="logo" aria-label="Miracle, inicio"><svg width="30" height="30" aria-hidden="true"><use href="#orb"/></svg><span>Miracle</span></a>
+      <p>Para que el médico mire al paciente, no la pantalla.</p></div>
+    <div><p class="fh">Productos</p><ul><li><a href="/soluciones#solo-notes">Notes</a></li><li><a href="/soluciones#solo-analytics">Analytics</a></li><li><a href="/soluciones#solo-audit">Auditorías</a></li><li><a href="/planes">Planes</a></li></ul></div>
+    <div><p class="fh">Miracle</p><ul><li><a href="/#como-funciona">Cómo funciona</a></li><li><a href="/seguridad">Seguridad</a></li><li><a href="/blog">Blog</a></li><li><a href="https://itsmiracleai.com.co/login">Ingresar</a></li></ul></div>
+    <div><p class="fh">Contacto</p><ul><li><a href="/agendar">Agendar demo</a></li><li><a href="https://wa.me/573134582806" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:dev@itsmiracleai.com">dev@itsmiracleai.com</a></li></ul></div>
+  </div>
+  <div class="wrap legal"><span>© 2026 Miracle. Colombia.</span><span>Miracle apoya la documentación clínica. Las decisiones clínicas son del médico.</span></div>
+</footer>
+<a class="wa" href="https://wa.me/573134582806?text=Hola%2C%20quiero%20conocer%20Miracle." target="_blank" rel="noopener" aria-label="Escribir a Miracle por WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+</a>
+<script src="/assets/site.js"></script>
+</body>
+</html>

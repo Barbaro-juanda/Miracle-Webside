@@ -1,0 +1,55 @@
+<section class="sec" aria-labelledby="h1">
+  <div class="wrap book">
+    <div class="sec-head">
+      @@CRUMBS@@
+      <h1 id="h1">Agende una demo de 30 minutos</h1>
+      <p>Le mostramos Miracle con una consulta de su especialidad y resolvemos sus preguntas. No necesita preparar nada: con su especialidad y el tamaño de su equipo nos basta, y si es una institución le dejamos una propuesta de piloto para que la revise con su gerencia.</p>
+      <ul class="expect">
+        <li><span>1</span><div><b>Elija día y hora</b><p>De lunes a viernes, en hora de Colombia.</p></div></li>
+        <li><span>2</span><div><b>Le confirmamos</b><p>Por WhatsApp o correo, con el enlace de la videollamada.</p></div></li>
+        <li><span>3</span><div><b>Lo ve funcionando</b><p>Con una consulta de su especialidad y, si es una institución, una propuesta de piloto.</p></div></li>
+      </ul>
+      <p class="contact-alt">¿Prefiere escribirnos? <a href="https://wa.me/573134582806" target="_blank" rel="noopener">WhatsApp +57 313 458 2806</a> o <a href="mailto:dev@itsmiracleai.com">dev@itsmiracleai.com</a></p>
+    </div>
+
+    <div class="booker">
+      <form id="bookForm" novalidate>
+        <fieldset>
+          <legend>¿Cuándo le queda bien?</legend>
+          <div class="days" id="days" role="group" aria-label="Día"></div>
+          <div class="slots" id="slots" role="group" aria-label="Hora"></div>
+          <p class="tz">Hora de Colombia (GMT-5).</p>
+          <p class="slot-err" id="slotErr" role="alert">Elija un día y una hora para la demo.</p>
+        </fieldset>
+        <fieldset>
+          <legend>Sus datos</legend>
+          <div class="fields">
+            <div class="field"><label for="f-name">Nombre completo</label><input id="f-name" name="nombre" autocomplete="name" required><span class="err">Escriba su nombre.</span></div>
+            <div class="field"><label for="f-mail">Correo <span class="opt">(opcional)</span></label><input id="f-mail" name="correo" type="email" autocomplete="email"><span class="err">Escriba un correo válido, por ejemplo nombre@clinica.com.</span></div>
+            <div class="field"><label for="f-tel">WhatsApp</label><input id="f-tel" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" required><span class="err">Escriba un número de contacto.</span></div>
+            <div class="field"><label for="f-type">Usted es</label>
+              <select id="f-type" name="tipo" required>
+                <option value="">Elija una opción</option>
+                <option>Médico independiente</option>
+                <option>IPS o clínica</option>
+                <option>Hospital</option>
+                <option>Otro</option>
+              </select><span class="err">Elija una opción.</span></div>
+            <div class="field full inst-only" hidden><label for="f-org">Institución <span class="opt">(opcional)</span></label><input id="f-org" name="institucion" autocomplete="organization"></div>
+            <div class="field full inst-only" hidden><label for="f-size">¿Cuántos médicos usarían Miracle? <span class="opt">(opcional)</span></label>
+              <select id="f-size" name="medicos"><option value="">Elija una opción</option><option>1 a 4</option><option>5 a 20</option><option>21 a 100</option><option>Más de 100</option></select></div>
+          </div>
+        </fieldset>
+        <p class="summary" id="summary" hidden></p>
+        <button class="btn btn-primary" type="submit" id="submitBtn">Agendar mi demo</button>
+        <p class="privacy">Le confirmamos en menos de un día hábil. Usamos sus datos solo para coordinar la demo y no los compartimos.</p>
+      </form>
+      <div class="done" id="done" role="status" aria-live="polite">
+        <div class="tick"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#13795b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <h2>Solicitud lista</h2>
+        <p id="doneText">Abrimos WhatsApp con sus datos. Envíe el mensaje y le confirmamos la hora.</p>
+        <a class="btn btn-ghost" id="mailAlt" href="#">Prefiero enviarla por correo</a>
+      </div>
+    </div>
+  </div>
+</section>
