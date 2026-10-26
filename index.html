@@ -611,12 +611,13 @@ footer{border-top:1px solid var(--line);background:var(--surface)}
 
 /* ---------- Párrafo que se ilumina ---------- */
 .statement{padding:22vh 0}
+body.anim .statement{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:0}
 .statement p{max-width:1000px;margin:0 auto;padding:0 20px;font-family:var(--f-display);font-weight:600;font-size:clamp(1.8rem,4.2vw,3.5rem);line-height:1.18;letter-spacing:-.03em;color:var(--d-ink);text-align:center}
 .statement .w{transition:color .1s}
 .statement .glow{color:#9fe3ff}
 
 /* ---------- Circuito de productos ---------- */
-.circuit{position:relative;padding:40px 0 120px;overflow:hidden}
+.circuit{position:relative;padding:30px 0 100px;overflow:hidden}
 .circuit .sec-head h2,.solo .sec-head h2{font-size:clamp(2.1rem,4.6vw,3.4rem)}
 .circuit .sec-head p,.solo .sec-head p{color:var(--d-soft)}
 .cx{position:relative;max-width:1100px;margin:40px auto 0;padding:0 20px}
@@ -636,8 +637,8 @@ footer{border-top:1px solid var(--line);background:var(--surface)}
 .cx-card a:hover{border-color:#fff}
 
 /* ---------- Solo en Miracle ---------- */
-.solo{padding:60px 0 140px}
-.solo-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:72px;align-items:center;margin-top:110px}
+.solo{padding:40px 0 110px}
+.solo-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:72px;align-items:center;margin-top:88px}
 .solo-row:nth-child(even) .solo-copy{order:2}
 .badge-only{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(55,201,253,.1);border:1px solid rgba(55,201,253,.3);color:#9fe3ff;font-size:.82rem;font-weight:600}
 .solo-copy h3{margin-top:18px;font-size:clamp(1.8rem,3.4vw,2.6rem);letter-spacing:-.03em}
@@ -647,7 +648,7 @@ footer{border-top:1px solid var(--line);background:var(--surface)}
 .solo .mock{box-shadow:0 40px 100px rgba(0,0,0,.45);border-color:rgba(255,255,255,.08)}
 
 /* ---------- Claro: cifra, cinta y mosaico ---------- */
-.numbers{padding:120px 0 40px;text-align:center}
+.numbers{padding:96px 0 32px;text-align:center}
 .odo{display:inline-flex;align-items:flex-end;font-family:var(--f-display);font-weight:600;font-size:clamp(6rem,18vw,15rem);line-height:.9;letter-spacing:-.06em;color:var(--deep)}
 .odo .digit{display:inline-block;height:.9em;overflow:hidden;position:relative}
 .odo .reel{display:flex;flex-direction:column}
@@ -718,6 +719,7 @@ footer{border-top:1px solid var(--line);background:var(--surface)}
 @media (max-width:600px){
   .static .sp-items{grid-template-columns:1fr}
   .statement{padding:16vh 0}
+  body.anim .statement{padding:0}
   .qr{display:none}
 }
 
@@ -1441,7 +1443,7 @@ footer{border-top:1px solid var(--line);background:var(--surface)}
       if (to === idx || !tl) return;
       const long = (idx === 0 && to === 1) || (idx === 1 && to === 0);
       idx = to; busy = true;
-      tl.tweenTo(S[to], {duration:long ? 1.9 : 1.25, ease:'power2.inOut', onComplete:() => { busy = false; }});
+      tl.tweenTo(S[to], {duration:long ? 2.7 : 1.8, ease:'power2.inOut', onComplete:() => { busy = false; }});
     }
     window.__go = go;
 
@@ -1484,16 +1486,24 @@ footer{border-top:1px solid var(--line);background:var(--surface)}
       e.preventDefault(); if (!busy) go(idx + (down ? 1 : -1));
     });
 
-    /* Párrafo que se ilumina palabra por palabra */
+    /* Ritmo de la página: la escena del párrafo es la más lenta (se fija 1,6 pantallas y las palabras se
+       encienden con calma); de ahí en adelante cada escena pide menos scroll que la anterior
+       (circuito ~0,5 pantallas, luego bloques, cifra y mosaico con menos aire), sin saltos bruscos. */
+    document.body.classList.add('anim');
+    const stEl = $('.statement');
     const sw = splitWords($('.split-words'));
-    gsap.fromTo(sw, {color:'#33435c'}, {color:'#eef3fa', stagger:.1, ease:'none',
-      scrollTrigger:{trigger:'.statement', start:'top 70%', end:'bottom 65%', scrub:true}});
+    gsap.set(sw, {color:'#2a3850'});
+    const stTl = gsap.timeline({defaults:{ease:'none'},
+      scrollTrigger:{trigger:stEl, start:'top top', end:() => '+=' + Math.round(innerHeight * 1.6), pin:true, scrub:.35, anticipatePin:1, invalidateOnRefresh:true}});
+    stTl.from('.statement p', {y:40, duration:.15, ease:'power2.out'}, 0)
+        .to(sw, {color:'#eef3fa', duration:.06, stagger:{each:.74 / sw.length}}, .1)
+        .to({}, {duration:.15});
 
     /* Circuito: las líneas salen del orbe y encienden cada producto */
     const wires = $$('.wire'), cards = $$('.cx-card');
     wires.forEach(p => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; });
     gsap.from('.cx-orb', {scale:.6, autoAlpha:0, duration:.8, ease:'back.out(1.7)', scrollTrigger:{trigger:'.cx', start:'top 80%'}});
-    gsap.to(wires, {strokeDashoffset:0, ease:'none', scrollTrigger:{trigger:'.cx', start:'top 65%', end:'top 20%', scrub:true,
+    gsap.to(wires, {strokeDashoffset:0, ease:'none', scrollTrigger:{trigger:'.cx', start:'top 72%', end:'top 30%', scrub:.3,
       onUpdate:self => cards.forEach(c => c.classList.toggle('lit', self.progress > .92))}});
     gsap.from(cards, {y:40, autoAlpha:0, duration:.8, ease:'power3.out', stagger:.12, scrollTrigger:{trigger:'.cx-cards', start:'top 85%'}});
     if (matchMedia('(max-width: 1024px)').matches) cards.forEach(c => ScrollTrigger.create({trigger:c, start:'top 70%', onEnter:() => c.classList.add('lit')}));
