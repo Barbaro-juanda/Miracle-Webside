@@ -3,7 +3,8 @@
   const {$, $$, reduce, WA} = window.MZ;
   const hasGsap = !!(window.gsap && window.ScrollTrigger);
   const animate = hasGsap && !reduce;
-  if (!animate) document.body.classList.add('static');
+  const stageEl = $('.stage');
+  if (!animate) { document.body.classList.add('static'); if (stageEl) stageEl.classList.add('ready'); }
   // El escenario fijo se arma desde arriba: al recargar no se restaura un scroll a medio camino.
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   if (!location.hash) scrollTo(0, 0);
@@ -131,6 +132,9 @@
       paint();
       return () => { wsets.flat().forEach(w => w.style.opacity = ''); };
     });
+
+    // El estado inicial (portátil cerrado, panel oculto) ya está puesto: ahora sí se muestra la escena.
+    requestAnimationFrame(() => stage.classList.add('ready'));
 
     /* Marcador, reloj y estado de la nota, según el punto de la línea de tiempo */
     function paint() {

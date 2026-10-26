@@ -1166,3 +1166,15 @@ a.post .txt .meta{margin-top:auto}
   .ck{width:26px;height:26px}
 }
 @media (max-width:760px){.compare th:not(:first-child){padding:12px 4px;font-size:.7rem;letter-spacing:-.01em}}
+
+/* Escena del inicio: no se muestra hasta que home.js la deja armada (portátil cerrado, panel oculto).
+   Sin esto, en los primeros instantes se ve todo apilado sobre el titular. Si el script falla,
+   a los 4 s se muestra igual. */
+.js .stage:not(.ready) .device-wrap,
+.js .stage:not(.ready) .steps-panel,
+.js .stage:not(.ready) .hero-copy h1,
+.js .stage:not(.ready) .hero-copy p,
+.js .stage:not(.ready) .hero-copy .ctas,
+.js .stage:not(.ready) .scroll-hint{opacity:0;visibility:hidden;animation:stage-fallback 0s 4s forwards}
+@keyframes stage-fallback{to{opacity:1;visibility:visible}}
+.stage .device-wrap{transition:opacity .5s var(--ease)}
