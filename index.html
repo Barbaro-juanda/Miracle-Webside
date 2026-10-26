@@ -1457,15 +1457,8 @@ body.anim .statement{min-height:100vh;min-height:100svh;display:flex;align-items
     }
     if (location.hash === '#debug') window.__go = go;
 
-    /* Al salir del paso 04 hacia abajo, el portátil se cierra y vuelve a donde está el titular, ligado al scroll
-       (y se reabre si se sube). Solo pasa cuando la consulta ya terminó. */
-    ScrollTrigger.create({trigger:stage, start:'top top', end:() => '+=' + Math.round(innerHeight * 1.1), pin:true, anticipatePin:1, invalidateOnRefresh:true,
-      onUpdate:self => {
-        if (idx !== MAX || busy || !tl) return;
-        // Primero se recogen los pasos (30 % del recorrido) y el resto del recorrido es el portátil cerrándose.
-        const p = self.progress, K = .3;
-        tl.time(p < K ? S[MAX] - (S[MAX] - S[1]) * (p / K) : S[1] * (1 - (p - K) / (1 - K)));
-      }});
+    /* Al terminar el paso 04 el portátil se queda abierto y la página sigue hacia abajo con scroll normal.
+       Al volver arriba, cada gesto hacia arriba retrocede 04 → 03 → 02 → 01 y cierra el portátil; al bajar se reabre. */
 
     /* Entradas: rueda, tacto y teclado. Solo cuentan arriba de todo: si la página ya bajó, el scroll es normal. */
     const atTop = () => scrollY < 2;
