@@ -727,6 +727,12 @@ body.anim .statement{min-height:100vh;min-height:100svh;display:flex;align-items
 .app *, .bar b, .finds li, .solo .mock, .solo-copy > *{transition:none!important}
 .cx-card{transition:border-color .5s,box-shadow .5s}
 @media (max-width:1024px){.bento{grid-auto-rows:auto}.bx{min-height:0}}
+
+.sp-cue{display:flex;align-items:center;gap:10px;margin-top:20px;font-size:.84rem;color:var(--d-muted)}
+.sp-cue i{width:16px;height:26px;border:1.5px solid rgba(255,255,255,.28);border-radius:9px;position:relative;flex:none}
+.sp-cue i::after{content:"";position:absolute;left:50%;top:5px;width:2.5px;height:5px;margin-left:-1.25px;border-radius:2px;background:#9fe3ff;animation:hint 1.6s ease-in-out infinite}
+.static .sp-cue{display:none}
+@media (max-width:899px){.sp-cue{margin-top:8px}}
 .hdr{position:fixed;left:0;right:0;top:0}
 .bar b{transform:scaleY(1)}
 </style>
@@ -853,6 +859,7 @@ body.anim .statement{min-height:100vh;min-height:100svh;display:flex;align-items
       <div class="sp-item"><h2>Codifica y revisa</h2><p>Sugiere CIE-10 y CUPS con su nivel de confianza y le avisa si a la nota le falta algo de lo que se dijo.</p><span class="kw">Auditoría antes de firmar</span></div>
       <div class="sp-item"><h2>Usted firma</h2><p>Ajusta lo que quiera y firma. La nota queda con huella digital y lista para la historia clínica o para RIPS.</p><span class="kw">Firma electrónica</span></div>
     </div>
+    <div class="sp-cue" aria-hidden="true"><i></i><span id="spCueText">Desplácese para el siguiente paso</span></div>
   </div>
 
   <div class="scroll-hint" aria-hidden="true"><i></i>Desplácese para ver una consulta</div>
@@ -1371,7 +1378,7 @@ body.anim .statement{min-height:100vh;min-height:100svh;display:flex;align-items
     const wsets = $$('.app-doc .ws').map(splitWords);
     const codes = $$('.app-codes .code'), audit = $('.app-audit'), sign = $('.app-sign');
     const rec = $('#appRec'), recLabel = $('#appRecLabel'), clock = $('#appClock'), saved = $('#appSaved');
-    const spNum = $('#spNum'), spBar = $('#spBar');
+    const spNum = $('#spNum'), spBar = $('#spBar'), spCue = $('#spCueText');
     const S = [0, 2.4, 4.2, 6.0, 7.6], MAX = S.length - 1;
     let idx = 0, busy = false, tl = null;
 
@@ -1397,7 +1404,7 @@ body.anim .statement{min-height:100vh;min-height:100svh;display:flex;align-items
         .to(lid, {rotateX:0, duration:1.4, ease:'power2.inOut'}, .1)
         .to(dev, {rotateX:-7, scale:1, duration:1.4, ease:'power2.inOut'}, .1)
         .to(dw, {y:() => desk ? -innerHeight * .1 : -innerHeight * .07, duration:1.4, ease:'power2.inOut'}, .1)
-        .to(dw, {x:() => desk ? Math.min(innerWidth * .2, 290) : 0, scale:desk ? .86 : 1, duration:.7, ease:'power2.inOut'}, 1.3)
+        .to(dw, {x:() => desk ? Math.max(0, Math.min(290, innerWidth * .2, innerWidth / 2 - 14 - dw.offsetWidth * 1.34 * .86 / 2)) : 0, scale:desk ? .86 : 1, duration:.7, ease:'power2.inOut'}, 1.3)
         .to(panel, {autoAlpha:1, y:0, duration:.4}, 1.6)
         .to(items[0], {autoAlpha:1, y:0, duration:.3}, 1.9)
         .to(utts.slice(0, 3), {autoAlpha:1, y:0, duration:.25, stagger:.12}, 1.85)
@@ -1438,6 +1445,7 @@ body.anim .statement{min-height:100vh;min-height:100svh;display:flex;align-items
         const s = Math.round((t - 1.6) / (6.8 - 1.6) * 252); clock.textContent = String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
       else { rec.className = 'app-rec done'; recLabel.textContent = 'Consulta terminada'; clock.textContent = '04:12'; }
       saved.textContent = t >= 7.0 ? 'Firmada' : t >= 3.3 ? 'Autoguardado' : 'Borrador';
+      if (spCue) spCue.textContent = k === 3 ? 'Siga bajando' : 'Desplácese para el siguiente paso';
     }
 
     function go(to) {
@@ -1447,7 +1455,7 @@ body.anim .statement{min-height:100vh;min-height:100svh;display:flex;align-items
       idx = to; busy = true;
       tl.tweenTo(S[to], {duration:long ? 2.7 : 1.8, ease:'power2.inOut', onComplete:() => { busy = false; }});
     }
-    window.__go = go;
+    if (location.hash === '#debug') window.__go = go;
 
     /* Al salir del paso 04 hacia abajo, el portátil se cierra y vuelve a donde está el titular, ligado al scroll
        (y se reabre si se sube). Solo pasa cuando la consulta ya terminó. */
@@ -1462,30 +1470,34 @@ body.anim .statement{min-height:100vh;min-height:100svh;display:flex;align-items
     /* Entradas: rueda, tacto y teclado. Solo cuentan arriba de todo: si la página ya bajó, el scroll es normal. */
     const atTop = () => scrollY < 2;
     const inField = e => /^(input|textarea|select)$/i.test(e.target.tagName) || e.target.isContentEditable;
-    // Se decide si el gesto empezó arriba; con una rueda de pasos o con inercia de trackpad, un gesto = un paso.
-    let lastWheel = 0, gestureOk = false, consumed = false;
+    /* Un gesto = una serie de eventos de rueda separados por menos de 140 ms (incluye la inercia del trackpad).
+       Al empezar un gesto se fija, para todo el gesto:
+         - si empezó arriba de la página (si no, el scroll es normal),
+         - si empezó con una animación en curso (entonces se ignora entero),
+         - en qué paso estaba (solo un gesto que EMPIEZA en el paso 04 deja pasar el scroll hacia abajo;
+           el gesto que acaba de llegar al 04 sigue bloqueado hasta que se suelte). */
+    let lastWheel = 0, gOk = false, gBlocked = false, gIdx = 0, gUsed = false;
     addEventListener('wheel', e => {
-      if (e.ctrlKey || readerEl && readerEl.open) return;
+      if (e.ctrlKey || (readerEl && readerEl.open)) return;
       const now = performance.now();
-      if (now - lastWheel > 140) { gestureOk = atTop(); consumed = false; }
+      if (now - lastWheel > 140) { gOk = atTop(); gBlocked = busy; gIdx = idx; gUsed = false; }
       lastWheel = now;
-      if (!gestureOk) return;
+      if (!gOk || Math.abs(e.deltaY) < 1) return;
       const down = e.deltaY > 0;
-      if (Math.abs(e.deltaY) < 1) return;
-      if (down ? idx === MAX : idx === 0) return;      // al final (o al principio) el scroll sigue normal
+      if (!gBlocked && (down ? gIdx === MAX : gIdx === 0)) return;   // empezó en el final (o en el inicio): scroll normal
       e.preventDefault();
-      if (busy || consumed) return;
-      consumed = true; go(idx + (down ? 1 : -1));
+      if (gBlocked || gUsed || busy) return;
+      gUsed = true; go(idx + (down ? 1 : -1));
     }, {passive:false});
 
-    let ty = null, touchOk = false, touchUsed = false;
-    addEventListener('touchstart', e => { ty = e.touches[0].clientY; touchOk = atTop(); touchUsed = false; }, {passive:true});
+    let ty = null, tOk = false, tBlocked = false, tIdx = 0, tUsed = false;
+    addEventListener('touchstart', e => { ty = e.touches[0].clientY; tOk = atTop(); tBlocked = busy; tIdx = idx; tUsed = false; }, {passive:true});
     addEventListener('touchmove', e => {
-      if (ty === null || !touchOk) return;
+      if (ty === null || !tOk) return;
       const dy = ty - e.touches[0].clientY, down = dy > 0;
-      if (down ? idx === MAX : idx === 0) return;
+      if (!tBlocked && (down ? tIdx === MAX : tIdx === 0)) return;
       if (e.cancelable) e.preventDefault();
-      if (!touchUsed && !busy && Math.abs(dy) > 28) { touchUsed = true; go(idx + (down ? 1 : -1)); }
+      if (!tBlocked && !tUsed && !busy && Math.abs(dy) > 28) { tUsed = true; go(idx + (down ? 1 : -1)); }
     }, {passive:false});
     addEventListener('touchend', () => { ty = null; });
 
@@ -1494,8 +1506,9 @@ body.anim .statement{min-height:100vh;min-height:100svh;display:flex;align-items
       const down = ['ArrowDown', 'PageDown', ' '].includes(e.key) && !e.shiftKey;
       const up = ['ArrowUp', 'PageUp'].includes(e.key) || (e.key === ' ' && e.shiftKey);
       if (!down && !up) return;
+      if (busy) { e.preventDefault(); return; }                      // una tecla mantenida no se salta pasos ni se sale
       if (down ? idx === MAX : idx === 0) return;
-      e.preventDefault(); if (!busy) go(idx + (down ? 1 : -1));
+      e.preventDefault(); go(idx + (down ? 1 : -1));
     });
 
     /* Ritmo de la página: la escena del párrafo es la más lenta (se fija 1,6 pantallas y las palabras se
