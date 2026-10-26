@@ -1,47 +1,12 @@
-
+/* Solo el inicio: titular, escena del portátil (un gesto = un paso), párrafo, circuito, cifra y cierre. */
 (() => {
-  const WA = '573134582806';
-  const MAIL = 'dev@itsmiracleai.com';
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const {$, $$, reduce, WA} = window.MZ;
   const hasGsap = !!(window.gsap && window.ScrollTrigger);
   const animate = hasGsap && !reduce;
-  const $ = (s, r = document) => r.querySelector(s);
-  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-  document.documentElement.classList.add('js');
-  const onHome = !!$('.stage');
-
   if (!animate) document.body.classList.add('static');
   // El escenario fijo se arma desde arriba: al recargar no se restaura un scroll a medio camino.
-  if (onHome && 'scrollRestoration' in history) history.scrollRestoration = 'manual';
-  if (onHome && !location.hash) scrollTo(0, 0);
-
-  /* ---------- Header: tema según la sección que tiene debajo ---------- */
-  const hdr = $('.hdr');
-  const darkSecs = $$('[data-theme="dark"]');
-  function headerTheme() {
-    const y = 36;
-    const onDark = darkSecs.some(s => { const r = s.getBoundingClientRect(); return r.top <= y && r.bottom > y; });
-    hdr.classList.toggle('on-dark', onDark);
-    hdr.classList.toggle('scrolled', scrollY > 8 && !onDark);
-  }
-  addEventListener('scroll', headerTheme, {passive:true}); headerTheme();
-
-  document.addEventListener('click', e => {
-    const a = e.target.closest('a[href]'); if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || a.target === '_blank') return;
-    const u = new URL(a.href, location.href);
-    if (u.origin !== location.origin || u.pathname.replace(/\/$/, '') !== location.pathname.replace(/\/$/, '') || !u.hash || u.hash === '#') return;
-    const el = document.getElementById(decodeURIComponent(u.hash.slice(1)));
-    if (!el) return;
-    e.preventDefault();
-    el.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'start'});
-    history.pushState(null, '', u.hash);
-  });
-
-  const menuBtn = $('.menu-btn'), mnav = $('#mnav');
-  const setMenu = open => { mnav.classList.toggle('open', open); menuBtn.setAttribute('aria-expanded', open); menuBtn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú'); };
-  menuBtn.addEventListener('click', () => setMenu(!mnav.classList.contains('open')));
-  mnav.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
-  addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (!location.hash) scrollTo(0, 0);
 
   /* ---------- La pantalla del portátil se diseña a 1000 px y se escala ---------- */
   const screen = $('.screen');
@@ -52,12 +17,28 @@
   const track = $('#marquee');
   if (track) [...specs, ...specs].forEach((s, i) => { const el = document.createElement('span'); el.textContent = s; if (i >= specs.length) el.setAttribute('aria-hidden','true'); track.appendChild(el); });
 
-  /* ---------- QR a WhatsApp ---------- */
-  if ($('#qr') && window.qrcode) try {
-    const q = qrcode(0, 'M'); q.addData(`https://wa.me/${WA}?text=${encodeURIComponent('Hola, quiero agendar una demo de Miracle.')}`); q.make();
-    $('#qr').innerHTML = q.createSvgTag({cellSize:4, margin:0, scalable:true});
-    $('#qr svg').setAttribute('aria-label','Código QR para escribir a Miracle por WhatsApp'); $('#qr svg').setAttribute('role','img');
-  } catch (e) { $('.qr') && ($('.qr').style.display = 'none'); }
+  /* ---------- QR a WhatsApp: la librería se pide solo cuando el cierre está cerca ---------- */
+  const qrBox = $('#qr');
+  if (qrBox) {
+    const hideQr = () => { const q = $('.qr'); if (q) q.style.display = 'none'; };
+    const draw = () => {
+      try {
+        const q = qrcode(0, 'M'); q.addData(`https://wa.me/${WA}?text=${encodeURIComponent('Hola, quiero agendar una demo de Miracle.')}`); q.make();
+        qrBox.innerHTML = q.createSvgTag({cellSize:4, margin:0, scalable:true});
+        const svg = $('svg', qrBox); svg.setAttribute('aria-label', 'Código QR para escribir a Miracle por WhatsApp'); svg.setAttribute('role', 'img');
+      } catch (e) { hideQr(); }
+    };
+    const load = () => {
+      if (window.qrcode) return draw();
+      const sc = document.createElement('script');
+      sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';
+      sc.onload = draw; sc.onerror = hideQr; document.head.appendChild(sc);
+    };
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { io.disconnect(); load(); } }, {rootMargin:'900px 0px'});
+      io.observe(qrBox);
+    } else load();
+  }
 
   /* ---------- Utilidades de texto ---------- */
   function splitChars(el) {
@@ -77,23 +58,12 @@
     return $$('.w', el);
   }
 
-  /* ---------- Conteo de cifras ---------- */
-  function countUp(root) {
-    $$('[data-count]', root).forEach(el => {
-      const end = +el.dataset.count, suf = el.dataset.suffix || '';
-      if (!animate) { el.textContent = end.toLocaleString('es-CO') + suf; return; }
-      const o = {v:0};
-      gsap.to(o, {v:end, duration:1.1, ease:'power3.out', onUpdate:() => el.textContent = Math.round(o.v).toLocaleString('es-CO') + suf});
-    });
-  }
-
-  if (!animate) { countUp(document); }
-  else {
+  if (animate) {
     gsap.registerPlugin(ScrollTrigger);
     // La barra de direcciones del celular cambia la altura y no debe recalcular (ni mover) el scroll.
     ScrollTrigger.config({ignoreMobileResize:true});
 
-    if (onHome) {
+    {
     /* Hero: el titular entra letra por letra */
     const chars = $$('.hero-copy .split').flatMap(splitChars);
     gsap.from(chars, {yPercent:110, autoAlpha:0, rotate:6, duration:.9, ease:'power4.out', stagger:.018, delay:.15});
@@ -317,105 +287,9 @@
 
     }
 
-    if ($('.solo-row')) {
-    /* Solo en Miracle */
-    $$('.solo-row').forEach(row => {
-      const st = {trigger:row, start:'top 75%'};
-      gsap.from($$('.solo-copy > *', row), {y:28, autoAlpha:0, duration:.7, ease:'power3.out', stagger:.08, scrollTrigger:st});
-      gsap.from($('.mock', row), {y:70, rotateX:10, transformPerspective:1200, autoAlpha:0, duration:1, ease:'power3.out', scrollTrigger:st});
-      const lis = $$('.finds li', row); if (lis.length) gsap.from(lis, {x:24, autoAlpha:0, duration:.5, stagger:.15, delay:.4, ease:'power2.out', scrollTrigger:st});
-      const bars = $$('.bar b', row); if (bars.length) gsap.from(bars, {scaleY:0, transformOrigin:'bottom', duration:.9, stagger:.04, delay:.3, ease:'power3.out', scrollTrigger:st});
-      if ($('[data-count]', row)) ScrollTrigger.create({...st, once:true, onEnter:() => countUp(row)});
-    });
-
-    }
-
-    /* Mosaico, capó y cierre */
-    if ($('.bento')) gsap.from('.bx', {y:40, autoAlpha:0, duration:.7, ease:'power3.out', stagger:.08, scrollTrigger:{trigger:'.bento', start:'top 80%'}});
-    if ($('.hood')) gsap.from('.hood > div', {y:30, autoAlpha:0, duration:.7, ease:'power3.out', stagger:.1, scrollTrigger:{trigger:'.hood', start:'top 82%'}});
     if ($('.closing')) gsap.from('.closing h2, .closing p, .closing .ctas, .qr', {y:30, autoAlpha:0, duration:.8, ease:'power3.out', stagger:.1, scrollTrigger:{trigger:'.closing', start:'top 70%'}});
 
     addEventListener('load', () => ScrollTrigger.refresh());
     document.fonts && document.fonts.ready.then(() => ScrollTrigger.refresh());
-  }
-
-  /* Aparición al entrar en pantalla (páginas sin GSAP) */
-  const reveals = $$('[data-reveal]');
-  if (reveals.length) {
-    if (reduce || !('IntersectionObserver' in window)) reveals.forEach(r => r.classList.add('in'));
-    else { const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {rootMargin:'0px 0px -8% 0px'}); reveals.forEach(r => io.observe(r)); }
-  }
-
-  if ($('#bookForm')) {
-  /* Agendar */
-  const daysEl = document.getElementById('days'), slotsEl = document.getElementById('slots');
-  const SLOTS = ['8:00 a. m.','9:30 a. m.','11:00 a. m.','2:00 p. m.','3:30 p. m.','5:00 p. m.'];
-  let selDay = null, selSlot = null;
-  const dFmt = new Intl.DateTimeFormat('es-CO',{weekday:'short'});
-  const longFmt = new Intl.DateTimeFormat('es-CO',{weekday:'long',day:'numeric',month:'long'});
-  const days = []; const d = new Date(); d.setHours(12,0,0,0);
-  while (days.length < 10) { d.setDate(d.getDate() + 1); if (d.getDay() % 6) days.push(new Date(d)); }
-  days.forEach((day, i) => {
-    const b = document.createElement('button'); b.type = 'button'; b.className = 'day'; b.setAttribute('aria-pressed','false');
-    b.setAttribute('aria-label', longFmt.format(day));
-    b.innerHTML = `<small>${dFmt.format(day).replace('.','')}</small><b>${day.getDate()}</b>`;
-    b.addEventListener('click', () => { selDay = day; daysEl.querySelectorAll('.day').forEach(x => x.setAttribute('aria-pressed', x === b)); renderSlots(i); updSummary(); });
-    daysEl.appendChild(b);
-  });
-  function renderSlots(seed) {
-    slotsEl.innerHTML = ''; selSlot = null;
-    SLOTS.forEach((s, j) => {
-      if ((seed + j) % 5 === 3) return; // algunas horas ya ocupadas, para que se vea real
-      const b = document.createElement('button'); b.type = 'button'; b.className = 'slot'; b.textContent = s; b.setAttribute('aria-pressed','false');
-      b.addEventListener('click', () => { selSlot = s; slotsEl.querySelectorAll('.slot').forEach(x => x.setAttribute('aria-pressed', x === b)); document.getElementById('slotErr').classList.remove('show'); updSummary(); });
-      slotsEl.appendChild(b);
-    });
-  }
-  const summary = document.getElementById('summary');
-  function updSummary() {
-    if (selDay && selSlot) { summary.hidden = false; summary.textContent = `Demo el ${longFmt.format(selDay)} a las ${selSlot}, hora de Colombia.`; }
-    else summary.hidden = true;
-  }
-  daysEl.firstChild.click();
-
-  const form = document.getElementById('bookForm');
-  const typeSel = document.getElementById('f-type');
-  typeSel.addEventListener('change', () => {
-    const inst = /IPS|Hospital/.test(typeSel.value);
-    form.querySelectorAll('.inst-only').forEach(f => f.hidden = !inst);
-  });
-  document.querySelectorAll('[data-plan="Institucional"]').forEach(a => a.addEventListener('click', () => { typeSel.value = 'IPS o clínica'; typeSel.dispatchEvent(new Event('change')); }));
-
-  const rules = {
-    'f-name': v => v.trim().length > 1,
-    'f-mail': v => !v.trim() || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
-    'f-tel': v => v.replace(/\D/g,'').length >= 7,
-    'f-type': v => !!v
-  };
-  const check = id => { const el = document.getElementById(id); const ok = rules[id](el.value); el.closest('.field').classList.toggle('invalid', !ok); el.setAttribute('aria-invalid', !ok); return ok; };
-  Object.keys(rules).forEach(id => document.getElementById(id).addEventListener('blur', () => { if (document.getElementById(id).value) check(id); }));
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const bad = Object.keys(rules).filter(id => !check(id));
-    const slotOk = selDay && selSlot;
-    document.getElementById('slotErr').classList.toggle('show', !slotOk);
-    if (!slotOk) { daysEl.querySelector('[aria-pressed="true"]')?.focus(); return; }
-    if (bad.length) { document.getElementById(bad[0]).focus(); return; }
-    const v = id => document.getElementById(id).value.trim();
-    const msg = [
-      'Hola, quiero agendar una demo de Miracle.',
-      `Fecha: ${longFmt.format(selDay)}, ${selSlot} (hora de Colombia)`,
-      `Nombre: ${v('f-name')}`, v('f-mail') && `Correo: ${v('f-mail')}`, `WhatsApp: ${v('f-tel')}`, `Tipo: ${v('f-type')}`,
-      v('f-org') && `Institución: ${v('f-org')}`, v('f-size') && `Médicos: ${v('f-size')}`
-    ].filter(Boolean).join('\n');
-    const btn = document.getElementById('submitBtn');
-    btn.disabled = true; btn.textContent = 'Preparando su solicitud…';
-    document.getElementById('mailAlt').href = `mailto:${MAIL}?subject=${encodeURIComponent('Demo de Miracle · ' + v('f-name'))}&body=${encodeURIComponent(msg)}`;
-    setTimeout(() => {
-      window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
-      form.hidden = true; document.getElementById('done').classList.add('show');
-    }, 500);
-  });
   }
 })();

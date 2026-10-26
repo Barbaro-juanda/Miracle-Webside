@@ -10,10 +10,10 @@ const esc = s => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, 
 const abs = p => SITE.url + (p === '/' ? '/' : p);
 
 const pages = [
-  { path: '/', src: 'index', out: 'index.html', gsap: true, qr: true,
+  { path: '/', src: 'index', out: 'index.html', gsap: true, js: 'home',
     title: 'Historia clínica con IA para médicos e IPS | Miracle',
     desc: 'Miracle escucha la consulta, escribe la nota clínica, sugiere CIE-10 y CUPS y audita cada historia antes de firmar. Agende una demo para su consultorio o IPS.' },
-  { path: '/soluciones', src: 'soluciones', out: 'soluciones.html', gsap: true, crumbs: [['Soluciones']], app: true,
+  { path: '/soluciones', src: 'soluciones', out: 'soluciones.html', gsap: true, js: 'solutions', crumbs: [['Soluciones']], app: true, faq: true,
     title: 'Notes, Analytics y Auditorías para médicos e IPS | Miracle',
     desc: 'Notes escribe la historia clínica mientras usted atiende, Analytics muestra el servicio a la gerencia y Auditorías revisa cada nota antes de que se firme.' },
   { path: '/planes', src: 'planes', out: 'planes.html', crumbs: [['Planes']], faq: true,
@@ -22,10 +22,10 @@ const pages = [
   { path: '/blog', src: 'blog', out: 'blog.html', crumbs: [['Blog']],
     title: 'Blog de Miracle: práctica clínica, auditoría y codificación',
     desc: 'Artículos sobre cómo recuperar tiempo de consulta, qué revisar antes de firmar una nota y cómo codificar CIE-10 y CUPS sin buscar en tablas, con ejemplos.' },
-  { path: '/seguridad', src: 'seguridad', out: 'seguridad.html', crumbs: [['Seguridad']],
+  { path: '/seguridad', src: 'seguridad', out: 'seguridad.html', crumbs: [['Seguridad']], faq: true,
     title: 'Seguridad clínica: roles, trazabilidad y firma | Miracle',
     desc: 'Revisión humana, datos aislados por institución, roles y permisos, trazabilidad y firma con huella digital. Lo que Miracle hace hoy para cuidar cada nota.' },
-  { path: '/agendar', src: 'agendar', out: 'agendar.html', qr: false, crumbs: [['Agendar']],
+  { path: '/agendar', src: 'agendar', out: 'agendar.html', js: 'agendar', crumbs: [['Agendar']],
     title: 'Agende una demo de Miracle en 30 minutos | Miracle',
     desc: 'Elija día y hora y vea Miracle funcionando con una consulta de su especialidad. Le confirmamos por WhatsApp o correo, con el enlace de la videollamada.' },
 ];
@@ -138,10 +138,12 @@ ${p.body}
 
   const depth = pg.out.includes('/') ? '/' : '';
   const url = abs(pg.path);
+  // Cada página carga solo lo suyo: el núcleo siempre; GSAP y el JS propio solo donde hay animación o formulario.
+  const GSAP = '<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>\n<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>';
   const scripts = [
-    pg.gsap ? '<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>\n<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>' : '',
-    pg.qr === false ? '' : (pg.path === '/' ? '<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>' : ''),
-    '<script src="/assets/site.js"></script>',
+    pg.gsap ? GSAP : '',
+    '<script defer src="/assets/core.js"></script>',
+    pg.js ? `<script defer src="/assets/${pg.js}.js"></script>` : '',
   ].filter(Boolean).join('\n');
   return `<!doctype html>
 <html lang="es-CO">

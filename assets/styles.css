@@ -792,3 +792,26 @@ a.post .txt .meta{margin-top:auto}
   .sp-link{display:none}
 }
 .static .sp-items{min-height:0}
+
+/* El inicio es corto: solo lo esencial; el detalle vive en cada subpágina. */
+.home-blog .post p,.home-blog .post .meta{display:none}
+.home-blog .post .txt{padding:22px 22px 26px}
+.home-blog .post:first-child .art{height:170px}
+.cx-card p:not(.for){font-size:1.02rem}
+
+.solo .more-link{color:#9fe3ff;margin-top:22px}
+.solo-copy p b{color:#fff;font-weight:600}
+.solo-copy > p + p{margin-top:14px}
+.steps-long{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;margin-top:44px;counter-reset:st}
+.steps-long > div{padding:26px;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--surface);counter-increment:st}
+.steps-long > div::before{content:counter(st);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--ice);color:var(--accent-ink);font-family:var(--f-display);font-weight:700;margin-bottom:14px}
+.steps-long h3{font-size:1.12rem}
+.steps-long p{margin-top:8px;color:var(--ink-soft);font-size:.96rem}
+.longtext{max-width:46rem;margin-top:30px;color:var(--ink-soft);font-size:1.08rem}
+.longtext p+p{margin-top:14px}
+@media (max-width:1024px){.steps-long{grid-template-columns:1fr 1fr}}
+@media (max-width:760px){.steps-long{grid-template-columns:1fr}}
+@media (min-width:1025px){
+  .page-soluciones .solo-row{align-items:start}
+  .page-soluciones .solo-row .mock{position:sticky;top:104px}
+}

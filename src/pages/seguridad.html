@@ -66,4 +66,31 @@
     </div>
   </div>
 </section>
+
+<section class="sec" style="padding-top:20px" aria-labelledby="h-path">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <h2 id="h-path">Qué pasa con una consulta, de la grabación a la firma</h2>
+      <p>Cada paso deja una huella y ninguno se salta al médico.</p>
+    </div>
+    <div class="steps-long">
+      <div data-reveal><h3>Consentimiento</h3><p>La grabación empieza solo cuando el médico la inicia, con el consentimiento del paciente, y termina cuando el médico lo decide.</p></div>
+      <div data-reveal="2"><h3>Transcripción</h3><p>El audio va del navegador al servicio de transcripción. Nuestro servidor solo entrega el permiso temporal para hacerlo.</p></div>
+      <div data-reveal="3"><h3>Nota y revisión</h3><p>La IA propone la nota y los códigos; el motor de auditoría revisa lo que falta. El médico corrige lo que quiera.</p></div>
+      <div data-reveal><h3>Firma</h3><p>Al firmar se calcula una huella SHA-256 del contenido y la nota queda inmutable. Cada acción posterior queda registrada.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0" aria-labelledby="h-faq">
+  <div class="wrap">
+    <div class="sec-head center"><h2 id="h-faq">Preguntas sobre seguridad</h2></div>
+    <div class="faq">
+      <details><summary>¿Quién puede ver las notas de mis pacientes?<span class="pm" aria-hidden="true"></span></summary><p>Solo las personas de su institución con el rol adecuado. El médico ve lo suyo; el supervisor, el jefe de área y el administrador ven lo que su rol permite. Otra institución no ve nada.</p></details>
+      <details><summary>¿Se puede modificar una nota después de firmada?<span class="pm" aria-hidden="true"></span></summary><p>No. Al firmar se calcula una huella SHA-256 del contenido y la nota queda inmutable. Cualquier acción posterior queda en el registro de auditoría.</p></details>
+      <details><summary>¿La IA decide algo por el médico?<span class="pm" aria-hidden="true"></span></summary><p>No. Propone la nota y los códigos; el médico revisa, corrige y firma. Nada entra a la historia clínica sin su aprobación.</p></details>
+      <details><summary>¿Cómo se aísla la información de cada institución?<span class="pm" aria-hidden="true"></span></summary><p>Por organización, a nivel de base de datos: cada institución solo puede leer y escribir sus propios datos. No depende de lo que se muestre en pantalla.</p></details>
+    </div>
+  </div>
+</section>
 @@CTABAND@@

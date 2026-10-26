@@ -19,7 +19,24 @@ Sitio estático de varias páginas (sin framework). Se sirve tal cual en Vercel.
 2. Corra `node build.mjs`. Escribe las páginas finales en la raíz (`index.html`, `soluciones.html`, `blog/*.html`…), `sitemap.xml`, `robots.txt` y `vercel.json`.
 3. Suba **las páginas generadas** junto con el código: Vercel no corre ningún build, solo sirve los archivos.
 
-`assets/styles.css` y `assets/site.js` son compartidos por todas las páginas. El JavaScript revisa si cada elemento existe antes de animarlo, así que una página sin portátil no carga esa lógica.
+## Criterio de contenido
+
+- **Inicio:** muy poco texto, solo lo clave en pocas palabras, y mucha animación. Su trabajo es llamar la atención y generar interés.
+- **Subpáginas:** aquí va la explicación larga (soluciones, planes, seguridad, blog).
+
+## Qué carga cada página (solo lo suyo)
+
+| Archivo | Lo carga |
+|---|---|
+| `assets/styles.css` | todas |
+| `assets/core.js` (menú, cabecera, anclas, aparición al entrar) | todas |
+| GSAP + ScrollTrigger (CDN) | inicio y soluciones |
+| `assets/home.js` (escena del portátil, párrafo, circuito, cifra) | solo inicio |
+| `assets/solutions.js` (bloques y cifras de Analytics) | solo soluciones |
+| `assets/agendar.js` (calendario y formulario) | solo agendar |
+| librería del QR (CDN) | solo el inicio, y se pide cuando el cierre está cerca |
+
+Planes, seguridad, blog y artículos solo cargan `core.js`.
 
 ## Pendientes del jefe (marcados `PENDIENTE` en el código)
 
