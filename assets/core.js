@@ -42,4 +42,32 @@
     if (reduce || !('IntersectionObserver' in window)) reveals.forEach(r => r.classList.add('in'));
     else { const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {rootMargin:'0px 0px -8% 0px'}); reveals.forEach(r => io.observe(r)); }
   }
+
+  /* ---------- Ilustraciones animadas: se detienen fuera de pantalla y con movimiento reducido ---------- */
+  $$('svg.illus').forEach(svg => {
+    if (!svg.pauseAnimations) return;
+    if (reduce) { svg.pauseAnimations(); return; }
+    if (!('IntersectionObserver' in window)) return;
+    new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? svg.unpauseAnimations() : svg.pauseAnimations()), {threshold: .05}).observe(svg);
+  });
+
+  /* ---------- Cifras que suben al aparecer (sin librerías) ---------- */
+  $$('[data-count]').filter(el => !el.closest('.prod-row')).forEach(el => {
+    const end = +el.dataset.count, suf = el.dataset.suffix || '';
+    const draw = v => el.textContent = Math.round(v).toLocaleString('es-CO') + suf;
+    if (reduce || !('IntersectionObserver' in window)) { draw(end); return; }
+    draw(0);
+    const io = new IntersectionObserver(es => { if (!es[0].isIntersecting) return; io.disconnect();
+      const t0 = performance.now(), dur = 1300, step = t => { const p = Math.min((t - t0) / dur, 1); draw(end * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step); }, {threshold: .6});
+    io.observe(el);
+  });
+
+  /* ---------- Barra de lectura en los artículos ---------- */
+  const art = $('.article .prose');
+  if (art && !reduce) {
+    const bar = document.createElement('div'); bar.className = 'readbar'; bar.setAttribute('aria-hidden', 'true'); document.body.appendChild(bar);
+    const upd = () => { const r = art.getBoundingClientRect(), total = r.height - innerHeight * .5; bar.style.transform = `scaleX(${Math.max(0, Math.min(1, (-r.top + innerHeight * .2) / total))})`; };
+    addEventListener('scroll', upd, {passive: true}); upd();
+  }
 })();

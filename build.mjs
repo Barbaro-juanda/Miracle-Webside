@@ -27,7 +27,7 @@ const pages = [
   { path: '/analytics', src: 'analytics', out: 'analytics.html', gsap: true, js: 'product', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Analytics']],
     app: { name: 'Miracle Analytics', description: 'Reportes de gerencia con la adopción por médico y servicio, las notas firmadas y los lotes RIPS de la institución.' },
     title: 'Analytics: el servicio de su IPS, en números | Miracle',
-    desc: 'Analytics convierte lo que ya pasa en cada consulta en reportes para la dirección médica: adopción, notas firmadas el mismo día y lotes RIPS listos.' },
+    desc: 'Analytics convierte lo que ya pasa en cada consulta en reportes para la dirección médica: adopción, notas firmadas el mismo día y lotes RIPS para exportar.' },
   { path: '/planes', src: 'planes', out: 'planes.html', crumbs: [['Planes']], faq: true,
     title: 'Planes para médicos independientes e IPS | Miracle',
     desc: 'Notes con 14 días de prueba para el médico independiente y licencias a la medida para IPS, clínicas y hospitales. Compare los dos planes y resuelva sus dudas.' },

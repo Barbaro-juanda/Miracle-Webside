@@ -151,11 +151,19 @@
 </nav>
 <main id="main">
 <section class="sub-hero" aria-labelledby="h1">
-  <div class="wrap">
-    <nav class="crumbs" aria-label="Ruta"><ol><li><a href="/">Inicio</a></li><li><span aria-current="page">Seguridad</span></li></ol></nav>
-    <h1 id="h1">La última palabra la tiene el médico</h1>
-    <p class="lead">Miracle propone y usted decide. La información de cada institución es solo suya, cada acción queda registrada y la nota firmada no se puede modificar.</p>
-    <div class="ctas"><a class="btn btn-primary" href="/agendar">Hablar con el equipo</a></div>
+  <div class="wrap hero-2">
+    <div>
+      <nav class="crumbs" aria-label="Ruta"><ol><li><a href="/">Inicio</a></li><li><span aria-current="page">Seguridad</span></li></ol></nav>
+      <h1 id="h1">La última palabra la tiene el médico</h1>
+      <p class="lead">Miracle propone y usted decide. La información de cada institución es solo suya, cada acción queda registrada y la nota firmada no se puede modificar.</p>
+      <div class="ctas"><a class="btn btn-primary" href="/agendar">Hablar con el equipo</a></div>
+    </div>
+    <svg class="illus shield" viewBox="0 0 300 300" role="img" aria-label="Escudo de seguridad con un chulo" data-reveal>
+  <circle class="sh-ring" cx="150" cy="150" r="70"/><circle class="sh-ring r2" cx="150" cy="150" r="70"/><circle class="sh-ring r3" cx="150" cy="150" r="70"/>
+  <path class="sh-body" pathLength="1" d="M150 40 L226 68 V138 C226 190 192 228 150 246 C108 228 74 190 74 138 V68 Z"/>
+  <path class="sh-ck" pathLength="1" d="M110 146 L140 176 L192 116"/>
+  <circle class="sh-dot" r="4"><animateMotion dur="8s" repeatCount="indefinite" path="M150 40 L226 68 V138 C226 190 192 228 150 246 C108 228 74 190 74 138 V68 Z"/></circle>
+</svg>
   </div>
 </section>
 
@@ -195,7 +203,7 @@
   </div>
 </section>
 
-<section class="sec" style="padding-top:20px" aria-labelledby="h-roles">
+<section class="sec tone-pearl" aria-labelledby="h-roles">
   <div class="wrap">
     <div class="sec-head" data-reveal>
       <h2 id="h-roles">Quién ve qué en una institución</h2>
@@ -219,22 +227,22 @@
   </div>
 </section>
 
-<section class="sec" style="padding-top:20px" aria-labelledby="h-path">
+<section class="sec" aria-labelledby="h-path">
   <div class="wrap">
     <div class="sec-head" data-reveal>
       <h2 id="h-path">Qué pasa con una consulta, de la grabación a la firma</h2>
       <p>Cada paso deja una huella y ninguno se salta al médico.</p>
     </div>
-    <div class="steps-long">
-      <div data-reveal><h3>Consentimiento</h3><p>La grabación empieza solo cuando el médico la inicia, con el consentimiento del paciente, y termina cuando el médico lo decide.</p></div>
-      <div data-reveal="2"><h3>Transcripción</h3><p>El audio va del navegador al servicio de transcripción. Nuestro servidor solo entrega el permiso temporal para hacerlo.</p></div>
-      <div data-reveal="3"><h3>Nota y revisión</h3><p>La IA propone la nota y los códigos; el motor de auditoría revisa lo que falta. El médico corrige lo que quiera.</p></div>
-      <div data-reveal><h3>Firma</h3><p>Al firmar se calcula una huella SHA-256 del contenido y la nota queda inmutable. Cada acción posterior queda registrada.</p></div>
+    <div class="tl" data-reveal>
+      <div><h3>Consentimiento</h3><p>La grabación empieza solo cuando el médico la inicia, con el consentimiento del paciente, y termina cuando el médico lo decide.</p></div>
+      <div><h3>Transcripción</h3><p>El audio va del navegador al servicio de transcripción. Nuestro servidor solo entrega el permiso temporal para hacerlo.</p></div>
+      <div><h3>Nota y revisión</h3><p>La IA propone la nota y los códigos; el motor de auditoría revisa lo que falta. El médico corrige lo que quiera.</p></div>
+      <div><h3>Firma</h3><p>Al firmar se calcula una huella SHA-256 del contenido y la nota queda inmutable. Cada acción posterior queda registrada.</p></div>
     </div>
   </div>
 </section>
 
-<section class="sec" style="padding-top:0" aria-labelledby="h-faq">
+<section class="sec tone-ice" aria-labelledby="h-faq">
   <div class="wrap">
     <div class="sec-head center"><h2 id="h-faq">Preguntas sobre seguridad</h2></div>
     <div class="faq">

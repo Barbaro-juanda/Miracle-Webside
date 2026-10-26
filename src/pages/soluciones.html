@@ -1,8 +1,22 @@
 <section class="sub-hero" aria-labelledby="h1">
-  <div class="wrap">
-    @@CRUMBS@@
-    <h1 id="h1">Tres productos, una sola consulta</h1>
-    <p class="lead">Todo sale de la misma consulta. Elija el que le interesa.</p>
+  <div class="wrap hero-2">
+    <div>
+      @@CRUMBS@@
+      <h1 id="h1">Tres productos, una sola consulta</h1>
+      <p class="lead">Todo sale de la misma consulta: Notes la escribe, Auditorías la revisa y Analytics la vuelve cifras para la gerencia. Elija el que le interesa o use los tres.</p>
+      <div class="ctas"><a class="btn btn-primary" href="/agendar">Verlos en una demo</a><a class="btn btn-ghost" href="/planes">Ver planes</a></div>
+    </div>
+    <svg class="illus orbit" viewBox="0 0 420 330" role="img" aria-label="Notes, Auditorías y Analytics alrededor de una misma consulta" data-reveal>
+  <path class="o-line" d="M210 165 L84 72"/><path class="o-line" d="M210 165 L336 72"/><path class="o-line" d="M210 165 L210 268"/>
+  <circle class="o-ring" cx="210" cy="165" r="46"/><circle class="o-ring r2" cx="210" cy="165" r="46"/><circle class="o-ring r3" cx="210" cy="165" r="46"/>
+  <circle r="4.5" fill="#37c9fd"><animateMotion dur="3.6s" repeatCount="indefinite" path="M210 165 L84 72"/><animate attributeName="opacity" values="0;1;1;0" dur="3.6s" repeatCount="indefinite"/></circle>
+  <circle r="4.5" fill="#37c9fd"><animateMotion dur="3.6s" begin="1.2s" repeatCount="indefinite" path="M210 165 L336 72"/><animate attributeName="opacity" values="0;1;1;0" dur="3.6s" begin="1.2s" repeatCount="indefinite"/></circle>
+  <circle r="4.5" fill="#37c9fd"><animateMotion dur="3.6s" begin="2.4s" repeatCount="indefinite" path="M210 165 L210 268"/><animate attributeName="opacity" values="0;1;1;0" dur="3.6s" begin="2.4s" repeatCount="indefinite"/></circle>
+  <use href="#orb" x="166" y="121" width="88" height="88"/>
+  <g class="o-node n1"><rect x="14" y="40" width="140" height="62" rx="16"/><text x="34" y="68">Notes</text><text class="sub" x="34" y="86">La nota, al atender</text></g>
+  <g class="o-node n2"><rect x="266" y="40" width="140" height="62" rx="16"/><text x="286" y="68">Auditorías</text><text class="sub" x="286" y="86">Revisada al firmar</text></g>
+  <g class="o-node n3"><rect x="140" y="246" width="140" height="62" rx="16"/><text x="160" y="274">Analytics</text><text class="sub" x="160" y="292">El servicio en cifras</text></g>
+</svg>
   </div>
 </section>
 
@@ -12,37 +26,85 @@
     <div class="hub-grid">
       <a class="hub-card" href="/notes" data-reveal>
         <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></div>
-        <h3>Notes</h3><p>La nota clínica, escrita mientras usted atiende.</p><small class="for2">Para médicos y especialistas</small><span class="go">Ver Notes</span>
+        <h3>Notes</h3><p>La nota clínica, escrita mientras usted atiende. Con plantillas para 49 especialidades, códigos sugeridos y firma.</p><small class="for2">Para médicos y especialistas</small><span class="go">Ver Notes</span>
       </a>
       <a class="hub-card" href="/auditorias" data-reveal="2">
         <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
-        <h3>Auditorías</h3><p>Cada nota, revisada antes de firmar.</p><small class="for2">Para auditoría médica y calidad</small><span class="go">Ver Auditorías</span>
+        <h3>Auditorías</h3><p>Cada nota, revisada antes de firmar. Marca lo que falta con la frase exacta de la consulta que lo respalda.</p><small class="for2">Para auditoría médica y calidad</small><span class="go">Ver Auditorías</span>
       </a>
       <a class="hub-card" href="/analytics" data-reveal="3">
         <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></div>
-        <h3>Analytics</h3><p>El servicio, en números.</p><small class="for2">Para dirección médica y gerencia</small><span class="go">Ver Analytics</span>
+        <h3>Analytics</h3><p>El servicio, en números. Adopción por médico y servicio, notas firmadas y lotes RIPS para exportar.</p><small class="for2">Para dirección médica y gerencia</small><span class="go">Ver Analytics</span>
       </a>
     </div>
   </div>
 </section>
 
-<section class="sec" style="padding-top:20px" aria-labelledby="h-flow">
+<section class="sec tone-ice" aria-labelledby="h-start">
   <div class="wrap">
-    <div class="sec-head" data-reveal><h2 id="h-flow">Cómo se conectan</h2></div>
-    <div class="steps-long three">
-      <div data-reveal><h3>Notes escribe</h3><p>La consulta se vuelve una nota por secciones, con códigos sugeridos.</p></div>
-      <div data-reveal="2"><h3>Auditorías revisa</h3><p>Antes de firmar, le avisa lo que falta o no cuadra.</p></div>
-      <div data-reveal="3"><h3>Analytics suma</h3><p>Las notas firmadas se vuelven reportes para la gerencia.</p></div>
+    <div class="sec-head" data-reveal><h2 id="h-start">¿Por dónde empezar?</h2><p>Depende de qué problema quiere resolver primero.</p></div>
+    <div class="sec-grid" style="margin-top:36px">
+      <div class="sec-card" data-reveal><h3>Quiero dejar de escribir notas</h3><p>Empiece por <b>Notes</b>. Conversa con el paciente y la nota queda lista para firmar. Funciona para un médico solo o para todo un servicio.</p><a class="more-link" href="/notes">Ver Notes</a></div>
+      <div class="sec-card" data-reveal="2"><h3>Quiero notas completas</h3><p>Sume <b>Auditorías</b>. Revisa cada nota antes de firmar y le dice qué falta, para corregir cuando todavía se puede.</p><a class="more-link" href="/auditorias">Ver Auditorías</a></div>
+      <div class="sec-card" data-reveal="3"><h3>Quiero ver el servicio</h3><p>Use <b>Analytics</b>. Muestra qué servicios ya documentan con Miracle y deja listos los lotes RIPS. Va con la licencia institucional.</p><a class="more-link" href="/analytics">Ver Analytics</a></div>
     </div>
   </div>
 </section>
 
-<section class="sec" style="padding-top:0" aria-labelledby="h-faq">
+<section class="sec" aria-labelledby="h-flow">
+  <div class="wrap">
+    <div class="sec-head" data-reveal><h2 id="h-flow">Cómo se conectan</h2><p>No hay que digitar nada dos veces: lo que Notes escribe es lo que Auditorías revisa y lo que Analytics cuenta.</p></div>
+    <div class="flow3" data-reveal>
+      <div class="node"><h3>Notes escribe</h3><p>La consulta se vuelve una nota por secciones, con la plantilla de la especialidad y los códigos sugeridos.</p></div>
+      <div class="conn" aria-hidden="true"></div>
+      <div class="node"><h3>Auditorías revisa</h3><p>Antes de firmar, la nota se revisa contra lo que se habló. Lo que falta aparece mientras todavía se puede corregir.</p></div>
+      <div class="conn" aria-hidden="true"></div>
+      <div class="node"><h3>Analytics suma</h3><p>Las notas firmadas, los tiempos y la adopción de cada servicio se vuelven reportes para la gerencia.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec tone-pearl" aria-labelledby="h-cmp">
+  <div class="wrap">
+    <div class="sec-head" data-reveal><h2 id="h-cmp">Qué trae cada plan</h2><p>El médico independiente usa Notes con la auditoría de cada nota incluida. El resto hace parte de la licencia institucional.</p></div>
+    <div class="compare" data-reveal style="margin-top:34px;max-width:none">
+      <table>
+        <caption class="skip" style="position:absolute;left:-999px">Qué producto trae cada plan</caption>
+        <thead><tr><th scope="col">Producto</th><th scope="col">Médico independiente</th><th scope="col">Institución</th></tr></thead>
+        <tbody>
+          <tr><td>Notes: la nota clínica, escrita mientras atiende</td><td><span class="ck yes" role="img" aria-label="Incluido"></span></td><td><span class="ck yes" role="img" aria-label="Incluido"></span></td></tr>
+          <tr><td>Auditorías: revisión de cada nota antes de firmar</td><td><span class="ck yes" role="img" aria-label="Incluido"></span></td><td><span class="ck yes" role="img" aria-label="Incluido"></span></td></tr>
+          <tr><td>Auditorías: panel de notas por revisar para el auditor</td><td><span class="ck no" role="img" aria-label="No incluido"></span></td><td><span class="ck yes" role="img" aria-label="Incluido"></span></td></tr>
+          <tr><td>Analytics: reportes de adopción y lotes RIPS</td><td><span class="ck no" role="img" aria-label="No incluido"></span></td><td><span class="ck yes" role="img" aria-label="Incluido"></span></td></tr>
+          <tr><td>Varios médicos, roles y áreas</td><td><span class="ck no" role="img" aria-label="No incluido"></span></td><td><span class="ck yes" role="img" aria-label="Incluido"></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="h-misma">
+  <div class="wrap">
+    <div class="band-dark" data-reveal>
+      <h2 id="h-misma">Todo sale de la misma consulta</h2>
+      <p>Por eso los tres productos se entienden entre sí, y por eso cada uno funciona también por separado.</p>
+      <ul>
+        <li>Nada se digita dos veces.</li>
+        <li>Una sola fuente de datos para la nota, la revisión y los reportes.</li>
+        <li>El médico firma; ningún producto firma por él.</li>
+        <li>Cada institución ve solo su información.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec tone-ice" aria-labelledby="h-faq">
   <div class="wrap">
     <div class="sec-head center"><h2 id="h-faq">Preguntas rápidas</h2></div>
     <div class="faq">
       <details><summary>¿Necesito los tres productos?<span class="pm" aria-hidden="true"></span></summary><p>No. El médico independiente usa Notes, con la auditoría de cada nota incluida. Analytics y el panel para auditores hacen parte de la licencia institucional.</p></details>
       <details><summary>¿Se pueden usar por separado?<span class="pm" aria-hidden="true"></span></summary><p>Sí, pero funcionan mejor juntos: todo sale de la misma consulta, así que no hay que digitar nada dos veces.</p></details>
+      <details><summary>¿Puedo empezar con Notes y sumar el resto después?<span class="pm" aria-hidden="true"></span></summary><p>Sí. Es lo más común: se empieza con Notes y, cuando la institución quiere ver el servicio o revisar las notas, se suman Auditorías y Analytics.</p></details>
     </div>
   </div>
 </section>

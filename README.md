@@ -51,3 +51,11 @@ Soluciones, planes, seguridad, blog y artículos solo cargan `core.js`.
 ## Respaldo
 
 La versión de una sola página está en la etiqueta `v2-landing`.
+
+## Motion graphics (ligeros)
+
+Todo es CSS y SVG en línea, sin imágenes ni librerías extra:
+
+- Ilustraciones animadas en los encabezados (órbita de productos, anillo de 14 días, escudo, documento que se escribe). Se pausan fuera de pantalla y con «reducir movimiento».
+- Línea de tiempo que se dibuja (`.tl`), flujo con puntos que viajan (`.flow3`), ✓/✗ que aparecen (`.ck`), bandas oscuras (`.band-dark`) y barra de lectura en los artículos.
+- Recorrido paso a paso con imagen fija en las páginas de producto (`product.js`).
