@@ -1,0 +1,1609 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Historia clínica con IA para médicos e IPS | Miracle</title>
+<meta name="description" content="Miracle escucha la consulta, escribe la nota clínica, sugiere CIE-10 y CUPS y audita cada historia antes de firmar. Agende una demo para su consultorio o IPS.">
+<link rel="canonical" href="https://itsmiracleai.com.co/">
+<meta name="theme-color" content="#0c1424">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_CO">
+<meta property="og:site_name" content="Miracle">
+<meta property="og:title" content="Miracle · Usted atiende al paciente. Miracle escribe la historia clínica.">
+<meta property="og:description" content="Notas clínicas con IA, analítica para la gerencia y auditoría de cada historia. Hecho para la práctica clínica en Colombia.">
+<meta property="og:url" content="https://itsmiracleai.com.co/">
+<meta property="og:image" content="https://itsmiracleai.com.co/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="https://itsmiracleai.com.co/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Schibsted+Grotesk:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://itsmiracleai.com.co/#org",
+      "name": "Miracle",
+      "url": "https://itsmiracleai.com.co/",
+      "description": "Software clínico con IA para Colombia: notas clínicas, analítica para la gerencia y auditoría de historias clínicas.",
+      "logo": "https://itsmiracleai.com.co/icon-512.png",
+      "email": "dev@itsmiracleai.com",
+      "areaServed": "CO",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "telephone": "+57-313-458-2806",
+        "availableLanguage": "es"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://itsmiracleai.com.co/#web",
+      "url": "https://itsmiracleai.com.co/",
+      "name": "Miracle",
+      "inLanguage": "es-CO",
+      "publisher": {"@id": "https://itsmiracleai.com.co/#org"}
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Miracle Notes",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "es-CO",
+      "description": "Escribe la nota clínica a partir de la consulta, sugiere códigos CIE-10 y CUPS, permite firma electrónica y exporta a PDF y RIPS.",
+      "publisher": {"@id": "https://itsmiracleai.com.co/#org"}
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "¿Miracle graba al paciente sin que lo sepa?", "acceptedAnswer": {"@type": "Answer", "text": "No. La grabación se hace con el consentimiento del paciente y el médico decide cuándo empieza y cuándo termina."}},
+        {"@type": "Question", "name": "¿La IA firma la nota por mí?", "acceptedAnswer": {"@type": "Answer", "text": "No. Miracle propone la nota y los códigos. Usted revisa, corrige y firma. Nada queda en la historia sin su aprobación."}},
+        {"@type": "Question", "name": "¿Sirve para mi especialidad?", "acceptedAnswer": {"@type": "Answer", "text": "Notes trae plantillas para 49 especialidades, entre ellas medicina general, urgencias, psiquiatría, psicología y neuropsicología infantil, y usted puede crear las suyas."}},
+        {"@type": "Question", "name": "¿Cómo llevo la nota a mi software de historia clínica?", "acceptedAnswer": {"@type": "Answer", "text": "La nota firmada se exporta a PDF o se copia por secciones. Para instituciones revisamos en la demo cómo conectarla con su sistema y con el reporte RIPS."}},
+        {"@type": "Question", "name": "¿Dónde quedan los datos de mis pacientes?", "acceptedAnswer": {"@type": "Answer", "text": "Cada institución ve solo su información, con roles y permisos por usuario. Cada acción sobre una nota queda registrada y la nota firmada no se puede modificar."}},
+        {"@type": "Question", "name": "¿Puedo cancelar cuando quiera?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Si es médico independiente, cancela desde su cuenta y conserva el acceso hasta el final del periodo pagado. Sus notas no se borran."}}
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+:root{
+  --canvas:#fbfcfe; --pearl:#f6f8fb; --ice:#e7f0fe; --ice-soft:#f1f6fe;
+  --mint:#b7f0d8; --mint-soft:#e6f8ef;
+  --deep:#0c1424; --deep-2:#131e33; --night:#1d3358;
+  --ink:#0e1726; --ink-soft:#44546b; --muted:#5d6b80;
+  --line:#e6eaf0; --line-strong:#d4dbe6; --surface:#fff;
+  --accent:#2f6fe0; --accent-hover:#2559c4; --accent-soft:#eef4fe; --accent-ink:#1a4fa0;
+  --success:#13795b; --success-soft:#dcf4ea;
+  --warning:#a34a06; --warning-soft:#fdeecf;
+  --danger:#b33224; --danger-soft:#fbe3df;
+  --doc:#fdfcf9; --doc-line:#e9e3d6; --doc-ink:#191f28; --doc-muted:#6d6a62;
+  --r-sm:12px; --r-md:16px; --r-lg:22px; --r-xl:30px;
+  --sh-sm:0 4px 16px rgba(14,23,38,.05); --sh-md:0 10px 30px rgba(14,23,38,.07);
+  --sh-lg:0 24px 60px rgba(14,23,38,.09); --sh-xl:0 40px 100px rgba(14,23,38,.12);
+  --f-display:"Schibsted Grotesk",Inter,system-ui,sans-serif;
+  --f-sans:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-doc:"Source Serif 4",Georgia,serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--f-sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3,h4{font-family:var(--f-display);color:var(--deep);margin:0;line-height:1.1;letter-spacing:-.02em;font-weight:600}
+p{margin:0}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--deep);color:#fff;padding:10px 16px;border-radius:10px;z-index:100}
+.skip:focus{left:16px}
+.wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 20px}
+.sec{padding:104px 0}
+.sec-head{max-width:640px}
+.sec-head h2{font-size:clamp(2rem,4.2vw,2.9rem)}
+.sec-head p{margin-top:16px;font-size:1.125rem;color:var(--ink-soft)}
+.center{text-align:center;margin-left:auto;margin-right:auto}
+
+/* Botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:999px;font-weight:600;font-size:.98rem;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:background .2s var(--ease),transform .2s var(--ease),box-shadow .2s var(--ease),border-color .2s;touch-action:manipulation;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 8px 24px rgba(47,111,224,.28)}
+.btn-primary:hover{background:var(--accent-hover)}
+.btn-ghost{background:var(--surface);border-color:var(--line-strong);color:var(--deep)}
+.btn-ghost:hover{border-color:var(--deep)}
+.btn-light{background:#fff;color:var(--deep)}
+.btn-light:hover{background:var(--ice)}
+
+/* Header */
+.hdr{position:sticky;top:0;z-index:50;background:rgba(251,252,254,.82);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s}
+.hdr.scrolled{border-bottom-color:var(--line)}
+.hdr .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+.logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+.logo span{font-weight:200;letter-spacing:.22em;font-size:1.05rem;color:var(--deep)}
+.nav{display:flex;align-items:center;gap:4px}
+.nav a{text-decoration:none;font-size:.94rem;font-weight:500;color:var(--ink-soft);padding:10px 14px;border-radius:999px;transition:color .2s,background .2s}
+.nav a:hover,.nav a[aria-current="true"]{color:var(--deep);background:var(--ice-soft)}
+.hdr-cta{display:flex;align-items:center;gap:8px}
+.hdr-cta .login{text-decoration:none;font-size:.94rem;font-weight:500;color:var(--ink-soft);padding:10px 12px}
+.hdr-cta .login:hover{color:var(--deep)}
+.menu-btn{display:none;width:48px;height:48px;border-radius:12px;border:1px solid var(--line);background:var(--surface);cursor:pointer;align-items:center;justify-content:center}
+.mnav{display:none}
+
+/* Hero */
+.hero{position:relative;padding:64px 0 96px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-20% -10% auto auto;width:720px;height:720px;background:radial-gradient(closest-side,rgba(47,111,224,.10),transparent 70%);pointer-events:none}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:56px;align-items:center}
+.hero h1{font-size:clamp(2.5rem,5.4vw,4.1rem);line-height:1.02;letter-spacing:-.035em}
+.hero h1 .soft{display:block;color:var(--ink-soft);font-weight:500}
+.hero .lead{margin-top:24px;font-size:1.18rem;color:var(--ink-soft);max-width:33rem}
+.hero .ctas{margin-top:34px;display:flex;flex-wrap:wrap;gap:12px}
+.hero .note{margin-top:18px;font-size:.92rem;color:var(--muted);display:flex;align-items:center;gap:8px}
+.dot-ok{width:8px;height:8px;border-radius:50%;background:var(--success);box-shadow:0 0 0 4px var(--success-soft);flex:none}
+
+/* Demo de consulta */
+.demo{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--sh-xl);overflow:hidden}
+.demo-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);background:var(--pearl)}
+.rec{display:flex;align-items:center;gap:10px;font-size:.86rem;font-weight:600;color:var(--deep)}
+.rec i{width:10px;height:10px;border-radius:50%;background:var(--danger);animation:pulse 1.4s ease-in-out infinite}
+.rec.done i{background:var(--success);animation:none}
+.rec time{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:500}
+.wave{display:flex;align-items:center;gap:3px;height:20px}
+.wave b{width:3px;border-radius:2px;background:var(--accent);opacity:.75;height:30%;animation:wave 1s ease-in-out infinite}
+.wave b:nth-child(2){animation-delay:.1s}.wave b:nth-child(3){animation-delay:.25s}.wave b:nth-child(4){animation-delay:.05s}.wave b:nth-child(5){animation-delay:.3s}.wave b:nth-child(6){animation-delay:.15s}.wave b:nth-child(7){animation-delay:.35s}
+.wave.still b{animation:none;height:18%}
+.demo-body{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);min-height:430px}
+.transcript{padding:18px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:12px;font-size:.88rem;overflow:hidden}
+.lbl{font-family:var(--f-sans);font-size:.78rem;font-weight:600;color:var(--muted);letter-spacing:0}
+.utt{opacity:0;transform:translateY(8px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.utt.show{opacity:1;transform:none}
+.utt .who{display:block;font-size:.74rem;font-weight:600;margin-bottom:2px}
+.utt.md .who{color:var(--accent-ink)}
+.utt.pt .who{color:var(--success)}
+.utt p{color:var(--ink-soft);line-height:1.5}
+.transcript{padding-bottom:64px}
+.notepad{background:var(--doc);padding:18px 20px 84px;display:flex;flex-direction:column;gap:12px;position:relative}
+.ns{opacity:.28;transition:opacity .4s}
+.ns.on{opacity:1}
+.ns .h{font-family:var(--f-sans);font-size:.74rem;font-weight:600;color:var(--doc-muted);letter-spacing:0;margin-bottom:3px}
+.ns p{font-family:var(--f-doc);font-size:.93rem;line-height:1.5;color:var(--doc-ink);min-height:1.5em}
+.ns p:empty::before{content:"";display:block;height:.7em;margin-top:.4em;width:70%;border-radius:4px;background:var(--doc-line)}
+.caret{display:inline-block;width:2px;height:1em;background:var(--accent);vertical-align:-2px;margin-left:1px;animation:blink 1s steps(1) infinite}
+.codes{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
+.code{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:10px;background:var(--surface);border:1px solid var(--doc-line);font-size:.78rem;color:var(--ink-soft);opacity:0;transform:scale(.92);transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.code.show{opacity:1;transform:none}
+.code strong{color:var(--deep);font-variant-numeric:tabular-nums}
+.code em{font-style:normal;font-weight:600;color:var(--success);background:var(--success-soft);padding:1px 6px;border-radius:6px}
+.sign{position:absolute;right:16px;bottom:16px;display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:14px;background:var(--deep);color:#fff;font-size:.82rem;box-shadow:var(--sh-lg);opacity:0;transform:translateY(10px) scale(.96);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.sign.show{opacity:1;transform:none}
+.sign small{display:block;color:#b9c5d8;font-size:.72rem;font-variant-numeric:tabular-nums}
+.replay{position:absolute;left:16px;bottom:16px;border:1px solid var(--line);background:var(--surface);border-radius:999px;font-size:.8rem;font-weight:600;color:var(--ink-soft);padding:8px 14px;min-height:36px;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .3s}
+.replay.show{opacity:1;pointer-events:auto}
+.replay:hover{color:var(--deep);border-color:var(--deep)}
+.demo-cap{margin-top:14px;font-size:.82rem;color:var(--muted);text-align:center}
+
+/* Franja de confianza */
+.strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface)}
+.strip .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;padding-top:26px;padding-bottom:26px}
+.strip p{font-size:.95rem;color:var(--muted);font-weight:500}
+.strip ul{display:flex;flex-wrap:wrap;gap:10px;margin:0;padding:0;list-style:none}
+.strip li{padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--canvas);font-size:.85rem;font-weight:600;color:var(--ink-soft)}
+
+/* Antes / después */
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:56px;border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden;background:var(--surface)}
+.ba > div{padding:40px}
+.ba .before{background:var(--pearl);border-right:1px solid var(--line)}
+.ba h3{font-size:1.35rem;margin-bottom:22px}
+.ba ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:16px}
+.ba li{display:flex;gap:14px;align-items:flex-start;color:var(--ink-soft)}
+.ba li svg{flex:none;margin-top:3px}
+.ba li b{color:var(--deep);font-weight:600}
+
+/* Soluciones */
+.sol{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tabs{display:inline-flex;gap:4px;padding:5px;margin-top:40px;border-radius:999px;background:var(--pearl);border:1px solid var(--line);position:relative}
+.tab{position:relative;z-index:1;border:0;background:transparent;padding:0 22px;min-height:44px;border-radius:999px;font-weight:600;font-size:.95rem;color:var(--ink-soft);cursor:pointer;transition:color .25s}
+.tab[aria-selected="true"]{color:#fff}
+.tab-ind{position:absolute;z-index:0;top:5px;bottom:5px;left:5px;border-radius:999px;background:var(--deep);transition:transform .4s var(--ease),width .4s var(--ease)}
+.panel{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:56px;align-items:center;margin-top:48px}
+.panel[hidden]{display:none}
+.panel .copy h3{font-size:clamp(1.6rem,3vw,2.2rem)}
+.panel .copy > p{margin-top:16px;font-size:1.08rem;color:var(--ink-soft)}
+.panel .who-for{margin-top:12px;font-size:.92rem;font-weight:600;color:var(--accent-ink)}
+.checks{margin:26px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+.checks li{display:flex;gap:12px;align-items:flex-start;color:var(--ink-soft)}
+.checks li::before{content:"";flex:none;width:20px;height:20px;margin-top:2px;border-radius:50%;background:var(--mint-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.5l2.6 2.5L14 7.5' fill='none' stroke='%2313795b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/20px no-repeat}
+.panel .copy .btn{margin-top:30px}
+.mock{border-radius:var(--r-lg);border:1px solid var(--line);background:var(--canvas);box-shadow:var(--sh-lg);overflow:hidden}
+.mock-top{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--surface);font-size:.84rem;font-weight:600;color:var(--deep)}
+.mock-top i{width:9px;height:9px;border-radius:50%;background:var(--line-strong)}
+.mock-top span{margin-left:8px}
+.mock-in{padding:20px}
+.panel.enter .mock{animation:rise .6s var(--ease) both}
+.panel.enter .copy{animation:fadein .5s var(--ease) both}
+
+/* Mock Notes */
+.tpl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.tpl div{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:12px;font-size:.82rem;color:var(--ink-soft)}
+.tpl div b{display:block;color:var(--deep);font-size:.9rem;margin-bottom:2px}
+.tpl div.sel{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.docmini{margin-top:14px;background:var(--doc);border:1px solid var(--doc-line);border-radius:12px;padding:16px}
+.docmini .h5{margin:0 0 4px;font-size:.74rem;font-weight:600;color:var(--doc-muted)}
+.docmini p{font-family:var(--f-doc);font-size:.9rem;color:var(--doc-ink);line-height:1.5}
+.docmini p + .h5{margin-top:12px}
+.docmini .row{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--doc-line);font-size:.8rem;color:var(--doc-muted)}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:.76rem;font-weight:600}
+.pill.ok{background:var(--success-soft);color:var(--success)}
+.pill.warn{background:var(--warning-soft);color:var(--warning)}
+.pill.bad{background:var(--danger-soft);color:var(--danger)}
+.pill.info{background:var(--accent-soft);color:var(--accent-ink)}
+
+/* Mock Analytics */
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi small{display:block;font-size:.76rem;color:var(--muted);line-height:1.3}
+.kpi strong{display:block;margin-top:6px;font-family:var(--f-display);font-size:1.6rem;color:var(--deep);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.kpi span{font-size:.74rem;font-weight:600;color:var(--success)}
+.chart{margin-top:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.chart-h{display:flex;justify-content:space-between;align-items:center;font-size:.82rem;font-weight:600;color:var(--deep)}
+.legend{display:flex;gap:14px;font-weight:500;color:var(--muted);font-size:.76rem}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.bars{display:flex;align-items:flex-end;gap:10px;height:150px;margin-top:16px;padding-bottom:22px;position:relative;background:linear-gradient(to top,var(--line) 1px,transparent 1px) 0 calc(100% - 22px)/100% 25% repeat-y}
+.bar{flex:1;display:flex;align-items:flex-end;gap:3px;height:100%;position:relative}
+.bar b{flex:1;border-radius:5px 5px 2px 2px;background:var(--accent);height:var(--h);transform-origin:bottom;transform:scaleY(0);transition:transform .7s var(--ease)}
+.bar b + b{background:#0f9b6c}
+.bar small{position:absolute;bottom:-22px;left:0;right:0;text-align:center;font-size:.7rem;color:var(--muted)}
+.panel.enter .bar b{transform:scaleY(1)}
+.panel.enter .bar:nth-child(2) b{transition-delay:.06s}.panel.enter .bar:nth-child(3) b{transition-delay:.12s}.panel.enter .bar:nth-child(4) b{transition-delay:.18s}.panel.enter .bar:nth-child(5) b{transition-delay:.24s}.panel.enter .bar:nth-child(6) b{transition-delay:.3s}
+.sample{margin-top:10px;font-size:.74rem;color:var(--muted);text-align:right}
+
+/* Mock Auditorías */
+.audit-head{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.audit-head b{display:block;color:var(--deep);font-size:.92rem}
+.audit-head small{color:var(--muted);font-size:.78rem}
+.ring{--p:68;width:54px;height:54px;border-radius:50%;background:conic-gradient(var(--accent) calc(var(--p)*1%),var(--line) 0);display:grid;place-items:center;flex:none}
+.ring span{width:42px;height:42px;border-radius:50%;background:var(--surface);display:grid;place-items:center;font-size:.8rem;font-weight:700;color:var(--deep);font-variant-numeric:tabular-nums}
+.finds{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.finds li{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:.86rem;color:var(--ink-soft)}
+.panel.enter .finds li{animation:rise .5s var(--ease) both}
+.panel.enter .finds li:nth-child(2){animation-delay:.12s}.panel.enter .finds li:nth-child(3){animation-delay:.24s}
+.finds .t{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.finds .t b{color:var(--deep);font-size:.88rem}
+.finds q{display:block;margin-top:6px;padding-left:10px;border-left:2px solid var(--doc-line);font-family:var(--f-doc);font-size:.85rem;color:var(--doc-muted);quotes:"«" "»"}
+
+/* Cómo funciona */
+.steps{position:relative;margin-top:60px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+.rail{position:absolute;top:22px;left:22px;right:22px;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
+.rail i{display:block;height:100%;width:100%;background:var(--accent);transform-origin:left;transform:scaleX(var(--prog,0));transition:transform .2s linear}
+.step{position:relative}
+.step .n{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--surface);border:2px solid var(--line-strong);font-family:var(--f-display);font-weight:600;color:var(--muted);transition:background .3s,border-color .3s,color .3s}
+.step.lit .n{background:var(--accent);border-color:var(--accent);color:#fff}
+.step h3{margin-top:22px;font-size:1.2rem}
+.step p{margin-top:8px;color:var(--ink-soft);font-size:.98rem}
+
+/* Banda de seguridad */
+.band{position:relative;background:var(--deep);color:#dbe3ee;overflow:hidden}
+.band .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:64px;align-items:center;padding-top:104px;padding-bottom:104px;position:relative}
+.band h2{color:#fff;font-size:clamp(2rem,4vw,2.8rem)}
+.band .sec-head p{color:#b9c5d8}
+.orb{position:absolute;right:-180px;top:50%;width:560px;height:560px;transform:translateY(-50%);pointer-events:none;opacity:.5}
+.orb svg{width:100%;height:100%;animation:breathe 9s ease-in-out infinite}
+.principles{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.1);border-radius:var(--r-lg);overflow:hidden;border:1px solid rgba(255,255,255,.1);position:relative}
+.principles div{background:rgba(12,20,36,.88);padding:26px}
+.principles h3{color:#fff;font-size:1.08rem;margin-top:14px}
+.principles p{margin-top:8px;font-size:.94rem;color:#b9c5d8}
+.principles svg{color:var(--mint)}
+
+/* Planes */
+.plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;max-width:960px;margin:56px auto 0}
+.plan{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);padding:36px}
+.plan.feat{border:2px solid var(--accent);box-shadow:var(--sh-lg)}
+.plan-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.plan h3{font-size:1.45rem}
+.plan .for{margin-top:6px;color:var(--ink-soft)}
+.plan .price{margin-top:24px;font-family:var(--f-display);font-size:1.7rem;font-weight:600;color:var(--deep);letter-spacing:-.02em}
+.plan .price small{display:block;font-family:var(--f-sans);font-size:.9rem;font-weight:500;color:var(--muted);letter-spacing:0;margin-top:4px}
+.plan .checks{flex:1}
+.plan .btn{margin-top:32px;width:100%;white-space:normal;text-align:center;padding-top:10px;padding-bottom:10px}
+.plan .fine{margin-top:12px;text-align:center;font-size:.84rem;color:var(--muted)}
+.compare{max-width:960px;margin:40px auto 0;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--surface)}
+.compare table{width:100%;border-collapse:collapse;font-size:.94rem}
+.compare th,.compare td{padding:14px 20px;text-align:left;border-bottom:1px solid var(--line)}
+.compare tr:last-child td{border-bottom:0}
+.compare thead th{background:var(--pearl);font-weight:600;color:var(--deep);font-size:.88rem}
+.compare td{color:var(--ink-soft)}
+.compare td:not(:first-child),.compare th:not(:first-child){text-align:center;width:22%}
+.yes{color:var(--success);font-weight:600}
+.no{color:var(--muted)}
+
+/* Blog */
+.blog{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.blog-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.posts{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:24px;margin-top:48px}
+.post{display:flex;flex-direction:column;text-align:left;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--canvas);padding:0;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .25s var(--ease)}
+.post:hover{border-color:var(--line-strong);box-shadow:var(--sh-md)}
+.post .art{height:150px;position:relative;overflow:hidden;background:var(--ice)}
+.post:first-child .art{height:210px}
+.post .txt{padding:22px;display:flex;flex-direction:column;flex:1}
+.post .cat{font-size:.82rem;font-weight:600;color:var(--accent-ink)}
+.post h3{margin-top:8px;font-size:1.18rem;line-height:1.25}
+.post:first-child h3{font-size:1.45rem}
+.post p{margin-top:10px;color:var(--ink-soft);font-size:.95rem}
+.post .meta{margin-top:auto;padding-top:18px;font-size:.84rem;color:var(--muted)}
+dialog.reader{width:min(720px,calc(100% - 32px));max-height:calc(100dvh - 48px);border:0;border-radius:var(--r-xl);padding:0;box-shadow:var(--sh-xl);background:var(--surface);color:var(--ink)}
+dialog.reader::backdrop{background:rgba(6,14,27,.58);backdrop-filter:blur(3px)}
+dialog.reader[open]{animation:pop .3s var(--ease)}
+.reader-in{padding:40px 44px 44px}
+.reader-close{position:sticky;top:0;float:right;margin:16px 16px 0 0;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);cursor:pointer;display:grid;place-items:center}
+.reader .cat{font-size:.86rem;font-weight:600;color:var(--accent-ink)}
+.reader h2{margin-top:10px;font-size:clamp(1.6rem,3.4vw,2.1rem)}
+.reader .meta{margin-top:10px;font-size:.88rem;color:var(--muted)}
+.reader .body{margin-top:24px;font-family:var(--f-doc);font-size:1.08rem;line-height:1.7;color:var(--doc-ink)}
+.reader .body p + p{margin-top:16px}
+.reader .body h3{font-family:var(--f-display);font-size:1.2rem;margin:28px 0 8px}
+.reader .body ul{padding-left:20px;margin:12px 0}
+.reader .body li{margin:6px 0}
+.reader .end{margin-top:32px;padding-top:24px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.95rem;color:var(--ink-soft)}
+
+/* Agendar */
+.book{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:56px;align-items:start}
+.book .sec-head{position:sticky;top:110px}
+.expect{margin:28px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:18px}
+.expect li{display:flex;gap:14px}
+.expect li span{flex:none;width:30px;height:30px;border-radius:50%;background:var(--ice);color:var(--accent-ink);display:grid;place-items:center;font-weight:700;font-size:.85rem}
+.expect li b{display:block;color:var(--deep)}
+.expect li p{color:var(--ink-soft);font-size:.95rem}
+.contact-alt{margin-top:28px;font-size:.95rem;color:var(--ink-soft)}
+.contact-alt a{color:var(--accent-ink);font-weight:600}
+.booker{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--sh-lg);padding:32px}
+.booker fieldset{border:0;margin:0;padding:0}
+.booker legend{font-family:var(--f-display);font-weight:600;font-size:1.1rem;color:var(--deep);padding:0;margin-bottom:14px}
+.booker fieldset + fieldset{margin-top:28px;padding-top:28px;border-top:1px solid var(--line)}
+.days{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.day,.slot{border:1px solid var(--line);background:var(--canvas);border-radius:12px;cursor:pointer;transition:border-color .2s,background .2s,color .2s,transform .15s;touch-action:manipulation}
+.day{padding:10px 4px;text-align:center;min-height:64px}
+.day small{display:block;font-size:.74rem;color:var(--muted);text-transform:capitalize}
+.day b{display:block;font-family:var(--f-display);font-size:1.25rem;color:var(--deep);font-variant-numeric:tabular-nums}
+.day:hover,.slot:hover{border-color:var(--accent)}
+.day[aria-pressed="true"],.slot[aria-pressed="true"]{background:var(--deep);border-color:var(--deep)}
+.day[aria-pressed="true"] small,.day[aria-pressed="true"] b,.slot[aria-pressed="true"]{color:#fff}
+.slots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}
+.slot{min-height:44px;font-weight:600;font-size:.92rem;color:var(--deep);font-variant-numeric:tabular-nums}
+.tz{margin-top:10px;font-size:.84rem;color:var(--muted)}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.full{grid-column:1/-1}
+.field[hidden]{display:none}
+.field label{font-size:.9rem;font-weight:600;color:var(--deep)}
+.field label .opt{font-weight:400;color:var(--muted)}
+.field input,.field select,.field textarea{min-height:48px;padding:10px 14px;border:1px solid var(--line-strong);border-radius:12px;background:var(--canvas);font-size:1rem;transition:border-color .2s,box-shadow .2s;width:100%}
+.field textarea{min-height:88px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.field .err{display:none;font-size:.84rem;color:var(--danger)}
+.field.invalid input,.field.invalid select{border-color:var(--danger)}
+.field.invalid .err{display:block}
+.slot-err{display:none;margin-top:10px;font-size:.86rem;color:var(--danger)}
+.slot-err.show{display:block}
+.summary{margin-top:24px;padding:14px 16px;border-radius:12px;background:var(--ice-soft);color:var(--accent-ink);font-size:.94rem;font-weight:500}
+.booker .btn{width:100%;margin-top:18px}
+.privacy{margin-top:12px;font-size:.82rem;color:var(--muted);text-align:center}
+.done{display:none;text-align:center;padding:24px 8px}
+.done.show{display:block;animation:pop .4s var(--ease)}
+.done .tick{width:64px;height:64px;margin:0 auto;border-radius:50%;background:var(--success-soft);display:grid;place-items:center}
+.done h3{margin-top:18px;font-size:1.5rem}
+.done p{margin-top:10px;color:var(--ink-soft)}
+.done .btn{margin-top:22px;width:auto}
+
+/* FAQ */
+.faq{max-width:780px;margin:48px auto 0}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;font-family:var(--f-display);font-weight:600;font-size:1.12rem;color:var(--deep)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .pm{flex:none;width:28px;height:28px;border-radius:50%;border:1px solid var(--line-strong);position:relative;transition:transform .3s var(--ease),background .2s}
+.faq summary .pm::before,.faq summary .pm::after{content:"";position:absolute;left:50%;top:50%;width:11px;height:2px;background:var(--deep);border-radius:2px;transform:translate(-50%,-50%)}
+.faq summary .pm::after{transform:translate(-50%,-50%) rotate(90deg)}
+.faq details[open] .pm{transform:rotate(45deg);background:var(--ice)}
+.faq details p{padding:0 48px 24px 0;color:var(--ink-soft)}
+
+/* CTA final + footer */
+.final{padding:0 0 104px}
+.final .box{background:var(--deep);border-radius:var(--r-xl);padding:64px 48px;display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap;position:relative;overflow:hidden}
+.final .box::after{content:"";position:absolute;right:-120px;top:-160px;width:420px;height:420px;border-radius:50%;background:radial-gradient(closest-side,rgba(55,201,253,.28),transparent)}
+.final h2{color:#fff;font-size:clamp(1.8rem,3.6vw,2.5rem);max-width:560px}
+.final p{margin-top:12px;color:#b9c5d8;max-width:520px}
+.final .ctas{display:flex;gap:12px;flex-wrap:wrap;position:relative;z-index:1}
+.final .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
+.final .btn-ghost:hover{border-color:#fff}
+footer{border-top:1px solid var(--line);background:var(--surface)}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;padding-top:56px;padding-bottom:40px}
+.foot p{margin-top:14px;color:var(--ink-soft);font-size:.94rem;max-width:300px}
+.foot .fh{font-family:var(--f-sans);font-size:.9rem;font-weight:600;color:var(--deep);letter-spacing:0}
+.foot ul{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.foot ul a{text-decoration:none;color:var(--ink-soft);font-size:.94rem;display:inline-block;padding:4px 0}
+.foot ul a:hover{color:var(--accent-ink)}
+.legal{border-top:1px solid var(--line);padding-top:22px;padding-bottom:28px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.86rem;color:var(--muted)}
+
+/* WhatsApp flotante */
+.wa{position:fixed;right:20px;bottom:20px;z-index:40;width:56px;height:56px;border-radius:50%;background:#1f9d55;display:grid;place-items:center;box-shadow:0 12px 30px rgba(31,157,85,.35);transition:transform .2s var(--ease)}
+.wa:hover{transform:scale(1.06)}
+
+/* Animaciones */
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes wave{0%,100%{height:25%}50%{height:100%}}
+@keyframes blink{50%{opacity:0}}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+@keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+
+/* Responsive */
+@media (max-width:1024px){
+  .nav,.hdr-cta .login{display:none}
+  .menu-btn{display:inline-flex}
+  .mnav{position:fixed;inset:72px 0 auto 0;background:var(--surface);border-bottom:1px solid var(--line);padding:12px 20px 20px;box-shadow:var(--sh-md);z-index:49;flex-direction:column}
+  .mnav.open{display:flex;animation:fadein .2s}
+  .mnav a{text-decoration:none;padding:14px 4px;font-weight:600;color:var(--deep);border-bottom:1px solid var(--line)}
+  .mnav a:last-child{border-bottom:0}
+  .hero .wrap,.panel,.band .wrap,.book{grid-template-columns:1fr}
+  .hero .wrap{gap:48px}
+  .book .sec-head{position:static}
+  .posts{grid-template-columns:1fr 1fr}
+  .posts .post:first-child{grid-column:1/-1}
+  .foot{grid-template-columns:1fr 1fr}
+  .orb{opacity:.25}
+}
+@media (max-width:760px){
+  .sec{padding:80px 0}
+  .hdr-cta .btn{padding:0 16px;min-height:44px;font-size:.9rem}
+  .hero{padding:40px 0 72px}
+  .demo-body{grid-template-columns:1fr;min-height:0}
+  .transcript{border-right:0;border-bottom:1px solid var(--line);max-height:220px}
+  .notepad{padding-bottom:84px}
+  .ba{grid-template-columns:1fr}
+  .ba .before{border-right:0;border-bottom:1px solid var(--line)}
+  .ba > div{padding:28px}
+  .tabs{display:flex;width:100%}
+  .tab{flex:1;padding:0 8px;font-size:.88rem}
+  .steps{grid-template-columns:1fr;gap:32px}
+  .rail{top:22px;bottom:22px;left:22px;right:auto;width:2px;height:auto}
+  .rail i{transform-origin:top;transform:scaleY(var(--prog,0))}
+  .step{padding-left:70px}
+  .step .n{position:absolute;left:0;top:0}
+  .step h3{margin-top:8px}
+  .principles{grid-template-columns:1fr}
+  .plans{grid-template-columns:minmax(0,1fr)}
+  .final .btn,.blog-head .btn{white-space:normal;text-align:center}
+  .plan{padding:28px}
+  .compare th,.compare td{padding:12px 12px;font-size:.86rem}
+  .posts{grid-template-columns:1fr}
+  .booker{padding:22px}
+  .days{grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+  .day b{font-size:1.05rem}
+  .fields{grid-template-columns:1fr}
+  .kpis,.tpl{grid-template-columns:1fr 1fr}
+  .kpis .kpi:last-child,.tpl div:last-child{grid-column:1/-1}
+  .reader-in{padding:28px 22px 32px}
+  .final .box{padding:44px 26px}
+  .foot{grid-template-columns:1fr}
+  .faq details p{padding-right:0}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+
+/* ============================================================
+   v2 · Capítulos oscuros contados con el scroll
+   El navy (#0c1424) ya es el color "statement" de la marca; el brillo
+   es el cian del orbe. Las secciones de leer y decidir siguen claras.
+   ============================================================ */
+:root{
+  --d-bg:#0c1424; --d-bg2:#0a111f; --d-panel:#131e33; --d-line:rgba(255,255,255,.09);
+  --d-ink:#eef3fa; --d-soft:#b9c5d8; --d-muted:#8d9cb3;
+  --glow:#37c9fd; --glow-2:#12aef2;
+}
+.dark{background:var(--d-bg);color:var(--d-soft)}
+.dark h1,.dark h2,.dark h3{color:var(--d-ink)}
+
+/* Header sobre oscuro / claro */
+.hdr{transition:background .3s,border-color .3s}
+.hdr.on-dark{background:rgba(12,20,36,.55);border-bottom-color:rgba(255,255,255,.06)}
+.hdr.on-dark .logo span,.hdr.on-dark .nav a,.hdr.on-dark .login{color:#e6edf7}
+.hdr.on-dark .nav a:hover,.hdr.on-dark .nav a[aria-current="true"]{background:rgba(255,255,255,.08);color:#fff}
+.hdr.on-dark .menu-btn{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);color:#fff}
+
+/* ---------- Escenario: hero + consulta (fijado con el scroll) ---------- */
+.stage{position:relative;height:100vh;height:100svh;min-height:620px;overflow:hidden;background:var(--d-bg)}
+.stage::before{content:"";position:absolute;left:50%;top:58%;width:1100px;height:1100px;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(55,201,253,.20),rgba(47,111,224,.10) 45%,transparent 72%);pointer-events:none}
+.stage::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 40%,#000 20%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at 50% 40%,#000 20%,transparent 70%);pointer-events:none}
+.hero-copy{position:absolute;z-index:3;left:0;right:0;top:clamp(96px,14vh,150px);text-align:center;padding:0 20px}
+.hero-copy h1{font-size:clamp(2.6rem,7.4vw,6.4rem);line-height:.98;letter-spacing:-.045em;font-weight:600}
+.hero-copy h1 .l2{display:block;color:#8fa3c0}
+.hero-copy .word{display:inline-block;white-space:nowrap}
+.hero-copy .ch{display:inline-block;will-change:transform}
+.hero-copy p{margin:22px auto 0;max-width:36rem;font-size:1.12rem;color:var(--d-soft)}
+.hero-copy .ctas{margin-top:28px;display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+.btn-dark-ghost{background:rgba(255,255,255,.06);color:#fff;border-color:rgba(255,255,255,.18)}
+.btn-dark-ghost:hover{border-color:#fff}
+.scroll-hint{position:absolute;z-index:3;left:50%;bottom:22px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:.8rem;color:var(--d-muted)}
+.scroll-hint i{width:22px;height:34px;border:1.5px solid rgba(255,255,255,.3);border-radius:12px;position:relative}
+.scroll-hint i::after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;margin-left:-1.5px;border-radius:2px;background:#fff;animation:hint 1.6s ease-in-out infinite}
+@keyframes hint{0%{opacity:0;transform:translateY(0)}40%{opacity:1}100%{opacity:0;transform:translateY(10px)}}
+
+/* Portátil 3D */
+.device-wrap{position:absolute;z-index:2;left:50%;top:50%;width:var(--dw);transform:translate(-50%,-50%);perspective:2200px;--dw:min(780px,56vw)}
+.device{position:relative;transform-style:preserve-3d;will-change:transform}
+.lid{position:relative;aspect-ratio:16/10.4;transform-origin:50% 100%;transform-style:preserve-3d;will-change:transform}
+.lid-front,.lid-back{position:absolute;inset:0;border-radius:18px 18px 8px 8px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.lid-front{background:#05080e;border:1px solid #2b3650;padding:2.2% 2.2% 3.4%;box-shadow:0 50px 120px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.03) inset}
+.lid-front::before{content:"";position:absolute;top:.9%;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:#1d2738}
+.lid-back{transform:rotateY(180deg);background:linear-gradient(160deg,#d7dee8,#a9b4c4 55%,#8c98aa);border:1px solid #c3ccd8;display:grid;place-items:center}
+.lid-back svg{width:14%;height:auto;opacity:.95;filter:drop-shadow(0 0 18px rgba(55,201,253,.6))}
+.screen{position:relative;width:100%;height:100%;border-radius:6px;overflow:hidden;background:var(--canvas)}
+.screen-inner{position:absolute;left:0;top:0;width:1000px;height:625px;transform-origin:0 0;transform:scale(var(--s,.7))}
+.deck{position:absolute;left:-7%;right:-7%;top:100%;height:0;transform-style:preserve-3d}
+.deck-top{position:absolute;left:0;right:0;top:0;height:calc(var(--dw) * .6);transform-origin:50% 0;transform:rotateX(90deg);background:linear-gradient(180deg,#b7c1cf,#cfd7e2 30%,#c2cbd8);border-radius:4px 4px 22px 22px;border:1px solid #d9e0ea;overflow:hidden}
+.deck-top::before{content:"";position:absolute;left:10%;right:10%;top:8%;height:46%;border-radius:8px;background:repeating-linear-gradient(90deg,#9aa6b8 0 6.4%,transparent 6.4% 7.1%),#aab5c5;opacity:.55;mask:repeating-linear-gradient(180deg,#000 0 15%,transparent 15% 20%);-webkit-mask:repeating-linear-gradient(180deg,#000 0 15%,transparent 15% 20%)}
+.deck-top::after{content:"";position:absolute;left:34%;right:34%;top:62%;height:30%;border-radius:10px;background:#b3bdcb;box-shadow:inset 0 1px 2px rgba(0,0,0,.12)}
+.deck-front{position:absolute;left:0;right:0;top:0;height:14px;background:linear-gradient(#aeb8c7,#7d889a);border-radius:0 0 18px 18px;transform:translateZ(calc(var(--dw) * .6));transform-origin:50% 0}
+.deck-front::before{content:"";position:absolute;left:50%;top:0;width:16%;height:5px;margin-left:-8%;border-radius:0 0 8px 8px;background:#8e99ab}
+.device-shadow{position:absolute;left:8%;right:8%;bottom:-16%;height:16%;background:radial-gradient(closest-side,rgba(0,0,0,.55),transparent);filter:blur(8px);transform:translateZ(-1px)}
+
+/* La app dentro del portátil (diseñada a 1000x625 y escalada) */
+.app{display:grid;grid-template-rows:48px 1fr;height:100%;font-family:var(--f-sans);color:var(--ink)}
+.app-bar{display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid var(--line);background:#fff}
+.app-brand{display:flex;align-items:center;gap:8px;font-weight:200;letter-spacing:.2em;font-size:15px;color:var(--deep)}
+.app-rec{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--deep);padding:6px 12px;border-radius:999px;background:var(--pearl);border:1px solid var(--line)}
+.app-rec i{width:9px;height:9px;border-radius:50%;background:#c7cfdb}
+.app-rec.live i{background:var(--danger);animation:pulse 1.4s ease-in-out infinite}
+.app-rec.done i{background:var(--success);animation:none}
+.app-rec time{color:var(--muted);font-weight:500;font-variant-numeric:tabular-nums}
+.app-user{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-soft)}
+.app-user b{width:28px;height:28px;border-radius:50%;background:var(--night);color:#fff;display:grid;place-items:center;font-size:11px}
+.app-body{display:grid;grid-template-columns:350px 1fr;min-height:0}
+.app-tr{border-right:1px solid var(--line);padding:16px 18px;display:flex;flex-direction:column;gap:12px;overflow:hidden;background:#fff}
+.app-label{font-size:11.5px;font-weight:600;color:var(--muted)}
+.app-tr .utt{opacity:1;transform:none}
+.app-tr .utt .who{font-size:11px}
+.app-tr .utt p{font-size:13.5px;line-height:1.45}
+.app-doc{background:var(--doc);padding:16px 26px 20px;position:relative;overflow:hidden}
+.app-doc-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.app-doc-h span{font-size:11.5px;font-weight:600;color:var(--doc-muted)}
+.app-doc .ns{opacity:1;margin-bottom:10px}
+.app-doc .ns .h{font-size:11px;font-weight:600;color:var(--doc-muted);margin-bottom:2px}
+.app-doc .ns p{font-family:var(--f-doc);font-size:14.5px;line-height:1.5;color:var(--doc-ink);min-height:0}
+.app-doc .ns p:empty::before{display:none}
+.app-doc .w{display:inline}
+.app-codes{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.app-codes .code{opacity:1;transform:none;font-size:12px}
+.app-audit{display:flex;align-items:center;gap:10px;margin-top:10px;padding:9px 12px;border-radius:10px;background:#fff;border:1px solid var(--doc-line);font-size:12.5px;color:var(--ink-soft)}
+.app-audit b{color:var(--deep)}
+.app-sign{position:absolute;right:20px;bottom:18px;display:flex;align-items:center;gap:10px;padding:11px 16px;border-radius:14px;background:var(--deep);color:#fff;font-size:13px;box-shadow:var(--sh-lg)}
+.app-sign small{display:block;color:#b9c5d8;font-size:11px;font-variant-numeric:tabular-nums}
+
+/* Panel de pasos (01/04) */
+.steps-panel{position:absolute;z-index:3;left:max(20px,calc((100vw - 1180px)/2 + 20px));top:50%;transform:translateY(-50%);width:min(380px,32vw)}
+.sp-count{display:flex;align-items:center;gap:14px;font-family:var(--f-display);font-weight:600;color:var(--d-ink);font-variant-numeric:tabular-nums}
+.sp-count .of{color:var(--d-muted)}
+.sp-bar{flex:1;height:2px;border-radius:2px;background:var(--d-line);overflow:hidden}
+.sp-bar i{display:block;height:100%;background:var(--glow);transform-origin:left;transform:scaleX(.25)}
+.sp-items{position:relative;margin-top:26px;min-height:230px}
+.sp-item{position:absolute;inset:0 0 auto 0}
+.sp-item h2{font-size:clamp(1.9rem,3vw,2.6rem);letter-spacing:-.03em}
+.sp-item p{margin-top:14px;font-size:1.06rem;color:var(--d-soft)}
+.sp-item .kw{display:inline-block;margin-top:18px;padding:6px 12px;border-radius:999px;border:1px solid rgba(55,201,253,.35);color:#9fe3ff;font-size:.84rem;font-weight:600}
+
+/* Versión estática (movimiento reducido o sin GSAP) */
+.static .stage{height:auto;min-height:0;padding:130px 0 90px;overflow:visible}
+.static .hero-copy{position:relative;top:0}
+.static .scroll-hint{display:none}
+.static .device-wrap{position:relative;left:auto;top:auto;transform:none;margin:56px auto 0;--dw:min(880px,90vw)}
+.static .lid,.static .device{transform:none!important}
+.static .steps-panel{position:relative;left:auto;top:auto;transform:none;width:auto;max-width:1180px;margin:120px auto 0;padding:0 20px}
+.static .sp-items{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;min-height:0}
+.static .sp-item{position:relative;inset:auto}
+.static .sp-item h2{font-size:1.4rem}
+.static .sp-count{display:none}
+
+/* ---------- Párrafo que se ilumina ---------- */
+.statement{padding:22vh 0}
+.statement p{max-width:1000px;margin:0 auto;padding:0 20px;font-family:var(--f-display);font-weight:600;font-size:clamp(1.8rem,4.2vw,3.5rem);line-height:1.18;letter-spacing:-.03em;color:var(--d-ink);text-align:center}
+.statement .w{transition:color .1s}
+.statement .glow{color:#9fe3ff}
+
+/* ---------- Circuito de productos ---------- */
+.circuit{position:relative;padding:40px 0 120px;overflow:hidden}
+.circuit .sec-head h2,.solo .sec-head h2{font-size:clamp(2.1rem,4.6vw,3.4rem)}
+.circuit .sec-head p,.solo .sec-head p{color:var(--d-soft)}
+.cx{position:relative;max-width:1100px;margin:40px auto 0;padding:0 20px}
+.cx-orb{position:relative;z-index:2;width:112px;height:112px;margin:0 auto;filter:drop-shadow(0 0 40px rgba(55,201,253,.55))}
+.cx-orb svg{width:100%;height:100%}
+.cx svg.wires{display:block;width:100%;height:190px;margin-top:-10px;overflow:visible}
+.wire-bg{fill:none;stroke:rgba(255,255,255,.08);stroke-width:2}
+.wire{fill:none;stroke:url(#wire-grad);stroke-width:2.5;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(55,201,253,.8))}
+.cx-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:-2px}
+.cx-card{position:relative;padding:28px;border-radius:var(--r-lg);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid var(--d-line);transition:border-color .5s,box-shadow .5s,transform .5s var(--ease)}
+.cx-card.lit{border-color:rgba(55,201,253,.5);box-shadow:0 0 0 1px rgba(55,201,253,.15),0 24px 60px rgba(18,174,242,.16)}
+.cx-card .ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(55,201,253,.1);color:var(--glow)}
+.cx-card h3{margin-top:18px;font-size:1.4rem}
+.cx-card .for{margin-top:4px;font-size:.88rem;font-weight:600;color:#9fe3ff}
+.cx-card p{margin-top:12px;font-size:.98rem}
+.cx-card a{display:inline-block;margin-top:16px;font-weight:600;font-size:.92rem;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:2px}
+.cx-card a:hover{border-color:#fff}
+
+/* ---------- Solo en Miracle ---------- */
+.solo{padding:60px 0 140px}
+.solo-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:72px;align-items:center;margin-top:110px}
+.solo-row:nth-child(even) .solo-copy{order:2}
+.badge-only{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(55,201,253,.1);border:1px solid rgba(55,201,253,.3);color:#9fe3ff;font-size:.82rem;font-weight:600}
+.solo-copy h3{margin-top:18px;font-size:clamp(1.8rem,3.4vw,2.6rem);letter-spacing:-.03em}
+.solo-copy > p{margin-top:16px;font-size:1.08rem}
+.solo .checks li{color:var(--d-soft)}
+.solo .checks li::before{background-color:rgba(183,240,216,.14)}
+.solo .mock{box-shadow:0 40px 100px rgba(0,0,0,.45);border-color:rgba(255,255,255,.08)}
+
+/* ---------- Claro: cifra, cinta y mosaico ---------- */
+.numbers{padding:120px 0 40px;text-align:center}
+.odo{display:inline-flex;align-items:flex-end;font-family:var(--f-display);font-weight:600;font-size:clamp(6rem,18vw,15rem);line-height:.9;letter-spacing:-.06em;color:var(--deep)}
+.odo .digit{display:inline-block;height:.9em;overflow:hidden;position:relative}
+.odo .reel{display:flex;flex-direction:column}
+.odo .reel span{height:.9em;display:block}
+.numbers h2{margin-top:14px;font-size:clamp(1.6rem,3.2vw,2.3rem)}
+.numbers p{margin:12px auto 0;max-width:36rem;color:var(--ink-soft);font-size:1.08rem}
+.marquee{margin-top:56px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;background:var(--surface);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marquee-track{display:flex;gap:12px;width:max-content;padding:20px 0;animation:marq 70s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-track span{flex:none;padding:9px 18px;border-radius:999px;border:1px solid var(--line);background:var(--canvas);font-size:.95rem;font-weight:500;color:var(--ink-soft)}
+@keyframes marq{to{transform:translateX(-50%)}}
+.bento{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:minmax(190px,auto);gap:18px;margin-top:56px}
+.bx{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);padding:26px;display:flex;flex-direction:column;overflow:hidden;position:relative}
+.bx h3{font-size:1.2rem}
+.bx p{margin-top:8px;color:var(--ink-soft);font-size:.96rem}
+.bx.a{grid-column:span 3;grid-row:span 2;background:var(--deep);border-color:var(--deep)}
+.bx.a h3{color:#fff;font-size:1.6rem}
+.bx.a p{color:#b9c5d8}
+.bx.b,.bx.c{grid-column:span 3}
+.bx.d,.bx.e,.bx.f{grid-column:span 2}
+.bx .vis{margin-top:auto;padding-top:20px}
+.sig{display:flex;align-items:center;gap:14px;padding:16px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#fff;font-size:.9rem}
+.sig code{display:block;margin-top:4px;font-family:var(--f-mono,ui-monospace),monospace;font-size:.76rem;color:#9fe3ff;word-break:break-all}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{padding:6px 12px;border-radius:999px;background:var(--ice-soft);color:var(--accent-ink);font-size:.82rem;font-weight:600}
+
+/* ---------- Bajo el capó (claro) ---------- */
+.hood{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin-top:56px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden}
+.hood > div{background:var(--surface);padding:32px}
+.hood svg{color:var(--accent)}
+.hood h3{margin-top:16px;font-size:1.15rem}
+.hood p{margin-top:8px;color:var(--ink-soft);font-size:.96rem}
+
+/* ---------- CTA final oscuro con QR ---------- */
+.closing{position:relative;overflow:hidden;padding:140px 0}
+.closing::before{content:"";position:absolute;left:50%;top:100%;width:1200px;height:900px;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(55,201,253,.22),transparent 70%)}
+.closing .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:56px;align-items:center}
+.closing h2{font-size:clamp(2.2rem,5vw,4rem);letter-spacing:-.04em}
+.closing p{margin-top:18px;font-size:1.15rem;max-width:34rem}
+.closing .ctas{margin-top:32px;display:flex;gap:12px;flex-wrap:wrap}
+.qr{justify-self:end;text-align:center;padding:22px;border-radius:var(--r-lg);background:rgba(255,255,255,.04);border:1px solid var(--d-line)}
+.qr-box{width:176px;height:176px;margin:0 auto;padding:12px;border-radius:14px;background:#fff;display:grid;place-items:center}
+.qr-box img,.qr-box svg{width:100%;height:100%;image-rendering:pixelated}
+.qr p{margin-top:14px;font-size:.88rem;color:var(--d-muted);max-width:180px}
+
+@media (max-width:1024px){
+  .cx-cards{grid-template-columns:1fr}
+  .cx svg.wires{display:none}
+  .cx-orb{margin-bottom:28px}
+  .solo-row{grid-template-columns:1fr;gap:40px;margin-top:80px}
+  .solo-row:nth-child(even) .solo-copy{order:0}
+  .bento{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .bx.a,.bx.b,.bx.c,.bx.d,.bx.e,.bx.f{grid-column:span 2;grid-row:auto}
+  .hood{grid-template-columns:1fr}
+  .closing .wrap{grid-template-columns:1fr}
+  .qr{justify-self:start}
+}
+@media (max-width:899px){
+  .device-wrap{--dw:min(560px,94vw);top:40%}
+  .hero-copy{top:96px}
+  .steps-panel{left:20px;right:20px;top:auto;bottom:max(28px,4vh);transform:none;width:auto}
+  .sp-items{min-height:150px;margin-top:16px}
+  .sp-item h2{font-size:1.6rem}
+  .sp-item p{font-size:.98rem;margin-top:8px}
+  .sp-item .kw{display:none}
+  .static .sp-items{grid-template-columns:1fr 1fr}
+}
+@media (max-width:600px){
+  .static .sp-items{grid-template-columns:1fr}
+  .statement{padding:16vh 0}
+  .qr{display:none}
+}
+
+/* GSAP manda en estos elementos: sin transiciones CSS que lo frenen */
+.app *, .bar b, .finds li, .solo .mock, .solo-copy > *{transition:none!important}
+.cx-card{transition:border-color .5s,box-shadow .5s}
+@media (max-width:1024px){.bento{grid-auto-rows:auto}.bx{min-height:0}}
+.hdr{position:fixed;left:0;right:0;top:0}
+.bar b{transform:scaleY(1)}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+
+<!-- SVG reutilizables -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="orb-core" cx="43%" cy="41%" r="64%"><stop offset="0%" stop-color="#57d2fd"/><stop offset="30%" stop-color="#37c9fd"/><stop offset="62%" stop-color="#12aef2"/><stop offset="100%" stop-color="#0a9aea"/></radialGradient>
+    <radialGradient id="orb-rim" cx="50%" cy="50%" r="50%"><stop offset="68%" stop-color="#fff" stop-opacity="0"/><stop offset="88%" stop-color="#c8ecff" stop-opacity=".45"/><stop offset="97%" stop-color="#fff" stop-opacity=".92"/><stop offset="100%" stop-color="#fff"/></radialGradient>
+    <radialGradient id="orb-halo" cx="50%" cy="50%" r="50%"><stop offset="52%" stop-color="#7fd8ff" stop-opacity=".42"/><stop offset="72%" stop-color="#7fd8ff" stop-opacity=".18"/><stop offset="100%" stop-color="#7fd8ff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="orb-spec" cx="32%" cy="30%" r="42%"><stop offset="0%" stop-color="#fff" stop-opacity=".5"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <symbol id="orb" viewBox="0 0 512 512">
+      <circle cx="256" cy="256" r="240" fill="url(#orb-halo)"/>
+      <circle cx="256" cy="256" r="168" fill="url(#orb-core)"/>
+      <circle cx="256" cy="256" r="168" fill="url(#orb-spec)"/>
+      <circle cx="256" cy="256" r="168" fill="url(#orb-rim)"/>
+      <circle cx="256" cy="256" r="166" fill="none" stroke="#fff" stroke-opacity=".95" stroke-width="4"/>
+      <path d="M152 194A166 166 0 0 1 322 93" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".85"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="hdr" id="top">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="Miracle, inicio">
+      <svg width="34" height="34" aria-hidden="true"><use href="#orb"/></svg>
+      <span>Miracle</span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="#soluciones">Soluciones</a>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#planes">Planes</a>
+      <a href="#blog">Blog</a>
+      <a href="#seguridad">Seguridad</a>
+    </nav>
+    <div class="hdr-cta">
+      <a class="login" href="https://itsmiracleai.com.co/login">Ingresar</a>
+      <a class="btn btn-primary" href="#agendar">Agendar demo</a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="mnav" aria-label="Abrir menú">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<nav class="mnav" id="mnav" aria-label="Menú móvil">
+  <a href="#soluciones">Soluciones</a>
+  <a href="#como-funciona">Cómo funciona</a>
+  <a href="#planes">Planes</a>
+  <a href="#blog">Blog</a>
+  <a href="#seguridad">Seguridad</a>
+  <a href="https://itsmiracleai.com.co/login">Ingresar</a>
+</nav>
+
+<main id="main">
+
+<!-- 1 · INICIO + CÓMO FUNCIONA: un solo escenario que el scroll va contando -->
+<section class="stage dark" id="como-funciona" data-theme="dark" aria-labelledby="h1">
+  <div class="hero-copy">
+    <h1 id="h1"><span class="split">Usted atiende al paciente.</span> <span class="l2 split">Miracle escribe la historia clínica.</span></h1>
+    <p>Escucha la consulta, arma la nota, sugiere CIE-10 y CUPS y revisa que no falte nada antes de que usted firme.</p>
+    <div class="ctas">
+      <a class="btn btn-primary" href="#agendar">Agendar una demo</a>
+      <a class="btn btn-dark-ghost" href="#planes">Ver planes</a>
+    </div>
+  </div>
+
+  <div class="device-wrap" aria-hidden="true">
+    <div class="device">
+      <div class="lid">
+        <div class="lid-front">
+          <div class="screen">
+            <div class="screen-inner">
+              <div class="app">
+                <div class="app-bar">
+                  <div class="app-brand"><svg width="22" height="22"><use href="#orb"/></svg>Notes</div>
+                  <div class="app-rec done" id="appRec"><i></i><span id="appRecLabel">Consulta terminada</span><time id="appClock">04:12</time></div>
+                  <div class="app-user">Dra. Restrepo · Medicina general<b>MR</b></div>
+                </div>
+                <div class="app-body">
+                  <div class="app-tr" id="appTr">
+                    <div class="app-label">Lo que se dice en la consulta</div>
+                    <div class="utt md"><span class="who">Médica</span><p>Buenos días. Cuénteme, ¿qué la trae hoy?</p></div>
+                    <div class="utt pt"><span class="who">Paciente</span><p>Desde hace tres días me duele la garganta y en las noches me da fiebre.</p></div>
+                    <div class="utt md"><span class="who">Médica</span><p>¿Ha tenido tos o le duele al tragar?</p></div>
+                    <div class="utt pt"><span class="who">Paciente</span><p>Me duele mucho al tragar. Tos casi nada. Ah, y soy alérgica a la penicilina.</p></div>
+                    <div class="utt md"><span class="who">Médica</span><p>Veo las amígdalas grandes, con placas, y los ganglios del cuello inflamados.</p></div>
+                  </div>
+                  <div class="app-doc">
+                    <div class="app-doc-h"><span>Nota clínica · Consulta de primera vez</span><span id="appSaved">Firmada</span></div>
+                    <div class="ns"><div class="h">Motivo de consulta</div><p class="ws">Odinofagia y fiebre nocturna de tres días de evolución.</p></div>
+                    <div class="ns"><div class="h">Enfermedad actual</div><p class="ws">Paciente de 34 años con dolor faríngeo de tres días, fiebre nocturna no cuantificada y odinofagia intensa. Niega tos. Alergia a penicilina.</p></div>
+                    <div class="ns"><div class="h">Examen físico</div><p class="ws">Amígdalas hipertróficas con exudado bilateral. Adenopatías cervicales anteriores dolorosas.</p></div>
+                    <div class="ns"><div class="h">Diagnóstico y plan</div><p class="ws">Faringoamigdalitis aguda. Antibiótico no betalactámico por siete días, analgésico y signos de alarma explicados.</p>
+                      <div class="app-codes">
+                        <span class="code"><strong>J03.9</strong>Amigdalitis aguda <em>96 %</em></span>
+                        <span class="code"><strong>890201</strong>Consulta primera vez <em>99 %</em></span>
+                      </div>
+                      <div class="app-audit"><span class="pill ok">Auditoría</span><span><b>Sin hallazgos críticos.</b> La alergia quedó registrada.</span></div>
+                    </div>
+                    <div class="app-sign">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b7f0d8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                      <div>Firmada por la Dra. Restrepo<small>Huella 3f9a…c21e · 10:52 a. m.</small></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="lid-back"><svg viewBox="0 0 512 512"><use href="#orb"/></svg></div>
+      </div>
+      <div class="deck"><div class="deck-top"></div><div class="deck-front"></div></div>
+    </div>
+  </div>
+
+  <div class="steps-panel">
+    <div class="sp-count" aria-hidden="true"><span id="spNum">01</span><span class="sp-bar"><i id="spBar"></i></span><span class="of">04</span></div>
+    <div class="sp-items">
+      <div class="sp-item"><h2>Usted atiende</h2><p>Con el consentimiento del paciente, inicia la grabación y conversa como siempre. Sin teclado de por medio.</p><span class="kw">Transcripción en vivo</span></div>
+      <div class="sp-item"><h2>Miracle escribe</h2><p>La nota se arma por secciones con la plantilla de su especialidad, en lenguaje técnico y sin siglas sueltas.</p><span class="kw">49 especialidades</span></div>
+      <div class="sp-item"><h2>Codifica y revisa</h2><p>Sugiere CIE-10 y CUPS con su nivel de confianza y le avisa si a la nota le falta algo de lo que se dijo.</p><span class="kw">Auditoría antes de firmar</span></div>
+      <div class="sp-item"><h2>Usted firma</h2><p>Ajusta lo que quiera y firma. La nota queda con huella digital y lista para la historia clínica o para RIPS.</p><span class="kw">Firma electrónica</span></div>
+    </div>
+  </div>
+
+  <div class="scroll-hint" aria-hidden="true"><i></i>Desplácese para ver una consulta</div>
+</section>
+
+<section class="statement dark" data-theme="dark" aria-label="Por qué existe Miracle">
+  <p class="split-words">La mitad de una consulta se va escribiendo. Miracle le devuelve ese tiempo al paciente, y a usted las noches que hoy se van terminando notas.</p>
+</section>
+
+<!-- 2 · SOLUCIONES -->
+<section class="circuit dark" id="soluciones" data-theme="dark" aria-labelledby="h-sol">
+  <div class="wrap">
+    <div class="sec-head center">
+      <h2 id="h-sol">Un cerebro, tres productos</h2>
+      <p>Todo sale de la misma consulta. Notes la escribe, Analytics la vuelve números para la gerencia y Auditorías la revisa.</p>
+    </div>
+  </div>
+  <div class="cx">
+    <div class="cx-orb" aria-hidden="true"><svg viewBox="0 0 512 512"><use href="#orb"/></svg></div>
+    <svg class="wires" viewBox="0 0 1060 190" preserveAspectRatio="none" aria-hidden="true">
+      <defs><linearGradient id="wire-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fe3ff"/><stop offset="1" stop-color="#2f6fe0"/></linearGradient></defs>
+      <path class="wire-bg" d="M530 0 V60 Q530 90 500 90 H205 Q175 90 175 120 V190"/>
+      <path class="wire-bg" d="M530 0 V190"/>
+      <path class="wire-bg" d="M530 0 V60 Q530 90 560 90 H855 Q885 90 885 120 V190"/>
+      <path class="wire" d="M530 0 V60 Q530 90 500 90 H205 Q175 90 175 120 V190"/>
+      <path class="wire" d="M530 0 V190"/>
+      <path class="wire" d="M530 0 V60 Q530 90 560 90 H855 Q885 90 885 120 V190"/>
+    </svg>
+    <div class="cx-cards">
+      <article class="cx-card">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></div>
+        <h3>Notes</h3><p class="for">Para médicos y especialistas</p>
+        <p>La nota clínica escrita mientras usted atiende, con códigos sugeridos, firma y exportación a PDF y RIPS.</p>
+        <a href="#solo-notes">Cómo funciona Notes</a>
+      </article>
+      <article class="cx-card">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></div>
+        <h3>Analytics</h3><p class="for">Para dirección médica y gerencia</p>
+        <p>Consultas, notas firmadas y adopción por médico y por servicio, con datos reales de su institución.</p>
+        <a href="#solo-analytics">Cómo funciona Analytics</a>
+      </article>
+      <article class="cx-card">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <h3>Auditorías</h3><p class="for">Para auditoría médica y calidad</p>
+        <p>Cada nota revisada antes de firmar: qué falta, qué no cuadra y la frase de la consulta que lo respalda.</p>
+        <a href="#solo-audit">Cómo funciona Auditorías</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="solo dark" data-theme="dark" aria-labelledby="h-solo">
+  <div class="wrap">
+    <div class="sec-head center">
+      <h2 id="h-solo">Lo que solo hace Miracle</h2>
+      <p>Tres cosas que un dictado o un formulario no resuelven.</p>
+    </div>
+
+    <div class="solo-rows">
+      <div class="solo-row" id="solo-audit">
+        <div class="solo-copy">
+          <span class="badge-only">Solo en Miracle</span>
+          <!-- PENDIENTE (jefe): confirmar qué es "Lics" (¿RIPS?, ¿HIS?) para ajustar este bloque. -->
+          <h3>Cada hallazgo trae la frase exacta de la consulta</h3>
+          <p>Auditorías compara la nota con lo que se habló. Si el paciente mencionó una alergia y no quedó escrita, se lo muestra con la cita, antes de firmar y antes de que llegue a RIPS.</p>
+          <ul class="checks">
+            <li>Hallazgos críticos, advertencias y sugerencias</li>
+            <li>Coherencia entre diagnóstico, códigos y plan</li>
+            <li>Panel de notas por revisar para el auditor</li>
+          </ul>
+        </div>
+        <div class="mock reveal" aria-hidden="true">
+          <div class="mock-top"><i></i><i></i><i></i><span>Auditoría · Consulta de hoy, 10:40</span></div>
+          <div class="mock-in">
+            <div class="audit-head"><div><b>Completitud de la nota</b><small>3 hallazgos antes de firmar</small></div><div class="ring" style="--p:82"><span>82 %</span></div></div>
+            <ul class="finds">
+              <li><div class="t"><span class="pill bad">Crítico</span><b>El plan no tiene diagnóstico codificado</b></div>Agregue el CIE-10 sugerido o elija otro.</li>
+              <li><div class="t"><span class="pill warn">Advertencia</span><b>Alergias sin registrar</b></div>Se mencionaron en la consulta y no aparecen en la nota.<q>Soy alérgica a la penicilina, doctora.</q></li>
+              <li><div class="t"><span class="pill info">Sugerencia</span><b>Especifique la duración del tratamiento</b></div>La dosis está, los días no.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="solo-row" id="solo-notes">
+        <div class="solo-copy">
+          <span class="badge-only">Solo en Miracle</span>
+          <h3>Una plantilla para cada una de 49 especialidades</h3>
+          <p>No es lo mismo una consulta de psiquiatría que una de urgencias. Notes sabe qué secciones lleva cada una, y usted puede crear las suyas.</p>
+          <ul class="checks">
+            <li>Psiquiatría separa el plan farmacológico del tratamiento actual</li>
+            <li>Neuropsicología infantil tiene reunión con padres y sesión con el niño</li>
+            <li>La identificación del paciente cambia según la especialidad</li>
+          </ul>
+        </div>
+        <div class="mock reveal" aria-hidden="true">
+          <div class="mock-top"><i></i><i></i><i></i><span>Notes · Nueva consulta</span></div>
+          <div class="mock-in">
+            <div class="tpl">
+              <div class="sel"><b>Psiquiatría</b>Consulta inicial</div>
+              <div><b>Urgencias</b>Triage</div>
+              <div><b>Pediatría</b>Control</div>
+            </div>
+            <div class="docmini">
+              <div class="h5">Examen mental</div>
+              <p>Alerta, orientada en las tres esferas. Afecto ansioso, pensamiento lógico, sin ideas de muerte.</p>
+              <div class="h5">Plan farmacológico</div>
+              <p>Inicia sertralina 50 mg al día. Control en cuatro semanas.</p>
+              <div class="row"><span>Autoguardado hace 2 s</span><span class="pill ok">Firmada</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="solo-row" id="solo-analytics">
+        <div class="solo-copy">
+          <span class="badge-only">Solo en Miracle</span>
+          <h3>La gerencia ve el servicio sin pedirle un informe a nadie</h3>
+          <p>Analytics toma lo que ya pasa en cada consulta y lo convierte en números: cuántas notas se firman el mismo día, qué servicios adoptaron la herramienta y qué lotes RIPS están listos.</p>
+          <ul class="checks">
+            <li>Adopción por médico, por área y por servicio</li>
+            <li>Tiempo de grabación y de documentación</li>
+            <li>Reportes descargables para la junta</li>
+          </ul>
+        </div>
+        <div class="mock reveal" aria-hidden="true">
+          <div class="mock-top"><i></i><i></i><i></i><span>Analytics · Últimos 30 días</span></div>
+          <div class="mock-in">
+            <div class="kpis">
+              <div class="kpi"><small>Notas firmadas</small><strong data-count="1284">1.284</strong><span>+18 % vs. mes anterior</span></div>
+              <div class="kpi"><small>Firmadas el mismo día</small><strong data-count="92" data-suffix=" %">92 %</strong><span>+11 puntos</span></div>
+              <div class="kpi"><small>Médicos activos</small><strong data-count="37">37</strong><span>de 40</span></div>
+            </div>
+            <div class="chart">
+              <div class="chart-h">Consultas por semana<div class="legend"><span><i style="background:var(--accent)"></i>Grabadas</span><span><i style="background:#0f9b6c"></i>Firmadas</span></div></div>
+              <div class="bars">
+                <div class="bar"><b style="--h:52%"></b><b style="--h:44%"></b><small>S1</small></div>
+                <div class="bar"><b style="--h:61%"></b><b style="--h:55%"></b><small>S2</small></div>
+                <div class="bar"><b style="--h:58%"></b><b style="--h:54%"></b><small>S3</small></div>
+                <div class="bar"><b style="--h:74%"></b><b style="--h:70%"></b><small>S4</small></div>
+                <div class="bar"><b style="--h:82%"></b><b style="--h:79%"></b><small>S5</small></div>
+                <div class="bar"><b style="--h:90%"></b><b style="--h:88%"></b><small>S6</small></div>
+              </div>
+            </div>
+            <p class="sample">Datos de ejemplo</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Claro: cifra, especialidades y todo lo que incluye -->
+<section class="numbers" data-theme="light" aria-labelledby="h-num">
+  <div class="wrap">
+    <div class="odo" id="odo" aria-label="49"><span>49</span></div>
+    <h2 id="h-num">especialidades, cada una con su nota</h2>
+    <p>Desde medicina general hasta neuropsicología infantil. Y si la suya no está, usted arma la plantilla.</p>
+  </div>
+  <div class="marquee" aria-label="Especialidades incluidas">
+    <div class="marquee-track" id="marquee"></div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:80px" data-theme="light" aria-labelledby="h-bento">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-bento">Todo lo que necesita para cerrar la consulta</h2>
+      <p>Lo que hoy hace en tres programas distintos, en una sola pantalla.</p>
+    </div>
+    <div class="bento">
+      <div class="bx a">
+        <h3>Firma electrónica con huella digital</h3>
+        <p>Al firmar, la nota queda sellada. Cualquier cambio posterior se nota, y cada acción queda registrada con quién y cuándo.</p>
+        <div class="vis"><div class="sig"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#b7f0d8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><div>Firmada por la Dra. Restrepo<code>sha256 · 3f9a8e41d07b…c21e</code></div></div></div>
+      </div>
+      <div class="bx b"><h3>CIE-10 y CUPS sugeridos</h3><p>Con nivel de confianza. Usted acepta o cambia.</p><div class="vis chips"><span>J03.9 · 96 %</span><span>890201 · 99 %</span><span>R50.9 · 71 %</span></div></div>
+      <div class="bx c"><h3>RIPS y PDF</h3><p>La nota firmada sale lista para la historia clínica y el lote RIPS sale desde Reportes.</p></div>
+      <div class="bx d"><h3>Agenda desde una foto</h3><p>Tome una foto de la agenda del día y Notes la carga.</p></div>
+      <div class="bx e"><h3>Dictado por voz</h3><p>Para agregar algo a una sección sin escribir.</p></div>
+      <div class="bx f"><h3>Patología por foto</h3><p>El informe sale a partir de la hoja manuscrita.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="seguridad" style="padding-top:20px" data-theme="light" aria-labelledby="h-sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-sec">Bajo el capó: la última palabra es del médico</h2>
+      <p>Miracle propone y usted decide. La información de cada institución es solo suya.</p>
+    </div>
+    <div class="hood">
+      <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m16 11 2 2 4-4"/></svg><h3>Revisión humana</h3><p>Nada entra a la historia clínica sin que el médico lo apruebe y lo firme.</p></div>
+      <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><h3>Datos aislados por institución</h3><p>Cada IPS ve solo lo suyo, con roles de médico, supervisor, jefe de área y administrador.</p></div>
+      <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v4M12 19v4M4.2 4.2l2.8 2.8M17 17l2.8 2.8M1 12h4M19 12h4M4.2 19.8 7 17M17 7l2.8-2.8"/><circle cx="12" cy="12" r="4"/></svg><h3>Transcripción médica en español</h3><p>Pensada para el vocabulario clínico de Colombia. El audio va directo al servicio de transcripción, sin pasar por nuestro servidor.</p></div>
+    </div>
+  </div>
+</section>
+<!-- 3 · PLANES -->
+<section class="sec" id="planes" aria-labelledby="h-plan">
+  <div class="wrap">
+    <div class="sec-head center">
+      <h2 id="h-plan">Un plan para su consultorio, otro para su institución</h2>
+      <p>Si trabaja por su cuenta, pruebe Notes gratis. Si dirige una IPS o una clínica, armamos la licencia según el tamaño de su equipo.</p>
+    </div>
+    <div class="plans">
+      <article class="plan">
+        <div class="plan-top"><h3>Notes</h3><span class="pill ok">14 días gratis</span></div>
+        <p class="for">Para el médico independiente.</p>
+        <!-- PENDIENTE (jefe): precio mensual. En el código del portal sigue "por confirmar". -->
+        <p class="price">Precio de lanzamiento<small>Se lo compartimos en la demo, en pesos colombianos, por mes.</small></p>
+        <ul class="checks">
+          <li>Consultas ilimitadas con grabación en vivo</li>
+          <li>Nota clínica estructurada y firma electrónica</li>
+          <li>Codificación CIE-10 y CUPS sugerida</li>
+          <li>Plantillas para 49 especialidades</li>
+          <li>Agenda del día e importación desde foto</li>
+          <li>Exportación a PDF para su historia clínica</li>
+        </ul>
+        <a class="btn btn-ghost" href="https://itsmiracleai.com.co/registro">Empezar la prueba gratis</a>
+        <p class="fine">Cancela cuando quiera. Sus notas no se borran.</p>
+      </article>
+      <article class="plan feat">
+        <div class="plan-top"><h3>Institucional</h3><span class="pill info">IPS, clínicas y hospitales</span></div>
+        <p class="for">Para equipos médicos de cualquier tamaño.</p>
+        <p class="price">A la medida<small>Licencias por grupo de médicos, con cupo mensual de uso.</small></p>
+        <ul class="checks">
+          <li>Notes para cada médico del servicio</li>
+          <li>Analytics para la dirección y la gerencia</li>
+          <li>Auditorías de cada nota antes de firmar</li>
+          <li>Usuarios, roles y áreas administrados por ustedes</li>
+          <li>Piloto medible antes de firmar contrato</li>
+          <li>La institución paga. Sus médicos solo atienden</li>
+        </ul>
+        <a class="btn btn-primary" href="#agendar" data-plan="Institucional">Agendar una demo para mi institución</a>
+        <p class="fine">Le respondemos en menos de un día hábil.</p>
+      </article>
+    </div>
+
+    <div class="compare">
+      <table>
+        <caption class="skip" style="position:absolute;left:-999px">Comparación de planes</caption>
+        <thead><tr><th scope="col">Qué incluye</th><th scope="col">Notes</th><th scope="col">Institucional</th></tr></thead>
+        <tbody>
+          <tr><td>Nota clínica con IA y firma</td><td class="yes">Sí</td><td class="yes">Sí</td></tr>
+          <tr><td>CIE-10, CUPS y exportación RIPS</td><td class="yes">Sí</td><td class="yes">Sí</td></tr>
+          <tr><td>Auditoría de la nota antes de firmar</td><td class="yes">Sí</td><td class="yes">Sí, con panel para auditores</td></tr>
+          <tr><td>Analytics para la gerencia</td><td class="no">No</td><td class="yes">Sí</td></tr>
+          <tr><td>Varios médicos, roles y áreas</td><td class="no">No</td><td class="yes">Sí</td></tr>
+          <tr><td>Acompañamiento en la puesta en marcha</td><td class="no">No</td><td class="yes">Sí</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · BLOG -->
+<!-- PENDIENTE (jefe): reemplazar estos tres artículos por los posts de LinkedIn. -->
+<section class="sec blog" id="blog" aria-labelledby="h-blog">
+  <div class="wrap">
+    <div class="blog-head">
+      <div class="sec-head">
+        <h2 id="h-blog">Blog</h2>
+        <p>Lo que aprendemos documentando consultas con médicos en Colombia. Lo mismo que publicamos en LinkedIn, con más detalle.</p>
+      </div>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/" rel="noopener" target="_blank">Seguir a Miracle en LinkedIn</a>
+    </div>
+    <div class="posts">
+      <button class="post" type="button" data-post="0">
+        <div class="art" aria-hidden="true">
+          <svg viewBox="0 0 600 210" preserveAspectRatio="xMidYMid slice" width="100%" height="100%"><rect width="600" height="210" fill="#e7f0fe"/><rect x="60" y="40" width="250" height="150" rx="14" fill="#fdfcf9" stroke="#e9e3d6"/><rect x="82" y="64" width="90" height="8" rx="4" fill="#6d6a62" opacity=".5"/><rect x="82" y="84" width="200" height="8" rx="4" fill="#e9e3d6"/><rect x="82" y="100" width="180" height="8" rx="4" fill="#e9e3d6"/><rect x="82" y="124" width="70" height="8" rx="4" fill="#6d6a62" opacity=".5"/><rect x="82" y="144" width="190" height="8" rx="4" fill="#e9e3d6"/><circle cx="440" cy="110" r="62" fill="#fff"/><path d="M440 72v38l26 16" stroke="#2f6fe0" stroke-width="8" stroke-linecap="round" fill="none"/></svg>
+        </div>
+        <div class="txt"><span class="cat">Práctica clínica</span><h3>Dónde se va el tiempo de una consulta, y cómo recuperarlo</h3><p>Escribir mientras el paciente habla tiene un costo que no aparece en ninguna factura. Lo medimos en nuestro propio portal.</p><span class="meta">20 de octubre de 2026 · 4 min de lectura</span></div>
+      </button>
+      <button class="post" type="button" data-post="1">
+        <div class="art" aria-hidden="true">
+          <svg viewBox="0 0 400 150" preserveAspectRatio="xMidYMid slice" width="100%" height="100%"><rect width="400" height="150" fill="#e6f8ef"/><rect x="40" y="34" width="320" height="26" rx="8" fill="#fff"/><rect x="52" y="42" width="44" height="10" rx="5" fill="#fbe3df"/><rect x="104" y="43" width="150" height="8" rx="4" fill="#d4dbe6"/><rect x="40" y="68" width="320" height="26" rx="8" fill="#fff"/><rect x="52" y="76" width="44" height="10" rx="5" fill="#fdeecf"/><rect x="104" y="77" width="190" height="8" rx="4" fill="#d4dbe6"/><rect x="40" y="102" width="320" height="26" rx="8" fill="#fff"/><rect x="52" y="110" width="44" height="10" rx="5" fill="#eef4fe"/><rect x="104" y="111" width="120" height="8" rx="4" fill="#d4dbe6"/></svg>
+        </div>
+        <div class="txt"><span class="cat">Auditoría médica</span><h3>Seis cosas que revisar en una nota antes de firmarla</h3><p>Los hallazgos que más se repiten cuando una nota llega incompleta a auditoría.</p><span class="meta">13 de octubre de 2026 · 5 min de lectura</span></div>
+      </button>
+      <button class="post" type="button" data-post="2">
+        <div class="art" aria-hidden="true">
+          <svg viewBox="0 0 400 150" preserveAspectRatio="xMidYMid slice" width="100%" height="100%"><rect width="400" height="150" fill="#0c1424"/><rect x="50" y="48" width="130" height="54" rx="12" fill="#1d3358"/><text x="66" y="83" fill="#fff" font-family="Inter,sans-serif" font-size="22" font-weight="700">J03.9</text><rect x="200" y="48" width="150" height="54" rx="12" fill="#1d3358"/><text x="216" y="83" fill="#b7f0d8" font-family="Inter,sans-serif" font-size="22" font-weight="700">890201</text></svg>
+        </div>
+        <div class="txt"><span class="cat">Codificación</span><h3>CIE-10 y CUPS sin buscar en tablas</h3><p>Cómo propone Miracle los códigos, qué significa el nivel de confianza y cuándo conviene cambiarlo.</p><span class="meta">6 de octubre de 2026 · 3 min de lectura</span></div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<dialog class="reader" id="reader" aria-labelledby="reader-title">
+  <button class="reader-close" type="button" aria-label="Cerrar artículo" data-close>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+  <article class="reader-in">
+    <span class="cat" id="reader-cat"></span>
+    <h2 id="reader-title"></h2>
+    <p class="meta" id="reader-meta"></p>
+    <div class="body" id="reader-body"></div>
+    <div class="end"><span>¿Quiere verlo funcionando en su consulta?</span><a class="btn btn-primary" href="#agendar" data-close>Agendar una demo</a></div>
+  </article>
+</dialog>
+
+<!-- 5 · AGENDAR -->
+<!-- PENDIENTE (jefe): herramienta de agenda (¿Calendly, Cal.com, Google Calendar?). Por ahora la solicitud se envía por WhatsApp o correo con todos los datos. -->
+<section class="sec" id="agendar" aria-labelledby="h-book">
+  <div class="wrap book">
+    <div class="sec-head">
+      <h2 id="h-book">Agende una demo de 30 minutos</h2>
+      <p>Le mostramos Miracle con una consulta de su especialidad y resolvemos sus preguntas.</p>
+      <ul class="expect">
+        <li><span>1</span><div><b>Elija día y hora</b><p>De lunes a viernes, en hora de Colombia.</p></div></li>
+        <li><span>2</span><div><b>Le confirmamos</b><p>Por WhatsApp o correo, con el enlace de la videollamada.</p></div></li>
+        <li><span>3</span><div><b>Lo ve funcionando</b><p>Con una consulta de su especialidad y, si es una institución, una propuesta de piloto.</p></div></li>
+      </ul>
+      <p class="contact-alt">¿Prefiere escribirnos? <a href="https://wa.me/573134582806" target="_blank" rel="noopener">WhatsApp +57 313 458 2806</a> o <a href="mailto:dev@itsmiracleai.com">dev@itsmiracleai.com</a></p>
+    </div>
+
+    <div class="booker">
+      <form id="bookForm" novalidate>
+        <fieldset>
+          <legend>¿Cuándo le queda bien?</legend>
+          <div class="days" id="days" role="group" aria-label="Día"></div>
+          <div class="slots" id="slots" role="group" aria-label="Hora"></div>
+          <p class="tz">Hora de Colombia (GMT-5).</p>
+          <p class="slot-err" id="slotErr" role="alert">Elija un día y una hora para la demo.</p>
+        </fieldset>
+        <fieldset>
+          <legend>Sus datos</legend>
+          <div class="fields">
+            <div class="field"><label for="f-name">Nombre completo</label><input id="f-name" name="nombre" autocomplete="name" required><span class="err">Escriba su nombre.</span></div>
+            <div class="field"><label for="f-mail">Correo <span class="opt">(opcional)</span></label><input id="f-mail" name="correo" type="email" autocomplete="email"><span class="err">Escriba un correo válido, por ejemplo nombre@clinica.com.</span></div>
+            <div class="field"><label for="f-tel">WhatsApp</label><input id="f-tel" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" required><span class="err">Escriba un número de contacto.</span></div>
+            <div class="field"><label for="f-type">Usted es</label>
+              <select id="f-type" name="tipo" required>
+                <option value="">Elija una opción</option>
+                <option>Médico independiente</option>
+                <option>IPS o clínica</option>
+                <option>Hospital</option>
+                <option>Otro</option>
+              </select><span class="err">Elija una opción.</span></div>
+            <div class="field full inst-only" hidden><label for="f-org">Institución <span class="opt">(opcional)</span></label><input id="f-org" name="institucion" autocomplete="organization"></div>
+            <div class="field full inst-only" hidden><label for="f-size">¿Cuántos médicos usarían Miracle? <span class="opt">(opcional)</span></label>
+              <select id="f-size" name="medicos"><option value="">Elija una opción</option><option>1 a 4</option><option>5 a 20</option><option>21 a 100</option><option>Más de 100</option></select></div>
+          </div>
+        </fieldset>
+        <p class="summary" id="summary" hidden></p>
+        <button class="btn btn-primary" type="submit" id="submitBtn">Agendar mi demo</button>
+        <p class="privacy">Le confirmamos en menos de un día hábil. Usamos sus datos solo para coordinar la demo y no los compartimos.</p>
+      </form>
+      <div class="done" id="done" role="status" aria-live="polite">
+        <div class="tick"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#13795b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <h3>Solicitud lista</h3>
+        <p id="doneText">Abrimos WhatsApp con sus datos. Envíe el mensaje y le confirmamos la hora.</p>
+        <a class="btn btn-ghost" id="mailAlt" href="#">Prefiero enviarla por correo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0" aria-labelledby="h-faq">
+  <div class="wrap">
+    <div class="sec-head center"><h2 id="h-faq">Preguntas frecuentes</h2></div>
+    <div class="faq">
+      <details><summary>¿Miracle graba al paciente sin que lo sepa?<span class="pm" aria-hidden="true"></span></summary><p>No. La grabación se hace con el consentimiento del paciente y el médico decide cuándo empieza y cuándo termina.</p></details>
+      <details><summary>¿La IA firma la nota por mí?<span class="pm" aria-hidden="true"></span></summary><p>No. Miracle propone la nota y los códigos. Usted revisa, corrige y firma. Nada queda en la historia sin su aprobación.</p></details>
+      <details><summary>¿Sirve para mi especialidad?<span class="pm" aria-hidden="true"></span></summary><p>Notes trae plantillas para 49 especialidades, entre ellas medicina general, urgencias, psiquiatría, psicología y neuropsicología infantil, y usted puede crear las suyas.</p></details>
+      <details><summary>¿Cómo llevo la nota a mi software de historia clínica?<span class="pm" aria-hidden="true"></span></summary><p>La nota firmada se exporta a PDF o se copia por secciones. Para instituciones revisamos en la demo cómo conectarla con su sistema y con el reporte RIPS.</p></details>
+      <details><summary>¿Dónde quedan los datos de mis pacientes?<span class="pm" aria-hidden="true"></span></summary><p>Cada institución ve solo su información, con roles y permisos por usuario. Cada acción sobre una nota queda registrada y la nota firmada no se puede modificar.</p></details>
+      <details><summary>¿Puedo cancelar cuando quiera?<span class="pm" aria-hidden="true"></span></summary><p>Sí. Si es médico independiente, cancela desde su cuenta y conserva el acceso hasta el final del periodo pagado. Sus notas no se borran.</p></details>
+    </div>
+  </div>
+</section>
+
+
+<section class="closing dark" data-theme="dark" aria-labelledby="h-final">
+  <div class="wrap">
+    <div>
+      <h2 id="h-final">Su próxima consulta puede terminar con la nota lista</h2>
+      <p>Véalo con una consulta de su especialidad. Son 30 minutos.</p>
+      <div class="ctas">
+        <a class="btn btn-light" href="#agendar">Agendar una demo</a>
+        <a class="btn btn-dark-ghost" href="https://itsmiracleai.com.co/registro">Probar Notes gratis</a>
+      </div>
+    </div>
+    <div class="qr">
+      <div class="qr-box" id="qr"></div>
+      <p>Escanee con su celular y escríbanos por WhatsApp.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="wrap foot">
+    <div>
+      <a href="#top" class="logo" aria-label="Miracle, volver arriba"><svg width="30" height="30" aria-hidden="true"><use href="#orb"/></svg><span>Miracle</span></a>
+      <p>Para que el médico mire al paciente, no la pantalla.</p>
+    </div>
+    <div><p class="fh">Productos</p><ul><li><a href="#soluciones" data-tab="t-notes">Notes</a></li><li><a href="#soluciones" data-tab="t-analytics">Analytics</a></li><li><a href="#soluciones" data-tab="t-audit">Auditorías</a></li><li><a href="#planes">Planes</a></li></ul></div>
+    <div><p class="fh">Miracle</p><ul><li><a href="#como-funciona">Cómo funciona</a></li><li><a href="#seguridad">Seguridad</a></li><li><a href="#blog">Blog</a></li><li><a href="https://itsmiracleai.com.co/login">Ingresar</a></li></ul></div>
+    <div><p class="fh">Contacto</p><ul><li><a href="#agendar">Agendar demo</a></li><li><a href="https://wa.me/573134582806" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:dev@itsmiracleai.com">dev@itsmiracleai.com</a></li></ul></div>
+  </div>
+  <div class="wrap legal"><span>© 2026 Miracle. Colombia.</span><span>Miracle apoya la documentación clínica. Las decisiones clínicas son del médico.</span></div>
+</footer>
+
+<a class="wa" href="https://wa.me/573134582806?text=Hola%2C%20quiero%20conocer%20Miracle." target="_blank" rel="noopener" aria-label="Escribir a Miracle por WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+</a>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+(() => {
+  const WA = '573134582806';
+  const MAIL = 'dev@itsmiracleai.com';
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasGsap = !!(window.gsap && window.ScrollTrigger);
+  const animate = hasGsap && !reduce;
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  let lenis = null;
+
+  if (!animate) document.body.classList.add('static');
+  // El escenario fijo se arma desde arriba: al recargar no se restaura un scroll a medio camino.
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (!location.hash) scrollTo(0, 0);
+
+  /* ---------- Header: tema según la sección que tiene debajo ---------- */
+  const hdr = $('.hdr');
+  const darkSecs = $$('[data-theme="dark"]');
+  function headerTheme() {
+    const y = 36;
+    const onDark = darkSecs.some(s => { const r = s.getBoundingClientRect(); return r.top <= y && r.bottom > y; });
+    hdr.classList.toggle('on-dark', onDark);
+    hdr.classList.toggle('scrolled', scrollY > 8 && !onDark);
+  }
+  addEventListener('scroll', headerTheme, {passive:true}); headerTheme();
+
+  const menuBtn = $('.menu-btn'), mnav = $('#mnav');
+  const setMenu = open => { mnav.classList.toggle('open', open); menuBtn.setAttribute('aria-expanded', open); menuBtn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú'); };
+  menuBtn.addEventListener('click', () => setMenu(!mnav.classList.contains('open')));
+  mnav.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+  addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+
+  const navLinks = $$('.nav a');
+  const secObs = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) navLinks.forEach(a => a.getAttribute('href') === '#' + en.target.id ? a.setAttribute('aria-current','true') : a.removeAttribute('aria-current')); });
+  }, {rootMargin:'-45% 0px -50% 0px'});
+  ['como-funciona','soluciones','planes','blog','seguridad'].forEach(id => { const el = document.getElementById(id); if (el) secObs.observe(el); });
+
+  /* ---------- La pantalla del portátil se diseña a 1000 px y se escala ---------- */
+  const screen = $('.screen');
+  const fit = () => screen.style.setProperty('--s', screen.clientWidth / 1000);
+  new ResizeObserver(fit).observe(screen); fit();
+
+  /* ---------- Cinta de especialidades (lista real del portal) ---------- */
+  const specs = ['Medicina general','Medicina familiar','Medicina interna','Pediatría','Neonatología','Ginecología y obstetricia','Medicina de urgencias','Cardiología','Dermatología','Endocrinología','Gastroenterología','Geriatría','Hematología','Infectología','Nefrología','Neumología','Neurología','Oncología clínica','Psiquiatría','Psicología clínica','Neuropsicología','Reumatología','Alergología e inmunología','Dolor y cuidados paliativos','Medicina física y rehabilitación','Medicina laboral','Anestesiología','Cirugía general','Neurocirugía','Cirugía plástica','Ortopedia y traumatología','Oftalmología','Otorrinolaringología','Urología','Radiología','Patología','Genética médica'];
+  const track = $('#marquee');
+  [...specs, ...specs].forEach((s, i) => { const el = document.createElement('span'); el.textContent = s; if (i >= specs.length) el.setAttribute('aria-hidden','true'); track.appendChild(el); });
+
+  /* ---------- QR a WhatsApp ---------- */
+  try {
+    const q = qrcode(0, 'M'); q.addData(`https://wa.me/${WA}?text=${encodeURIComponent('Hola, quiero agendar una demo de Miracle.')}`); q.make();
+    $('#qr').innerHTML = q.createSvgTag({cellSize:4, margin:0, scalable:true});
+    $('#qr svg').setAttribute('aria-label','Código QR para escribir a Miracle por WhatsApp'); $('#qr svg').setAttribute('role','img');
+  } catch (e) { $('.qr') && ($('.qr').style.display = 'none'); }
+
+  /* ---------- Utilidades de texto ---------- */
+  function splitChars(el) {
+    const words = el.textContent.trim().split(/\s+/);
+    el.textContent = '';
+    words.forEach((w, i) => {
+      const ws = document.createElement('span'); ws.className = 'word';
+      [...w].forEach(c => { const s = document.createElement('span'); s.className = 'ch'; s.textContent = c; ws.appendChild(s); });
+      el.appendChild(ws); if (i < words.length - 1) el.appendChild(document.createTextNode(' '));
+    });
+    el.setAttribute('aria-label', words.join(' '));
+    return $$('.ch', el);
+  }
+  function splitWords(el) {
+    const words = el.textContent.trim().split(/\s+/);
+    el.innerHTML = words.map(w => `<span class="w">${w}</span>`).join(' ');
+    return $$('.w', el);
+  }
+
+  /* ---------- Conteo de cifras ---------- */
+  function countUp(root) {
+    $$('[data-count]', root).forEach(el => {
+      const end = +el.dataset.count, suf = el.dataset.suffix || '';
+      if (!animate) { el.textContent = end.toLocaleString('es-CO') + suf; return; }
+      const o = {v:0};
+      gsap.to(o, {v:end, duration:1.1, ease:'power3.out', onUpdate:() => el.textContent = Math.round(o.v).toLocaleString('es-CO') + suf});
+    });
+  }
+
+  if (!animate) { countUp(document); }
+  else {
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* Scroll suave */
+    if (window.Lenis) {
+      lenis = window.lenis = new Lenis({lerp:.14, wheelMultiplier:1.1, smoothWheel:true});
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(t => lenis.raf(t * 1000));
+      gsap.ticker.lagSmoothing(0);
+      document.addEventListener('click', e => {
+        const a = e.target.closest('a[href^="#"]'); if (!a) return;
+        const id = a.getAttribute('href'); if (id.length < 2) return;
+        const t = document.querySelector(id); if (!t) return;
+        e.preventDefault(); lenis.scrollTo(t, {offset: id === '#como-funciona' ? 0 : -78});
+      });
+    }
+
+    /* Hero: el titular entra letra por letra */
+    const chars = $$('.hero-copy .split').flatMap(splitChars);
+    gsap.from(chars, {yPercent:110, autoAlpha:0, rotate:6, duration:.9, ease:'power4.out', stagger:.018, delay:.15});
+    gsap.from('.hero-copy p, .hero-copy .ctas', {y:20, autoAlpha:0, duration:.8, ease:'power3.out', delay:.75, stagger:.1});
+
+    /* El escenario: el portátil se abre y cuenta la consulta */
+    const stage = $('.stage'), copy = $('.hero-copy'), dw = $('.device-wrap'), dev = $('.device'), lid = $('.lid');
+    const panel = $('.steps-panel'), items = $$('.sp-item'), utts = $$('#appTr .utt');
+    const wsets = $$('.app-doc .ws').map(splitWords);
+    const codes = $$('.app-codes .code'), audit = $('.app-audit'), sign = $('.app-sign');
+    const rec = $('#appRec'), recLabel = $('#appRecLabel'), clock = $('#appClock'), saved = $('#appSaved');
+    const spNum = $('#spNum'), spBar = $('#spBar');
+    const STEP_T = [2.0, 3.3, 4.9, 6.1];
+
+    gsap.set(dw, {xPercent:-50, yPercent:-50});
+    const mm = gsap.matchMedia();
+    mm.add({desk:'(min-width: 900px)', mob:'(max-width: 899px)'}, ctx => {
+      const desk = ctx.conditions.desk;
+      // Cerrado y visto desde arriba: se ve el dorso con el orbe. Negativo = mirar desde arriba / cerrar la tapa.
+      gsap.set(dev, {rotateX:-58, scale:desk ? .6 : .8});
+      gsap.set(dw, {y:() => innerHeight * (desk ? .16 : .2), x:0, scale:1});
+      gsap.set(lid, {rotateX:-89});
+      gsap.set(panel, {autoAlpha:0, y:20});
+      gsap.set(items, {autoAlpha:0, y:16});
+      gsap.set(utts, {autoAlpha:0, y:10});
+      wsets.flat().forEach(w => w.style.opacity = .1);
+      gsap.set(codes, {autoAlpha:0, scale:.85});
+      gsap.set([audit, sign], {autoAlpha:0, y:12});
+
+      const tl = gsap.timeline({
+        defaults:{ease:'none'},
+        scrollTrigger:{trigger:stage, start:'top top', end:() => '+=' + innerHeight * 4, scrub:true, pin:true, anticipatePin:1, invalidateOnRefresh:true,
+          onUpdate:self => {
+            const t = tl.time();
+            let k = 0; STEP_T.forEach((s, i) => { if (t >= s - .2) k = i; });
+            spNum.textContent = '0' + (k + 1);
+            spBar.style.transform = `scaleX(${(k + 1) / 4})`;
+            if (t < STEP_T[0]) { rec.className = 'app-rec'; recLabel.textContent = 'Lista para grabar'; clock.textContent = '00:00'; }
+            else if (t < STEP_T[3]) { rec.className = 'app-rec live'; recLabel.textContent = 'Grabando consulta';
+              const s = Math.round((t - STEP_T[0]) / (STEP_T[3] - STEP_T[0]) * 252); clock.textContent = String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); }
+            else { rec.className = 'app-rec done'; recLabel.textContent = 'Consulta terminada'; clock.textContent = '04:12'; }
+            saved.textContent = t >= STEP_T[3] + .2 ? 'Firmada' : t >= STEP_T[1] ? 'Autoguardado' : 'Borrador';
+          }}
+      });
+
+      tl.to(copy, {y:-140, autoAlpha:0, duration:.8, ease:'power1.in'}, 0)
+        .to('.scroll-hint', {autoAlpha:0, duration:.3}, 0)
+        .to(lid, {rotateX:0, duration:1.4, ease:'power2.inOut'}, .1)
+        .to(dev, {rotateX:-7, scale:1, duration:1.4, ease:'power2.inOut'}, .1)
+        .to(dw, {y:() => desk ? -innerHeight * .1 : -innerHeight * .07, duration:1.4, ease:'power2.inOut'}, .1)
+        .to(dw, {x:() => desk ? Math.min(innerWidth * .2, 290) : 0, scale:desk ? .86 : 1, duration:.7, ease:'power2.inOut'}, 1.5)
+        .to(panel, {autoAlpha:1, y:0, duration:.4}, 1.8)
+        // 1 · Usted atiende
+        .to(items[0], {autoAlpha:1, y:0, duration:.3}, STEP_T[0])
+        .to(utts.slice(0, 3), {autoAlpha:1, y:0, duration:.3, stagger:.35}, STEP_T[0] + .1)
+        // 2 · Miracle escribe
+        .to(items[0], {autoAlpha:0, y:-16, duration:.25}, STEP_T[1])
+        .to(items[1], {autoAlpha:1, y:0, duration:.3}, STEP_T[1] + .15)
+        .to(utts.slice(3), {autoAlpha:1, y:0, duration:.3, stagger:.3}, STEP_T[1])
+        .to(wsets[0], {opacity:1, duration:.05, stagger:.02}, STEP_T[1] + .2)
+        .to(wsets[1], {opacity:1, duration:.05, stagger:.02}, STEP_T[1] + .45)
+        .to(wsets[2], {opacity:1, duration:.05, stagger:.02}, STEP_T[1] + .95)
+        // 3 · Codifica y revisa
+        .to(items[1], {autoAlpha:0, y:-16, duration:.25}, STEP_T[2])
+        .to(items[2], {autoAlpha:1, y:0, duration:.3}, STEP_T[2] + .15)
+        .to(wsets[3], {opacity:1, duration:.05, stagger:.02}, STEP_T[2])
+        .to(codes, {autoAlpha:1, scale:1, duration:.25, stagger:.2, ease:'back.out(2)'}, STEP_T[2] + .45)
+        .to(audit, {autoAlpha:1, y:0, duration:.3}, STEP_T[2] + .85)
+        // 4 · Usted firma
+        .to(items[2], {autoAlpha:0, y:-16, duration:.25}, STEP_T[3])
+        .to(items[3], {autoAlpha:1, y:0, duration:.3}, STEP_T[3] + .15)
+        .to(sign, {autoAlpha:1, y:0, duration:.35, ease:'back.out(1.6)'}, STEP_T[3] + .25)
+        .to({}, {duration:.7});
+      return () => { wsets.flat().forEach(w => w.style.opacity = ''); };
+    });
+
+    /* Párrafo que se ilumina palabra por palabra */
+    const sw = splitWords($('.split-words'));
+    gsap.fromTo(sw, {color:'#33435c'}, {color:'#eef3fa', stagger:.1, ease:'none',
+      scrollTrigger:{trigger:'.statement', start:'top 70%', end:'bottom 65%', scrub:true}});
+
+    /* Circuito: las líneas salen del orbe y encienden cada producto */
+    const wires = $$('.wire'), cards = $$('.cx-card');
+    wires.forEach(p => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; });
+    gsap.from('.cx-orb', {scale:.6, autoAlpha:0, duration:.8, ease:'back.out(1.7)', scrollTrigger:{trigger:'.cx', start:'top 80%'}});
+    gsap.to(wires, {strokeDashoffset:0, ease:'none', scrollTrigger:{trigger:'.cx', start:'top 65%', end:'top 20%', scrub:true,
+      onUpdate:self => cards.forEach(c => c.classList.toggle('lit', self.progress > .92))}});
+    gsap.from(cards, {y:40, autoAlpha:0, duration:.8, ease:'power3.out', stagger:.12, scrollTrigger:{trigger:'.cx-cards', start:'top 85%'}});
+    if (matchMedia('(max-width: 1024px)').matches) cards.forEach(c => ScrollTrigger.create({trigger:c, start:'top 70%', onEnter:() => c.classList.add('lit')}));
+
+    /* Solo en Miracle */
+    $$('.solo-row').forEach(row => {
+      const st = {trigger:row, start:'top 75%'};
+      gsap.from($$('.solo-copy > *', row), {y:28, autoAlpha:0, duration:.7, ease:'power3.out', stagger:.08, scrollTrigger:st});
+      gsap.from($('.mock', row), {y:70, rotateX:10, transformPerspective:1200, autoAlpha:0, duration:1, ease:'power3.out', scrollTrigger:st});
+      const lis = $$('.finds li', row); if (lis.length) gsap.from(lis, {x:24, autoAlpha:0, duration:.5, stagger:.15, delay:.4, ease:'power2.out', scrollTrigger:st});
+      const bars = $$('.bar b', row); if (bars.length) gsap.from(bars, {scaleY:0, transformOrigin:'bottom', duration:.9, stagger:.04, delay:.3, ease:'power3.out', scrollTrigger:st});
+      if ($('[data-count]', row)) ScrollTrigger.create({...st, once:true, onEnter:() => countUp(row)});
+    });
+
+    /* Odómetro: 49 */
+    const odo = $('#odo');
+    odo.innerHTML = '49'.split('').map(d => `<span class="digit"><span class="reel">${'0123456789'.split('').map(n => `<span>${n}</span>`).join('')}</span></span>`).join('');
+    const reels = $$('.reel', odo);
+    gsap.set(reels, {yPercent:0});
+    ScrollTrigger.create({trigger:odo, start:'top 80%', once:true, onEnter:() => {
+      reels.forEach((r, i) => gsap.to(r, {yPercent:-(+'49'[i]) * 10, duration:1.6 + i * .3, ease:'power4.out'}));
+    }});
+    gsap.from('.numbers h2, .numbers p', {y:24, autoAlpha:0, duration:.7, stagger:.1, scrollTrigger:{trigger:'.numbers h2', start:'top 85%'}});
+
+    /* Mosaico y capó */
+    gsap.from('.bx', {y:40, autoAlpha:0, duration:.7, ease:'power3.out', stagger:.08, scrollTrigger:{trigger:'.bento', start:'top 80%'}});
+    gsap.from('.hood > div', {y:30, autoAlpha:0, duration:.7, ease:'power3.out', stagger:.1, scrollTrigger:{trigger:'.hood', start:'top 82%'}});
+    gsap.from('.closing h2, .closing p, .closing .ctas, .qr', {y:30, autoAlpha:0, duration:.8, ease:'power3.out', stagger:.1, scrollTrigger:{trigger:'.closing', start:'top 70%'}});
+
+    addEventListener('load', () => ScrollTrigger.refresh());
+    document.fonts && document.fonts.ready.then(() => ScrollTrigger.refresh());
+  }
+
+  /* El lector del blog detiene el scroll suave mientras está abierto */
+  const readerEl = $('#reader');
+  if (readerEl) {
+    $$('.post').forEach(b => b.addEventListener('click', () => lenis && lenis.stop()));
+    readerEl.addEventListener('close', () => lenis && lenis.start());
+  }
+
+  /* Blog */
+  const posts = [
+    {cat:'Práctica clínica', title:'Dónde se va el tiempo de una consulta, y cómo recuperarlo', meta:'20 de octubre de 2026 · 4 min de lectura', body:`
+      <p>Una consulta de veinte minutos no son veinte minutos de medicina. Una parte se va en mirar la pantalla, otra en buscar códigos y otra en terminar la nota cuando el paciente ya salió.</p>
+      <p>Cuando empezamos a construir Miracle nos hicimos una pregunta simple: ¿cuánto de la consulta se puede devolver al paciente si alguien más escribe?</p>
+      <h3>Lo que vimos en el portal</h3>
+      <p>Medimos los minutos grabados en las consultas de los médicos que usan Miracle Notes. Lo que se habla en una consulta ya contiene casi toda la nota: el motivo, la evolución, lo que se encontró al examinar y el plan. Lo que falta es ordenarlo.</p>
+      <h3>Tres cambios que sí mueven la aguja</h3>
+      <ul><li>Dejar de escribir durante la conversación y revisar al final.</li><li>Usar una plantilla por especialidad, no una genérica para todo.</li><li>Codificar con sugerencias en lugar de buscar en tablas.</li></ul>
+      <p>Ninguno de los tres exige cambiar la forma de atender. Exige que la herramienta se adapte al médico, y no al revés.</p>`},
+    {cat:'Auditoría médica', title:'Seis cosas que revisar en una nota antes de firmarla', meta:'13 de octubre de 2026 · 5 min de lectura', body:`
+      <p>Una nota incompleta casi nunca es un problema de conocimiento. Es un problema de tiempo. Estas son las seis cosas que más vemos faltar cuando una nota llega a auditoría.</p>
+      <ul>
+        <li><b>Diagnóstico sin codificar</b> o con un código que no coincide con el texto.</li>
+        <li><b>Alergias mencionadas en la consulta</b> que no quedaron escritas.</li>
+        <li><b>Tratamiento sin duración</b>: la dosis está, los días no.</li>
+        <li><b>Examen físico genérico</b> que no corresponde al motivo de consulta.</li>
+        <li><b>Signos de alarma</b> explicados al paciente pero no registrados.</li>
+        <li><b>Plan sin control</b>: no dice cuándo volver.</li>
+      </ul>
+      <p>Miracle revisa estos puntos antes de que usted firme, y en cada hallazgo le muestra la frase de la consulta que lo respalda. La corrección toma segundos cuando el paciente todavía está en la memoria.</p>`},
+    {cat:'Codificación', title:'CIE-10 y CUPS sin buscar en tablas', meta:'6 de octubre de 2026 · 3 min de lectura', body:`
+      <p>Codificar bien importa para la historia clínica, para RIPS y para no tener glosas después. Pero buscar códigos en una tabla al final de cada consulta es tiempo que nadie le paga al médico.</p>
+      <h3>Cómo funciona la sugerencia</h3>
+      <p>Cuando la nota está lista, Miracle propone los códigos CIE-10 del diagnóstico y el CUPS del procedimiento o la consulta. Cada sugerencia viene con un nivel de confianza.</p>
+      <h3>Cuándo cambiarla</h3>
+      <p>Si la confianza es baja, o si usted sabe algo que no se dijo en voz alta, cambie el código. La sugerencia es un punto de partida, no una decisión. El código final siempre lo elige el médico.</p>`}
+  ];
+  const reader = document.getElementById('reader');
+  document.querySelectorAll('.post').forEach(b => b.addEventListener('click', () => {
+    const p = posts[+b.dataset.post];
+    document.getElementById('reader-cat').textContent = p.cat;
+    document.getElementById('reader-title').textContent = p.title;
+    document.getElementById('reader-meta').textContent = p.meta;
+    document.getElementById('reader-body').innerHTML = p.body;
+    reader.showModal(); reader.scrollTop = 0;
+  }));
+  reader.addEventListener('click', e => { if (e.target === reader || e.target.closest('[data-close]')) reader.close(); });
+
+  /* Agendar */
+  const daysEl = document.getElementById('days'), slotsEl = document.getElementById('slots');
+  const SLOTS = ['8:00 a. m.','9:30 a. m.','11:00 a. m.','2:00 p. m.','3:30 p. m.','5:00 p. m.'];
+  let selDay = null, selSlot = null;
+  const dFmt = new Intl.DateTimeFormat('es-CO',{weekday:'short'});
+  const longFmt = new Intl.DateTimeFormat('es-CO',{weekday:'long',day:'numeric',month:'long'});
+  const days = []; const d = new Date(); d.setHours(12,0,0,0);
+  while (days.length < 10) { d.setDate(d.getDate() + 1); if (d.getDay() % 6) days.push(new Date(d)); }
+  days.forEach((day, i) => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'day'; b.setAttribute('aria-pressed','false');
+    b.setAttribute('aria-label', longFmt.format(day));
+    b.innerHTML = `<small>${dFmt.format(day).replace('.','')}</small><b>${day.getDate()}</b>`;
+    b.addEventListener('click', () => { selDay = day; daysEl.querySelectorAll('.day').forEach(x => x.setAttribute('aria-pressed', x === b)); renderSlots(i); updSummary(); });
+    daysEl.appendChild(b);
+  });
+  function renderSlots(seed) {
+    slotsEl.innerHTML = ''; selSlot = null;
+    SLOTS.forEach((s, j) => {
+      if ((seed + j) % 5 === 3) return; // algunas horas ya ocupadas, para que se vea real
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'slot'; b.textContent = s; b.setAttribute('aria-pressed','false');
+      b.addEventListener('click', () => { selSlot = s; slotsEl.querySelectorAll('.slot').forEach(x => x.setAttribute('aria-pressed', x === b)); document.getElementById('slotErr').classList.remove('show'); updSummary(); });
+      slotsEl.appendChild(b);
+    });
+  }
+  const summary = document.getElementById('summary');
+  function updSummary() {
+    if (selDay && selSlot) { summary.hidden = false; summary.textContent = `Demo el ${longFmt.format(selDay)} a las ${selSlot}, hora de Colombia.`; }
+    else summary.hidden = true;
+  }
+  daysEl.firstChild.click();
+
+  const form = document.getElementById('bookForm');
+  const typeSel = document.getElementById('f-type');
+  typeSel.addEventListener('change', () => {
+    const inst = /IPS|Hospital/.test(typeSel.value);
+    form.querySelectorAll('.inst-only').forEach(f => f.hidden = !inst);
+  });
+  document.querySelectorAll('[data-plan="Institucional"]').forEach(a => a.addEventListener('click', () => { typeSel.value = 'IPS o clínica'; typeSel.dispatchEvent(new Event('change')); }));
+
+  const rules = {
+    'f-name': v => v.trim().length > 1,
+    'f-mail': v => !v.trim() || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
+    'f-tel': v => v.replace(/\D/g,'').length >= 7,
+    'f-type': v => !!v
+  };
+  const check = id => { const el = document.getElementById(id); const ok = rules[id](el.value); el.closest('.field').classList.toggle('invalid', !ok); el.setAttribute('aria-invalid', !ok); return ok; };
+  Object.keys(rules).forEach(id => document.getElementById(id).addEventListener('blur', () => { if (document.getElementById(id).value) check(id); }));
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const bad = Object.keys(rules).filter(id => !check(id));
+    const slotOk = selDay && selSlot;
+    document.getElementById('slotErr').classList.toggle('show', !slotOk);
+    if (!slotOk) { daysEl.querySelector('[aria-pressed="true"]')?.focus(); return; }
+    if (bad.length) { document.getElementById(bad[0]).focus(); return; }
+    const v = id => document.getElementById(id).value.trim();
+    const msg = [
+      'Hola, quiero agendar una demo de Miracle.',
+      `Fecha: ${longFmt.format(selDay)}, ${selSlot} (hora de Colombia)`,
+      `Nombre: ${v('f-name')}`, v('f-mail') && `Correo: ${v('f-mail')}`, `WhatsApp: ${v('f-tel')}`, `Tipo: ${v('f-type')}`,
+      v('f-org') && `Institución: ${v('f-org')}`, v('f-size') && `Médicos: ${v('f-size')}`
+    ].filter(Boolean).join('\n');
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true; btn.textContent = 'Preparando su solicitud…';
+    document.getElementById('mailAlt').href = `mailto:${MAIL}?subject=${encodeURIComponent('Demo de Miracle · ' + v('f-name'))}&body=${encodeURIComponent(msg)}`;
+    setTimeout(() => {
+      window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+      form.hidden = true; document.getElementById('done').classList.add('show');
+    }, 500);
+  });
+})();
+</script>
+</body>
+</html>
