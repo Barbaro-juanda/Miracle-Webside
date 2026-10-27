@@ -1,9 +1,13 @@
 // Arma el sitio: lee src/pages/*.html y src/posts.json y escribe las páginas en la raíz.
 // Uso: node build.mjs   (no necesita dependencias)
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { execSync } from 'node:child_process';
 
-const SITE = { url: 'https://itsmiracleai.com.co', name: 'Miracle', today: '2026-10-26' }; // PENDIENTE (jefe): dominio final
+const SITE = { url: 'https://itsmiracleai.com.co', name: 'Miracle', today: new Date().toISOString().slice(0, 10) }; // PENDIENTE (jefe): dominio final
 const posts = JSON.parse(readFileSync('src/posts.json', 'utf8'));
+const specs = JSON.parse(readFileSync('src/especialidades.json', 'utf8')); // secciones reales de las plantillas del portal (repo de Miracle)
+// Fecha real del último cambio de un archivo fuente (para lastmod y dateModified).
+const gitDate = f => { try { return execSync(`git log -1 --format=%cs -- ${f}`, {encoding: 'utf8'}).trim() || SITE.today; } catch { return SITE.today; } };
 const NAV = [['Soluciones', '/soluciones'], ['Cómo funciona', '/#como-funciona'], ['Planes', '/planes'], ['Blog', '/blog'], ['Seguridad', '/seguridad']];
 
 const esc = s => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
@@ -97,6 +101,14 @@ const ctaBand = `<section class="cta-band" aria-labelledby="h-cta"><div class="w
   <div class="ctas"><a class="btn btn-light" href="/agendar">Agenda una demo</a><a class="btn btn-dark-ghost" href="https://itsmiracleai.com.co/registro">Prueba Notes gratis</a></div>
 </div></div></section>`;
 
+for (const sp of specs) {
+  const n = sp.templates.length;
+  pages.push({ path: `/especialidades/${sp.slug}`, out: `especialidades/${sp.slug}.html`, spec: sp, navPath: '/soluciones',
+    crumbs: [['Notes', '/notes'], [sp.name]], src: 'especialidad', srcFile: 'src/especialidades.json',
+    title: `Historia clínica de ${sp.low} con IA | Miracle`,
+    desc: `Las ${n} plantillas de ${sp.low} de Miracle Notes, con las secciones de cada nota. Tú atiendes, Miracle escribe la nota y tú la firmas.` });
+}
+
 const crumbsHtml = pg => !pg.crumbs ? '' : `<nav class="crumbs" aria-label="Ruta"><ol><li><a href="/">Inicio</a></li>${pg.crumbs.map(([l, h], i) =>
   `<li>${h && i < pg.crumbs.length - 1 ? `<a href="${h}">${l}</a>` : `<span aria-current="page">${l}</span>`}</li>`).join('')}</ol></nav>`;
 
@@ -113,19 +125,58 @@ const orgGraph = [
     contactPoint: { '@type': 'ContactPoint', contactType: 'sales', telephone: '+57-313-458-2806', availableLanguage: 'es' } },
   { '@type': 'WebSite', '@id': SITE.url + '/#web', url: SITE.url + '/', name: 'Miracle', inLanguage: 'es-CO', publisher: { '@id': SITE.url + '/#org' } },
 ];
+// lastmod real: la fecha del último commit de la fuente de cada página.
+function lastmod(pg) {
+  if (pg.post) return [pg.post.date, gitDate('src/posts.json')].sort().pop();
+  return gitDate(pg.srcFile || `src/pages/${pg.src}.html`);
+}
 function schemaFor(pg, body) {
   const g = [...orgGraph];
   if (pg.crumbs) g.push({ '@type': 'BreadcrumbList', itemListElement: [['Inicio', '/'], ...pg.crumbs.map(([l, h], i) => [l, i === pg.crumbs.length - 1 ? pg.path : h])]
     .map(([name, item], i) => ({ '@type': 'ListItem', position: i + 1, name, item: abs(item) })) });
-  if (pg.app) g.push({ '@type': 'SoftwareApplication', name: pg.app.name, applicationCategory: 'HealthApplication', operatingSystem: 'Web', inLanguage: 'es-CO',
+  // Sin offers: el precio no está publicado y no se inventa.
+  if (pg.app) g.push({ '@type': 'SoftwareApplication', name: pg.app.name, url: abs(pg.path), applicationCategory: 'HealthApplication', operatingSystem: 'Web', inLanguage: 'es-CO',
     description: pg.app.description, publisher: { '@id': SITE.url + '/#org' } });
   if (pg.faq) {
     const qa = [...body.matchAll(/<summary>(.*?)<span class="pm"[^>]*><\/span><\/summary><p>(.*?)<\/p>/gs)];
     g.push({ '@type': 'FAQPage', mainEntity: qa.map(m => ({ '@type': 'Question', name: m[1], acceptedAnswer: { '@type': 'Answer', text: m[2] } })) });
   }
-  if (pg.post) g.push({ '@type': 'BlogPosting', headline: pg.post.title, description: pg.post.excerpt, datePublished: pg.post.date, dateModified: pg.post.date, inLanguage: 'es-CO',
-    mainEntityOfPage: abs(pg.path), author: { '@id': SITE.url + '/#org' }, publisher: { '@id': SITE.url + '/#org' } });
+  if (pg.post) g.push({ '@type': 'BlogPosting', headline: pg.post.title, description: pg.post.excerpt, image: SITE.url + '/og.png',
+    datePublished: pg.post.date, dateModified: lastmod(pg), inLanguage: 'es-CO', mainEntityOfPage: abs(pg.path),
+    author: { '@type': 'Organization', '@id': SITE.url + '/#org', name: 'Miracle', url: SITE.url + '/' },
+    publisher: { '@type': 'Organization', '@id': SITE.url + '/#org', name: 'Miracle', logo: { '@type': 'ImageObject', url: SITE.url + '/icon-512.png' } } });
   return JSON.stringify({ '@context': 'https://schema.org', '@graph': g }, null, 1);
+}
+
+/* ---------- Página de especialidad: plantillas reales y sus secciones ---------- */
+function specBody(pg) {
+  const sp = pg.spec, n = sp.templates.length;
+  const others = specs.filter(x => x.slug !== sp.slug);
+  return `<section class="sub-hero spec-hero" aria-labelledby="h1"><div class="wrap">
+  ${crumbsHtml(pg)}
+  <span class="badge-only">Notes · ${sp.name}</span>
+  <h1 id="h1">Historia clínica de ${sp.low}, escrita mientras atiendes</h1>
+  <p class="lead">Miracle Notes trae ${n} plantillas de ${sp.low}. Cada una pide lo que esa consulta necesita: aquí están con sus secciones, tal como salen en la nota que lees y firmas.</p>
+  <div class="ctas"><a class="btn btn-primary" href="/agendar">Agenda una demo</a><a class="btn btn-ghost" href="/notes">Ver Notes</a></div>
+</div></section>
+<section class="sec" style="padding-top:20px" aria-labelledby="h-tpl"><div class="wrap">
+  <h2 id="h-tpl" class="skip">Plantillas de ${sp.low}</h2>
+  <div class="stpl-list">
+${sp.templates.map((t, i) => `    <article class="stpl" data-reveal>
+      <span class="stpl-n">Plantilla ${i + 1} de ${n} · ${t.sections.length} secciones</span>
+      <h2>${t.name}</h2>
+      <p>${t.desc}</p>
+      <h3>Secciones de la nota</h3>
+      <ol>${t.sections.map(x => `<li>${x}</li>`).join('')}</ol>
+    </article>`).join('\n')}
+  </div>
+  <p class="stpl-note">Si tu consulta necesita algo distinto, puedes crear tu propia plantilla. La IA propone el texto de cada sección y tú lo revisas y firmas.</p>
+</div></section>
+<section class="sec tone-ice" aria-labelledby="h-otras"><div class="wrap">
+  <h2 id="h-otras">Otras especialidades</h2>
+  <ul class="spec-links">${others.map(x => `<li><a href="/especialidades/${x.slug}">Plantillas de ${x.low}</a></li>`).join('')}<li><a href="/notes">Las 49 especialidades en Notes</a></li></ul>
+</div></section>
+@@CTABAND@@`;
 }
 
 /* ---------- Páginas ---------- */
@@ -143,6 +194,8 @@ ${p.body}
   <div class="article-cta"><div><b>¿Quieres verlo funcionando en tu consulta?</b><br>Son 30 minutos y lo vemos con tu especialidad.</div><a class="btn btn-primary" href="/agendar">Agenda una demo</a></div>
 </div></article>
 <section class="related" aria-labelledby="h-rel"><div class="wrap"><h2 id="h-rel">Más para leer</h2><div class="posts">${rel.map(postCard).join('')}</div></div></section>`;
+  } else if (pg.spec) {
+    body = specBody(pg);
   } else {
     body = readFileSync(`src/pages/${pg.src}.html`, 'utf8');
   }
@@ -204,9 +257,12 @@ ${scripts}
 }
 
 mkdirSync('blog', { recursive: true });
+mkdirSync('especialidades', { recursive: true });
 for (const pg of pages) writeFileSync(pg.out, render(pg));
 writeFileSync('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map(p =>
-  `  <url><loc>${abs(p.path)}</loc><lastmod>${p.post ? p.post.date : SITE.today}</lastmod></url>`).join('\n')}\n</urlset>\n`);
+  `  <url><loc>${abs(p.path)}</loc><lastmod>${lastmod(p)}</lastmod></url>`).join('\n')}\n</urlset>\n`);
 writeFileSync('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${SITE.url}/sitemap.xml\n`);
-writeFileSync('vercel.json', JSON.stringify({ cleanUrls: true, trailingSlash: false }, null, 2) + '\n');
+// Las URL de vista previa (*.vercel.app) no se indexan; el dominio de producción sí.
+writeFileSync('vercel.json', JSON.stringify({ cleanUrls: true, trailingSlash: false,
+  headers: [{ source: '/(.*)', has: [{ type: 'host', value: '(?<sub>.*)\\.vercel\\.app' }], headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }] }] }, null, 2) + '\n');
 console.log(`Listo: ${pages.length} páginas`);

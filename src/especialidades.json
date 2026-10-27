@@ -1,0 +1,732 @@
+[
+ {
+  "key": "psiquiatria",
+  "slug": "psiquiatria",
+  "name": "Psiquiatría",
+  "low": "psiquiatría",
+  "templates": [
+   {
+    "name": "Consulta inicial · historia psiquiátrica y examen mental",
+    "desc": "Primera valoración psiquiátrica ambulatoria: motivo en palabras del paciente, enfermedad actual, antecedentes y consumo de sustancias, historia personal, examen mental por dominios, riesgo suicida y de violencia estructurado, impresión diagnóstica con el código que dicte el médico y plan farmacológico, psicoterapéutico y de seguridad.",
+    "sections": [
+     "Motivo de consulta",
+     "Enfermedad actual",
+     "Antecedentes psiquiátricos",
+     "Consumo de sustancias",
+     "Antecedentes médicos, farmacológicos y familiares",
+     "Historia personal, contexto psicosocial y funcionamiento",
+     "Examen mental",
+     "Evaluación del riesgo suicida y de violencia",
+     "Análisis e impresión diagnóstica",
+     "Plan farmacológico",
+     "Psicoterapia, psicoeducación y plan de seguridad",
+     "Próximo control y signos de alarma"
+    ]
+   },
+   {
+    "name": "Control y seguimiento · estado mental, adherencia y riesgo",
+    "desc": "Control ambulatorio de un paciente con proceso psiquiátrico en curso: evolución del episodio, adherencia y efectos adversos, consumo de sustancias, paraclínicos y monitoreo metabólico, examen mental de control, reevaluación del riesgo y ajuste del plan farmacológico y no farmacológico.",
+    "sections": [
+     "Diagnósticos activos y tratamiento actual",
+     "Evolución desde el último control",
+     "Adherencia y efectos adversos",
+     "Consumo de sustancias",
+     "Paraclínicos, niveles y monitoreo metabólico",
+     "Examen mental de control",
+     "Reevaluación del riesgo",
+     "Análisis y respuesta al tratamiento",
+     "Plan farmacológico",
+     "Psicoterapia, psicoeducación y plan de seguridad",
+     "Próximo control y signos de alarma"
+    ]
+   },
+   {
+    "name": "Valoración psiquiátrica · interconsulta y concepto especializado",
+    "desc": "Valoración solicitada por otro servicio, EPS o entidad: pregunta de la interconsulta, contexto clínico, paraclínicos y descarte de causa médica, examen mental, riesgo y concepto con recomendaciones para el equipo tratante. Úsala cuando la cita responde a una remisión y debe emitirse un concepto.",
+    "sections": [
+     "Motivo de la valoración",
+     "Contexto clínico actual",
+     "Paraclínicos y descarte de causa médica",
+     "Antecedentes psiquiátricos y consumo",
+     "Entrevista y actitud frente a la valoración",
+     "Examen mental",
+     "Evaluación del riesgo",
+     "Concepto e impresión diagnóstica",
+     "Recomendaciones y seguimiento"
+    ]
+   },
+   {
+    "name": "Urgencia psiquiátrica · riesgo suicida y agitación",
+    "desc": "Atención de urgencia por crisis suicida, agitación u otra descompensación aguda: desencadenante, examen mental, riesgo en palabras del médico, medidas de seguridad, manejo farmacológico literal, notificación y rutas activadas, y plan de contención. Úsala en urgencias u observación, no en consulta programada.",
+    "sections": [
+     "Motivo de atención y desencadenante",
+     "Relato del episodio actual",
+     "Antecedentes relevantes",
+     "Examen físico y signos vitales",
+     "Examen mental completo",
+     "Evaluación del riesgo suicida, heteroagresivo y de fuga",
+     "Medidas de seguridad tomadas",
+     "Manejo farmacológico en urgencia",
+     "Impresión diagnóstica",
+     "Red de apoyo y acuerdos",
+     "Notificación y activación de rutas",
+     "Plan de contención y seguimiento"
+    ]
+   },
+   {
+    "name": "Evolución en hospitalización psiquiátrica · ronda diaria",
+    "desc": "Nota diaria del paciente hospitalizado en unidad de salud mental: día de estancia, evolución de las últimas 24 horas con el reporte de enfermería, tolerancia al tratamiento, examen mental, riesgo, nivel de observación y medidas de seguridad, intervenciones del equipo y la familia, órdenes del día y plan de egreso. Úsala en hospitalización, no en consulta externa ni en urgencias.",
+    "sections": [
+     "Día de estancia, motivo de ingreso y diagnósticos activos",
+     "Evolución en las últimas 24 horas",
+     "Tratamiento actual, adherencia y tolerancia",
+     "Signos vitales, examen físico y paraclínicos",
+     "Examen mental",
+     "Evaluación del riesgo",
+     "Nivel de observación y medidas de seguridad",
+     "Intervenciones del equipo y contacto con la familia",
+     "Análisis de la evolución",
+     "Plan y órdenes del día",
+     "Criterios y plan de egreso"
+    ]
+   },
+   {
+    "name": "Código dorado · intento de suicidio",
+    "desc": "Atención de un intento de suicidio con activación del Código dorado: alerta y tiempos, relato del evento con su fuente, medio usado, estabilización y lesiones, examen mental y lo que la persona expresó, riesgo en palabras del profesional, medidas de seguridad, hipótesis diagnóstica, notificación y rutas, y disposición. Úsala en urgencias u hospitalización, no en consulta programada.",
+    "sections": [
+     "Activación del Código dorado",
+     "Relato del evento",
+     "Sustancias, fármacos o medios involucrados",
+     "Valoración inicial, lesiones y estabilización",
+     "Examen mental",
+     "Lo que la persona expresó",
+     "Evaluación del riesgo suicida y de nuevo intento",
+     "Antecedentes relevantes",
+     "Medidas de seguridad y observación",
+     "Hipótesis diagnóstica",
+     "Notificación, rutas y red de apoyo",
+     "Conducta, interconsulta y disposición"
+    ]
+   }
+  ]
+ },
+ {
+  "key": "psicologia",
+  "slug": "psicologia",
+  "name": "Psicología",
+  "low": "psicología",
+  "templates": [
+   {
+    "name": "Consulta inicial · motivo, contexto y recursos de afrontamiento",
+    "desc": "Primera consulta de psicología clínica: motivo en palabras del consultante, historia del problema, historia personal y familiar, recursos, observaciones e instrumentos con puntajes literales, valoración del riesgo, formulación clínica del caso, objetivos terapéuticos, encuadre y plan.",
+    "sections": [
+     "Motivo de consulta",
+     "Historia del problema actual",
+     "Antecedentes de atención y salud",
+     "Historia personal y familiar",
+     "Recursos y estrategias de afrontamiento",
+     "Observaciones en sesión",
+     "Evaluación e instrumentos aplicados",
+     "Valoración del riesgo",
+     "Formulación clínica del caso",
+     "Objetivos terapéuticos",
+     "Encuadre, plan y próxima sesión"
+    ]
+   },
+   {
+    "name": "Control y seguimiento · objetivos terapéuticos y evolución",
+    "desc": "Sesión de seguimiento dentro de un proceso ya iniciado: número de sesión y foco, evolución y tareas, estado emocional, observaciones, intervenciones con la respuesta del consultante, seguimiento del riesgo, avance frente a los objetivos, tareas y próxima sesión. Úsala para las sesiones intermedias del proceso terapéutico.",
+    "sections": [
+     "Sesión, foco y objetivos del proceso",
+     "Evolución desde la última sesión",
+     "Estado emocional y malestar reportado",
+     "Observaciones del profesional en sesión",
+     "Intervenciones y técnicas trabajadas",
+     "Seguimiento del riesgo",
+     "Avances y dificultades frente a los objetivos",
+     "Tareas y acuerdos para la próxima sesión",
+     "Próxima sesión"
+    ]
+   },
+   {
+    "name": "Valoración psicológica · concepto y recomendaciones",
+    "desc": "Valoración solicitada por un tercero (EPS, colegio, empresa, psiquiatría u otro profesional): pregunta de la remisión, consentimiento y alcance, entrevista, funcionamiento por áreas, instrumentos con puntajes literales, señales de riesgo, concepto y recomendaciones. Úsala cuando debe emitirse un concepto sin iniciar proceso terapéutico.",
+    "sections": [
+     "Motivo de la valoración",
+     "Consentimiento informado y alcance",
+     "Contexto y antecedentes relevantes",
+     "Entrevista y relato del consultante",
+     "Funcionamiento por áreas",
+     "Instrumentos y pruebas aplicadas",
+     "Observaciones conductuales",
+     "Señales de riesgo",
+     "Análisis y concepto profesional",
+     "Recomendaciones y remisión",
+     "Seguimiento acordado"
+    ]
+   },
+   {
+    "name": "Intervención en crisis · contención y plan de seguridad",
+    "desc": "Atención no programada de una crisis emocional, con o sin señales de riesgo: desencadenante, estado del consultante, contención realizada, estado al cierre, plan de seguridad acordado, red de apoyo y activación de ruta (urgencias, psiquiatría, EPS, ICBF o comisaría). Úsala cuando la sesión se convierte en manejo de crisis.",
+    "sections": [
+     "Situación de crisis y desencadenante",
+     "Relato y estado emocional del consultante",
+     "Antecedentes inmediatos relevantes",
+     "Señales de riesgo identificadas",
+     "Intervención y contención realizada",
+     "Estado al cierre de la atención",
+     "Plan de seguridad acordado",
+     "Red de apoyo y acompañamiento",
+     "Remisión y activación de ruta",
+     "Seguimiento acordado"
+    ]
+   },
+   {
+    "name": "Consulta infantil y adolescente · con padres o cuidadores",
+    "desc": "Consulta psicológica de un niño, niña o adolescente con sus padres o cuidadores: motivo según cada informante, consentimiento y asentimiento, desarrollo, colegio, dinámica familiar y crianza, observación en sesión, señales de riesgo y de vulneración de derechos, hipótesis y orientaciones. Úsala con menores de edad, en primera consulta o en seguimiento.",
+    "sections": [
+     "Motivo de consulta y quién lo solicita",
+     "Asistentes, consentimiento y asentimiento",
+     "Historia del problema actual",
+     "Historia del desarrollo y antecedentes de salud",
+     "Funcionamiento escolar y social",
+     "Dinámica familiar y pautas de crianza",
+     "Observación del niño o adolescente en sesión",
+     "Señales de riesgo y de vulneración de derechos",
+     "Análisis e hipótesis de trabajo",
+     "Plan, orientaciones a cuidadores y remisiones"
+    ]
+   },
+   {
+    "name": "Valoración del riesgo suicida · C-SSRS y plan de seguridad",
+    "desc": "Consulta cuyo motivo es el riesgo suicida: ideación por escalones y su intensidad, conducta suicida y autolesiones, acceso a medios, factores de riesgo y protectores, examen mental, nivel de riesgo en palabras del profesional, plan de seguridad, remisión y rutas de Colombia, notificación del intento y seguimiento. Sigue la estructura de la Escala Columbia (C-SSRS).",
+    "sections": [
+     "Motivo de consulta, quién la solicita y desencadenantes",
+     "Ideación suicida (C-SSRS)",
+     "Intensidad de la ideación",
+     "Conducta suicida y autolesiones",
+     "Acceso a medios letales",
+     "Factores de riesgo",
+     "Factores protectores y razones para vivir",
+     "Examen mental e instrumentos aplicados",
+     "Nivel de riesgo y justificación",
+     "Plan de seguridad",
+     "Red de apoyo, remisión, rutas y notificación",
+     "Impresión clínica, estado al cierre y seguimiento"
+    ]
+   },
+   {
+    "name": "Consulta externa de psicología · atención ambulatoria",
+    "desc": "Atención ambulatoria de psicología en hospital, clínica o IPS, sin hospitalización: tipo de consulta y cómo llega el consultante (remisión, EPS, autorización, presencial o telepsicología), motivo, evolución, examen mental, riesgo en palabras del profesional, impresión diagnóstica, conducta y próxima cita. Breve, para la agenda de consulta externa.",
+    "sections": [
+     "Datos de la atención ambulatoria",
+     "Motivo de consulta",
+     "Enfermedad actual o evolución desde el último control",
+     "Antecedentes relevantes",
+     "Examen mental",
+     "Riesgo",
+     "Impresión diagnóstica",
+     "Intervención realizada en la consulta",
+     "Conducta, remisiones y próxima cita"
+    ]
+   },
+   {
+    "name": "Psicología clínica · evaluación, diagnóstico, tratamiento y prevención",
+    "desc": "Proceso de psicología clínica en el orden de la disciplina: motivo y su historia, antecedentes y contexto, examen mental e instrumentos con puntajes literales, formulación del caso, diagnóstico del profesional, plan de tratamiento, intervención de la sesión, riesgo, prevención de recaídas y factores protectores, y seguimiento. Úsala cuando la nota debe documentar el proceso clínico completo.",
+    "sections": [
+     "Motivo de consulta",
+     "Historia del problema actual",
+     "Antecedentes personales, familiares y contexto",
+     "Examen mental",
+     "Evaluación psicológica e instrumentos aplicados",
+     "Formulación clínica del caso",
+     "Impresión diagnóstica",
+     "Plan de tratamiento",
+     "Intervención realizada en la sesión",
+     "Riesgo",
+     "Prevención: factores protectores, señales de recaída y psicoeducación",
+     "Tareas, acuerdos y seguimiento"
+    ]
+   }
+  ]
+ },
+ {
+  "key": "neuropsicologia",
+  "slug": "neuropsicologia",
+  "name": "Neuropsicología",
+  "low": "neuropsicología",
+  "templates": [
+   {
+    "name": "Evaluación neuropsicológica inicial · quejas cognitivas e historia",
+    "desc": "Primera consulta de neuropsicología: motivo y quién remite, quejas cognitivas según el paciente y el informante, antecedentes neurológicos y médicos, desarrollo y escolaridad, funcionamiento diario, estado emocional, observación, tamizaje con puntajes literales, impresión inicial y plan de evaluación.",
+    "sections": [
+     "Motivo de consulta y quién remite",
+     "Quejas cognitivas",
+     "Antecedentes neurológicos, médicos y farmacológicos",
+     "Desarrollo, escolaridad y ocupación",
+     "Funcionamiento en la vida diaria",
+     "Estado emocional y conducta",
+     "Observación en consulta",
+     "Tamizaje cognitivo",
+     "Impresión inicial",
+     "Plan de evaluación"
+    ]
+   },
+   {
+    "name": "Informe de evaluación neuropsicológica · resultados por dominios",
+    "desc": "Informe de la evaluación neuropsicológica completa: motivo y pregunta, antecedentes, pruebas y condiciones de la evaluación, resultados por dominio cognitivo con puntajes literales, estado emocional, perfil e impresión diagnóstica del profesional y recomendaciones de rehabilitación, escolares, laborales y para la familia.",
+    "sections": [
+     "Motivo de la evaluación y pregunta de la remisión",
+     "Antecedentes relevantes",
+     "Pruebas aplicadas y condiciones de la evaluación",
+     "Atención y velocidad de procesamiento",
+     "Memoria y aprendizaje",
+     "Lenguaje, praxias y habilidades visuoespaciales",
+     "Funciones ejecutivas",
+     "Estado emocional y conducta",
+     "Perfil cognitivo e impresión diagnóstica",
+     "Recomendaciones"
+    ]
+   },
+   {
+    "name": "Rehabilitación cognitiva · sesión de seguimiento",
+    "desc": "Sesión dentro de un proceso de rehabilitación neuropsicológica: número de sesión y objetivos, cambios referidos por el paciente y la familia, tareas en casa, actividades y estrategias trabajadas con el desempeño observado, avance frente a las metas funcionales, ajustes al plan y próxima sesión.",
+    "sections": [
+     "Sesión y objetivos del proceso",
+     "Cambios referidos por el paciente y la familia",
+     "Tareas en casa",
+     "Actividades y estrategias trabajadas",
+     "Desempeño observado",
+     "Avance frente a las metas funcionales",
+     "Ajustes al plan, tareas y próxima sesión"
+    ]
+   },
+   {
+    "name": "Neuropsicología infantil · reunión con padres",
+    "desc": "Primera reunión con los padres o cuidadores antes de evaluar al niño: motivo textual, remisión y expectativas, desarrollo, antecedentes médicos, neurológicos y familiares, historia escolar, conducta y emocional, dinámica familiar, observaciones, hipótesis de trabajo, plan de evaluación y acuerdos.",
+    "sections": [
+     "Motivo de consulta (palabras de los padres)",
+     "Quién remite y expectativas de la familia",
+     "Historia del desarrollo",
+     "Antecedentes médicos y neurológicos",
+     "Antecedentes familiares",
+     "Historia escolar y académica",
+     "Conducta, área emocional y relaciones",
+     "Dinámica familiar y rutina",
+     "Observaciones del profesional durante la reunión",
+     "Impresión inicial e hipótesis de trabajo",
+     "Plan de evaluación",
+     "Acuerdos con los padres"
+    ]
+   },
+   {
+    "name": "Neuropsicología infantil · sesión de pruebas con el niño",
+    "desc": "Sesión de aplicación de pruebas con el niño: datos de la sesión y estado al llegar, conversación breve textual, conducta durante la evaluación, pruebas aplicadas y dominio que exploran, resultados solo si se dictaron, observaciones cualitativas, pendientes y próximos pasos. Los resultados no se comunican en esta consulta.",
+    "sections": [
+     "Datos de la sesión y estado del niño al llegar",
+     "Motivo y contexto breve",
+     "Conversación con el niño",
+     "Conducta durante la evaluación",
+     "Pruebas aplicadas y dominio que exploran",
+     "Resultados y puntuaciones (solo si se dictaron)",
+     "Observaciones clínicas cualitativas",
+     "Pendientes y próximos pasos"
+    ]
+   }
+  ]
+ },
+ {
+  "key": "medicina_general",
+  "slug": "medicina-general",
+  "name": "Medicina general",
+  "low": "medicina general",
+  "templates": [
+   {
+    "name": "Consulta inicial · motivo, enfermedad actual y enfoque integral",
+    "desc": "Primera consulta de medicina general por cualquier motivo: enfermedad actual con cronología, antecedentes, examen por sistemas, impresión diagnóstica y plan. Úsala cuando el paciente consulta por primera vez por un problema nuevo, agudo o no estudiado.",
+    "sections": [
+     "Motivo de consulta",
+     "Enfermedad actual",
+     "Revisión por sistemas",
+     "Antecedentes personales",
+     "Medicamentos y alergias",
+     "Antecedentes familiares, hábitos y contexto",
+     "Examen físico",
+     "Análisis e impresión diagnóstica",
+     "Plan de manejo y educación",
+     "Remisión, incapacidad y próximo control"
+    ]
+   },
+   {
+    "name": "Control y seguimiento · respuesta al tratamiento y factores de riesgo",
+    "desc": "Control de un problema ya valorado en medicina general: evolución desde la última consulta, adherencia, resultados nuevos y ajuste del plan. Úsala para el seguimiento de un cuadro agudo o subagudo en tratamiento; para hipertensión, diabetes o dislipidemia usa la plantilla de enfermedad crónica.",
+    "sections": [
+     "Diagnósticos activos y motivo del control",
+     "Intervalo y adherencia al tratamiento",
+     "Evolución de los síntomas",
+     "Efectos adversos e intolerancias",
+     "Resultados de paraclínicos e imágenes",
+     "Examen físico de control",
+     "Análisis de la evolución",
+     "Ajuste del plan de manejo",
+     "Próximo control y signos de alarma"
+    ]
+   },
+   {
+    "name": "Procedimiento en consulta · indicación, técnica y cuidados posteriores",
+    "desc": "Procedimientos menores hechos en el consultorio de medicina general: curación, sutura, drenaje, retiro de puntos, infiltración o toma de muestra. Documenta indicación, consentimiento, técnica, tolerancia y cuidados posteriores con el detalle que exige la historia clínica.",
+    "sections": [
+     "Procedimiento realizado e indicación",
+     "Consentimiento informado",
+     "Verificación previa y antecedentes de riesgo",
+     "Técnica realizada",
+     "Hallazgos y material obtenido",
+     "Tolerancia y complicaciones inmediatas",
+     "Cuidados e indicaciones posteriores",
+     "Remisión y seguimiento"
+    ]
+   },
+   {
+    "name": "Control de enfermedad crónica · hipertensión, diabetes y dislipidemia",
+    "desc": "Control programado del paciente crónico en el primer nivel: adherencia, cifras de automonitoreo, laboratorios y metas terapéuticas tal como las enunció el médico, tamizaje de órgano blanco y ajuste del tratamiento. Úsala en los controles del programa de crónicos, en vez del control general.",
+    "sections": [
+     "Enfermedades crónicas en control",
+     "Tratamiento actual y adherencia",
+     "Automonitoreo en casa",
+     "Síntomas y eventos del intervalo",
+     "Alimentación, actividad física y hábitos",
+     "Paraclínicos y metas terapéuticas",
+     "Tamizaje de órgano blanco",
+     "Examen físico dirigido",
+     "Análisis del control y complicaciones",
+     "Ajuste del tratamiento y remisiones",
+     "Educación y próximo control"
+    ]
+   }
+  ]
+ },
+ {
+  "key": "urgencias",
+  "slug": "urgencias",
+  "name": "Medicina de urgencias",
+  "low": "urgencias",
+  "templates": [
+   {
+    "name": "Consulta inicial · historia clínica de urgencias",
+    "desc": "Historia clínica completa del primer contacto en urgencias para cuadros que requieren estudio: triage, cronología, antecedentes, examen por sistemas y plan diagnóstico. Para episodios cortos resueltos en una sola atención usa la atención general; para el traumatizado, la de trauma; para el dolor torácico, la suya; para remitir, la de remisión y traslado.",
+    "sections": [
+     "Triage y condición de llegada",
+     "Motivo de consulta",
+     "Enfermedad actual",
+     "Antecedentes relevantes",
+     "Signos vitales al ingreso",
+     "Examen físico dirigido",
+     "Paraclínicos e imágenes",
+     "Análisis e impresión diagnóstica",
+     "Plan inicial y conducta"
+    ]
+   },
+   {
+    "name": "Control y seguimiento · reevaluación en urgencias y disposición",
+    "desc": "Reevaluación del paciente que ya está en urgencias u observación: respuesta a las intervenciones, resultados nuevos, examen de control, decisión de disposición y entrega de turno. Úsala para las notas de evolución dentro del mismo episodio; si el desenlace es remitirlo a otra institución, usa además la de remisión y traslado.",
+    "sections": [
+     "Contexto y tiempo en urgencias",
+     "Evolución de los síntomas",
+     "Respuesta a las intervenciones",
+     "Signos vitales de control",
+     "Resultados nuevos",
+     "Examen físico de control",
+     "Análisis y reevaluación",
+     "Disposición y plan",
+     "Entrega de turno y pendientes"
+    ]
+   },
+   {
+    "name": "Atención general de urgencias · triage, evaluación y conducta",
+    "desc": "Nota completa de un episodio de urgencias no traumático resuelto en una sola atención: triage, evaluación dirigida, intervenciones, reevaluación y disposición. Para cuadros que ameritan historia amplia usa la consulta inicial; para el traumatizado, la de trauma; para el dolor torácico, la suya; para remitir a otra institución, la de remisión y traslado.",
+    "sections": [
+     "Triage y motivo de consulta",
+     "Cuadro clínico actual",
+     "Signos vitales y examen físico",
+     "Ayudas diagnósticas",
+     "Intervenciones realizadas",
+     "Análisis y diagnóstico",
+     "Reevaluación antes del egreso",
+     "Conducta y disposición",
+     "Recomendaciones y signos de alarma"
+    ]
+   },
+   {
+    "name": "Atención de trauma · revisión primaria y secundaria",
+    "desc": "Atención del paciente traumatizado: mecanismo, revisión primaria ABCDE con las intervenciones realizadas, revisión secundaria por regiones, estudios, disposición y aspectos médico-legales. Úsala en todo trauma que amerite evaluación sistemática; para urgencias no traumáticas usa la atención general o la consulta inicial.",
+    "sections": [
+     "Mecanismo del trauma",
+     "Atención prehospitalaria",
+     "Revisión primaria ABCDE",
+     "Intervenciones realizadas y respuesta",
+     "Signos vitales seriados",
+     "Revisión secundaria por regiones",
+     "Imágenes y paraclínicos",
+     "Análisis y diagnósticos",
+     "Disposición",
+     "Indicaciones y pendientes",
+     "Aspectos médico-legales"
+    ]
+   },
+   {
+    "name": "Dolor torácico · evaluación y descarte de síndrome coronario agudo",
+    "desc": "Dolor torácico en urgencias: características y hora de inicio, factores de riesgo, electrocardiogramas seriados con su hora, marcadores, escala de riesgo y el razonamiento explícito de por qué el paciente se egresa, se observa o se remite. Para un dolor torácico de origen traumático usa la plantilla de trauma.",
+    "sections": [
+     "Inicio y características del dolor",
+     "Factores de riesgo y antecedentes",
+     "Signos vitales y examen físico",
+     "Electrocardiograma y controles",
+     "Marcadores y paraclínicos",
+     "Escala de riesgo y diagnósticos diferenciales",
+     "Intervenciones y manejo administrado",
+     "Análisis y decisión",
+     "Disposición y signos de alarma"
+    ]
+   },
+   {
+    "name": "Remisión y traslado · justificación, condiciones y receptor",
+    "desc": "Nota de remisión a otra institución: resumen del caso, por qué el paciente no puede atenderse aquí, gestión con la EPS o el centro regulador, quién acepta, estado en el momento del traslado y condiciones en que sale. Úsala junto con la nota de atención del episodio, no en su lugar.",
+    "sections": [
+     "Resumen del caso",
+     "Motivo de la remisión",
+     "Estudios realizados y manejo previo",
+     "Gestión de la remisión",
+     "Institución y profesional receptor",
+     "Estado al momento del traslado",
+     "Condiciones del traslado",
+     "Pendientes e información a la familia"
+    ]
+   }
+  ]
+ },
+ {
+  "key": "pediatria",
+  "slug": "pediatria",
+  "name": "Pediatría",
+  "low": "pediatría",
+  "templates": [
+   {
+    "name": "Consulta pediátrica integral · crecimiento, desarrollo y vacunas",
+    "desc": "Consulta todo-en-uno de pediatría: sirve tanto para el niño que llega sano como para el que consulta enfermo, en una sola nota con perinatales, alimentación, curvas, hitos, esquema PAI, enfermedad actual y dosis por peso. Si la cita es el control de rutina programado del niño que viene sano, prefiera la plantilla «Control de niño sano».",
+    "sections": [
+     "Identificación y acompañante",
+     "Motivo de consulta",
+     "Enfermedad actual",
+     "Antecedentes perinatales",
+     "Alimentación y nutrición",
+     "Crecimiento y desarrollo",
+     "Esquema de vacunación",
+     "Antecedentes personales y familiares",
+     "Examen físico pediátrico",
+     "Análisis e impresión diagnóstica",
+     "Plan, dosis por peso y educación al cuidador",
+     "Próximo control y signos de alarma"
+    ]
+   },
+   {
+    "name": "Consulta inicial · enfermedad aguda en el niño",
+    "desc": "Primera valoración cuando el niño consulta por enfermedad: fiebre, tos, diarrea, dolor u otro cuadro agudo. Cubre cronología, antecedentes relevantes, examen físico y plan con dosis por peso. Para la cita de rutina del niño que viene sano use «Control de niño sano».",
+    "sections": [
+     "Identificación y acompañante",
+     "Motivo de consulta",
+     "Enfermedad actual",
+     "Antecedentes relevantes",
+     "Revisión por sistemas dirigida",
+     "Examen físico pediátrico",
+     "Análisis e impresión diagnóstica",
+     "Plan y dosis por peso",
+     "Signos de alarma y próximo control"
+    ]
+   },
+   {
+    "name": "Control y seguimiento · patología pediátrica en tratamiento",
+    "desc": "Seguimiento del niño que ya tiene un diagnóstico y vuelve por evolución de su enfermedad o tratamiento: asma, dermatitis, anemia, egreso hospitalario reciente, entre otros. No es la cita de rutina del niño sano; para esa use «Control de niño sano».",
+    "sections": [
+     "Diagnóstico en seguimiento y motivo del control",
+     "Evolución desde el último control",
+     "Adherencia y tolerancia al tratamiento",
+     "Paraclínicos y estudios nuevos",
+     "Crecimiento intercurrente",
+     "Examen físico de control",
+     "Análisis y evolución",
+     "Ajuste del plan",
+     "Próximo control y signos de alarma"
+    ]
+   },
+   {
+    "name": "Procedimiento pediátrico ambulatorio · técnica, tolerancia y cuidados",
+    "desc": "Nota de procedimientos menores en el niño: curaciones, retiro de puntos, nebulizaciones, hidratación oral supervisada, lavado ótico, entre otros. Documenta indicación, consentimiento, técnica, tolerancia y las indicaciones al cuidador.",
+    "sections": [
+     "Indicación y contexto",
+     "Verificación y consentimiento",
+     "Preparación, analgesia y contención",
+     "Técnica y hallazgos",
+     "Conducta realizada",
+     "Tolerancia y complicaciones inmediatas",
+     "Indicaciones al cuidador",
+     "Seguimiento y signos de alarma"
+    ]
+   },
+   {
+    "name": "Control de niño sano · crecimiento, desarrollo y prevención",
+    "desc": "La cita de rutina programada del niño que viene sano: curvas de crecimiento, hitos del desarrollo, alimentación, esquema PAI, tamizajes y crianza. Sin sección de enfermedad actual. Si el niño consulta enfermo, usa la consulta de enfermedad aguda o la consulta pediátrica integral.",
+    "sections": [
+     "Identificación y acompañante",
+     "Curvas de crecimiento",
+     "Hitos del desarrollo",
+     "Alimentación según la etapa",
+     "Esquema PAI y vacunas aplicadas hoy",
+     "Tamizajes según la edad",
+     "Examen físico completo",
+     "Crianza, sueño, pantallas y prevención de accidentes",
+     "Análisis y concepto del estado de salud",
+     "Plan y educación al cuidador",
+     "Próximo control"
+    ]
+   }
+  ]
+ },
+ {
+  "key": "ginecologia_obstetricia",
+  "slug": "ginecologia-y-obstetricia",
+  "name": "Ginecología y obstetricia",
+  "low": "ginecología y obstetricia",
+  "templates": [
+   {
+    "name": "Consulta inicial · valoración ginecológica",
+    "desc": "Primera consulta ginecológica por síntomas, tamizaje o planificación: antecedentes ginecoobstétricos, salud sexual y reproductiva, examen ginecológico y plan. Para el seguimiento de una paciente ya valorada o para la gestante, usa el control o el control prenatal.",
+    "sections": [
+     "Motivo de consulta",
+     "Enfermedad actual",
+     "Antecedentes ginecoobstétricos",
+     "Antecedentes personales y familiares",
+     "Salud sexual y reproductiva",
+     "Examen ginecológico",
+     "Análisis e impresión diagnóstica",
+     "Plan y paraclínicos",
+     "Próximo control y signos de alarma"
+    ]
+   },
+   {
+    "name": "Control y seguimiento · evolución ginecológica y resultados",
+    "desc": "Seguimiento ginecológico de una paciente ya valorada: revisión de resultados (citología, biopsia, ecografía), evolución de los síntomas, tolerancia al tratamiento hormonal o anticonceptivo y ajuste del plan. Para la gestante usa el control prenatal.",
+    "sections": [
+     "Diagnóstico y motivo del control",
+     "Evolución desde el último control",
+     "Adherencia y tolerancia al tratamiento",
+     "Resultados nuevos",
+     "Examen ginecológico dirigido",
+     "Análisis y evolución",
+     "Ajuste del plan",
+     "Próximo control y signos de alarma"
+    ]
+   },
+   {
+    "name": "Procedimiento ginecológico · técnica, hallazgos y cuidados",
+    "desc": "Nota de procedimientos ginecológicos ambulatorios: citología, colposcopia, biopsia de cérvix, inserción o retiro de DIU o implante, entre otros. Documenta indicación, consentimiento, técnica, hallazgos, tolerancia y cuidados posteriores.",
+    "sections": [
+     "Indicación y contexto",
+     "Verificación y consentimiento",
+     "Preparación y asepsia",
+     "Técnica y hallazgos",
+     "Muestras y conducta realizada",
+     "Tolerancia y complicaciones inmediatas",
+     "Indicaciones posteriores",
+     "Seguimiento y entrega de resultados"
+    ]
+   },
+   {
+    "name": "Control prenatal · seguimiento obstétrico",
+    "desc": "Cita de control del embarazo: edad gestacional tal como la enuncia el médico, síntomas y signos de alarma, examen obstétrico con altura uterina y fetocardia, paraclínicos del trimestre, vacunación materna y plan hasta la próxima cita. Para consultas ginecológicas no obstétricas use las demás plantillas.",
+    "sections": [
+     "Datos obstétricos y edad gestacional",
+     "Evolución del embarazo desde el último control",
+     "Síntomas y signos de alarma interrogados",
+     "Examen obstétrico",
+     "Paraclínicos del trimestre",
+     "Vacunación materna y suplementos",
+     "Clasificación del riesgo obstétrico",
+     "Análisis e impresión",
+     "Plan y educación",
+     "Próxima cita"
+    ]
+   }
+  ]
+ },
+ {
+  "key": "medicina_interna",
+  "slug": "medicina-interna",
+  "name": "Medicina interna",
+  "low": "medicina interna",
+  "templates": [
+   {
+    "name": "Consulta inicial · problema clínico complejo y multimorbilidad",
+    "desc": "Úsala cuando el paciente consulta por enfermedad: primera valoración de un problema clínico no resuelto o de un adulto con varias comorbilidades, con enfermedad actual, estudios previos, lista de problemas y plan de estudio. Para el chequeo del paciente que se siente sano usa la plantilla de chequeo de rutina.",
+    "sections": [
+     "Motivo de consulta y remisión",
+     "Enfermedad actual",
+     "Comorbilidades y antecedentes",
+     "Medicamentos y alergias",
+     "Revisión por sistemas dirigida",
+     "Paraclínicos y estudios previos",
+     "Examen físico por sistemas",
+     "Análisis y lista de problemas",
+     "Plan de estudio y tratamiento",
+     "Remisiones, incapacidad y próximo control"
+    ]
+   },
+   {
+    "name": "Control y seguimiento · multimorbilidad, metas y paraclínicos",
+    "desc": "Úsala cuando el paciente consulta por enfermedad ya conocida: control del adulto con multimorbilidad, con evolución, adherencia y tolerancia, lectura de paraclínicos nuevos, evaluación de metas y ajuste del tratamiento. No es la plantilla del chequeo preventivo del paciente sano.",
+    "sections": [
+     "Problemas activos y motivo del control",
+     "Intervalo, hospitalizaciones y eventos",
+     "Adherencia y tolerancia al tratamiento",
+     "Evolución clínica",
+     "Paraclínicos e imágenes nuevos",
+     "Examen físico de control",
+     "Análisis del control y metas",
+     "Ajuste del tratamiento y estudios",
+     "Remisiones y próximo control"
+    ]
+   },
+   {
+    "name": "Valoración especializada · interconsulta por enfermedad y conducta",
+    "desc": "Úsala cuando el paciente consulta por enfermedad y el internista responde a una interconsulta puntual: pregunta del remitente, documentos revisados, examen dirigido, concepto y recomendaciones para el médico tratante. Es la plantilla del concepto especializado, no del control ni del chequeo.",
+    "sections": [
+     "Motivo de la interconsulta y solicitante",
+     "Resumen del caso aportado",
+     "Documentos y estudios revisados",
+     "Medicamentos actuales",
+     "Estado actual y examen dirigido",
+     "Análisis y concepto especializado",
+     "Recomendaciones al médico tratante",
+     "Seguimiento y contrarreferencia"
+    ]
+   },
+   {
+    "name": "Chequeo de rutina del adulto · revisión por sistemas, tamizajes y prevención",
+    "desc": "Chequeo programado del adulto que se siente sano: revisión completa por sistemas, hábitos, antecedentes, tamizajes y vacunación que el médico mencione, examen físico completo y plan preventivo. Úsala en la cita de chequeo; si el paciente consulta por una enfermedad, usa la consulta inicial o el control.",
+    "sections": [
+     "Motivo del chequeo y preocupaciones",
+     "Revisión completa por sistemas",
+     "Hábitos y estilo de vida",
+     "Antecedentes personales",
+     "Antecedentes familiares",
+     "Medicamentos, suplementos y alergias",
+     "Tamizajes según edad y sexo",
+     "Vacunación del adulto",
+     "Examen físico completo por sistemas",
+     "Paraclínicos revisados o solicitados",
+     "Análisis y riesgo del paciente",
+     "Plan preventivo y educación"
+    ]
+   }
+  ]
+ }
+]
