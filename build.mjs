@@ -12,8 +12,8 @@ const abs = p => SITE.url + (p === '/' ? '/' : p);
 const pages = [
   { path: '/', src: 'index', out: 'index.html', gsap: true, js: 'home',
     title: 'Historia clínica con IA para médicos e IPS | Miracle',
-    desc: 'Miracle escucha la consulta, escribe la nota clínica, sugiere CIE-10 y CUPS y audita cada historia antes de firmar. Agende una demo para su consultorio o IPS.' },
-  { path: '/soluciones', src: 'soluciones', out: 'soluciones.html', crumbs: [['Soluciones']], faq: true,
+    desc: 'Miracle escucha la consulta, escribe la nota clínica, sugiere CIE-10 y CUPS y audita cada historia antes de firmar. Agenda una demo para tu consultorio o IPS.' },
+  { path: '/soluciones', src: 'soluciones', out: 'soluciones.html', js: 'soluciones', crumbs: [['Soluciones']], faq: true,
     title: 'Notes, Analytics y Auditorías para médicos e IPS | Miracle',
     desc: 'Tres productos para una misma consulta: Notes escribe la historia clínica, Auditorías la revisa antes de firmar y Analytics muestra el servicio a la gerencia.' },
   { path: '/notes', src: 'notes', out: 'notes.html', gsap: true, js: 'product', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Notes']],
