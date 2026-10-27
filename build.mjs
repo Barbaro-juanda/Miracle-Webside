@@ -19,18 +19,18 @@ const pages = [
   { path: '/notes', src: 'notes', out: 'notes.html', gsap: true, js: 'product', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Notes']],
     app: { name: 'Miracle Notes', description: 'Escribe la nota clínica a partir de la consulta, sugiere códigos CIE-10 y CUPS, permite firma electrónica y exporta a PDF y RIPS.' },
     title: 'Notes: la nota clínica escrita por la IA | Miracle',
-    desc: 'Notes escucha la consulta, arma la nota por secciones con la plantilla de su especialidad, sugiere CIE-10 y CUPS y queda lista para que usted la firme.' },
+    desc: 'Notes escucha la consulta, arma la nota por secciones con la plantilla de tu especialidad, sugiere CIE-10 y CUPS y queda lista para que la firmes.' },
   { path: '/auditorias', src: 'auditorias', out: 'auditorias.html', gsap: true, js: 'product', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Auditorías']],
     app: { name: 'Miracle Auditorías', description: 'Revisa cada nota clínica antes de firmar y señala lo que falta, con la frase de la consulta que lo respalda.' },
     title: 'Auditorías: revise todas las notas antes que la EPS | Miracle',
     desc: 'Reglas, no IA: Auditorías revisa cada nota clínica antes de firmar y señala lo que falta con la frase exacta del paciente, antes de que se vuelva glosa.' },
   { path: '/analytics', src: 'analytics', out: 'analytics.html', gsap: true, js: 'product', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Analytics']],
     app: { name: 'Miracle Analytics', description: 'Reportes de gerencia con la adopción por médico y servicio, las notas firmadas y los lotes RIPS de la institución.' },
-    title: 'Analytics: notas pendientes y RIPS de su IPS, al día | Miracle',
+    title: 'Analytics: notas pendientes y RIPS de tu IPS, al día | Miracle',
     desc: 'Para la dirección médica: qué notas quedaron sin firmar, qué servicio va más lento y los lotes RIPS listos, sin armar informes a mano.' },
   { path: '/planes', src: 'planes', out: 'planes.html', crumbs: [['Planes']], faq: true,
     title: 'Planes para médicos independientes e IPS | Miracle',
-    desc: 'Notes con 14 días de prueba para el médico independiente y licencias a la medida para IPS, clínicas y hospitales. Compare los dos planes y resuelva sus dudas.' },
+    desc: 'Notes con 14 días de prueba para el médico independiente y licencias a la medida para IPS, clínicas y hospitales. Compara los dos planes y resuelve tus dudas.' },
   { path: '/blog', src: 'blog', out: 'blog.html', crumbs: [['Blog']],
     title: 'Blog de Miracle: práctica clínica, auditoría y codificación',
     desc: 'Artículos sobre cómo recuperar tiempo de consulta, qué revisar antes de firmar una nota y cómo codificar CIE-10 y CUPS sin buscar en tablas, con ejemplos.' },
@@ -38,8 +38,8 @@ const pages = [
     title: 'Seguridad clínica: roles, trazabilidad y firma | Miracle',
     desc: 'Revisión humana, datos aislados por institución, roles y permisos, trazabilidad y firma con huella digital. Lo que Miracle hace hoy para cuidar cada nota.' },
   { path: '/agendar', src: 'agendar', out: 'agendar.html', js: 'agendar', crumbs: [['Agendar']],
-    title: 'Agende una demo de Miracle en 30 minutos | Miracle',
-    desc: 'Elija día y hora y vea Miracle funcionando con una consulta de su especialidad. Le confirmamos por WhatsApp o correo, con el enlace de la videollamada.' },
+    title: 'Agenda una demo de Miracle en 30 minutos | Miracle',
+    desc: 'Elige día y hora y mira Miracle funcionando con una consulta de tu especialidad. Te confirmamos por WhatsApp o correo, con el enlace de la videollamada.' },
 ];
 for (const p of posts) pages.push({ path: `/blog/${p.slug}`, post: p, out: `blog/${p.slug}.html`, navPath: '/blog',
   crumbs: [['Blog', '/blog'], [p.title]], title: p.title.length < 45 ? `${p.title} | Blog de Miracle` : p.title, desc: p.desc || p.excerpt });
@@ -93,8 +93,8 @@ const footer = `<footer>
 </a>`;
 
 const ctaBand = `<section class="cta-band" aria-labelledby="h-cta"><div class="wrap"><div class="box" data-reveal>
-  <div><h2 id="h-cta">¿Lo vemos funcionando en su consulta?</h2><p>Son 30 minutos, con una consulta de su especialidad.</p></div>
-  <div class="ctas"><a class="btn btn-light" href="/agendar">Agendar una demo</a><a class="btn btn-dark-ghost" href="https://itsmiracleai.com.co/registro">Probar Notes gratis</a></div>
+  <div><h2 id="h-cta">¿Lo vemos funcionando en tu consulta?</h2><p>Son 30 minutos, con una consulta de tu especialidad.</p></div>
+  <div class="ctas"><a class="btn btn-light" href="/agendar">Agenda una demo</a><a class="btn btn-dark-ghost" href="https://itsmiracleai.com.co/registro">Prueba Notes gratis</a></div>
 </div></div></section>`;
 
 const crumbsHtml = pg => !pg.crumbs ? '' : `<nav class="crumbs" aria-label="Ruta"><ol><li><a href="/">Inicio</a></li>${pg.crumbs.map(([l, h], i) =>
@@ -140,7 +140,7 @@ function render(pg) {
   <div class="prose">
 ${p.body}
   </div>
-  <div class="article-cta"><div><b>¿Quiere verlo funcionando en su consulta?</b><br>Son 30 minutos y lo vemos con su especialidad.</div><a class="btn btn-primary" href="/agendar">Agendar una demo</a></div>
+  <div class="article-cta"><div><b>¿Quieres verlo funcionando en tu consulta?</b><br>Son 30 minutos y lo vemos con tu especialidad.</div><a class="btn btn-primary" href="/agendar">Agenda una demo</a></div>
 </div></article>
 <section class="related" aria-labelledby="h-rel"><div class="wrap"><h2 id="h-rel">Más para leer</h2><div class="posts">${rel.map(postCard).join('')}</div></div></section>`;
   } else {

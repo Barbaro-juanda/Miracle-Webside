@@ -65,7 +65,7 @@
       v('f-org') && `Institución: ${v('f-org')}`, v('f-size') && `Médicos: ${v('f-size')}`
     ].filter(Boolean).join('\n');
     const btn = document.getElementById('submitBtn');
-    btn.disabled = true; btn.textContent = 'Preparando su solicitud…';
+    btn.disabled = true; btn.textContent = 'Preparando tu solicitud…';
     document.getElementById('mailAlt').href = `mailto:${MAIL}?subject=${encodeURIComponent('Demo de Miracle · ' + v('f-name'))}&body=${encodeURIComponent(msg)}`;
     setTimeout(() => {
       window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
