@@ -82,6 +82,9 @@
     const rec = $('#appRec'), recLabel = $('#appRecLabel'), clock = $('#appClock'), saved = $('#appSaved');
     const spNum = $('#spNum'), spBar = $('#spBar'), spCue = $('#spCueText');
     const S = [0, 2.4, 4.2, 6.0, 7.6], MAX = S.length - 1;
+    // Con animación, los pasos visibles son decorativos: el lector de pantalla y el teclado usan la lista .sr-steps.
+    panel.setAttribute('aria-hidden', 'true'); $$('a', panel).forEach(l => l.tabIndex = -1);
+    document.body.classList.add('has-sr-steps');
     let idx = 0, busy = false, tl = null;
 
     gsap.set(dw, {xPercent:-50, yPercent:-50});
