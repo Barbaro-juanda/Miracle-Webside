@@ -1232,3 +1232,4 @@ a.post .txt .meta{margin-top:auto}
 .xtile .xtxt{flex:1}
 .xtile .xgo{margin-top:22px}
 @media (max-width:600px){.xtile .xmini{width:120px;height:84px}}
+.hero-links .lbl{align-self:center;color:#9fb0c6;font-size:.9rem;font-weight:500;margin-right:2px}
