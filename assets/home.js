@@ -266,11 +266,11 @@
     document.body.classList.add('anim');
     const stEl = $('.statement');
     const sw = splitWords($('.split-words'));
-    gsap.set(sw, {color:'#2a3850'});
+    gsap.set(sw, {color:getComputedStyle(document.documentElement).getPropertyValue('--on-dark-dim').trim()});
     const stTl = gsap.timeline({defaults:{ease:'none'},
       scrollTrigger:{trigger:stEl, start:'top top', end:() => '+=' + Math.round(innerHeight * 1.6), pin:true, scrub:.35, anticipatePin:1, invalidateOnRefresh:true}});
     stTl.from('.statement p', {y:40, duration:.15, ease:'power2.out'}, 0)
-        .to(sw, {color:'#eef3fa', duration:.06, stagger:{each:.74 / sw.length}}, .1)
+        .to(sw, {color:getComputedStyle(document.documentElement).getPropertyValue('--on-dark').trim(), duration:.06, stagger:{each:.74 / sw.length}}, .1)
         .to({}, {duration:.15});
 
     /* Circuito: las líneas salen del orbe y encienden cada producto */

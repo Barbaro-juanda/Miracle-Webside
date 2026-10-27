@@ -12,8 +12,8 @@
   while (days.length < 10) { d.setDate(d.getDate() + 1); if (d.getDay() % 6) days.push(new Date(d)); }
   days.forEach((day, i) => {
     const b = document.createElement('button'); b.type = 'button'; b.className = 'day'; b.setAttribute('aria-pressed','false');
-    b.setAttribute('aria-label', longFmt.format(day));
-    b.innerHTML = `<small>${dFmt.format(day).replace('.','')}</small><b>${day.getDate()}</b>`;
+    // El nombre accesible es el texto visible ("mié 28") más la fecha completa, oculta a la vista.
+    b.innerHTML = `<small>${dFmt.format(day).replace('.','')}</small> <b>${day.getDate()}</b><span class="vh">, ${longFmt.format(day)}</span>`;
     b.addEventListener('click', () => { selDay = day; daysEl.querySelectorAll('.day').forEach(x => x.setAttribute('aria-pressed', x === b)); renderSlots(i); updSummary(); });
     daysEl.appendChild(b);
   });
