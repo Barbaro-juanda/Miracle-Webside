@@ -1,0 +1,42 @@
+<!--
+{
+  "title": "CIE-10 y CUPS sin buscar en tablas",
+  "subtitle": "Cómo propone Miracle los códigos de una nota, qué significa el nivel de confianza y cuándo conviene cambiarlo.",
+  "tipo": "nota-anotada",
+  "roles": ["medico", "calidad"],
+  "date": "2026-10-06",
+  "updated": "2026-10-28",
+  "author": null,
+  "excerpt": "Cómo propone Miracle los códigos, qué significa el nivel de confianza y cuándo conviene cambiarlo.",
+  "desc": "Cómo propone Miracle los códigos CIE-10 y CUPS, qué significa el nivel de confianza y cuándo conviene cambiar la sugerencia antes de firmar la nota clínica.",
+  "idea": "El código sugerido es un punto de partida; el código final lo elige quien firma la nota.",
+  "fragment": { "label": "Diagnóstico y plan", "text": "Faringoamigdalitis aguda.", "codes": [["J03.9", "96 %"], ["890201", "99 %"]], "flag": "Cada código llega con su nivel de confianza." }
+}
+-->
+<p>Codificar bien importa para la historia clínica, para RIPS y para no tener glosas después. Pero buscar códigos en una tabla al final de cada consulta es tiempo que nadie le paga al médico.</p>
+
+<h2>Cómo funciona la sugerencia</h2>
+<p>Cuando la nota está lista, Miracle propone los códigos CIE-10 del diagnóstico y el CUPS del procedimiento o la consulta. Cada sugerencia viene con un nivel de confianza. Así se ve en la nota de ejemplo de Laura Gómez, con dos anotaciones al margen.</p>
+
+<figure class="ilustra">
+  <div class="nota">
+    <div class="nota-top"><span>Historia clínica · Medicina general</span><span class="pill info">Lista para firmar</span></div>
+    <div class="nota-s"><b>Diagnóstico y plan</b><p>Faringoamigdalitis aguda. Antibiótico no betalactámico por siete días, analgésico y signos de alarma explicados.</p>
+      <ul class="cods" aria-label="Códigos sugeridos"><li><b>J03.9</b>Amigdalitis aguda<em><span class="vh">confianza </span>96 %</em><sup class="mk">1</sup></li><li><b>890201</b>Consulta primera vez<em><span class="vh">confianza </span>99 %</em><sup class="mk">2</sup></li></ul>
+    </div>
+  </div>
+  <ol class="margen">
+    <li>El porcentaje es el nivel de confianza de la sugerencia. Cuanto más bajo, más vale leerla con calma antes de aceptarla.</li>
+    <li>El CUPS sale del tipo de consulta. Si fue un control y no una primera vez, el código cambia, y eso lo sabes tú.</li>
+  </ol>
+  <figcaption>Ejemplo ilustrativo con una paciente ficticia: el diagnóstico y los códigos de la consulta de Laura Gómez.</figcaption>
+</figure>
+
+<h2>Cuándo cambiarla</h2>
+<p>Si la confianza es baja, o si sabes algo que no se dijo en voz alta, cambia el código. La sugerencia es un punto de partida, no una decisión. El código final siempre lo eliges tú.</p>
+
+<aside class="caja">
+  <h2>Cómo lo hace Miracle</h2>
+  <p>Notes sugiere el CIE-10 y el CUPS cuando la nota queda lista, Auditorías revisa antes de la firma que el código coincida con el texto, y los códigos de las notas firmadas quedan listos para los lotes RIPS.</p>
+  <p><a href="/notes">Ver Notes</a></p>
+</aside>

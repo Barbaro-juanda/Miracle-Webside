@@ -1,10 +1,62 @@
-// Arma el sitio: lee src/pages/*.html y src/posts.json y escribe las páginas en la raíz.
+// Arma el sitio: lee src/pages/*.html y src/posts/*.html y escribe las páginas en la raíz.
 // Uso: node build.mjs   (no necesita dependencias)
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 
 const SITE = { url: 'https://itsmiracleai.com.co', name: 'Miracle', today: new Date().toISOString().slice(0, 10) }; // PENDIENTE (jefe): dominio final
-const posts = JSON.parse(readFileSync('src/posts.json', 'utf8'));
+/* ---------- Blog: tipos, roles y artículos ----------
+   Cada artículo es src/posts/<slug>.html: un bloque JSON con sus datos y el cuerpo en HTML
+   (la plantilla comentada está en src/posts/_plantilla.html). */
+const TIPOS = [
+  { id: 'practica-clinica', name: 'Práctica clínica', h1: 'Práctica clínica', lead: 'Cómo se organiza una consulta para que la nota no le quite tiempo al paciente.',
+    desc: 'Artículos de práctica clínica: cómo se organiza una consulta para que escribir la historia clínica no le quite tiempo al paciente, con ejemplos.' },
+  { id: 'nota-anotada', name: 'Nota anotada', h1: 'Notas anotadas', lead: 'Una nota de ejemplo, sección por sección, con comentarios al margen: qué dice, qué falta y cómo se codifica.',
+    desc: 'Notas clínicas de ejemplo comentadas sección por sección: qué dice cada parte, qué le falta y cómo se codifica con CIE-10 y CUPS.' },
+  { id: 'hallazgo-de-auditoria', name: 'Hallazgo de auditoría', h1: 'Hallazgos de auditoría', lead: 'Vacíos que aparecen al revisar una nota antes de firmar, con la frase de la consulta que los resuelve.',
+    desc: 'Hallazgos de auditoría médica explicados con ejemplos: los vacíos de una nota clínica antes de firmar y la frase de la consulta que los resuelve.' },
+  // PENDIENTE: oculto hasta tener cifras reales del portal. Mientras siga oculto no se publica ningún artículo de este tipo.
+  { id: 'medido-en-el-portal', name: 'Medido en el portal', h1: 'Medido en el portal', lead: 'Cifras reales del portal de Miracle, con el periodo y el método de cada una.',
+    desc: 'Cifras reales del portal de Miracle sobre la documentación clínica, con el periodo y el método de cada una.', oculto: true },
+];
+const ROLES = [
+  { id: 'medico', name: 'Médico', h1: 'Para el médico', lead: 'Para quien atiende, escribe la nota y la firma.',
+    desc: 'Artículos para el médico que atiende y firma la historia clínica: tiempo de consulta, revisión de la nota y codificación CIE-10 y CUPS.' },
+  { id: 'calidad', name: 'Calidad y auditoría', h1: 'Para calidad y auditoría', lead: 'Para quien revisa las notas antes de que lleguen a la EPS.',
+    desc: 'Artículos para equipos de calidad y auditoría médica: qué revisar en una nota clínica antes de que llegue a la EPS y cómo evitar glosas.' },
+  { id: 'gerencia', name: 'Gerencia e IPS', h1: 'Para la gerencia de una IPS', lead: 'Para la dirección médica de una IPS, una clínica o un hospital.',
+    desc: 'Artículos para la dirección médica y la gerencia de IPS, clínicas y hospitales: tiempo de consulta, notas pendientes y documentación.' },
+];
+const tipoDe = id => TIPOS.find(t => t.id === id);
+const rolDe = id => ROLES.find(r => r.id === id);
+// Mientras no haya un autor con nombre, firma el equipo (en cada artículo, "author" puede ser una persona).
+const EQUIPO = { name: 'Equipo Miracle' };
+const autorDe = p => (p.author && p.author.name ? p.author : EQUIPO);
+const fechaLarga = d => new Date(d + 'T12:00:00Z').toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+
+function leerPost(f) {
+  const file = `src/posts/${f}`, src = readFileSync(file, 'utf8');
+  const m = src.match(/^\s*<!--\s*(\{[\s\S]*?\})\s*-->/);
+  if (!m) throw new Error(`${file}: falta el bloque de datos al inicio`);
+  const p = { slug: f.replace(/\.html$/, ''), file, ...JSON.parse(m[1]) };
+  p.body = src.slice(m.index + m[0].length).replace(/<!--[\s\S]*?-->/g, '').trim();
+  for (const k of ['title', 'tipo', 'date', 'excerpt', 'idea']) if (!p[k]) throw new Error(`${file}: falta "${k}"`);
+  if (!tipoDe(p.tipo)) throw new Error(`${file}: tipo desconocido "${p.tipo}"`);
+  p.roles = p.roles || [];
+  for (const r of p.roles) if (!rolDe(r)) throw new Error(`${file}: rol desconocido "${r}"`);
+  if (!/<figure class="ilustra/.test(p.body)) console.warn(`Aviso: ${file} no tiene objeto ilustrativo (<figure class="ilustra">)`);
+  if (!/<aside class="caja/.test(p.body)) console.warn(`Aviso: ${file} no tiene caja (<aside class="caja">)`);
+  p.updated = p.updated || p.date;
+  p.dateLabel = fechaLarga(p.date);
+  // Tiempo de lectura real: palabras del texto a 200 por minuto.
+  const words = [p.subtitle, p.idea, p.body.replace(/<[^>]+>/g, ' ')].join(' ').split(/\s+/).filter(Boolean).length;
+  p.minutes = Math.max(1, Math.round(words / 200));
+  return p;
+}
+const posts = readdirSync('src/posts').filter(f => f.endsWith('.html') && !f.startsWith('_')).map(leerPost)
+  .filter(p => { if (tipoDe(p.tipo).oculto) { console.warn(`Sin publicar (tipo oculto): ${p.file}`); return false; } return true; })
+  .sort((a, b) => b.date.localeCompare(a.date));
+const tiposVisibles = TIPOS.filter(t => !t.oculto && posts.some(p => p.tipo === t.id));
+const rolesVisibles = ROLES.filter(r => posts.some(p => p.roles.includes(r.id)));
 // Portátil del inicio como secuencia de cuadros (video de Higgsfield). Solo si existe el manifiesto
 // que genera scripts/hero-frames.mjs; si no, el inicio sigue con el portátil en CSS.
 const SEQ = existsSync('assets/hero/frames.json') ? JSON.parse(readFileSync('assets/hero/frames.json', 'utf8')) : null;
@@ -39,7 +91,7 @@ const pages = [
   { path: '/planes', src: 'planes', out: 'planes.html', crumbs: [['Planes']], faq: true,
     title: 'Planes para médicos independientes e IPS | Miracle',
     desc: 'Notes con 14 días de prueba para el médico independiente y licencias a la medida para IPS, clínicas y hospitales. Compara los dos planes y resuelve tus dudas.' },
-  { path: '/blog', src: 'blog', out: 'blog.html', crumbs: [['Blog']],
+  { path: '/blog', src: 'blog', out: 'blog.html', js: 'blog', crumbs: [['Blog']],
     title: 'Blog de Miracle: práctica clínica, auditoría y codificación',
     desc: 'Artículos sobre cómo recuperar tiempo de consulta, qué revisar antes de firmar una nota y cómo codificar CIE-10 y CUPS sin buscar en tablas, con ejemplos.' },
   { path: '/seguridad', src: 'seguridad', out: 'seguridad.html', crumbs: [['Seguridad']], faq: true,
@@ -49,8 +101,13 @@ const pages = [
     title: 'Agenda una demo de Miracle en 30 minutos | Miracle',
     desc: 'Elige día y hora y mira Miracle funcionando con una consulta de tu especialidad. Te confirmamos por WhatsApp o correo, con el enlace de la videollamada.' },
 ];
+// Filtros del blog como páginas propias: funcionan sin JavaScript y los buscadores los pueden recorrer.
+for (const t of tiposVisibles) pages.push({ path: `/blog/tipo/${t.id}`, out: `blog/tipo/${t.id}.html`, src: 'blog', filtro: { tipo: t.id }, navPath: '/blog',
+  crumbs: [['Blog', '/blog'], [t.name]], title: `${t.h1} | Blog de Miracle`, desc: t.desc });
+for (const r of rolesVisibles) pages.push({ path: `/blog/rol/${r.id}`, out: `blog/rol/${r.id}.html`, src: 'blog', filtro: { rol: r.id }, navPath: '/blog',
+  crumbs: [['Blog', '/blog'], [r.name]], title: `${r.h1} | Blog de Miracle`, desc: r.desc });
 for (const p of posts) pages.push({ path: `/blog/${p.slug}`, post: p, out: `blog/${p.slug}.html`, navPath: '/blog',
-  crumbs: [['Blog', '/blog'], [p.title]], title: p.title.length < 45 ? `${p.title} | Blog de Miracle` : p.title, desc: p.desc || p.excerpt });
+  crumbs: [['Blog', '/blog'], [tipoDe(p.tipo).name, `/blog/tipo/${p.tipo}`], [p.title]], title: p.title.length < 45 ? `${p.title} | Blog de Miracle` : p.title, desc: p.desc || p.excerpt });
 
 /* ---------- Piezas compartidas ---------- */
 const svgDefs = `<svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -116,10 +173,75 @@ for (const sp of specs) {
 const crumbsHtml = pg => !pg.crumbs ? '' : `<nav class="crumbs" aria-label="Ruta"><ol><li><a href="/">Inicio</a></li>${pg.crumbs.map(([l, h], i) =>
   `<li>${h && i < pg.crumbs.length - 1 ? `<a href="${h}">${l}</a>` : `<span aria-current="page">${l}</span>`}</li>`).join('')}</ol></nav>`;
 
-const postCard = p => `<a class="post" href="/blog/${p.slug}" data-reveal>
-        <div class="art" aria-hidden="true">${p.art}</div>
-        <div class="txt"><span class="cat">${p.cat}</span><h3>${p.title}</h3><p>${p.excerpt}</p><span class="meta">${p.dateLabel} · ${p.minutes} min de lectura</span></div>
-      </a>`;
+/* ---------- Blog: tarjetas, filtros y "Empieza aquí" ---------- */
+// Trozo de nota de cada tarjeta. Siempre lleva la etiqueta "Ejemplo ilustrativo".
+const fragHtml = f => !f ? '' : `<div class="frag" aria-hidden="true">
+          <span class="ej">Ejemplo ilustrativo</span>
+          ${f.said ? `<p class="frag-said"><small>${f.who || 'Paciente'}</small>«${f.said}»</p>` : ''}
+          <div class="frag-note"><b>${f.label}</b>${f.text || f.gap ? `<p>${f.text || ''}${f.gap ? ` <span class="falta">${f.gap}</span>` : ''}</p>` : ''}${f.codes ? `<ul class="cods">${f.codes.map(([c, v]) => `<li><b>${c}</b><em>${v}</em></li>`).join('')}</ul>` : ''}</div>
+          ${f.flag ? `<p class="frag-flag">${f.flag}</p>` : ''}
+        </div>`;
+const meta = p => `<a class="bcard-tipo" href="/blog/tipo/${p.tipo}">${tipoDe(p.tipo).name}</a><span><time datetime="${p.date}">${p.dateLabel}</time> · ${p.minutes} min de lectura</span>`;
+const postCard = p => `<li class="bcard" data-tipo="${p.tipo}" data-roles="${p.roles.join(' ')}">
+        <div class="bcard-txt">
+          <p class="bcard-meta">${meta(p)}</p>
+          <h3><a href="/blog/${p.slug}">${p.title}</a></h3>
+          <p>${p.excerpt}</p>
+          ${p.roles.length ? `<p class="bcard-para">Para: ${p.roles.map(r => rolDe(r).name).join(' · ')}</p>` : ''}
+        </div>
+        ${fragHtml(p.fragment)}
+      </li>`;
+const nArt = n => n === 1 ? '1 artículo' : `${n} artículos`;
+// Sin JavaScript cada filtro es un enlace a su página (/blog/tipo/… o /blog/rol/…). En /blog, blog.js filtra al instante.
+function filtrosHtml(path) {
+  const chip = (f, v, name, href) => `<a href="${href}" data-f="${f}" data-v="${v}"${href === path ? ' aria-current="page"' : ''}>${name}</a>`;
+  return `<div class="bfil" data-filtros>
+      <div class="bfil-g" role="group" aria-labelledby="bf-tipo"><span id="bf-tipo">Tipo</span>${chip('tipo', '', 'Todos', '/blog')}${tiposVisibles.map(t => chip('tipo', t.id, t.name, `/blog/tipo/${t.id}`)).join('')}</div>
+      <div class="bfil-g" role="group" aria-labelledby="bf-rol"><span id="bf-rol">Para</span>${chip('rol', '', 'Todos', '/blog')}${rolesVisibles.map(r => chip('rol', r.id, r.name, `/blog/rol/${r.id}`)).join('')}</div>
+    </div>`;
+}
+const listaHtml = (list, path, h2) => `<section class="sec blist-sec" aria-labelledby="h-list">
+  <div class="wrap">
+    <div class="blist-head"><h2 id="h-list">${h2}</h2><p class="blist-n" data-estado aria-live="polite">${nArt(list.length)}</p></div>
+    ${filtrosHtml(path)}
+    <ol class="blist">
+      ${list.map(postCard).join('\n      ')}
+    </ol>${path === '/blog' ? `
+    <p class="bempty" hidden>Todavía no hay artículos con esa combinación. <a href="/blog" data-reset>Ver todos</a></p>` : ''}
+  </div>
+</section>`;
+function featHtml() {
+  const p = posts.find(x => x.featured) || posts[0];
+  if (!p) return '';
+  return `<section class="bfeat-sec" aria-labelledby="h-feat">
+  <div class="wrap">
+    <article class="bfeat" data-reveal>
+      <div class="bfeat-txt">
+        <p class="bfeat-k">Empieza aquí</p>
+        <h2 id="h-feat"><a href="/blog/${p.slug}">${p.title}</a></h2>
+        ${p.subtitle ? `<p class="bfeat-dek">${p.subtitle}</p>` : ''}
+        <p class="bfeat-meta">${tipoDe(p.tipo).name} · <time datetime="${p.date}">${p.dateLabel}</time> · ${p.minutes} min de lectura</p>
+        <span class="btn btn-light bfeat-go" aria-hidden="true">Leer el artículo</span>
+      </div>
+      ${fragHtml(p.fragment)}
+    </article>
+  </div>
+</section>`;
+}
+function filtroBody(pg) {
+  const { tipo, rol } = pg.filtro, d = tipo ? tipoDe(tipo) : rolDe(rol);
+  const list = posts.filter(p => (tipo ? p.tipo === tipo : p.roles.includes(rol)));
+  return `<section class="sub-hero blog-hero" aria-labelledby="h1">
+  <div class="wrap">
+    ${crumbsHtml(pg)}
+    <p class="blog-k">${tipo ? 'Tipo de artículo' : 'Artículos por rol'}</p>
+    <h1 id="h1">${d.h1}</h1>
+    <p class="lead">${d.lead}</p>
+  </div>
+</section>
+${listaHtml(list, pg.path, 'Artículos')}
+@@CTABAND@@`;
+}
 
 /* ---------- Datos estructurados ---------- */
 const orgGraph = [
@@ -131,7 +253,8 @@ const orgGraph = [
 ];
 // lastmod real: la fecha del último commit de la fuente de cada página.
 function lastmod(pg) {
-  if (pg.post) return [pg.post.date, gitDate('src/posts.json')].sort().pop();
+  if (pg.post) return [pg.post.updated, gitDate(pg.post.file)].sort().pop();
+  if (pg.filtro) return posts.filter(p => p.tipo === pg.filtro.tipo || p.roles.includes(pg.filtro.rol)).map(p => lastmod({ post: p })).sort().pop();
   return gitDate(pg.srcFile || `src/pages/${pg.src}.html`);
 }
 function schemaFor(pg, body) {
@@ -145,10 +268,16 @@ function schemaFor(pg, body) {
     const qa = [...body.matchAll(/<summary>(.*?)<span class="pm"[^>]*><\/span><\/summary><p>(.*?)<\/p>/gs)];
     g.push({ '@type': 'FAQPage', mainEntity: qa.map(m => ({ '@type': 'Question', name: m[1], acceptedAnswer: { '@type': 'Answer', text: m[2] } })) });
   }
-  if (pg.post) g.push({ '@type': 'BlogPosting', headline: pg.post.title, description: pg.post.excerpt, image: SITE.url + '/og.png',
-    datePublished: pg.post.date, dateModified: lastmod(pg), inLanguage: 'es-CO', mainEntityOfPage: abs(pg.path),
-    author: { '@type': 'Organization', '@id': SITE.url + '/#org', name: 'Miracle', url: SITE.url + '/' },
-    publisher: { '@type': 'Organization', '@id': SITE.url + '/#org', name: 'Miracle', logo: { '@type': 'ImageObject', url: SITE.url + '/icon-512.png' } } });
+  if (pg.post) {
+    const p = pg.post, a = autorDe(p);
+    g.push({ '@type': 'BlogPosting', headline: p.title, description: p.desc || p.excerpt, image: SITE.url + '/og.png',
+      datePublished: p.date, dateModified: p.updated, inLanguage: 'es-CO', mainEntityOfPage: abs(pg.path), articleSection: tipoDe(p.tipo).name,
+      author: a === EQUIPO ? { '@type': 'Organization', name: EQUIPO.name, url: SITE.url + '/blog' }
+        : { '@type': 'Person', name: a.name, ...(a.jobTitle && { jobTitle: a.jobTitle }), ...(a.url && { url: a.url }) },
+      publisher: { '@type': 'Organization', '@id': SITE.url + '/#org', name: 'Miracle', logo: { '@type': 'ImageObject', url: SITE.url + '/icon-512.png' } } });
+  }
+  if (pg.path === '/blog') g.push({ '@type': 'Blog', name: 'Blog de Miracle', url: abs('/blog'), inLanguage: 'es-CO', publisher: { '@id': SITE.url + '/#org' },
+    blogPost: posts.map(p => ({ '@type': 'BlogPosting', headline: p.title, url: abs(`/blog/${p.slug}`), datePublished: p.date, dateModified: p.updated })) });
   return JSON.stringify({ '@context': 'https://schema.org', '@graph': g }, null, 1);
 }
 
@@ -214,17 +343,24 @@ ${sp.templates.map((t, i) => `    <article class="stpl" data-reveal>
 function render(pg) {
   let body;
   if (pg.post) {
-    const p = pg.post, rel = posts.filter(x => x.slug !== p.slug);
+    // Plantilla de artículo: título, subtítulo, autor y fechas; la idea en una línea; el objeto ilustrativo en el centro; la caja al final.
+    const p = pg.post, t = tipoDe(p.tipo), a = autorDe(p), rel = posts.filter(x => x.slug !== p.slug).slice(0, 3);
+    const prose = p.body.replace(/<figure class="ilustra([^"]*)"([^>]*)>/g, '<figure class="ilustra$1"$2><span class="ej">Ejemplo ilustrativo</span>');
     body = `<article class="article"><div class="wrap">
   ${crumbsHtml(pg)}
+  <p class="art-k"><a href="/blog/tipo/${t.id}">${t.name}</a></p>
   <h1>${p.title}</h1>
-  <p class="byline"><b>${p.cat}</b> · ${p.dateLabel} · ${p.minutes} min de lectura</p>
+  ${p.subtitle ? `<p class="dek">${p.subtitle}</p>` : ''}
+  <p class="byline">Por <b>${a.name}</b>${a.jobTitle ? `, ${a.jobTitle}` : ''} · Publicado el <time datetime="${p.date}">${p.dateLabel}</time>${p.updated !== p.date ? ` · Actualizado el <time datetime="${p.updated}">${fechaLarga(p.updated)}</time>` : ''} · <span>${p.minutes} min de lectura</span></p>
+  <p class="idea"><span>La idea</span>${p.idea}</p>
   <div class="prose">
-${p.body}
+${prose}
   </div>
   <div class="article-cta"><div><b>¿Quieres verlo funcionando en tu consulta?</b><br>Son 30 minutos y lo vemos con tu especialidad.</div><a class="btn btn-primary" href="/agendar">Agenda una demo</a></div>
 </div></article>
-<section class="related" aria-labelledby="h-rel"><div class="wrap"><h2 id="h-rel">Más para leer</h2><div class="posts">${rel.map(postCard).join('')}</div></div></section>`;
+${rel.length ? `<section class="related" aria-labelledby="h-rel"><div class="wrap"><h2 id="h-rel">Más para leer</h2><ol class="blist">${rel.map(postCard).join('')}</ol></div></section>` : ''}`;
+  } else if (pg.filtro) {
+    body = filtroBody(pg);
   } else if (pg.spec) {
     body = specBody(pg);
   } else {
@@ -232,8 +368,8 @@ ${p.body}
     if (pg.src === 'index') body = splitHero(body);
     if (pg.src === 'index' && SEQ) body = withSeq(body);
   }
-  const cards = posts.map(postCard).join('\n      ');
-  body = body.replaceAll('@@CRUMBS@@', crumbsHtml(pg)).replaceAll('@@CTABAND@@', ctaBand).replaceAll('@@POSTCARDS@@', cards);
+  if (pg.src === 'blog' && !pg.filtro) body = body.replace('@@BLOGFEAT@@', featHtml()).replace('@@BLOGLIST@@', listaHtml(posts, '/blog', 'Todos los artículos'));
+  body = body.replaceAll('@@CRUMBS@@', crumbsHtml(pg)).replaceAll('@@CTABAND@@', ctaBand);
 
   const depth = pg.out.includes('/') ? '/' : '';
   const url = abs(pg.path);
@@ -274,7 +410,7 @@ ${pg.src === 'index' && SEQ ? `<link rel="preload" as="image" href="${frame('m',
 ${schemaFor(pg, body)}
 </script>
 </head>
-<body class="page-${pg.src || 'post'}">
+<body class="page-${pg.post ? 'post' : pg.filtro ? 'blog-filtro' : pg.src}">
 <a class="skip" href="#main">Saltar al contenido</a>
 ${svgDefs}
 ${header(pg.navPath || pg.path)}
@@ -288,7 +424,7 @@ ${scripts}
 `;
 }
 
-mkdirSync('blog', { recursive: true });
+for (const d of ['blog/tipo', 'blog/rol']) mkdirSync(d, { recursive: true });
 mkdirSync('especialidades', { recursive: true });
 for (const pg of pages) writeFileSync(pg.out, render(pg));
 writeFileSync('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map(p =>

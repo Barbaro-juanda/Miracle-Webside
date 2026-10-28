@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dónde se va el tiempo de una consulta, y cómo recuperarlo</title>
-<meta name="description" content="Escribir mientras el paciente habla tiene un costo que no aparece en ninguna factura. Cómo medimos el tiempo de una consulta y cómo devolvérselo al paciente.">
+<meta name="description" content="Una consulta de ejemplo, frase por frase: qué parte de la historia clínica ya se dijo en voz alta, dónde se pierde el tiempo de escribirla y cómo recuperarlo.">
 <link rel="canonical" href="https://itsmiracleai.com.co/blog/donde-se-va-el-tiempo-de-una-consulta">
 <meta name="theme-color" content="#0c1424">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="es_CO">
 <meta property="og:site_name" content="Miracle">
 <meta property="og:title" content="Dónde se va el tiempo de una consulta, y cómo recuperarlo">
-<meta property="og:description" content="Escribir mientras el paciente habla tiene un costo que no aparece en ninguna factura. Cómo medimos el tiempo de una consulta y cómo devolvérselo al paciente.">
+<meta property="og:description" content="Una consulta de ejemplo, frase por frase: qué parte de la historia clínica ya se dijo en voz alta, dónde se pierde el tiempo de escribirla y cómo recuperarlo.">
 <meta property="og:url" content="https://itsmiracleai.com.co/blog/donde-se-va-el-tiempo-de-una-consulta">
 <meta property="og:image" content="https://itsmiracleai.com.co/og.png">
 <meta property="og:image:width" content="1200">
@@ -72,6 +72,12 @@
     {
      "@type": "ListItem",
      "position": 3,
+     "name": "Práctica clínica",
+     "item": "https://itsmiracleai.com.co/blog/tipo/practica-clinica"
+    },
+    {
+     "@type": "ListItem",
+     "position": 4,
      "name": "Dónde se va el tiempo de una consulta, y cómo recuperarlo",
      "item": "https://itsmiracleai.com.co/blog/donde-se-va-el-tiempo-de-una-consulta"
     }
@@ -80,17 +86,17 @@
   {
    "@type": "BlogPosting",
    "headline": "Dónde se va el tiempo de una consulta, y cómo recuperarlo",
-   "description": "Escribir mientras el paciente habla tiene un costo que no aparece en ninguna factura. Lo medimos en nuestro propio portal.",
+   "description": "Una consulta de ejemplo, frase por frase: qué parte de la historia clínica ya se dijo en voz alta, dónde se pierde el tiempo de escribirla y cómo recuperarlo.",
    "image": "https://itsmiracleai.com.co/og.png",
    "datePublished": "2026-10-20",
-   "dateModified": "2026-10-27",
+   "dateModified": "2026-10-28",
    "inLanguage": "es-CO",
    "mainEntityOfPage": "https://itsmiracleai.com.co/blog/donde-se-va-el-tiempo-de-una-consulta",
+   "articleSection": "Práctica clínica",
    "author": {
     "@type": "Organization",
-    "@id": "https://itsmiracleai.com.co/#org",
-    "name": "Miracle",
-    "url": "https://itsmiracleai.com.co/"
+    "name": "Equipo Miracle",
+    "url": "https://itsmiracleai.com.co/blog"
    },
    "publisher": {
     "@type": "Organization",
@@ -149,27 +155,104 @@
 </nav>
 <main id="main">
 <article class="article"><div class="wrap">
-  <nav class="crumbs" aria-label="Ruta"><ol><li><a href="/">Inicio</a></li><li><a href="/blog">Blog</a></li><li><span aria-current="page">Dónde se va el tiempo de una consulta, y cómo recuperarlo</span></li></ol></nav>
+  <nav class="crumbs" aria-label="Ruta"><ol><li><a href="/">Inicio</a></li><li><a href="/blog">Blog</a></li><li><a href="/blog/tipo/practica-clinica">Práctica clínica</a></li><li><span aria-current="page">Dónde se va el tiempo de una consulta, y cómo recuperarlo</span></li></ol></nav>
+  <p class="art-k"><a href="/blog/tipo/practica-clinica">Práctica clínica</a></p>
   <h1>Dónde se va el tiempo de una consulta, y cómo recuperarlo</h1>
-  <p class="byline"><b>Práctica clínica</b> · 20 de octubre de 2026 · 4 min de lectura</p>
+  <p class="dek">Una consulta por dolor de garganta, frase por frase: qué parte de la nota ya estaba dicha y qué parte solo podía escribirla la médica.</p>
+  <p class="byline">Por <b>Equipo Miracle</b> · Publicado el <time datetime="2026-10-20">20 de octubre de 2026</time> · Actualizado el <time datetime="2026-10-28">28 de octubre de 2026</time> · <span>4 min de lectura</span></p>
+  <p class="idea"><span>La idea</span>En una consulta como la de Laura, casi toda la nota se dice en voz alta: el tiempo se va en pasarla a la pantalla, no en pensarla.</p>
   <div class="prose">
-<p>Una consulta de veinte minutos no son veinte minutos de medicina. Una parte se va en mirar la pantalla, otra en buscar códigos y otra en terminar la nota cuando el paciente ya salió.</p>
-      <p>Cuando empezamos a construir Miracle nos hicimos una pregunta simple: ¿cuánto de la consulta se puede devolver al paciente si alguien más escribe?</p>
-      <h2>Lo que vimos en el portal</h2>
-      <p>Medimos los minutos grabados en las consultas de los médicos que usan Miracle Notes. Lo que se habla en una consulta ya contiene casi toda la nota: el motivo, la evolución, lo que se encontró al examinar y el plan. Lo que falta es ordenarlo.</p>
-      <h2>Tres cambios que sí mueven la aguja</h2>
-      <ul><li>Dejar de escribir durante la conversación y revisar al final.</li><li>Usar una plantilla por especialidad, no una genérica para todo.</li><li>Codificar con sugerencias en lugar de buscar en tablas.</li></ul>
-      <p>Ninguno de los tres exige cambiar la forma de atender. Exige que la herramienta se adapte al médico, y no al revés.</p>
+<p>El tiempo de una consulta se reparte entre mirar al paciente y mirar la pantalla. La segunda parte casi nunca se ve: no aparece en la agenda ni en la factura, pero se nota al final del día, cuando quedan notas por cerrar y el último paciente ya se fue.</p>
+<p>Para ver dónde se va, sirve tomar una consulta corriente y seguirla frase por frase. Aquí usamos un ejemplo ilustrativo: Laura Gómez, 34 años, consulta de medicina general por dolor de garganta. La paciente y la conversación son ficticias; el recorrido es el de cualquier consulta.</p>
+
+<h2>La consulta, frase por frase</h2>
+<p>A la izquierda, lo que se dijo. A la derecha, la sección de la nota a la que va.</p>
+
+<figure class="ilustra"><span class="ej">Ejemplo ilustrativo</span>
+  <ol class="an">
+    <li>
+      <div class="an-said"><span>Laura</span><q>Desde hace tres días me duele la garganta y en las noches me da fiebre.</q></div>
+      <i class="an-to" aria-hidden="true"></i>
+      <div class="an-note"><b>Motivo de consulta</b><p>Odinofagia y fiebre nocturna de tres días de evolución.</p></div>
+    </li>
+    <li>
+      <div class="an-said"><span>Laura</span><q>Me duele mucho al tragar. […] Ah, y soy alérgica a la penicilina.</q></div>
+      <i class="an-to" aria-hidden="true"></i>
+      <div class="an-note"><b>Enfermedad actual</b><p>Dolor faríngeo de tres días, fiebre nocturna no cuantificada y odinofagia intensa. Alergia a penicilina.</p><small>La alergia llegó de pasada, al final de una frase. Es el dato que más fácil se pierde cuando la nota se escribe de memoria.</small></div>
+    </li>
+    <li>
+      <div class="an-said"><span>La médica</span><q>Veo las amígdalas grandes, con placas, y los ganglios del cuello inflamados.</q></div>
+      <i class="an-to" aria-hidden="true"></i>
+      <div class="an-note"><b>Examen físico</b><p>Amígdalas hipertróficas con exudado bilateral. Adenopatías cervicales anteriores dolorosas.</p><small>Dicho en voz alta mientras examinaba: no hubo que dictarlo después.</small></div>
+    </li>
+    <li class="an-own">
+      <div class="an-said"><span>Nadie lo dice</span><p>Es criterio clínico.</p></div>
+      <i class="an-to" aria-hidden="true"></i>
+      <div class="an-note"><b>Diagnóstico y plan</b><p>Faringoamigdalitis aguda. Antibiótico no betalactámico por siete días, analgésico y signos de alarma explicados.</p><small>El antibiótico no betalactámico sale de la alergia que Laura mencionó. Esta es la parte que de verdad le toca escribir a la médica.</small></div>
+    </li>
+  </ol>
+  <figcaption>Ejemplo ilustrativo con una paciente ficticia. Es la misma consulta que se ve en la página de inicio.</figcaption>
+</figure>
+
+<p>Casi todo lo que la nota necesita ya estaba en la conversación. El motivo y la enfermedad actual los contó Laura con sus palabras. El examen lo describió la médica mientras examinaba. Lo único que nadie dijo fue el diagnóstico y el plan, y eso no es un trámite: es la decisión clínica.</p>
+
+<h2>Dónde se va el tiempo</h2>
+<p>Si la nota ya está en la conversación, el tiempo no se pierde pensando qué escribir. Se pierde en cuatro lugares:</p>
+<ul>
+  <li><b>Escribir mientras el paciente habla.</b> Cada frase que se teclea es una frase en la que no se mira al paciente, y la conversación se acomoda al ritmo del teclado.</li>
+  <li><b>Reconstruir la nota después.</b> Lo que no alcanzó a quedar se completa de memoria, entre un paciente y otro o al final de la jornada. Ahí es donde se cae un dato como la alergia.</li>
+  <li><b>Buscar los códigos.</b> El diagnóstico está claro, pero encontrar el CIE-10 y el CUPS en una tabla es un trámite aparte.</li>
+  <li><b>Volver a la nota cuando la devuelven.</b> Si auditoría encuentra un vacío semanas después, hay que reconstruir una consulta que ya nadie tiene fresca.</li>
+</ul>
+
+<h2>Cómo recuperarlo</h2>
+<p>Ninguno de estos cambios exige atender distinto. Exigen que la nota se adapte a la consulta, y no al revés.</p>
+<ul>
+  <li><b>No escribas durante la conversación.</b> Escucha, examina y revisa la nota al final, con la consulta todavía fresca.</li>
+  <li><b>Di el examen en voz alta.</b> Como hizo la médica con las amígdalas y los ganglios: lo que se dice queda en la transcripción.</li>
+  <li><b>Usa la plantilla de tu especialidad.</b> Una nota de medicina general no pide lo mismo que una de pediatría o de psiquiatría, y una plantilla genérica obliga a llenar y borrar.</li>
+  <li><b>Codifica con sugerencias y verifica.</b> Revisar un código propuesto es más corto que buscarlo desde cero, y el código final sigue siendo tuyo.</li>
+  <li><b>Revisa antes de firmar, no después de la glosa.</b> Un vacío que se corrige con el paciente en la memoria es una corrección rápida; el mismo vacío semanas después es una búsqueda.</li>
+</ul>
+
+<h2>Una prueba para tu propia consulta</h2>
+<p>Durante una semana, anota a qué hora cierras cada nota. Si muchas se cierran cuando el paciente ya salió, ahí está el tiempo que se puede recuperar, y ya sabes en cuál de los cuatro lugares se está yendo.</p>
+
+<aside class="caja">
+  <h2>Cómo lo hace Miracle</h2>
+  <p>Notes escucha la consulta y arma la nota por secciones, con la plantilla de la especialidad y el CIE-10 y el CUPS sugeridos. Auditorías la revisa contra lo que se dijo antes de la firma, y la médica la firma con huella digital.</p>
+  <p><a href="/soluciones#medico">Ver la consulta de Laura en Soluciones</a></p>
+</aside>
   </div>
   <div class="article-cta"><div><b>¿Quieres verlo funcionando en tu consulta?</b><br>Son 30 minutos y lo vemos con tu especialidad.</div><a class="btn btn-primary" href="/agendar">Agenda una demo</a></div>
 </div></article>
-<section class="related" aria-labelledby="h-rel"><div class="wrap"><h2 id="h-rel">Más para leer</h2><div class="posts"><a class="post" href="/blog/seis-cosas-que-revisar-en-una-nota" data-reveal>
-        <div class="art" aria-hidden="true"><svg viewBox="0 0 400 150" preserveAspectRatio="xMidYMid slice" width="100%" height="100%"><rect width="400" height="150" fill="#e6f8ef"/><rect x="40" y="34" width="320" height="26" rx="8" fill="#fff"/><rect x="52" y="42" width="44" height="10" rx="5" fill="#fbe3df"/><rect x="104" y="43" width="150" height="8" rx="4" fill="#d4dbe6"/><rect x="40" y="68" width="320" height="26" rx="8" fill="#fff"/><rect x="52" y="76" width="44" height="10" rx="5" fill="#fdeecf"/><rect x="104" y="77" width="190" height="8" rx="4" fill="#d4dbe6"/><rect x="40" y="102" width="320" height="26" rx="8" fill="#fff"/><rect x="52" y="110" width="44" height="10" rx="5" fill="#eef4fe"/><rect x="104" y="111" width="120" height="8" rx="4" fill="#d4dbe6"/></svg></div>
-        <div class="txt"><span class="cat">Auditoría médica</span><h3>Seis cosas que revisar en una nota antes de firmarla</h3><p>Los hallazgos que más se repiten cuando una nota llega incompleta a auditoría.</p><span class="meta">13 de octubre de 2026 · 5 min de lectura</span></div>
-      </a><a class="post" href="/blog/cie-10-y-cups-sin-buscar-en-tablas" data-reveal>
-        <div class="art" aria-hidden="true"><svg viewBox="0 0 400 150" preserveAspectRatio="xMidYMid slice" width="100%" height="100%"><rect width="400" height="150" fill="#0c1424"/><rect x="50" y="48" width="130" height="54" rx="12" fill="#1d3358"/><text x="66" y="83" fill="#fff" font-family="Inter,sans-serif" font-size="22" font-weight="700">J03.9</text><rect x="200" y="48" width="150" height="54" rx="12" fill="#1d3358"/><text x="216" y="83" fill="#b7f0d8" font-family="Inter,sans-serif" font-size="22" font-weight="700">890201</text></svg></div>
-        <div class="txt"><span class="cat">Codificación</span><h3>CIE-10 y CUPS sin buscar en tablas</h3><p>Cómo propone Miracle los códigos, qué significa el nivel de confianza y cuándo conviene cambiarlo.</p><span class="meta">6 de octubre de 2026 · 3 min de lectura</span></div>
-      </a></div></div></section>
+<section class="related" aria-labelledby="h-rel"><div class="wrap"><h2 id="h-rel">Más para leer</h2><ol class="blist"><li class="bcard" data-tipo="hallazgo-de-auditoria" data-roles="medico calidad">
+        <div class="bcard-txt">
+          <p class="bcard-meta"><a class="bcard-tipo" href="/blog/tipo/hallazgo-de-auditoria">Hallazgo de auditoría</a><span><time datetime="2026-10-13">13 de octubre de 2026</time> · 2 min de lectura</span></p>
+          <h3><a href="/blog/seis-cosas-que-revisar-en-una-nota">Seis cosas que revisar en una nota antes de firmarla</a></h3>
+          <p>Seis vacíos que conviene buscar antes de firmar, desde el diagnóstico sin codificar hasta el plan que no dice cuándo volver.</p>
+          <p class="bcard-para">Para: Médico · Calidad y auditoría</p>
+        </div>
+        <div class="frag" aria-hidden="true">
+          <span class="ej">Ejemplo ilustrativo</span>
+          <p class="frag-said"><small>Paciente</small>«Ah, y soy alérgica a la penicilina.»</p>
+          <div class="frag-note"><b>Enfermedad actual</b><p>… y odinofagia intensa. Niega tos. <span class="falta">Falta: alergia</span></p></div>
+          <p class="frag-flag">Se dijo en la consulta y no quedó escrito.</p>
+        </div>
+      </li><li class="bcard" data-tipo="nota-anotada" data-roles="medico calidad">
+        <div class="bcard-txt">
+          <p class="bcard-meta"><a class="bcard-tipo" href="/blog/tipo/nota-anotada">Nota anotada</a><span><time datetime="2026-10-06">6 de octubre de 2026</time> · 2 min de lectura</span></p>
+          <h3><a href="/blog/cie-10-y-cups-sin-buscar-en-tablas">CIE-10 y CUPS sin buscar en tablas</a></h3>
+          <p>Cómo propone Miracle los códigos, qué significa el nivel de confianza y cuándo conviene cambiarlo.</p>
+          <p class="bcard-para">Para: Médico · Calidad y auditoría</p>
+        </div>
+        <div class="frag" aria-hidden="true">
+          <span class="ej">Ejemplo ilustrativo</span>
+          
+          <div class="frag-note"><b>Diagnóstico y plan</b><p>Faringoamigdalitis aguda.</p><ul class="cods"><li><b>J03.9</b><em>96 %</em></li><li><b>890201</b><em>99 %</em></li></ul></div>
+          <p class="frag-flag">Cada código llega con su nivel de confianza.</p>
+        </div>
+      </li></ol></div></section>
 </main>
 <footer>
   <div class="wrap foot">

@@ -1,0 +1,77 @@
+<!--
+{
+  "title": "Dónde se va el tiempo de una consulta, y cómo recuperarlo",
+  "subtitle": "Una consulta por dolor de garganta, frase por frase: qué parte de la nota ya estaba dicha y qué parte solo podía escribirla la médica.",
+  "tipo": "practica-clinica",
+  "roles": ["medico", "gerencia"],
+  "date": "2026-10-20",
+  "updated": "2026-10-28",
+  "author": null,
+  "featured": true,
+  "excerpt": "Seguimos una consulta de ejemplo frase por frase para ver qué parte de la nota ya estaba dicha y en qué se va el tiempo de escribirla.",
+  "desc": "Una consulta de ejemplo, frase por frase: qué parte de la historia clínica ya se dijo en voz alta, dónde se pierde el tiempo de escribirla y cómo recuperarlo.",
+  "idea": "En una consulta como la de Laura, casi toda la nota se dice en voz alta: el tiempo se va en pasarla a la pantalla, no en pensarla.",
+  "fragment": { "said": "Desde hace tres días me duele la garganta y en las noches me da fiebre.", "who": "Paciente", "label": "Motivo de consulta", "text": "Odinofagia y fiebre nocturna de tres días de evolución." }
+}
+-->
+<p>El tiempo de una consulta se reparte entre mirar al paciente y mirar la pantalla. La segunda parte casi nunca se ve: no aparece en la agenda ni en la factura, pero se nota al final del día, cuando quedan notas por cerrar y el último paciente ya se fue.</p>
+<p>Para ver dónde se va, sirve tomar una consulta corriente y seguirla frase por frase. Aquí usamos un ejemplo ilustrativo: Laura Gómez, 34 años, consulta de medicina general por dolor de garganta. La paciente y la conversación son ficticias; el recorrido es el de cualquier consulta.</p>
+
+<h2>La consulta, frase por frase</h2>
+<p>A la izquierda, lo que se dijo. A la derecha, la sección de la nota a la que va.</p>
+
+<figure class="ilustra">
+  <ol class="an">
+    <li>
+      <div class="an-said"><span>Laura</span><q>Desde hace tres días me duele la garganta y en las noches me da fiebre.</q></div>
+      <i class="an-to" aria-hidden="true"></i>
+      <div class="an-note"><b>Motivo de consulta</b><p>Odinofagia y fiebre nocturna de tres días de evolución.</p></div>
+    </li>
+    <li>
+      <div class="an-said"><span>Laura</span><q>Me duele mucho al tragar. […] Ah, y soy alérgica a la penicilina.</q></div>
+      <i class="an-to" aria-hidden="true"></i>
+      <div class="an-note"><b>Enfermedad actual</b><p>Dolor faríngeo de tres días, fiebre nocturna no cuantificada y odinofagia intensa. Alergia a penicilina.</p><small>La alergia llegó de pasada, al final de una frase. Es el dato que más fácil se pierde cuando la nota se escribe de memoria.</small></div>
+    </li>
+    <li>
+      <div class="an-said"><span>La médica</span><q>Veo las amígdalas grandes, con placas, y los ganglios del cuello inflamados.</q></div>
+      <i class="an-to" aria-hidden="true"></i>
+      <div class="an-note"><b>Examen físico</b><p>Amígdalas hipertróficas con exudado bilateral. Adenopatías cervicales anteriores dolorosas.</p><small>Dicho en voz alta mientras examinaba: no hubo que dictarlo después.</small></div>
+    </li>
+    <li class="an-own">
+      <div class="an-said"><span>Nadie lo dice</span><p>Es criterio clínico.</p></div>
+      <i class="an-to" aria-hidden="true"></i>
+      <div class="an-note"><b>Diagnóstico y plan</b><p>Faringoamigdalitis aguda. Antibiótico no betalactámico por siete días, analgésico y signos de alarma explicados.</p><small>El antibiótico no betalactámico sale de la alergia que Laura mencionó. Esta es la parte que de verdad le toca escribir a la médica.</small></div>
+    </li>
+  </ol>
+  <figcaption>Ejemplo ilustrativo con una paciente ficticia. Es la misma consulta que se ve en la página de inicio.</figcaption>
+</figure>
+
+<p>Casi todo lo que la nota necesita ya estaba en la conversación. El motivo y la enfermedad actual los contó Laura con sus palabras. El examen lo describió la médica mientras examinaba. Lo único que nadie dijo fue el diagnóstico y el plan, y eso no es un trámite: es la decisión clínica.</p>
+
+<h2>Dónde se va el tiempo</h2>
+<p>Si la nota ya está en la conversación, el tiempo no se pierde pensando qué escribir. Se pierde en cuatro lugares:</p>
+<ul>
+  <li><b>Escribir mientras el paciente habla.</b> Cada frase que se teclea es una frase en la que no se mira al paciente, y la conversación se acomoda al ritmo del teclado.</li>
+  <li><b>Reconstruir la nota después.</b> Lo que no alcanzó a quedar se completa de memoria, entre un paciente y otro o al final de la jornada. Ahí es donde se cae un dato como la alergia.</li>
+  <li><b>Buscar los códigos.</b> El diagnóstico está claro, pero encontrar el CIE-10 y el CUPS en una tabla es un trámite aparte.</li>
+  <li><b>Volver a la nota cuando la devuelven.</b> Si auditoría encuentra un vacío semanas después, hay que reconstruir una consulta que ya nadie tiene fresca.</li>
+</ul>
+
+<h2>Cómo recuperarlo</h2>
+<p>Ninguno de estos cambios exige atender distinto. Exigen que la nota se adapte a la consulta, y no al revés.</p>
+<ul>
+  <li><b>No escribas durante la conversación.</b> Escucha, examina y revisa la nota al final, con la consulta todavía fresca.</li>
+  <li><b>Di el examen en voz alta.</b> Como hizo la médica con las amígdalas y los ganglios: lo que se dice queda en la transcripción.</li>
+  <li><b>Usa la plantilla de tu especialidad.</b> Una nota de medicina general no pide lo mismo que una de pediatría o de psiquiatría, y una plantilla genérica obliga a llenar y borrar.</li>
+  <li><b>Codifica con sugerencias y verifica.</b> Revisar un código propuesto es más corto que buscarlo desde cero, y el código final sigue siendo tuyo.</li>
+  <li><b>Revisa antes de firmar, no después de la glosa.</b> Un vacío que se corrige con el paciente en la memoria es una corrección rápida; el mismo vacío semanas después es una búsqueda.</li>
+</ul>
+
+<h2>Una prueba para tu propia consulta</h2>
+<p>Durante una semana, anota a qué hora cierras cada nota. Si muchas se cierran cuando el paciente ya salió, ahí está el tiempo que se puede recuperar, y ya sabes en cuál de los cuatro lugares se está yendo.</p>
+
+<aside class="caja">
+  <h2>Cómo lo hace Miracle</h2>
+  <p>Notes escucha la consulta y arma la nota por secciones, con la plantilla de la especialidad y el CIE-10 y el CUPS sugeridos. Auditorías la revisa contra lo que se dijo antes de la firma, y la médica la firma con huella digital.</p>
+  <p><a href="/soluciones#medico">Ver la consulta de Laura en Soluciones</a></p>
+</aside>

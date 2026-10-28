@@ -1,0 +1,63 @@
+<!--
+{
+  "title": "Título del artículo",
+  "subtitle": "Una frase que diga de qué trata y con qué ejemplo.",
+  "tipo": "practica-clinica",
+  "roles": ["medico"],
+  "date": "2026-01-31",
+  "updated": "2026-01-31",
+  "author": null,
+  "featured": false,
+  "excerpt": "Resumen corto para la tarjeta del blog.",
+  "desc": "Descripción para buscadores, de 120 a 155 caracteres.",
+  "idea": "La idea central del artículo en una sola línea, sin cifras.",
+  "fragment": { "said": "Frase dicha en la consulta.", "who": "Paciente", "label": "Motivo de consulta", "text": "Cómo quedó en la nota." }
+}
+-->
+<!--
+  PLANTILLA DE ARTÍCULO
+  Copie este archivo como src/posts/<slug>.html: el nombre del archivo es la URL (/blog/<slug>).
+  Los archivos que empiezan por "_" no se publican. Después corra node build.mjs.
+
+  Datos (el bloque de arriba, en JSON):
+  - tipo: practica-clinica | nota-anotada | hallazgo-de-auditoria
+    (medido-en-el-portal existe pero está oculto en build.mjs: no se publica hasta tener cifras reales del portal)
+  - roles: uno o varios de medico | calidad | gerencia (son los filtros "Para" del blog)
+  - date: fecha de publicación. updated: fecha de la última revisión del contenido (si es igual a date no se muestra)
+  - author: null firma "Equipo Miracle". Para firmar con una persona:
+      "author": { "name": "Dra. Nombre Apellido", "jobTitle": "Médica general", "url": "https://..." }
+  - featured: true pone el artículo en "Empieza aquí" del índice (uno solo)
+  - fragment: el trozo de nota que se ve en la tarjeta. Todo es opcional menos label:
+      said y who (la frase y quién la dijo), label y text (la sección de la nota), gap (lo que falta),
+      codes ([["J03.9", "96 %"]]) y flag (una anotación corta)
+  - El tiempo de lectura y la fecha en letras los calcula build.mjs.
+
+  Cuerpo (HTML, debajo de estos comentarios):
+  - La idea central sale arriba, sola, desde "idea". No la repita en el primer párrafo.
+  - En el centro va UN objeto ilustrativo: <figure class="ilustra"> con una nota anotada o un diagrama.
+    build.mjs le agrega la etiqueta "Ejemplo ilustrativo". Piezas listas: .nota (con .nota-s, .falta y .cods),
+    .hall (hallazgo con la frase de la consulta), .an (frase dicha → sección de la nota) y .margen (anotaciones).
+  - Cierre con la caja <aside class="caja">.
+  - Nada de cifras, porcentajes de uso, testimonios, logos ni nombres reales.
+-->
+<p>Párrafo de entrada: el problema, en el lenguaje de la consulta.</p>
+
+<h2>Primer subtítulo</h2>
+<p>…</p>
+
+<figure class="ilustra">
+  <div class="nota">
+    <div class="nota-top"><span>Historia clínica · Medicina general</span></div>
+    <div class="nota-s"><b>Motivo de consulta</b><p>…</p></div>
+  </div>
+  <figcaption>Qué muestra el ejemplo y qué hay que mirar en él.</figcaption>
+</figure>
+
+<h2>Segundo subtítulo</h2>
+<p>…</p>
+
+<aside class="caja">
+  <h2>Cómo lo hace Miracle</h2>
+  <p>…</p>
+  <p><a href="/notes">Ver Notes</a></p>
+</aside>

@@ -1,139 +1,122 @@
-<section class="sub-hero" aria-labelledby="h1">
-  <div class="wrap hero-2">
-    <div>
-      @@CRUMBS@@
-      <h1 id="h1">Tres productos, una sola consulta</h1>
-      <p class="lead">Una consulta alimenta los tres. La nota que escribe Notes es la misma que revisa Auditorías y la que cuenta Analytics. Empieza por el problema que más te duele hoy.</p>
-      <div class="ctas"><a class="btn btn-primary" href="/agendar">Verlos en una demo</a><a class="btn btn-ghost" href="/planes">Ver planes</a></div>
-    </div>
-    <img data-v="ilu-soluciones-hd" data-loop="spin" class="illus illus3d" src="/assets/img/3d/ilu-soluciones-hd.webp" srcset="/assets/img/3d/ilu-soluciones-hd-m.webp 560w, /assets/img/3d/ilu-soluciones-hd.webp 1000w" sizes="(max-width: 900px) 80vw, 420px" alt="Notes, Auditorías y Analytics alrededor de una misma consulta" width="440" height="440" fetchpriority="high" decoding="async" data-reveal>
-  </div>
-</section>
-
-<section class="sec" style="padding-top:30px" aria-labelledby="h-prods">
+<!-- 1 · Una consulta, tres miradas. La respuesta a "¿Qué te duele hoy?" elige la vista del escenario. -->
+<section class="sub-hero sx-hero" aria-labelledby="h1">
   <div class="wrap">
-    <h2 id="h-prods" class="skip">Los tres productos</h2>
-    <div class="px-grid">
-      <a class="px px-notes" href="/notes" data-reveal>
-        <div class="px-scene" aria-hidden="true">
-          <div class="pn-doc">
-            <div class="pn-top"><i></i><span>Nota · Medicina general</span></div>
-            <span class="pn-l" style="--i:0;--w:62%"></span>
-            <span class="pn-l" style="--i:1;--w:88%"></span>
-            <span class="pn-l" style="--i:2;--w:74%"></span>
-            <span class="pn-l" style="--i:3;--w:52%"></span>
-            <div class="pn-foot"><span class="pn-chip">J03.9</span><span class="pn-chip c2">890201</span><span class="pn-ok">Firmada</span></div>
-          </div>
-          <span class="pn-wave"><i></i><i></i><i></i><i></i><i></i></span>
-        </div>
-        <div class="px-body">
-          <small class="px-for">Para médicos y especialistas</small>
-          <h3>Notes</h3>
-          <p>Hablas con tu paciente y la nota se escribe sola, con la plantilla de tu especialidad y los códigos sugeridos.</p>
-          <span class="px-go">Ver Notes</span>
-        </div>
-      </a>
-      <a class="px px-aud" href="/auditorias" data-reveal="2">
-        <div class="px-scene" aria-hidden="true">
-          <div class="pa-card">
-            <div class="pa-row" style="--i:0"><span class="pa-dot"></span><span>Diagnóstico codificado</span></div>
-            <div class="pa-row warn" style="--i:1"><span class="pa-dot"></span><span>Alergia registrada</span></div>
-            <div class="pa-row" style="--i:2"><span class="pa-dot"></span><span>Fecha de control</span></div>
-            <div class="pa-bar"><i></i></div>
-          </div>
-        </div>
-        <div class="px-body">
-          <small class="px-for">Para auditoría médica y calidad</small>
-          <h3>Auditorías</h3>
-          <p>Antes de firmar, revisa que no falte nada y señala cada vacío con la frase exacta del paciente.</p>
-          <span class="px-go">Ver Auditorías</span>
-        </div>
-      </a>
-      <a class="px px-ana" href="/analytics" data-reveal="3">
-        <div class="px-scene" aria-hidden="true">
-          <div class="pz-num"><b>92 %</b><small>firmadas el mismo día</small></div>
-          <div class="pz-bars"><i style="--i:0;--h:38%"></i><i style="--i:1;--h:52%"></i><i style="--i:2;--h:46%"></i><i style="--i:3;--h:68%"></i><i style="--i:4;--h:61%"></i><i style="--i:5;--h:84%"></i></div>
-        </div>
-        <div class="px-body">
-          <small class="px-for">Para dirección médica y gerencia</small>
-          <h3>Analytics</h3>
-          <p>Qué servicio documenta a tiempo, qué notas siguen pendientes y los lotes RIPS listos para exportar.</p>
-          <span class="px-go">Ver Analytics</span>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<section class="sec tone-ice" aria-labelledby="h-start">
-  <div class="wrap">
-    <div class="sec-head" data-reveal><h2 id="h-start">¿Por dónde empezar?</h2><p>Depende de qué problema quieres resolver primero.</p></div>
-    <div class="pick" data-reveal>
-      <div class="pick-opts" role="tablist" aria-label="Elige tu punto de partida">
-        <button class="pick-opt" role="tab" id="pt-1" aria-controls="pp-1" aria-selected="true"><span class="po-n">Médico</span><b>Quiero dejar de escribir notas</b><i class="po-prog"></i></button>
-        <button class="pick-opt" role="tab" id="pt-2" aria-controls="pp-2" aria-selected="false" tabindex="-1"><span class="po-n">Calidad</span><b>Quiero notas completas</b><i class="po-prog"></i></button>
-        <button class="pick-opt" role="tab" id="pt-3" aria-controls="pp-3" aria-selected="false" tabindex="-1"><span class="po-n">Gerencia</span><b>Quiero ver el servicio</b><i class="po-prog"></i></button>
-      </div>
-      <div class="pick-panels">
-        <div class="pick-panel pp-notes" role="tabpanel" id="pp-1" aria-labelledby="pt-1">
-          <span class="pp-tag">Empieza por</span><h3>Notes</h3>
-          <p>Conversas con tu paciente y la nota queda lista para firmar. Funciona para un médico solo o para todo un servicio.</p>
-          <a class="btn btn-primary" href="/notes">Ver Notes</a>
-          <img data-v="notes" data-loop="float" class="pp-art i3d" data-src="/assets/img/3d/notes.webp" alt="" width="220" height="220" loading="lazy" decoding="async" fetchpriority="low">
-        </div>
-        <div class="pick-panel pp-aud" role="tabpanel" id="pp-2" aria-labelledby="pt-2">
-          <span class="pp-tag">Suma</span><h3>Auditorías</h3>
-          <p>Revisa cada nota antes de firmar y te dice qué falta, para corregir cuando todavía se puede.</p>
-          <a class="btn btn-primary" href="/auditorias">Ver Auditorías</a>
-          <img data-v="auditorias" data-loop="breathe" class="pp-art i3d" data-src="/assets/img/3d/auditorias.webp" alt="" width="220" height="220" loading="lazy" decoding="async" fetchpriority="low">
-        </div>
-        <div class="pick-panel pp-ana" role="tabpanel" id="pp-3" aria-labelledby="pt-3">
-          <span class="pp-tag">Usa</span><h3>Analytics</h3>
-          <p>Muestra qué servicios ya documentan con Miracle y deja listos los lotes RIPS. Va con la licencia institucional.</p>
-          <a class="btn btn-primary" href="/analytics">Ver Analytics</a>
-          <img data-v="analytics" data-loop="spin" class="pp-art i3d" data-src="/assets/img/3d/analytics.webp" alt="" width="220" height="220" loading="lazy" decoding="async" fetchpriority="low">
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="sec tone-pearl" aria-labelledby="h-flow">
-  <div class="wrap">
-    <div class="sec-head" data-reveal><h2 id="h-flow">Cómo se conectan</h2><p>No hay que digitar nada dos veces: lo que Notes escribe es lo que Auditorías revisa y lo que Analytics cuenta.</p></div>
-    <div class="flow3" data-reveal>
-      <div class="node"><h3>Notes escribe</h3><p>La consulta se vuelve una nota por secciones, con la plantilla de la especialidad y los códigos sugeridos.</p></div>
-      <div class="conn" aria-hidden="true"></div>
-      <div class="node"><h3>Auditorías revisa</h3><p>Antes de firmar, la nota se revisa contra lo que se habló. Lo que falta aparece mientras todavía se puede corregir.</p></div>
-      <div class="conn" aria-hidden="true"></div>
-      <div class="node"><h3>Analytics suma</h3><p>Las notas firmadas, los tiempos y la adopción de cada servicio se vuelven reportes para la gerencia.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="sec" aria-labelledby="h-misma">
-  <div class="wrap">
-    <div class="band-dark" data-reveal>
-      <h2 id="h-misma">Todo sale de la misma consulta</h2>
-      <p>Por eso los tres productos se entienden entre sí, y por eso cada uno funciona también por separado.</p>
+    @@CRUMBS@@
+    <h1 id="h1">Una consulta, tres miradas</h1>
+    <p class="lead">Tomamos una consulta de ejemplo, la de Laura Gómez, y la mostramos tal como la ven el médico, el equipo de calidad y la gerencia.</p>
+    <nav class="sx-ask" aria-labelledby="sx-q">
+      <p class="sx-q" id="sx-q">¿Qué te duele hoy?</p>
       <ul>
-        <li>Nada se digita dos veces.</li>
-        <li>Una sola fuente de datos para la nota, la revisión y los reportes.</li>
-        <li>El médico firma; ningún producto firma por él.</li>
-        <li>Cada institución ve solo su información.</li>
+        <li><a href="#medico" data-view="medico"><small>Médico</small><span>Termino las notas cuando el paciente ya se fue</span></a></li>
+        <li><a href="#calidad" data-view="calidad"><small>Calidad y auditoría</small><span>Las notas me llegan incompletas</span></a></li>
+        <li><a href="#gerencia" data-view="gerencia"><small>Gerencia</small><span>Me entero tarde de lo que quedó sin firmar</span></a></li>
       </ul>
+    </nav>
+  </div>
+</section>
+
+<!-- 2 · El escenario: la misma consulta de la página de inicio. Sin JavaScript se ven las tres vistas, una debajo de otra. -->
+<section class="sec sx-sec" aria-labelledby="h-sx">
+  <div class="wrap">
+    <div class="sx" id="escenario" data-sx>
+      <div class="sx-head">
+        <div class="sx-pt"><b class="sx-av" aria-hidden="true">LG</b><div><h2 id="h-sx">La consulta de Laura Gómez</h2><p>34 años · Medicina general · Consulta externa · Faringoamigdalitis aguda</p></div></div>
+        <span class="ej">Ejemplo ilustrativo · paciente ficticia</span>
+      </div>
+      <div class="sx-tabs" aria-label="Mirar la consulta como">
+        <button type="button" data-for="medico"><b>Médico</b><small>Notes</small></button>
+        <button type="button" data-for="calidad"><b>Calidad</b><small>Auditorías</small></button>
+        <button type="button" data-for="gerencia"><b>Gerencia</b><small>Analytics</small></button>
+      </div>
+
+      <article class="sx-view" id="medico" aria-labelledby="h-medico">
+        <div class="sx-copy">
+          <p class="sx-role">Médico · Notes</p>
+          <h3 id="h-medico">Laura sale del consultorio y la nota ya está escrita</h3>
+          <p>Motivo, enfermedad actual, examen y plan, ordenados con la plantilla de medicina general y con el CIE-10 y el CUPS sugeridos. Tú la lees, corriges lo que haga falta y la firmas.</p>
+          <a class="sx-go" href="/notes">Ver cómo funciona Notes</a>
+        </div>
+        <figure class="sx-art">
+          <div class="nota">
+            <div class="nota-top"><span>Historia clínica · Medicina general</span><span class="pill info">Lista para firmar</span></div>
+            <div class="nota-s"><b>Motivo de consulta</b><p>Odinofagia y fiebre nocturna de tres días de evolución.</p></div>
+            <div class="nota-s"><b>Enfermedad actual</b><p>Paciente de 34 años con dolor faríngeo de tres días, fiebre nocturna no cuantificada y odinofagia intensa. Niega tos. Alergia a penicilina.</p></div>
+            <div class="nota-s"><b>Examen físico</b><p>Amígdalas hipertróficas con exudado bilateral. Adenopatías cervicales anteriores dolorosas.</p></div>
+            <div class="nota-s"><b>Diagnóstico y plan</b><p>Faringoamigdalitis aguda. Antibiótico no betalactámico por siete días, analgésico y signos de alarma explicados.</p>
+              <ul class="cods" aria-label="Códigos sugeridos"><li><b>J03.9</b>Amigdalitis aguda<em><span class="vh">confianza </span>96 %</em></li><li><b>890201</b>Consulta primera vez<em><span class="vh">confianza </span>99 %</em></li></ul>
+            </div>
+          </div>
+          <figcaption>Ejemplo ilustrativo. El porcentaje junto a cada código es la confianza de la sugerencia; el código final lo elige la médica.</figcaption>
+        </figure>
+      </article>
+
+      <article class="sx-view" id="calidad" aria-labelledby="h-calidad">
+        <div class="sx-copy">
+          <p class="sx-role">Calidad y auditoría · Auditorías</p>
+          <h3 id="h-calidad">La alergia se dijo, pero no quedó escrita</h3>
+          <p>Antes de la firma, Auditorías compara la nota con lo que se habló. Marca el vacío con la frase exacta de Laura, y la médica lo corrige cuando todavía se puede, no cuando llega la glosa.</p>
+          <a class="sx-go" href="/auditorias">Ver cómo funciona Auditorías</a>
+        </div>
+        <figure class="sx-art">
+          <div class="nota">
+            <div class="nota-top"><span>Borrador · antes de firmar</span><span class="pill warn">1 hallazgo</span></div>
+            <div class="nota-s dim"><b>Motivo de consulta</b><p>Odinofagia y fiebre nocturna de tres días de evolución.</p></div>
+            <div class="nota-s"><b>Enfermedad actual</b><p>Paciente de 34 años con dolor faríngeo de tres días, fiebre nocturna no cuantificada y odinofagia intensa. Niega tos. <span class="falta">Falta: alergia</span></p></div>
+            <div class="nota-s dim"><b>Diagnóstico y plan</b><p>Faringoamigdalitis aguda. Antibiótico no betalactámico por siete días, analgésico y signos de alarma explicados.</p></div>
+          </div>
+          <div class="hall">
+            <p class="hall-t"><span class="pill bad">Hallazgo</span><span>La paciente mencionó una alergia que no está en la nota</span></p>
+            <blockquote><p>«Ah, y soy alérgica a la penicilina.»</p></blockquote><p class="hall-de">Laura, en la transcripción · minuto 01:12</p>
+            <p class="hall-fix">La Dra. Restrepo la agrega antes de firmar: es la frase «Alergia a penicilina» que aparece en la vista del médico.</p>
+          </div>
+          <figcaption>Ejemplo ilustrativo: el borrador y el hallazgo están armados para mostrar el recorrido.</figcaption>
+        </figure>
+      </article>
+
+      <article class="sx-view" id="gerencia" aria-labelledby="h-gerencia">
+        <div class="sx-copy">
+          <p class="sx-role">Gerencia · Analytics</p>
+          <h3 id="h-gerencia">Firmada, la nota de Laura es un punto más del día</h3>
+          <p>Nadie tiene que armar un informe: la dirección ve, servicio por servicio, qué notas están firmadas y cuáles siguen esperando firma.</p>
+          <a class="sx-go" href="/analytics">Ver cómo funciona Analytics</a>
+        </div>
+        <figure class="sx-art">
+          <div class="tablero" role="img" aria-label="Tablero de ejemplo con las notas de hoy por servicio. La nota de Laura Gómez aparece firmada a las 10:52 en Medicina general; las notas más recientes de cada servicio siguen por firmar.">
+            <div class="tablero-top"><span>Analytics · Notas de hoy por servicio</span><span class="ej">Ejemplo</span></div>
+            <div class="tb" style="--now:72.7%">
+              <div class="tb-axis"><span style="--x:0%">7 a. m.</span><span style="--x:45.5%">12 m.</span><span class="tb-ahora" style="--x:72.7%">Ahora</span><span style="--x:100%">6 p. m.</span></div>
+              <div class="tb-row"><span>Medicina general</span><div class="tb-track"><i style="--x:9.8%;--d:0"></i><i style="--x:15.2%;--d:1"></i><i style="--x:21.2%;--d:2"></i><i style="--x:27.3%;--d:3"></i><i class="yo" style="--x:35.2%;--d:4"></i><i style="--x:40.9%;--d:5"></i><i style="--x:56.1%;--d:6"></i><i class="p" style="--x:64.4%;--d:7"></i><i class="p" style="--x:69.7%;--d:8"></i></div></div>
+              <div class="tb-row"><span>Pediatría</span><div class="tb-track"><i style="--x:4.5%;--d:1"></i><i style="--x:12.1%;--d:2"></i><i style="--x:25%;--d:3"></i><i style="--x:36.4%;--d:4"></i><i style="--x:47.7%;--d:5"></i><i class="p" style="--x:60.6%;--d:6"></i></div></div>
+              <div class="tb-row"><span>Ginecología</span><div class="tb-track"><i style="--x:13.6%;--d:2"></i><i style="--x:28.8%;--d:3"></i><i style="--x:43.9%;--d:4"></i><i class="p" style="--x:66.7%;--d:5"></i></div></div>
+            </div>
+            <p class="tb-yo"><i></i>Laura Gómez · Medicina general · firmada a las 10:52</p>
+            <ul class="tb-leg"><li><i></i>Firmada</li><li><i class="p"></i>Por firmar</li></ul>
+          </div>
+          <figcaption>Ejemplo ilustrativo: el tablero, los servicios y los puntos no son datos reales.</figcaption>
+        </figure>
+      </article>
+    </div>
+
+    <div class="sx-faq">
+      <div class="sec-head center"><h2 id="h-faq">Preguntas</h2></div>
+      <div class="faq">
+        <details><summary>¿Laura Gómez es una paciente real?<span class="pm" aria-hidden="true"></span></summary><p>No. Laura, la Dra. Restrepo y el tablero son un ejemplo ilustrativo, armado para mostrar el recorrido completo de una consulta. En la demo hacemos lo mismo con una consulta como las que tú atiendes.</p></details>
+        <details><summary>¿Necesito los tres productos?<span class="pm" aria-hidden="true"></span></summary><p>No. El médico independiente usa Notes, y cada nota pasa por la revisión antes de firmar. Analytics y el panel para auditores hacen parte de la licencia institucional.</p></details>
+        <details><summary>¿Puedo empezar con Notes y sumar el resto después?<span class="pm" aria-hidden="true"></span></summary><p>Sí. Puedes empezar con Notes y sumar Auditorías y Analytics cuando la institución quiera revisar las notas o ver el servicio. No hay que digitar nada otra vez: las tres miradas salen de las mismas consultas.</p></details>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="sec tone-ice" aria-labelledby="h-faq">
+<!-- 3 · Cierre propio de esta página -->
+<section class="sx-close" aria-labelledby="h-close">
   <div class="wrap">
-    <div class="sec-head center"><h2 id="h-faq">Preguntas rápidas</h2></div>
-    <div class="faq">
-      <details><summary>¿Necesito los tres productos?<span class="pm" aria-hidden="true"></span></summary><p>No. El médico independiente usa Notes, con la auditoría de cada nota incluida. Analytics y el panel para auditores hacen parte de la licencia institucional.</p></details>
-      <details><summary>¿Se pueden usar por separado?<span class="pm" aria-hidden="true"></span></summary><p>Sí, pero funcionan mejor juntos: todo sale de la misma consulta, así que no hay que digitar nada dos veces.</p></details>
-      <details><summary>¿Puedo empezar con Notes y sumar el resto después?<span class="pm" aria-hidden="true"></span></summary><p>Sí. Es lo más común: se empieza con Notes y, cuando la institución quiere ver el servicio o revisar las notas, se suman Auditorías y Analytics.</p></details>
+    <div class="sx-close-box" data-reveal>
+      <div>
+        <h2 id="h-close">Trae una consulta de tu especialidad y la vemos</h2>
+        <p>En 30 minutos la recorremos como la de Laura: la nota, la revisión antes de firmar y el tablero. No hacen falta datos de pacientes; basta con contarnos cómo es una consulta típica.</p>
+      </div>
+      <a class="btn btn-primary" href="/agendar">Agenda la demo</a>
     </div>
   </div>
 </section>
-@@CTABAND@@

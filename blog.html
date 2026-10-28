@@ -70,6 +70,38 @@
      "item": "https://itsmiracleai.com.co/blog"
     }
    ]
+  },
+  {
+   "@type": "Blog",
+   "name": "Blog de Miracle",
+   "url": "https://itsmiracleai.com.co/blog",
+   "inLanguage": "es-CO",
+   "publisher": {
+    "@id": "https://itsmiracleai.com.co/#org"
+   },
+   "blogPost": [
+    {
+     "@type": "BlogPosting",
+     "headline": "Dónde se va el tiempo de una consulta, y cómo recuperarlo",
+     "url": "https://itsmiracleai.com.co/blog/donde-se-va-el-tiempo-de-una-consulta",
+     "datePublished": "2026-10-20",
+     "dateModified": "2026-10-28"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Seis cosas que revisar en una nota antes de firmarla",
+     "url": "https://itsmiracleai.com.co/blog/seis-cosas-que-revisar-en-una-nota",
+     "datePublished": "2026-10-13",
+     "dateModified": "2026-10-28"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "CIE-10 y CUPS sin buscar en tablas",
+     "url": "https://itsmiracleai.com.co/blog/cie-10-y-cups-sin-buscar-en-tablas",
+     "datePublished": "2026-10-06",
+     "dateModified": "2026-10-28"
+    }
+   ]
   }
  ]
 }
@@ -117,45 +149,84 @@
   <a href="https://itsmiracleai.com.co/login">Ingresar</a>
 </nav>
 <main id="main">
-<section class="sub-hero" aria-labelledby="h1">
-  <div class="wrap hero-2">
-    <div>
-      <nav class="crumbs" aria-label="Ruta"><ol><li><a href="/">Inicio</a></li><li><span aria-current="page">Blog</span></li></ol></nav>
-      <h1 id="h1">Blog</h1>
-      <p class="lead">Lo que aprendemos documentando consultas con médicos en Colombia: práctica clínica, auditoría y codificación. Lo mismo que publicamos en LinkedIn, con más detalle.</p>
-      <p class="lead" style="margin-top:14px">Son textos cortos, con ejemplos de la consulta diaria, pensados para leerse entre un paciente y otro. Algunos hablan de cómo recuperar tiempo, otros de qué revisar antes de firmar una nota y otros de cómo codificar sin buscar en tablas. Si te sirve uno, llévalo a tu equipo.</p>
-      <div class="ctas"><!-- TODO (jefe): enlace a la página de Miracle en LinkedIn cuando exista la URL; mientras tanto no se muestra. --><a class="btn btn-primary" href="/agendar">Agenda una demo</a></div>
-    </div>
-    <img data-v="ilu-blog-hd" data-loop="float" class="illus illus3d" src="/assets/img/3d/ilu-blog-hd.webp" srcset="/assets/img/3d/ilu-blog-hd-m.webp 560w, /assets/img/3d/ilu-blog-hd.webp 1000w" sizes="(max-width: 900px) 80vw, 420px" alt="Un artículo que se escribe" width="440" height="440" fetchpriority="high" decoding="async" data-reveal>
+<section class="sub-hero blog-hero" aria-labelledby="h1">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Ruta"><ol><li><a href="/">Inicio</a></li><li><span aria-current="page">Blog</span></li></ol></nav>
+    <h1 id="h1">Para leer entre un paciente y otro</h1>
+    <p class="lead">Práctica clínica, notas anotadas y hallazgos de auditoría, escritos desde la consulta en Colombia. Con ejemplos de la consulta diaria y sin datos de pacientes.</p>
   </div>
 </section>
-<!-- PENDIENTE (jefe): reemplazar estos tres artículos por los posts de LinkedIn y poner el enlace real de la página de la empresa. -->
-<section class="sec" style="padding-top:20px" aria-labelledby="h-art">
+<section class="bfeat-sec" aria-labelledby="h-feat">
   <div class="wrap">
-    <h2 id="h-art" class="skip">Artículos</h2>
-    <div class="posts">
-      <a class="post" href="/blog/donde-se-va-el-tiempo-de-una-consulta" data-reveal>
-        <div class="art" aria-hidden="true"><svg viewBox="0 0 600 210" preserveAspectRatio="xMidYMid slice" width="100%" height="100%"><rect width="600" height="210" fill="#e7f0fe"/><rect x="60" y="40" width="250" height="150" rx="14" fill="#fdfcf9" stroke="#e9e3d6"/><rect x="82" y="64" width="90" height="8" rx="4" fill="#6d6a62" opacity=".5"/><rect x="82" y="84" width="200" height="8" rx="4" fill="#e9e3d6"/><rect x="82" y="100" width="180" height="8" rx="4" fill="#e9e3d6"/><rect x="82" y="124" width="70" height="8" rx="4" fill="#6d6a62" opacity=".5"/><rect x="82" y="144" width="190" height="8" rx="4" fill="#e9e3d6"/><circle cx="440" cy="110" r="62" fill="#fff"/><path d="M440 72v38l26 16" stroke="#2f6fe0" stroke-width="8" stroke-linecap="round" fill="none"/></svg></div>
-        <div class="txt"><span class="cat">Práctica clínica</span><h3>Dónde se va el tiempo de una consulta, y cómo recuperarlo</h3><p>Escribir mientras el paciente habla tiene un costo que no aparece en ninguna factura. Lo medimos en nuestro propio portal.</p><span class="meta">20 de octubre de 2026 · 4 min de lectura</span></div>
-      </a>
-      <a class="post" href="/blog/seis-cosas-que-revisar-en-una-nota" data-reveal>
-        <div class="art" aria-hidden="true"><svg viewBox="0 0 400 150" preserveAspectRatio="xMidYMid slice" width="100%" height="100%"><rect width="400" height="150" fill="#e6f8ef"/><rect x="40" y="34" width="320" height="26" rx="8" fill="#fff"/><rect x="52" y="42" width="44" height="10" rx="5" fill="#fbe3df"/><rect x="104" y="43" width="150" height="8" rx="4" fill="#d4dbe6"/><rect x="40" y="68" width="320" height="26" rx="8" fill="#fff"/><rect x="52" y="76" width="44" height="10" rx="5" fill="#fdeecf"/><rect x="104" y="77" width="190" height="8" rx="4" fill="#d4dbe6"/><rect x="40" y="102" width="320" height="26" rx="8" fill="#fff"/><rect x="52" y="110" width="44" height="10" rx="5" fill="#eef4fe"/><rect x="104" y="111" width="120" height="8" rx="4" fill="#d4dbe6"/></svg></div>
-        <div class="txt"><span class="cat">Auditoría médica</span><h3>Seis cosas que revisar en una nota antes de firmarla</h3><p>Los hallazgos que más se repiten cuando una nota llega incompleta a auditoría.</p><span class="meta">13 de octubre de 2026 · 5 min de lectura</span></div>
-      </a>
-      <a class="post" href="/blog/cie-10-y-cups-sin-buscar-en-tablas" data-reveal>
-        <div class="art" aria-hidden="true"><svg viewBox="0 0 400 150" preserveAspectRatio="xMidYMid slice" width="100%" height="100%"><rect width="400" height="150" fill="#0c1424"/><rect x="50" y="48" width="130" height="54" rx="12" fill="#1d3358"/><text x="66" y="83" fill="#fff" font-family="Inter,sans-serif" font-size="22" font-weight="700">J03.9</text><rect x="200" y="48" width="150" height="54" rx="12" fill="#1d3358"/><text x="216" y="83" fill="#b7f0d8" font-family="Inter,sans-serif" font-size="22" font-weight="700">890201</text></svg></div>
-        <div class="txt"><span class="cat">Codificación</span><h3>CIE-10 y CUPS sin buscar en tablas</h3><p>Cómo propone Miracle los códigos, qué significa el nivel de confianza y cuándo conviene cambiarlo.</p><span class="meta">6 de octubre de 2026 · 3 min de lectura</span></div>
-      </a>
-    </div>
+    <article class="bfeat" data-reveal>
+      <div class="bfeat-txt">
+        <p class="bfeat-k">Empieza aquí</p>
+        <h2 id="h-feat"><a href="/blog/donde-se-va-el-tiempo-de-una-consulta">Dónde se va el tiempo de una consulta, y cómo recuperarlo</a></h2>
+        <p class="bfeat-dek">Una consulta por dolor de garganta, frase por frase: qué parte de la nota ya estaba dicha y qué parte solo podía escribirla la médica.</p>
+        <p class="bfeat-meta">Práctica clínica · <time datetime="2026-10-20">20 de octubre de 2026</time> · 4 min de lectura</p>
+        <span class="btn btn-light bfeat-go" aria-hidden="true">Leer el artículo</span>
+      </div>
+      <div class="frag" aria-hidden="true">
+          <span class="ej">Ejemplo ilustrativo</span>
+          <p class="frag-said"><small>Paciente</small>«Desde hace tres días me duele la garganta y en las noches me da fiebre.»</p>
+          <div class="frag-note"><b>Motivo de consulta</b><p>Odinofagia y fiebre nocturna de tres días de evolución.</p></div>
+          
+        </div>
+    </article>
   </div>
 </section>
-<section class="sec" style="padding-top:10px" aria-labelledby="h-li">
+<section class="sec blist-sec" aria-labelledby="h-list">
   <div class="wrap">
-    <div class="band-dark" data-reveal>
-      <h2 id="h-li">Publicamos lo mismo en LinkedIn</h2>
-      <p>Allí va resumido y con novedades de Miracle. Aquí queda el artículo completo, para guardarlo o compartirlo.</p>
-      <ul><li>Escritos desde la práctica clínica en Colombia.</li><li>Ejemplos de la consulta diaria, sin datos de pacientes.</li><li>Lecturas de 3 a 5 minutos.</li><li>Para leer entre un paciente y otro.</li></ul>
+    <div class="blist-head"><h2 id="h-list">Todos los artículos</h2><p class="blist-n" data-estado aria-live="polite">3 artículos</p></div>
+    <div class="bfil" data-filtros>
+      <div class="bfil-g" role="group" aria-labelledby="bf-tipo"><span id="bf-tipo">Tipo</span><a href="/blog" data-f="tipo" data-v="" aria-current="page">Todos</a><a href="/blog/tipo/practica-clinica" data-f="tipo" data-v="practica-clinica">Práctica clínica</a><a href="/blog/tipo/nota-anotada" data-f="tipo" data-v="nota-anotada">Nota anotada</a><a href="/blog/tipo/hallazgo-de-auditoria" data-f="tipo" data-v="hallazgo-de-auditoria">Hallazgo de auditoría</a></div>
+      <div class="bfil-g" role="group" aria-labelledby="bf-rol"><span id="bf-rol">Para</span><a href="/blog" data-f="rol" data-v="" aria-current="page">Todos</a><a href="/blog/rol/medico" data-f="rol" data-v="medico">Médico</a><a href="/blog/rol/calidad" data-f="rol" data-v="calidad">Calidad y auditoría</a><a href="/blog/rol/gerencia" data-f="rol" data-v="gerencia">Gerencia e IPS</a></div>
     </div>
+    <ol class="blist">
+      <li class="bcard" data-tipo="practica-clinica" data-roles="medico gerencia">
+        <div class="bcard-txt">
+          <p class="bcard-meta"><a class="bcard-tipo" href="/blog/tipo/practica-clinica">Práctica clínica</a><span><time datetime="2026-10-20">20 de octubre de 2026</time> · 4 min de lectura</span></p>
+          <h3><a href="/blog/donde-se-va-el-tiempo-de-una-consulta">Dónde se va el tiempo de una consulta, y cómo recuperarlo</a></h3>
+          <p>Seguimos una consulta de ejemplo frase por frase para ver qué parte de la nota ya estaba dicha y en qué se va el tiempo de escribirla.</p>
+          <p class="bcard-para">Para: Médico · Gerencia e IPS</p>
+        </div>
+        <div class="frag" aria-hidden="true">
+          <span class="ej">Ejemplo ilustrativo</span>
+          <p class="frag-said"><small>Paciente</small>«Desde hace tres días me duele la garganta y en las noches me da fiebre.»</p>
+          <div class="frag-note"><b>Motivo de consulta</b><p>Odinofagia y fiebre nocturna de tres días de evolución.</p></div>
+          
+        </div>
+      </li>
+      <li class="bcard" data-tipo="hallazgo-de-auditoria" data-roles="medico calidad">
+        <div class="bcard-txt">
+          <p class="bcard-meta"><a class="bcard-tipo" href="/blog/tipo/hallazgo-de-auditoria">Hallazgo de auditoría</a><span><time datetime="2026-10-13">13 de octubre de 2026</time> · 2 min de lectura</span></p>
+          <h3><a href="/blog/seis-cosas-que-revisar-en-una-nota">Seis cosas que revisar en una nota antes de firmarla</a></h3>
+          <p>Seis vacíos que conviene buscar antes de firmar, desde el diagnóstico sin codificar hasta el plan que no dice cuándo volver.</p>
+          <p class="bcard-para">Para: Médico · Calidad y auditoría</p>
+        </div>
+        <div class="frag" aria-hidden="true">
+          <span class="ej">Ejemplo ilustrativo</span>
+          <p class="frag-said"><small>Paciente</small>«Ah, y soy alérgica a la penicilina.»</p>
+          <div class="frag-note"><b>Enfermedad actual</b><p>… y odinofagia intensa. Niega tos. <span class="falta">Falta: alergia</span></p></div>
+          <p class="frag-flag">Se dijo en la consulta y no quedó escrito.</p>
+        </div>
+      </li>
+      <li class="bcard" data-tipo="nota-anotada" data-roles="medico calidad">
+        <div class="bcard-txt">
+          <p class="bcard-meta"><a class="bcard-tipo" href="/blog/tipo/nota-anotada">Nota anotada</a><span><time datetime="2026-10-06">6 de octubre de 2026</time> · 2 min de lectura</span></p>
+          <h3><a href="/blog/cie-10-y-cups-sin-buscar-en-tablas">CIE-10 y CUPS sin buscar en tablas</a></h3>
+          <p>Cómo propone Miracle los códigos, qué significa el nivel de confianza y cuándo conviene cambiarlo.</p>
+          <p class="bcard-para">Para: Médico · Calidad y auditoría</p>
+        </div>
+        <div class="frag" aria-hidden="true">
+          <span class="ej">Ejemplo ilustrativo</span>
+          
+          <div class="frag-note"><b>Diagnóstico y plan</b><p>Faringoamigdalitis aguda.</p><ul class="cods"><li><b>J03.9</b><em>96 %</em></li><li><b>890201</b><em>99 %</em></li></ul></div>
+          <p class="frag-flag">Cada código llega con su nivel de confianza.</p>
+        </div>
+      </li>
+    </ol>
+    <p class="bempty" hidden>Todavía no hay artículos con esa combinación. <a href="/blog" data-reset>Ver todos</a></p>
   </div>
 </section>
 <section class="cta-band" aria-labelledby="h-cta"><div class="wrap"><div class="box" data-reveal>
@@ -178,5 +249,6 @@
   <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
 </a></aside>
 <script defer src="/assets/core.js"></script>
+<script defer src="/assets/blog.js"></script>
 </body>
 </html>

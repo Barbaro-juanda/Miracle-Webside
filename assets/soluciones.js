@@ -1,47 +1,61 @@
-/* Soluciones: escenas que solo corren en pantalla y selector de punto de partida */
+/* Soluciones: la consulta de Laura vista por el médico, calidad y gerencia.
+   Sin JavaScript las tres vistas se ven una debajo de otra; aquí se vuelven pestañas (flechas, Inicio y Fin). */
 (() => {
-  const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+  const sx = document.querySelector('[data-sx]');
+  if (!sx) return;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const list = sx.querySelector('.sx-tabs');
+  const tabs = [...list.querySelectorAll('button')];
+  const views = tabs.map(t => document.getElementById(t.dataset.for));
 
-  const scenes = $$('.px-scene');
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('play', e.isIntersecting)), {threshold: .2});
-    scenes.forEach(s => io.observe(s));
-  } else scenes.forEach(s => s.classList.add('play'));
+  list.setAttribute('role', 'tablist');
+  tabs.forEach((t, i) => {
+    t.id = 'tab-' + t.dataset.for;
+    t.setAttribute('role', 'tab');
+    t.setAttribute('aria-controls', views[i].id);
+    views[i].setAttribute('role', 'tabpanel');
+    views[i].setAttribute('aria-labelledby', t.id);
+    views[i].tabIndex = 0;
+  });
 
-  const pick = document.querySelector('.pick');
-  if (!pick) return;
-  const tabs = $$('.pick-opt', pick), panels = $$('.pick-panel', pick);
-  let idx = 0, timer = null, auto = !reduce;
-
+  let cur = -1;
   const show = (i, focus) => {
-    idx = (i + tabs.length) % tabs.length;
-    tabs.forEach((t, k) => { const on = k === idx; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; });
-    panels.forEach((p, k) => p.classList.toggle('on', k === idx));
-    if (focus) tabs[idx].focus();
-    const sc = tabs[idx].parentElement;
-    if (sc.scrollWidth > sc.clientWidth) sc.scrollTo({left: tabs[idx].offsetLeft - sc.offsetLeft - 16, behavior: reduce ? 'auto' : 'smooth'});
-    // reinicia la barra de progreso
-    const bar = tabs[idx].querySelector('.po-prog'); bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = '';
-    clearTimeout(timer);
-    if (auto && visible) timer = setTimeout(() => show(idx + 1), 7000);
+    if (i !== cur) {
+      cur = i;
+      tabs.forEach((t, k) => { const on = k === i; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; views[k].hidden = !on; });
+      list.style.setProperty('--i', i);
+      // reinicia la entrada de la vista (solo transform y opacity)
+      views[i].classList.remove('sx-in'); void views[i].offsetWidth; views[i].classList.add('sx-in');
+    }
+    if (focus) tabs[i].focus();
   };
-  const stopAuto = () => { auto = false; pick.classList.remove('auto'); clearTimeout(timer); };
 
-  tabs.forEach((t, k) => {
-    t.addEventListener('click', () => { stopAuto(); show(k); });
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => show(i));
     t.addEventListener('keydown', e => {
-      const d = {ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1}[e.key];
-      if (d) { e.preventDefault(); stopAuto(); show(idx + d, true); }
+      const n = tabs.length;
+      const to = {ArrowRight: (i + 1) % n, ArrowDown: (i + 1) % n, ArrowLeft: (i - 1 + n) % n, ArrowUp: (i - 1 + n) % n, Home: 0, End: n - 1}[e.key];
+      if (to === undefined) return;
+      e.preventDefault(); show(to, true);
     });
   });
-  pick.addEventListener('mouseenter', () => { clearTimeout(timer); pick.classList.remove('auto'); });
-  pick.addEventListener('mouseleave', () => { if (auto) { pick.classList.add('auto'); show(idx); } });
 
-  let visible = false;
-  if (auto) pick.classList.add('auto');
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) show(idx); else clearTimeout(timer); }, {threshold: .35}).observe(pick);
-  } else { visible = true; }
-  show(0);
+  // "¿Qué te duele hoy?": la respuesta elige la vista y baja al escenario. El enlace (#medico…) queda para compartir.
+  const go = (id, scroll) => {
+    const i = views.findIndex(v => v.id === id);
+    if (i < 0) return false;
+    show(i);
+    if (scroll) { sx.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'start'}); tabs[i].focus({preventScroll: true}); }
+    return true;
+  };
+  document.querySelectorAll('.sx-ask a[data-view]').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    go(a.dataset.view, true);
+    history.replaceState(null, '', '#' + a.dataset.view);
+  }));
+
+  sx.classList.add('sx-on');
+  const fromHash = () => go(decodeURIComponent(location.hash.slice(1)), true);
+  if (!fromHash()) show(0);
+  addEventListener('hashchange', fromHash);
 })();
