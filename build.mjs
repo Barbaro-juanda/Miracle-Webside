@@ -148,6 +148,20 @@ function schemaFor(pg, body) {
   return JSON.stringify({ '@context': 'https://schema.org', '@graph': g }, null, 1);
 }
 
+/* ---------- Titular del inicio partido en letras desde el HTML ----------
+   Antes lo partía home.js y lo animaba GSAP cuando cargaba: el texto aparecía tarde (LCP alto).
+   Ahora cada letra trae su retraso (--i) y la animación es CSS. El lector de pantalla lee la frase entera. */
+function splitHero(html) {
+  let i = 0;
+  // El h1 lleva la frase completa como nombre accesible; las letras sueltas quedan ocultas al lector de pantalla.
+  const full = [...html.matchAll(/<span class="(?:l2 )?split">([^<]+)<\/span>/g)].map(m => m[1].trim()).join(' ');
+  html = html.replace('<h1 id="h1">', `<h1 id="h1" aria-label="${esc(full)}">`);
+  return html.replace(/<span class="((?:l2 )?split)">([^<]+)<\/span>/g, (m, cls, text) => {
+    const words = text.trim().split(/\s+/).map(w => `<span class="word">${[...w].map(c => `<span class="ch" style="--i:${i++}">${c}</span>`).join('')}</span>`);
+    return `<span class="${cls}" aria-hidden="true">${words.join(' ')}</span>`;
+  });
+}
+
 /* ---------- Página de especialidad: plantillas reales y sus secciones ---------- */
 function specBody(pg) {
   const sp = pg.spec, n = sp.templates.length;
@@ -198,6 +212,7 @@ ${p.body}
     body = specBody(pg);
   } else {
     body = readFileSync(`src/pages/${pg.src}.html`, 'utf8');
+    if (pg.src === 'index') body = splitHero(body);
   }
   const cards = posts.map(postCard).join('\n      ');
   body = body.replaceAll('@@CRUMBS@@', crumbsHtml(pg)).replaceAll('@@CTABAND@@', ctaBand).replaceAll('@@POSTCARDS@@', cards);
@@ -233,9 +248,8 @@ ${p.body}
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Schibsted+Grotesk:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/schibsted-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script>document.documentElement.classList.add('js')</script>
 <link rel="stylesheet" href="/assets/styles.css">
 <script type="application/ld+json">
@@ -264,5 +278,6 @@ writeFileSync('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xm
 writeFileSync('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${SITE.url}/sitemap.xml\n`);
 // Las URL de vista previa (*.vercel.app) no se indexan; el dominio de producción sí.
 writeFileSync('vercel.json', JSON.stringify({ cleanUrls: true, trailingSlash: false,
-  headers: [{ source: '/(.*)', has: [{ type: 'host', value: '(?<sub>.*)\\.vercel\\.app' }], headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }] }] }, null, 2) + '\n');
+  headers: [{ source: '/assets/fonts/(.*)', headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] },
+    { source: '/(.*)', has: [{ type: 'host', value: '(?<sub>.*)\\.vercel\\.app' }], headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }] }] }, null, 2) + '\n');
 console.log(`Listo: ${pages.length} páginas`);

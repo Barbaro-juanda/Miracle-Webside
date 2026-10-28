@@ -1,3 +1,8 @@
+/* Fuentes alojadas en el sitio: subconjunto para español (pyftsubset), una variable por familia (máximo 2 familias). */
+@font-face{font-family:"Inter";font-style:normal;font-weight:200 600;font-display:swap;src:url(/assets/fonts/inter-latin.woff2) format("woff2");unicode-range:U+0020-007E,U+00A0-00FF,U+0131,U+0152-0153,U+2013-2014,U+2018-201A,U+201C-201E,U+2022,U+2026,U+2032-2033,U+20AC,U+2122,U+2191,U+2193,U+2212}
+@font-face{font-family:"Schibsted Grotesk";font-style:normal;font-weight:500 700;font-display:swap;src:url(/assets/fonts/schibsted-grotesk-latin.woff2) format("woff2");unicode-range:U+0020-007E,U+00A0-00FF,U+0131,U+0152-0153,U+2013-2014,U+2018-201A,U+201C-201E,U+2022,U+2026,U+2032-2033,U+20AC,U+2122,U+2191,U+2193,U+2212}
+/* Respaldo con métricas ajustadas a Inter: el cambio de fuente no mueve el texto. */
+@font-face{font-family:"Inter Fallback";src:local("Arial");size-adjust:107.12%;ascent-override:90.44%;descent-override:22.52%;line-gap-override:0%}
 /* ============================================================
    Tokens de color · paleta B (marca actual de Miracle)
    Marca: azul noche (--deep), azul (--accent) y menta (--mint).
@@ -26,9 +31,9 @@
   --r-sm:12px; --r-md:16px; --r-lg:22px; --r-xl:30px;
   --sh-sm:0 4px 16px color-mix(in srgb,var(--ink) 5%,transparent); --sh-md:0 10px 30px color-mix(in srgb,var(--ink) 7%,transparent);
   --sh-lg:0 24px 60px color-mix(in srgb,var(--ink) 9%,transparent); --sh-xl:0 40px 100px color-mix(in srgb,var(--ink) 12%,transparent);
-  --f-display:"Schibsted Grotesk",Inter,system-ui,sans-serif;
-  --f-sans:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-doc:"Source Serif 4",Georgia,serif;
+  --f-display:"Schibsted Grotesk","Inter Fallback",system-ui,sans-serif;
+  --f-sans:Inter,"Inter Fallback",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-doc:Charter,"Bitstream Charter","Sitka Text",Cambria,Georgia,serif; /* serif del sistema: sin tercera familia web */
   --ease:cubic-bezier(.22,1,.36,1);
 }
 *,*::before,*::after{box-sizing:border-box}
@@ -306,7 +311,7 @@ dialog.reader[open]{animation:pop .3s var(--ease)}
 .days{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
 .day,.slot{border:1px solid var(--line);background:var(--canvas);border-radius:12px;cursor:pointer;transition:border-color .2s,background .2s,color .2s,transform .15s;touch-action:manipulation}
 .day{padding:10px 4px;text-align:center;min-height:64px}
-.day small{display:block;font-size:.74rem;color:var(--muted);text-transform:capitalize}
+.day small{display:block;font-size:.78rem;color:var(--muted);text-transform:capitalize}
 .day b{display:block;font-family:var(--f-display);font-size:1.25rem;color:var(--deep);font-variant-numeric:tabular-nums}
 .day:hover,.slot:hover{border-color:var(--accent)}
 .day[aria-pressed="true"],.slot[aria-pressed="true"]{background:var(--deep);border-color:var(--deep)}
@@ -1188,9 +1193,6 @@ a.post .txt .meta{margin-top:auto}
 .js .stage:not(.ready) .device-wrap,
 .js .stage:not(.ready) .steps-panel,
 .js .stage:not(.ready) .hero-copy h1,
-.js .stage:not(.ready) .hero-copy p,
-.js .stage:not(.ready) .hero-copy .ctas,
-.js .stage:not(.ready) .hero-copy .hero-links,
 .js .stage:not(.ready) .scroll-hint{opacity:0;visibility:hidden;animation:stage-fallback 0s 4s forwards}
 @keyframes stage-fallback{to{opacity:1;visibility:visible}}
 .stage .device-wrap{transition:opacity .5s var(--ease)}
@@ -1424,3 +1426,28 @@ html:not(.js) .pick-panels{display:flex;flex-direction:column;gap:12px}
 .spec-links a:hover,.spec-links a:focus-visible{border-color:var(--accent);background:var(--accent-soft)}
 @media (max-width:860px){.stpl-list{grid-template-columns:1fr}}
 @media (max-width:520px){.stpl{padding:22px}.stpl ol{columns:1}}
+
+/* Entrada del inicio y del hero de producto: CSS desde el primer pintado (no espera a JavaScript).
+   Solo transform y opacity. Arranca en opacidad .01 (invisible a la vista) para que el navegador cuente
+   el texto como pintado desde el primer cuadro. Con movimiento reducido queda en su estado final. */
+@keyframes rise-ch{from{transform:translateY(105%) rotate(6deg);opacity:.01}to{transform:none;opacity:1}}
+@keyframes rise{from{transform:translateY(18px);opacity:.01}to{transform:none;opacity:1}}
+.hero-copy .ch{animation:rise-ch .9s var(--ease) both;animation-delay:calc(var(--i) * 18ms + 80ms)}
+.hero-copy > p{animation:rise .8s var(--ease) both .35s}
+.hero-copy > .ctas{animation:rise .8s var(--ease) both .45s}
+.hero-copy > .hero-links{animation:rise .8s var(--ease) both .55s}
+.prod-copy > *{animation:rise .7s var(--ease) both}
+.prod-copy > :nth-child(2){animation-delay:.06s}.prod-copy > :nth-child(3){animation-delay:.12s}.prod-copy > :nth-child(4){animation-delay:.18s}.prod-copy > :nth-child(5){animation-delay:.24s}
+.prod-row > .mock{animation:rise 1s var(--ease) both .15s}
+
+/* Móvil: objetivos táctiles de al menos 44 px y texto legible sin zoom (mínimo 12 px) */
+.logo{min-height:44px}
+@media (max-width:767px){
+  .foot ul{gap:0}
+  .foot ul a{display:inline-flex;align-items:center;min-height:44px;padding:0}
+  .cx-card a{display:inline-flex;align-items:center;min-height:44px;padding:0;border-bottom:0;text-decoration:underline;text-underline-offset:4px;text-decoration-color:color-mix(in srgb,var(--white) 40%,transparent)}
+  .compare td small{font-size:.75rem!important}
+  .compare th:not(:first-child){font-size:.75rem}
+  .day small{font-size:.78rem}
+}
+.static .stage{overflow-x:clip}
