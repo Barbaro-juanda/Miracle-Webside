@@ -49,12 +49,27 @@
   if (!('IntersectionObserver' in window)) lazy3d.forEach(show);
   else { const iol = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { show(e.target); iol.unobserve(e.target); } }), {rootMargin: '600px 0px'}); lazy3d.forEach(im => iol.observe(im)); }
 
-  /* ---------- Íconos 3D: brillo y flotación solo mientras están en pantalla ---------- */
-  const boxes = $$('.i3d-box');
-  if (boxes.length && !reduce && 'IntersectionObserver' in window) {
-    const io3 = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('on', e.isIntersecting)), {rootMargin: '120px 0px'});
-    boxes.forEach(b => io3.observe(b));
-  }
+  /* ---------- Íconos 3D: entrada, bucle y salida ----------
+     Al entrar en pantalla: .in3d (sube con un rebote y arranca su bucle). Al salir: .out3d (se eleva y se
+     desvanece). Al volver, entra de nuevo. Los que entran juntos se escalonan 90 ms. La caja del brillo
+     recibe .on solo mientras se ve, para no pedir la máscara antes de tiempo. */
+  const icons3d = $$('img[data-loop]');
+  if (icons3d.length && !reduce && 'IntersectionObserver' in window) {
+    icons3d.forEach(im => im.style.setProperty('--loop-d', (-Math.random() * 6).toFixed(2) + 's'));
+    const io3 = new IntersectionObserver(es => {
+      let k = 0;
+      es.forEach(e => {
+        const im = e.target, box = im.closest('.i3d-box');
+        if (e.isIntersecting) {
+          im.style.setProperty('--in-d', (k++ * .09).toFixed(2) + 's');
+          im.classList.remove('out3d'); im.classList.add('in3d'); if (box) box.classList.add('on');
+        } else if (im.classList.contains('in3d')) {
+          im.classList.remove('in3d'); im.classList.add('out3d'); if (box) box.classList.remove('on');
+        }
+      });
+    }, {threshold: .2});
+    icons3d.forEach(im => io3.observe(im));
+  } else icons3d.forEach(im => im.classList.add('in3d'));
 
   /* ---------- Ilustraciones animadas: se detienen fuera de pantalla y con movimiento reducido ---------- */
   $$('svg.illus').forEach(svg => {

@@ -1381,11 +1381,7 @@ html:not(.js) .pick-panels{display:flex;flex-direction:column;gap:12px}
 .pick-panel{position:relative;overflow:hidden}
 .pick-panel > *:not(.pp-art){position:relative;z-index:1}
 .pick-panel .btn{margin-top:18px}
-.pp-art{position:absolute;right:-18px;bottom:-26px;width:220px;height:220px;fill:none;stroke:var(--white);stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round;opacity:.1;animation:pp-float 9s ease-in-out infinite}
-.js .pick-panel.on > .pp-art{animation:pp-float 9s ease-in-out infinite}
-@keyframes pp-float{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-10px) rotate(2deg)}}
-@media (max-width:760px){.pp-art{width:150px;height:150px}}
-@media (prefers-reduced-motion:reduce){.pp-art,.js .pick-panel.on > .pp-art{animation:none}}
+.pp-art{position:absolute}
 @media (min-width:601px){
   .hero-links{flex-direction:row;justify-content:center;gap:14px;margin-top:22px}
   .hero-links .rl a{padding:7px 16px 7px 8px}
@@ -1469,42 +1465,59 @@ html:not(.js) .pick-panels{display:flex;flex-direction:column;gap:12px}
 
 /* ============================================================
    Íconos 3D (Higgsfield): aluminio cepillado y vidrio azul noche, como el portátil.
-   Animación solo con transform y opacity: flotan, se inclinan al pasar el mouse y
-   un brillo metálico los recorre (enmascarado con la propia imagen, var(--src)).
+   Cada ícono tiene entrada, bucle y salida (core.js pone .in3d / .out3d al entrar y salir de pantalla).
+   - Entrada y salida: opacity + translate + scale (propiedades sueltas, con transición).
+   - Bucle: transform con keyframes según data-loop (float, sway, breathe, spin).
+   - Hover: rotate + scale sueltos, así no pelea con el bucle.
+   Solo transform y opacity; con movimiento reducido todo queda quieto y visible.
    ============================================================ */
-.i3d{display:block;width:100%;height:auto;object-fit:contain;filter:drop-shadow(0 10px 14px color-mix(in srgb,var(--ink) 22%,transparent));transition:transform .6s var(--ease);will-change:transform}
+.i3d{display:block;width:100%;height:auto;object-fit:contain;filter:drop-shadow(0 10px 14px color-mix(in srgb,var(--ink) 22%,transparent))}
 .dark .i3d,.band-dark .i3d,.circuit .i3d,.stage .i3d,.pick-panel .i3d{filter:drop-shadow(0 12px 18px color-mix(in srgb,var(--black) 45%,transparent))}
-.i3d-box{position:relative;display:block;background:none!important;border-radius:0!important;width:84px!important;height:84px!important;animation:i3d-float 6s ease-in-out infinite;animation-delay:calc(var(--d,0) * -1.3s)}
-.i3d-box::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 35%,color-mix(in srgb,var(--white) 70%,transparent) 50%,transparent 65%) no-repeat;background-size:250% 100%;background-position:150% 0;mix-blend-mode:screen;opacity:0;animation-delay:calc(var(--d,0) * .9s + 1s)}
-.sec-card:nth-child(2) .i3d-box,.cx-card:nth-child(2) .i3d-box{--d:1}
-.sec-card:nth-child(3) .i3d-box,.cx-card:nth-child(3) .i3d-box{--d:2}
-.sec-card:nth-child(4) .i3d-box{--d:3}.sec-card:nth-child(5) .i3d-box{--d:4}.sec-card:nth-child(6) .i3d-box{--d:5}
-.sec-card .i3d-box{margin-bottom:18px}
-.sec-card:hover .i3d,.cx-card:hover .i3d,.xtile:hover .i3d,.hero-links .rl a:hover .i3d{transform:perspective(500px) rotateY(-14deg) rotateX(8deg) scale(1.08)}
-.sec-card:hover .i3d-box::after,.cx-card:hover .i3d-box::after{animation-duration:1.6s}
-@keyframes i3d-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.illus3d{max-width:420px;aspect-ratio:1;object-fit:contain;filter:drop-shadow(0 24px 30px color-mix(in srgb,var(--ink) 22%,transparent))}
+
+/* Estados de entrada y salida */
+.js img[data-loop]{opacity:.01;translate:0 28px;scale:.78;transition:opacity .7s var(--ease),translate .9s cubic-bezier(.34,1.56,.64,1),scale .9s cubic-bezier(.34,1.56,.64,1),rotate .6s var(--ease);transition-delay:var(--in-d,0s)}
+.js img[data-loop].in3d{opacity:1;translate:0 0;scale:1}
+.js img[data-loop].out3d{opacity:.01;translate:0 -22px;scale:.9;transition-duration:.45s,.5s,.5s,.4s;transition-timing-function:var(--ease);transition-delay:0s}
+
+/* Bucles (arrancan cuando el ícono ya entró) */
+.js img[data-loop].in3d{animation:var(--loop) var(--loop-t,6s) ease-in-out var(--loop-d,0s) infinite}
+img[data-loop="float"]{--loop:l-float;--loop-t:6s}
+img[data-loop="sway"]{--loop:l-sway;--loop-t:5s;transform-origin:50% 12%}
+img[data-loop="breathe"]{--loop:l-breathe;--loop-t:4.5s}
+img[data-loop="spin"]{--loop:l-spin;--loop-t:9s}
+@keyframes l-float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-7px) rotate(-2deg)}}
+@keyframes l-sway{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+@keyframes l-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.05) translateY(-3px)}}
+@keyframes l-spin{0%,100%{transform:perspective(600px) rotateY(-16deg) translateY(0)}50%{transform:perspective(600px) rotateY(16deg) translateY(-6px)}}
+
+/* Al pasar el mouse: se inclina hacia quien mira */
+.sec-card:hover img.in3d,.cx-card:hover img.in3d,.xtile:hover img.in3d,.hero-links .rl a:hover img.in3d,.pick-panel:hover img.in3d{rotate:-8deg;scale:1.1}
+
+/* Brillo metálico: enmascarado con la propia imagen, solo mientras se ve (core.js pone .on en la caja) */
+.i3d-box{position:relative;display:block;background:none!important;border-radius:0!important;width:84px!important;height:84px!important}
+.i3d-box::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 35%,color-mix(in srgb,var(--white) 70%,transparent) 50%,transparent 65%) no-repeat;background-size:250% 100%;background-position:150% 0;mix-blend-mode:screen;opacity:0}
+.i3d-box.on::after{-webkit-mask:var(--src) center/contain no-repeat;mask:var(--src) center/contain no-repeat;opacity:.8;animation:i3d-shine 7s ease-in-out infinite;animation-delay:calc(var(--d,0) * .9s + 1.2s)}
+.sec-card:hover .i3d-box.on::after,.cx-card:hover .i3d-box.on::after{animation-duration:1.6s}
 @keyframes i3d-shine{0%,70%{background-position:150% 0}100%{background-position:-50% 0}}
+.sec-card .i3d-box{margin-bottom:18px}
+
 /* Circuito del inicio */
 .cx-card .ico.i3d-box{width:76px!important;height:76px!important;margin:-6px 0 6px -6px}
 /* Selector por rol del inicio */
 .hero-links .rl-i{background:none!important;width:38px!important;height:38px!important;transform:none!important}
 .hero-links .rl-i .i3d{filter:drop-shadow(0 4px 6px color-mix(in srgb,var(--black) 50%,transparent))}
 /* Mosaicos "Explora Miracle" */
-.xtile img.xmini{width:132px;height:132px;margin:-14px 0 6px -12px;animation:i3d-float 7s ease-in-out infinite}
-.xtile:nth-child(2) img.xmini{animation-delay:-1.7s}.xtile:nth-child(3) img.xmini{animation-delay:-3.4s}.xtile:nth-child(4) img.xmini{animation-delay:-5.1s}
+.xtile img.xmini{width:132px;height:132px;margin:-14px 0 6px -12px}
 @media (max-width:600px){.xtile img.xmini{width:112px;height:112px}}
-/* Ilustraciones de cabecera */
-.illus3d{max-width:420px;aspect-ratio:1;object-fit:contain;filter:drop-shadow(0 24px 30px color-mix(in srgb,var(--ink) 22%,transparent));animation:i3d-float 8s ease-in-out infinite}
-/* Selector "Por dónde empezar" (Soluciones) */
-img.pp-art{right:12px;bottom:12px;width:190px;height:190px;opacity:1;animation:pp-float 9s ease-in-out infinite}
-@media (max-width:760px){img.pp-art{width:120px;height:120px;right:8px;bottom:8px;opacity:.9}}
-@media (prefers-reduced-motion:reduce){.i3d-box,.i3d-box::after,.illus3d,.xtile img.xmini,img.pp-art{animation:none}.i3d{transition:none}}
-/* El objeto 3D del panel no tapa el texto: se le reserva su columna a la derecha. */
+/* Selector "Por dónde empezar" (Soluciones): el objeto tiene su columna y no tapa el texto */
 .pick-panel{padding-right:clamp(40px,34%,250px)}
-img.pp-art{width:min(30%,190px);height:auto;aspect-ratio:1;top:50%;bottom:auto;right:24px;translate:0 -50%}
-@media (max-width:760px){.pick-panel{padding-right:28px;padding-top:112px}img.pp-art{width:96px;top:18px;right:18px;translate:none;opacity:1}}
-/* El brillo usa la imagen como máscara: solo se pide cuando el ícono está en pantalla (core.js agrega .on). */
-.i3d-box.on::after{-webkit-mask:var(--src) center/contain no-repeat;mask:var(--src) center/contain no-repeat;opacity:.8;animation:i3d-shine 7s ease-in-out infinite;animation-delay:calc(var(--d,0) * .9s + 1s)}
-.i3d-box:not(.on){animation-play-state:paused}
-img[data-src]{opacity:0}
-.i3d{transition:transform .6s var(--ease),opacity .5s var(--ease)}
+img.pp-art{right:24px;top:50%;bottom:auto;width:min(30%,190px);height:auto;aspect-ratio:1;margin-top:calc(min(30%,190px) * -.5);opacity:1}
+.js .pick-panel.on > img.pp-art.in3d{animation:var(--loop) var(--loop-t,6s) ease-in-out var(--loop-d,0s) infinite}
+@media (max-width:760px){.pick-panel{padding-right:28px;padding-top:112px}img.pp-art{width:96px;top:18px;right:18px;margin-top:0}}
+
+@media (prefers-reduced-motion:reduce){
+  .js img[data-loop],.js img[data-loop].out3d{opacity:1;translate:none;scale:none;transition:none;animation:none!important}
+  .i3d-box.on::after{animation:none}
+}
+img[data-src]{visibility:hidden}
