@@ -75,7 +75,7 @@
 
     /* Video en bucle: al acercarse, la imagen se cambia por su video con transparencia
        (HEVC para Safari, VP9 para el resto). Se pausa fuera de pantalla. */
-    const safari = /^((?!chrome|chromium|android|crios|fxios|edg).)*safari/i.test(navigator.userAgent);
+    const safari = navigator.vendor === 'Apple Computer, Inc.';
     const saveData = navigator.connection && navigator.connection.saveData;
     const upgrade = im => {
       if (saveData || !im.dataset.v || im.dataset.vdone) return;
@@ -87,10 +87,14 @@
       ['data-loop', 'style', 'width', 'height'].forEach(a => { if (im.hasAttribute(a)) v.setAttribute(a, im.getAttribute(a)); });
       v.poster = im.dataset.src || im.currentSrc || im.src;
       v.src = `/assets/vid3d/${im.dataset.v}.${safari ? 'mov' : 'webm'}`;
+      // Solo se cambia la imagen por el video si el navegador deja reproducirlo (Safari en bajo consumo no
+      // deja): si no, se queda la imagen fija en vez de un recuadro negro.
       v.addEventListener('loadeddata', () => {
-        const box = im.closest('.i3d-box'); if (box) box.classList.add('has-video');
-        io3.unobserve(im); im.replaceWith(v); io3.observe(v);
-        if (v.classList.contains('in3d')) v.play().catch(() => {});
+        v.play().then(() => {
+          const box = im.closest('.i3d-box'); if (box) box.classList.add('has-video');
+          io3.unobserve(im); im.replaceWith(v); io3.observe(v);
+          if (!v.classList.contains('in3d')) v.pause();
+        }).catch(() => {});
       }, {once: true});
       v.load();
     };
