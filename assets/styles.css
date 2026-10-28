@@ -1476,12 +1476,12 @@ html:not(.js) .pick-panels{display:flex;flex-direction:column;gap:12px}
 .illus3d{max-width:420px;aspect-ratio:1;object-fit:contain;filter:drop-shadow(0 24px 30px color-mix(in srgb,var(--ink) 22%,transparent))}
 
 /* Estados de entrada y salida */
-.js img[data-loop]{opacity:.01;translate:0 28px;scale:.78;transition:opacity .7s var(--ease),translate .9s cubic-bezier(.34,1.56,.64,1),scale .9s cubic-bezier(.34,1.56,.64,1),rotate .6s var(--ease);transition-delay:var(--in-d,0s)}
-.js img[data-loop].in3d{opacity:1;translate:0 0;scale:1}
-.js img[data-loop].out3d{opacity:.01;translate:0 -22px;scale:.9;transition-duration:.45s,.5s,.5s,.4s;transition-timing-function:var(--ease);transition-delay:0s}
+.js [data-loop]{opacity:.01;translate:0 28px;scale:.78;transition:opacity .7s var(--ease),translate .9s cubic-bezier(.34,1.56,.64,1),scale .9s cubic-bezier(.34,1.56,.64,1),rotate .6s var(--ease);transition-delay:var(--in-d,0s)}
+.js [data-loop].in3d{opacity:1;translate:0 0;scale:1}
+.js [data-loop].out3d{opacity:.01;translate:0 -22px;scale:.9;transition-duration:.45s,.5s,.5s,.4s;transition-timing-function:var(--ease);transition-delay:0s}
 
 /* Bucles (arrancan cuando el ícono ya entró) */
-.js img[data-loop].in3d{animation:var(--loop) var(--loop-t,6s) ease-in-out var(--loop-d,0s) infinite}
+.js [data-loop].in3d{animation:var(--loop) var(--loop-t,6s) ease-in-out var(--loop-d,0s) infinite}
 img[data-loop="float"]{--loop:l-float;--loop-t:6s}
 img[data-loop="sway"]{--loop:l-sway;--loop-t:5s;transform-origin:50% 12%}
 img[data-loop="breathe"]{--loop:l-breathe;--loop-t:4.5s}
@@ -1492,7 +1492,7 @@ img[data-loop="spin"]{--loop:l-spin;--loop-t:9s}
 @keyframes l-spin{0%,100%{transform:perspective(600px) rotateY(-16deg) translateY(0)}50%{transform:perspective(600px) rotateY(16deg) translateY(-6px)}}
 
 /* Al pasar el mouse: se inclina hacia quien mira */
-.sec-card:hover img.in3d,.cx-card:hover img.in3d,.xtile:hover img.in3d,.hero-links .rl a:hover img.in3d,.pick-panel:hover img.in3d{rotate:-8deg;scale:1.1}
+.sec-card:hover .in3d,.cx-card:hover .in3d,.xtile:hover .in3d,.hero-links .rl a:hover .in3d,.pick-panel:hover .in3d{rotate:-8deg;scale:1.1}
 
 /* Brillo metálico: enmascarado con la propia imagen, solo mientras se ve (core.js pone .on en la caja) */
 .i3d-box{position:relative;display:block;background:none!important;border-radius:0!important;width:84px!important;height:84px!important}
@@ -1508,16 +1508,25 @@ img[data-loop="spin"]{--loop:l-spin;--loop-t:9s}
 .hero-links .rl-i{background:none!important;width:38px!important;height:38px!important;transform:none!important}
 .hero-links .rl-i .i3d{filter:drop-shadow(0 4px 6px color-mix(in srgb,var(--black) 50%,transparent))}
 /* Mosaicos "Explora Miracle" */
-.xtile img.xmini{width:132px;height:132px;margin:-14px 0 6px -12px}
-@media (max-width:600px){.xtile img.xmini{width:112px;height:112px}}
+.xtile .xmini{width:132px;height:132px;margin:-14px 0 6px -12px}
+@media (max-width:600px){.xtile .xmini{width:112px;height:112px}}
 /* Selector "Por dónde empezar" (Soluciones): el objeto tiene su columna y no tapa el texto */
 .pick-panel{padding-right:clamp(40px,34%,250px)}
-img.pp-art{right:24px;top:50%;bottom:auto;width:min(30%,190px);height:auto;aspect-ratio:1;margin-top:calc(min(30%,190px) * -.5);opacity:1}
-.js .pick-panel.on > img.pp-art.in3d{animation:var(--loop) var(--loop-t,6s) ease-in-out var(--loop-d,0s) infinite}
-@media (max-width:760px){.pick-panel{padding-right:28px;padding-top:112px}img.pp-art{width:96px;top:18px;right:18px;margin-top:0}}
+.pp-art.i3d{right:24px;top:50%;bottom:auto;width:min(30%,190px);height:auto;aspect-ratio:1;margin-top:calc(min(30%,190px) * -.5);opacity:1}
+.js .pick-panel.on > .pp-art.in3d{animation:var(--loop) var(--loop-t,6s) ease-in-out var(--loop-d,0s) infinite}
+@media (max-width:760px){.pick-panel{padding-right:28px;padding-top:112px}.pp-art.i3d{width:96px;top:18px;right:18px;margin-top:0}}
 
 @media (prefers-reduced-motion:reduce){
-  .js img[data-loop],.js img[data-loop].out3d{opacity:1;translate:none;scale:none;transition:none;animation:none!important}
+  .js [data-loop],.js [data-loop].out3d{opacity:1;translate:none;scale:none;transition:none;animation:none!important}
   .i3d-box.on::after{animation:none}
 }
+
+
+/* Videos en bucle (Higgsfield): reemplazan a la imagen al acercarse. El póster es el mismo primer cuadro,
+   así el cambio no se nota. El bucle lo pone el video: sin balanceo CSS encima ni brillo enmascarado. */
+video.i3d,video.illus3d{display:block;object-fit:contain;background:transparent}
+.js video[data-loop].in3d,.js .pick-panel.on > video.pp-art.in3d{animation:none}
+.i3d-box.has-video::after{display:none}
+/* Los que se mueven mucho vienen con más margen: se agrandan para verse del mismo tamaño que los demás */
+.i3d-box [style*="--z"],.rl-i [style*="--z"]{width:calc(100% * var(--z));max-width:none;margin:calc((1 - var(--z)) * 50%)}
 img[data-src]{visibility:hidden}

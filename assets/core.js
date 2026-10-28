@@ -54,21 +54,50 @@
      desvanece). Al volver, entra de nuevo. Los que entran juntos se escalonan 90 ms. La caja del brillo
      recibe .on solo mientras se ve, para no pedir la máscara antes de tiempo. */
   const icons3d = $$('img[data-loop]');
+    let io3;
   if (icons3d.length && !reduce && 'IntersectionObserver' in window) {
     icons3d.forEach(im => im.style.setProperty('--loop-d', (-Math.random() * 6).toFixed(2) + 's'));
-    const io3 = new IntersectionObserver(es => {
+    io3 = new IntersectionObserver(es => {
       let k = 0;
       es.forEach(e => {
         const im = e.target, box = im.closest('.i3d-box');
         if (e.isIntersecting) {
           im.style.setProperty('--in-d', (k++ * .09).toFixed(2) + 's');
           im.classList.remove('out3d'); im.classList.add('in3d'); if (box) box.classList.add('on');
+          if (im.tagName === 'VIDEO') im.play().catch(() => {});
         } else if (im.classList.contains('in3d')) {
           im.classList.remove('in3d'); im.classList.add('out3d'); if (box) box.classList.remove('on');
+          if (im.tagName === 'VIDEO') im.pause();
         }
       });
     }, {threshold: .2});
     icons3d.forEach(im => io3.observe(im));
+
+    /* Video en bucle: al acercarse, la imagen se cambia por su video con transparencia
+       (HEVC para Safari, VP9 para el resto). Se pausa fuera de pantalla. */
+    const safari = /^((?!chrome|chromium|android|crios|fxios|edg).)*safari/i.test(navigator.userAgent);
+    const saveData = navigator.connection && navigator.connection.saveData;
+    const upgrade = im => {
+      if (saveData || !im.dataset.v || im.dataset.vdone) return;
+      im.dataset.vdone = '1';
+      const v = document.createElement('video');
+      v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'auto';
+      v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('aria-hidden', 'true');
+      v.className = im.className;
+      ['data-loop', 'style', 'width', 'height'].forEach(a => { if (im.hasAttribute(a)) v.setAttribute(a, im.getAttribute(a)); });
+      v.poster = im.dataset.src || im.currentSrc || im.src;
+      v.src = `/assets/vid3d/${im.dataset.v}.${safari ? 'mov' : 'webm'}`;
+      v.addEventListener('loadeddata', () => {
+        const box = im.closest('.i3d-box'); if (box) box.classList.add('has-video');
+        io3.unobserve(im); im.replaceWith(v); io3.observe(v);
+        if (v.classList.contains('in3d')) v.play().catch(() => {});
+      }, {once: true});
+      v.load();
+    };
+    const iov = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { upgrade(e.target); iov.unobserve(e.target); } }), {rootMargin: '300px 0px'});
+    // Los videos esperan a que la página termine de cargar: no compiten con el primer pantallazo.
+    const startVideos = () => setTimeout(() => icons3d.forEach(im => iov.observe(im)), 400);
+    if (document.readyState === 'complete') startVideos(); else addEventListener('load', startVideos, {once: true});
   } else icons3d.forEach(im => im.classList.add('in3d'));
 
   /* ---------- Ilustraciones animadas: se detienen fuera de pantalla y con movimiento reducido ---------- */
