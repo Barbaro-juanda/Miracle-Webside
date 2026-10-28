@@ -1464,3 +1464,5 @@ html:not(.js) .pick-panels{display:flex;flex-direction:column;gap:12px}
 .static .seq-last{display:block}
 /* Los bordes del video se funden con el fondo del inicio: no se ve el rectángulo del cuadro. */
 .seq-cv,.seq-last{-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 72%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 72%,transparent 100%)}
+/* En el video la base es ~22 % más ancha que la tapa: en celular se achica para que quepa entera. */
+@media (max-width:899px){.has-seq .device-wrap{--dw:min(560px,74vw)}}

@@ -22,6 +22,8 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/schibsted-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="/assets/hero/m/001.webp" media="(max-width: 899px)">
+<link rel="preload" as="image" href="/assets/hero/d/001.webp" media="(min-width: 900px)">
 <script>document.documentElement.classList.add('js')</script>
 <link rel="stylesheet" href="/assets/styles.css">
 <script type="application/ld+json">
@@ -101,7 +103,7 @@
 </nav>
 <main id="main">
 <!-- 1 · INICIO + CÓMO FUNCIONA: un solo escenario que el scroll va contando -->
-<section class="stage dark" id="como-funciona" data-theme="dark" aria-labelledby="h1">
+<section class="stage dark has-seq" id="como-funciona" data-theme="dark" aria-labelledby="h1">
   <div class="hero-copy">
     <h1 id="h1" aria-label="Tú atiendes al paciente. Miracle escribe la historia clínica."><span class="split" aria-hidden="true"><span class="word"><span class="ch" style="--i:0">T</span><span class="ch" style="--i:1">ú</span></span> <span class="word"><span class="ch" style="--i:2">a</span><span class="ch" style="--i:3">t</span><span class="ch" style="--i:4">i</span><span class="ch" style="--i:5">e</span><span class="ch" style="--i:6">n</span><span class="ch" style="--i:7">d</span><span class="ch" style="--i:8">e</span><span class="ch" style="--i:9">s</span></span> <span class="word"><span class="ch" style="--i:10">a</span><span class="ch" style="--i:11">l</span></span> <span class="word"><span class="ch" style="--i:12">p</span><span class="ch" style="--i:13">a</span><span class="ch" style="--i:14">c</span><span class="ch" style="--i:15">i</span><span class="ch" style="--i:16">e</span><span class="ch" style="--i:17">n</span><span class="ch" style="--i:18">t</span><span class="ch" style="--i:19">e</span><span class="ch" style="--i:20">.</span></span></span> <span class="l2 split" aria-hidden="true"><span class="word"><span class="ch" style="--i:21">M</span><span class="ch" style="--i:22">i</span><span class="ch" style="--i:23">r</span><span class="ch" style="--i:24">a</span><span class="ch" style="--i:25">c</span><span class="ch" style="--i:26">l</span><span class="ch" style="--i:27">e</span></span> <span class="word"><span class="ch" style="--i:28">e</span><span class="ch" style="--i:29">s</span><span class="ch" style="--i:30">c</span><span class="ch" style="--i:31">r</span><span class="ch" style="--i:32">i</span><span class="ch" style="--i:33">b</span><span class="ch" style="--i:34">e</span></span> <span class="word"><span class="ch" style="--i:35">l</span><span class="ch" style="--i:36">a</span></span> <span class="word"><span class="ch" style="--i:37">h</span><span class="ch" style="--i:38">i</span><span class="ch" style="--i:39">s</span><span class="ch" style="--i:40">t</span><span class="ch" style="--i:41">o</span><span class="ch" style="--i:42">r</span><span class="ch" style="--i:43">i</span><span class="ch" style="--i:44">a</span></span> <span class="word"><span class="ch" style="--i:45">c</span><span class="ch" style="--i:46">l</span><span class="ch" style="--i:47">í</span><span class="ch" style="--i:48">n</span><span class="ch" style="--i:49">i</span><span class="ch" style="--i:50">c</span><span class="ch" style="--i:51">a</span><span class="ch" style="--i:52">.</span></span></span></h1>
     <p>La nota, los códigos y la revisión quedan listos antes de que firmes.</p>
@@ -120,7 +122,12 @@
   </div>
 
   <div class="device-wrap" aria-hidden="true">
-    <div class="device">
+    <div class="seq" style="--ratio:1.7647;--laptop:0.442" data-frames="90">
+      <canvas class="seq-cv"></canvas>
+      <img class="seq-last" src="/assets/hero/d/090.webp" alt="" width="1280" height="725" loading="lazy" decoding="async">
+      <div class="seq-screen" style="left:28.59%;top:21.88%;width:42.86%;height:45.5%"></div>
+    </div>
+        <div class="device">
       <div class="lid">
         <div class="lid-front">
           <div class="screen">
