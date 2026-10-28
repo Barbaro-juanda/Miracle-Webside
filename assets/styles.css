@@ -1466,3 +1466,45 @@ html:not(.js) .pick-panels{display:flex;flex-direction:column;gap:12px}
 .seq-cv,.seq-last{-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 72%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 72%,transparent 100%)}
 /* En el video la base es ~22 % más ancha que la tapa: en celular se achica para que quepa entera. */
 @media (max-width:899px){.has-seq .device-wrap{--dw:min(560px,74vw)}}
+
+/* ============================================================
+   Íconos 3D (Higgsfield): aluminio cepillado y vidrio azul noche, como el portátil.
+   Animación solo con transform y opacity: flotan, se inclinan al pasar el mouse y
+   un brillo metálico los recorre (enmascarado con la propia imagen, var(--src)).
+   ============================================================ */
+.i3d{display:block;width:100%;height:auto;object-fit:contain;filter:drop-shadow(0 10px 14px color-mix(in srgb,var(--ink) 22%,transparent));transition:transform .6s var(--ease);will-change:transform}
+.dark .i3d,.band-dark .i3d,.circuit .i3d,.stage .i3d,.pick-panel .i3d{filter:drop-shadow(0 12px 18px color-mix(in srgb,var(--black) 45%,transparent))}
+.i3d-box{position:relative;display:block;background:none!important;border-radius:0!important;width:84px!important;height:84px!important;animation:i3d-float 6s ease-in-out infinite;animation-delay:calc(var(--d,0) * -1.3s)}
+.i3d-box::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 35%,color-mix(in srgb,var(--white) 70%,transparent) 50%,transparent 65%) no-repeat;background-size:250% 100%;background-position:150% 0;mix-blend-mode:screen;opacity:0;animation-delay:calc(var(--d,0) * .9s + 1s)}
+.sec-card:nth-child(2) .i3d-box,.cx-card:nth-child(2) .i3d-box{--d:1}
+.sec-card:nth-child(3) .i3d-box,.cx-card:nth-child(3) .i3d-box{--d:2}
+.sec-card:nth-child(4) .i3d-box{--d:3}.sec-card:nth-child(5) .i3d-box{--d:4}.sec-card:nth-child(6) .i3d-box{--d:5}
+.sec-card .i3d-box{margin-bottom:18px}
+.sec-card:hover .i3d,.cx-card:hover .i3d,.xtile:hover .i3d,.hero-links .rl a:hover .i3d{transform:perspective(500px) rotateY(-14deg) rotateX(8deg) scale(1.08)}
+.sec-card:hover .i3d-box::after,.cx-card:hover .i3d-box::after{animation-duration:1.6s}
+@keyframes i3d-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes i3d-shine{0%,70%{background-position:150% 0}100%{background-position:-50% 0}}
+/* Circuito del inicio */
+.cx-card .ico.i3d-box{width:76px!important;height:76px!important;margin:-6px 0 6px -6px}
+/* Selector por rol del inicio */
+.hero-links .rl-i{background:none!important;width:38px!important;height:38px!important;transform:none!important}
+.hero-links .rl-i .i3d{filter:drop-shadow(0 4px 6px color-mix(in srgb,var(--black) 50%,transparent))}
+/* Mosaicos "Explora Miracle" */
+.xtile img.xmini{width:132px;height:132px;margin:-14px 0 6px -12px;animation:i3d-float 7s ease-in-out infinite}
+.xtile:nth-child(2) img.xmini{animation-delay:-1.7s}.xtile:nth-child(3) img.xmini{animation-delay:-3.4s}.xtile:nth-child(4) img.xmini{animation-delay:-5.1s}
+@media (max-width:600px){.xtile img.xmini{width:112px;height:112px}}
+/* Ilustraciones de cabecera */
+.illus3d{max-width:420px;aspect-ratio:1;object-fit:contain;filter:drop-shadow(0 24px 30px color-mix(in srgb,var(--ink) 22%,transparent));animation:i3d-float 8s ease-in-out infinite}
+/* Selector "Por dónde empezar" (Soluciones) */
+img.pp-art{right:12px;bottom:12px;width:190px;height:190px;opacity:1;animation:pp-float 9s ease-in-out infinite}
+@media (max-width:760px){img.pp-art{width:120px;height:120px;right:8px;bottom:8px;opacity:.9}}
+@media (prefers-reduced-motion:reduce){.i3d-box,.i3d-box::after,.illus3d,.xtile img.xmini,img.pp-art{animation:none}.i3d{transition:none}}
+/* El objeto 3D del panel no tapa el texto: se le reserva su columna a la derecha. */
+.pick-panel{padding-right:clamp(40px,34%,250px)}
+img.pp-art{width:min(30%,190px);height:auto;aspect-ratio:1;top:50%;bottom:auto;right:24px;translate:0 -50%}
+@media (max-width:760px){.pick-panel{padding-right:28px;padding-top:112px}img.pp-art{width:96px;top:18px;right:18px;translate:none;opacity:1}}
+/* El brillo usa la imagen como máscara: solo se pide cuando el ícono está en pantalla (core.js agrega .on). */
+.i3d-box.on::after{-webkit-mask:var(--src) center/contain no-repeat;mask:var(--src) center/contain no-repeat;opacity:.8;animation:i3d-shine 7s ease-in-out infinite;animation-delay:calc(var(--d,0) * .9s + 1s)}
+.i3d-box:not(.on){animation-play-state:paused}
+img[data-src]{opacity:0}
+.i3d{transition:transform .6s var(--ease),opacity .5s var(--ease)}

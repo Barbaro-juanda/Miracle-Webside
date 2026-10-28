@@ -43,6 +43,19 @@
     else { const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {rootMargin:'0px 0px -8% 0px'}); reveals.forEach(r => io.observe(r)); }
   }
 
+  /* ---------- Imágenes 3D bajo el pliegue: se piden al acercarse (no compiten con la primera carga) ---------- */
+  const lazy3d = $$('img[data-src]');
+  const show = im => { im.src = im.dataset.src; im.removeAttribute('data-src'); };
+  if (!('IntersectionObserver' in window)) lazy3d.forEach(show);
+  else { const iol = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { show(e.target); iol.unobserve(e.target); } }), {rootMargin: '600px 0px'}); lazy3d.forEach(im => iol.observe(im)); }
+
+  /* ---------- Íconos 3D: brillo y flotación solo mientras están en pantalla ---------- */
+  const boxes = $$('.i3d-box');
+  if (boxes.length && !reduce && 'IntersectionObserver' in window) {
+    const io3 = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('on', e.isIntersecting)), {rootMargin: '120px 0px'});
+    boxes.forEach(b => io3.observe(b));
+  }
+
   /* ---------- Ilustraciones animadas: se detienen fuera de pantalla y con movimiento reducido ---------- */
   $$('svg.illus').forEach(svg => {
     if (!svg.pauseAnimations) return;
