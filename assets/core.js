@@ -75,10 +75,13 @@
 
     /* Video en bucle: al acercarse, la imagen se cambia por su video con transparencia
        (HEVC para Safari, VP9 para el resto). Se pausa fuera de pantalla. */
-    const safari = navigator.vendor === 'Apple Computer, Inc.';
+    // Safari e iOS no muestran bien el video con transparencia: ahí se queda la imagen fija con el
+    // movimiento CSS (flotar, balancearse, latir). Chrome, Edge y Firefox usan el video VP9 con alfa.
+    const apple = navigator.vendor === 'Apple Computer, Inc.';
     const saveData = navigator.connection && navigator.connection.saveData;
+    if (apple) document.documentElement.classList.add('no-vid3d');
     const upgrade = im => {
-      if (saveData || !im.dataset.v || im.dataset.vdone) return;
+      if (apple || saveData || !im.dataset.v || im.dataset.vdone) return;
       im.dataset.vdone = '1';
       const v = document.createElement('video');
       v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'auto';
@@ -86,7 +89,7 @@
       v.className = im.className;
       ['data-loop', 'style', 'width', 'height'].forEach(a => { if (im.hasAttribute(a)) v.setAttribute(a, im.getAttribute(a)); });
       v.poster = im.dataset.src || im.currentSrc || im.src;
-      v.src = `/assets/vid3d/${im.dataset.v}.${safari ? 'mov' : 'webm'}`;
+      v.src = `/assets/vid3d/${im.dataset.v}.webm`;
       // Solo se cambia la imagen por el video si el navegador deja reproducirlo (Safari en bajo consumo no
       // deja): si no, se queda la imagen fija en vez de un recuadro negro.
       v.addEventListener('loadeddata', () => {

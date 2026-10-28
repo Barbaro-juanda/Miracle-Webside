@@ -555,7 +555,7 @@ footer{border-top:1px solid var(--line);background:var(--surface)}
 
 /* ---------- Párrafo que se ilumina ---------- */
 .statement{padding:22vh 0}
-body.anim .statement{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:0}
+body.anim .statement{min-height:100vh;min-height:100lvh;display:flex;align-items:center;padding:0}
 .statement p{max-width:1000px;margin:0 auto;padding:0 20px;font-family:var(--f-display);font-weight:600;font-size:clamp(1.8rem,4.2vw,3.5rem);line-height:1.18;letter-spacing:-.03em;color:var(--d-ink);text-align:center}
 .statement .w{transition:color .1s}
 .statement .glow{color:var(--glow)}
@@ -1530,3 +1530,7 @@ video.i3d,video.illus3d{display:block;object-fit:contain;background:transparent}
 /* Los que se mueven mucho vienen con más margen: se agrandan para verse del mismo tamaño que los demás */
 .i3d-box [style*="--z"],.rl-i [style*="--z"]{width:calc(100% * var(--z));max-width:none;margin:calc((1 - var(--z)) * 50%)}
 img[data-src]{visibility:hidden}
+
+/* La frase fijada con el scroll: cubre la ventana grande (Safari al esconder su barra) y el contenedor
+   que agrega GSAP tiene el mismo fondo, así nunca asoma el fondo claro de la página. */
+.pin-spacer:has(> .statement){background:var(--d-bg,var(--deep))}
