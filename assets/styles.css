@@ -479,7 +479,7 @@ footer{border-top:1px solid var(--line);background:var(--surface)}
 @keyframes hint{0%{opacity:0;transform:translateY(0)}40%{opacity:1}100%{opacity:0;transform:translateY(10px)}}
 
 /* Portátil 3D */
-.device-wrap{position:absolute;z-index:2;left:50%;top:50%;width:var(--dw);transform:translate(-50%,-50%);perspective:2200px;--dw:min(780px,56vw)}
+.device-wrap{position:absolute;z-index:2;left:50%;top:calc(50% + 4.5vh);width:var(--dw);transform:translate(-50%,-50%);perspective:2200px;--dw:min(780px,56vw)}
 .device{position:relative;transform-style:preserve-3d;will-change:transform}
 .lid{position:relative;aspect-ratio:16/10.4;transform-origin:50% 100%;transform-style:preserve-3d;will-change:transform}
 .lid-front,.lid-back{position:absolute;inset:0;border-radius:18px 18px 8px 8px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
@@ -566,7 +566,7 @@ footer{border-top:1px solid var(--line);background:var(--surface)}
 .app-sign small{display:block;color:var(--n-mute);font-size:9.5px;font-weight:500;font-variant-numeric:tabular-nums}
 
 /* Panel de pasos (01/04) */
-.steps-panel{position:absolute;z-index:3;left:max(20px,calc((100vw - 1180px)/2 + 20px));top:50%;transform:translateY(-50%);width:min(380px,32vw)}
+.steps-panel{position:absolute;z-index:3;left:max(20px,calc((100vw - 1180px)/2 + 20px));top:calc(50% + 4.5vh);transform:translateY(-50%);width:min(380px,32vw)}
 .sp-count{display:flex;align-items:center;gap:14px;font-family:var(--f-display);font-weight:600;color:var(--d-ink);font-variant-numeric:tabular-nums}
 .sp-count .of{color:var(--d-muted)}
 .sp-bar{flex:1;height:3px;border-radius:3px;background:var(--d-line);overflow:hidden}
