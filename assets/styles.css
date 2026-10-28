@@ -1688,3 +1688,6 @@ html:not(.js) .sx-view + .sx-view{margin-top:48px;padding-top:44px;border-top:1p
 .sobre b{color:var(--ink-soft);font-weight:600}
 .sobre + .article-cta{margin-top:28px}
 .article-cta .ctas{display:flex;flex-wrap:wrap;gap:10px}
+/* Soluciones y blog: el video 3D del encabezado no empuja hacia abajo lo importante en celular */
+.sx-hero .hero-2,.blog-hero .hero-2{align-items:center}
+@media (max-width:1024px){.sx-hero .illus3d,.blog-hero .illus3d{max-width:260px}}
