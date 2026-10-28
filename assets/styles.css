@@ -1084,16 +1084,16 @@ a.post .txt .meta{margin-top:auto}
 .ba2 li:nth-child(2){transition-delay:.12s}.ba2 li:nth-child(3){transition-delay:.24s}.ba2 li:nth-child(4){transition-delay:.36s}
 
 /* Línea de tiempo que se dibuja */
-.tl{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;margin-top:52px;counter-reset:t}
-.tl.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.tl{--d:2.6s;--f1:.26;--f2:.52;--f3:.78;position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;margin-top:52px;counter-reset:t}
+.tl.three{--f1:.345;--f2:.69;grid-template-columns:repeat(3,minmax(0,1fr))}
 .tl::before,.tl::after{content:"";position:absolute;left:18px;right:18px;top:17px;height:3px;border-radius:3px}
 .tl::before{background:var(--line)}
-.tl::after{background:linear-gradient(90deg,var(--accent),var(--glow-strong));transform-origin:left;transform:scaleX(0);transition:transform 1.9s var(--ease) .2s}
+.tl::after{background:linear-gradient(90deg,var(--accent),var(--glow-strong));transform-origin:left;transform:scaleX(0);transition:transform var(--d) linear .2s}
 .tl.in::after{transform:scaleX(1)}
 .tl > div{position:relative;padding-top:54px;counter-increment:t}
 .tl > div::before{content:counter(t);position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--surface);border:2px solid var(--line-strong);font-family:var(--f-display);font-weight:700;color:var(--muted);z-index:1;transition:background .45s,border-color .45s,color .45s}
 .tl.in > div::before{background:var(--accent);border-color:var(--accent);color:var(--white)}
-.tl.in > div:nth-child(1)::before{transition-delay:.2s}.tl.in > div:nth-child(2)::before{transition-delay:.75s}.tl.in > div:nth-child(3)::before{transition-delay:1.3s}.tl.in > div:nth-child(4)::before{transition-delay:1.85s}
+.tl.in > div:nth-child(1)::before{transition-delay:.1s}.tl.in > div:nth-child(2)::before{transition-delay:calc(.2s + var(--f1) * var(--d) - .15s)}.tl.in > div:nth-child(3)::before{transition-delay:calc(.2s + var(--f2) * var(--d) - .15s)}.tl.in > div:nth-child(4)::before{transition-delay:calc(.2s + var(--f3) * var(--d) - .15s)}
 .tl h3{font-size:1.15rem}
 .tl p{margin-top:8px;color:var(--ink-soft);font-size:.97rem}
 
@@ -1183,6 +1183,7 @@ a.post .txt .meta{margin-top:auto}
   .illus{justify-self:start;max-width:380px}
   .tl,.tl.three{grid-template-columns:1fr;gap:26px;margin-top:36px}
   .tl::before,.tl::after{left:17px;right:auto;width:3px;top:18px;bottom:18px;height:auto}
+  .tl{--f1:.33;--f2:.67;--f3:1}.tl.three{--f1:.5;--f2:1}
   .tl::after{transform-origin:top;transform:scaleY(0)}
   .tl.in::after{transform:scaleY(1)}
   .tl > div{padding:0 0 0 58px;min-height:36px}
@@ -1205,12 +1206,12 @@ a.post .txt .meta{margin-top:auto}
 /* Agendar: la lista de pasos con línea que se dibuja */
 .expect.tl-v{position:relative}
 .expect.tl-v::before{content:"";position:absolute;left:14px;top:30px;bottom:30px;width:2px;background:var(--line)}
-.expect.tl-v::after{content:"";position:absolute;left:14px;top:30px;bottom:30px;width:2px;background:var(--accent);transform-origin:top;transform:scaleY(0);transition:transform 1.8s var(--ease) .3s}
+.expect.tl-v::after{content:"";position:absolute;left:14px;top:30px;bottom:30px;width:2px;background:var(--accent);transform-origin:top;transform:scaleY(0);transition:transform 1.8s linear .3s}
 .expect.tl-v.in::after{transform:scaleY(1)}
 .expect.tl-v li{position:relative;z-index:1}
 .expect.tl-v li span{background:var(--ice);transition:background .4s,color .4s}
 .expect.tl-v.in li span{background:var(--accent);color:var(--white)}
-.expect.tl-v.in li:nth-child(1) span{transition-delay:.3s}.expect.tl-v.in li:nth-child(2) span{transition-delay:1s}.expect.tl-v.in li:nth-child(3) span{transition-delay:1.7s}
+.expect.tl-v.in li:nth-child(1) span{transition-delay:.2s}.expect.tl-v.in li:nth-child(2) span{transition-delay:1s}.expect.tl-v.in li:nth-child(3) span{transition-delay:1.9s}
 .done .tick svg path{stroke-dasharray:30;stroke-dashoffset:30;animation:drawin .8s var(--ease) .2s forwards}
 @media (prefers-reduced-motion:reduce){.expect.tl-v::after{transform:none}.done .tick svg path{stroke-dashoffset:0;animation:none}}
 @media (max-width:760px){
