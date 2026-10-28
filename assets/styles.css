@@ -602,7 +602,9 @@ body.anim .statement .w{color:var(--on-dark-dim)}
 .circuit .sec-head h2,.solo .sec-head h2{font-size:clamp(2.1rem,4.6vw,3.4rem)}
 .circuit .sec-head p,.solo .sec-head p{color:var(--d-soft)}
 .cx{position:relative;max-width:1100px;margin:40px auto 0;padding:0 20px}
-.cx-orb{position:relative;z-index:2;width:112px;height:112px;margin:0 auto;filter:drop-shadow(0 0 40px color-mix(in srgb,var(--glow-strong) 55%,transparent))}
+.cx-orb{position:relative;z-index:2;width:112px;height:112px;margin:0 auto}
+/* Halo con gradiente (no filter: Safari pintaba un cuadro al animar el orbe con drop-shadow) */
+.cx-orb::before{content:"";position:absolute;left:50%;top:50%;width:300%;height:300%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--glow-strong) 55%,transparent),color-mix(in srgb,var(--glow-strong) 18%,transparent) 45%,transparent);pointer-events:none;z-index:-1}
 .cx-orb svg{width:100%;height:100%}
 .cx svg.wires{display:block;width:100%;height:190px;margin-top:-10px;overflow:visible}
 .wire-bg{fill:none;stroke:color-mix(in srgb,var(--white) 8%,transparent);stroke-width:2}
