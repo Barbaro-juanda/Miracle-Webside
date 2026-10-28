@@ -12,7 +12,7 @@ const frame = (dir, i) => `/assets/hero/${dir}/${String(i).padStart(3, '0')}.web
 const specs = JSON.parse(readFileSync('src/especialidades.json', 'utf8')); // secciones reales de las plantillas del portal (repo de Miracle)
 // Fecha real del último cambio de un archivo fuente (para lastmod y dateModified).
 const gitDate = f => { try { return execSync(`git log -1 --format=%cs -- ${f}`, {encoding: 'utf8'}).trim() || SITE.today; } catch { return SITE.today; } };
-const NAV = [['Soluciones', '/soluciones'], ['Cómo funciona', '/#como-funciona'], ['Planes', '/planes'], ['Blog', '/blog'], ['Seguridad', '/seguridad']];
+const NAV = [['Cómo funciona', '/#como-funciona'], ['Soluciones', '/soluciones'], ['Planes', '/planes'], ['Seguridad', '/seguridad'], ['Blog', '/blog']];
 
 const esc = s => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 const abs = p => SITE.url + (p === '/' ? '/' : p);
