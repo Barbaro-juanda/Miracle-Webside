@@ -9,6 +9,12 @@
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   if (!location.hash) scrollTo(0, 0);
 
+  /* ---------- Secuencia del portátil (video de Higgsfield en cuadros) ----------
+     Si el HTML trae .seq, la pantalla viva (la consulta) se muda al hueco de la pantalla del video
+     y el portátil en CSS queda oculto. Sin .seq, todo sigue como antes. */
+  const seqEl = $('.seq'), seqScreen = $('.seq-screen');
+  if (seqEl && seqScreen) seqScreen.appendChild($('.screen'));
+
   /* ---------- La pantalla del portátil se diseña a 1000 px y se escala ---------- */
   const screen = $('.screen');
   if (screen) { const fit = () => screen.style.setProperty('--s', screen.clientWidth / 1000); new ResizeObserver(fit).observe(screen); fit(); }
@@ -39,6 +45,30 @@
       const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { io.disconnect(); load(); } }, {rootMargin:'900px 0px'});
       io.observe(qrBox);
     } else load();
+  }
+
+  /* ---------- Reproductor de la secuencia en canvas ----------
+     Carga primero el cuadro 1, después uno de cada 8 (para poder mover el scroll de inmediato) y
+     luego el resto. Si el cuadro pedido aún no llegó, dibuja el más cercano ya cargado. */
+  function makeSeq(box) {
+    const cv = $('.seq-cv', box), ctx = cv.getContext('2d');
+    const n = +box.dataset.frames, dir = innerWidth < 900 ? 'm' : 'd';
+    const imgs = new Array(n), state = {f: 0};
+    const src = i => `/assets/hero/${dir}/${String(i + 1).padStart(3, '0')}.webp`;
+    const load = i => { if (imgs[i]) return; const im = new Image(); im.decoding = 'async'; im.onload = () => { im.ok = true; if (Math.abs(i - state.f) < 1.5) draw(); }; im.src = src(i); imgs[i] = im; };
+    const fit = () => { const d = Math.min(devicePixelRatio || 1, 2); cv.width = Math.round(cv.clientWidth * d); cv.height = Math.round(cv.clientHeight * d); draw(); };
+    function draw() {
+      const i = Math.round(state.f);
+      let k = i;
+      for (let r = 0; r < n; r++) { if (imgs[i - r]?.ok) { k = i - r; break; } if (imgs[i + r]?.ok) { k = i + r; break; } }
+      const im = imgs[k]; if (!im?.ok || !cv.width) return;
+      ctx.drawImage(im, 0, 0, cv.width, cv.height);
+    }
+    load(0);
+    const rest = () => { for (let i = 0; i < n; i += 8) load(i); load(n - 1); setTimeout(() => { for (let i = 0; i < n; i++) load(i); }, 300); };
+    if (document.readyState === 'complete') rest(); else addEventListener('load', rest, {once: true});
+    new ResizeObserver(fit).observe(cv);
+    return {state, draw, last: n - 1};
   }
 
   /* ---------- Utilidades de texto ---------- */
@@ -73,6 +103,7 @@
     panel.setAttribute('aria-hidden', 'true'); $$('a', panel).forEach(l => l.tabIndex = -1);
     document.body.classList.add('has-sr-steps');
     let idx = 0, busy = false, tl = null;
+    const seq = seqEl ? makeSeq(seqEl) : null;
 
     gsap.set(dw, {xPercent:-50, yPercent:-50});
     const mm = gsap.matchMedia();
@@ -87,16 +118,18 @@
       wsets.flat().forEach(w => w.style.opacity = .1);
       gsap.set(codes, {autoAlpha:0, scale:.85});
       gsap.set([audit, sign], {autoAlpha:0, y:12});
+      if (seq) { gsap.set(seqScreen, {autoAlpha:0}); seq.state.f = 0; }
 
       tl = gsap.timeline({paused:true, defaults:{ease:'none'}, onUpdate:paint});
       tl
         // 0 → 1 · el portátil se abre y empieza la consulta
         .to(copy, {y:-140, autoAlpha:0, duration:.8, ease:'power1.in'}, 0)
         .to('.scroll-hint', {autoAlpha:0, duration:.3}, 0)
-        .to(lid, {rotateX:0, duration:1.4, ease:'power2.inOut'}, .1)
-        .to(dev, {rotateX:-7, scale:1, duration:1.4, ease:'power2.inOut'}, .1)
+        .to(seq ? seq.state : lid, seq ? {f:seq.last, duration:1.4, ease:'power2.inOut', onUpdate:seq.draw} : {rotateX:0, duration:1.4, ease:'power2.inOut'}, .1)
+        .to(seq ? {} : dev, seq ? {duration:1.4} : {rotateX:-7, scale:1, duration:1.4, ease:'power2.inOut'}, .1)
         .to(dw, {y:() => desk ? -innerHeight * .1 : -innerHeight * .07, duration:1.4, ease:'power2.inOut'}, .1)
         .to(dw, {x:() => desk ? Math.max(0, Math.min(290, innerWidth * .2, innerWidth / 2 - 14 - dw.offsetWidth * 1.34 * .86 / 2)) : 0, scale:desk ? .86 : 1, duration:.7, ease:'power2.inOut'}, 1.3)
+        .to(seq ? seqScreen : {}, seq ? {autoAlpha:1, duration:.35} : {duration:.35}, 1.3)
         .to(panel, {autoAlpha:1, y:0, duration:.4}, 1.6)
         .to(items[0], {autoAlpha:1, y:0, duration:.3}, 1.9)
         .to(utts.slice(0, 3), {autoAlpha:1, y:0, duration:.25, stagger:.12}, 1.85)

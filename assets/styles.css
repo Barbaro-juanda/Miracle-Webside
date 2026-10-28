@@ -1451,3 +1451,16 @@ html:not(.js) .pick-panels{display:flex;flex-direction:column;gap:12px}
   .day small{font-size:.78rem}
 }
 .static .stage{overflow-x:clip}
+
+/* Portátil del inicio como secuencia de cuadros (cuando existe assets/hero/frames.json).
+   El cuadro es más ancho que el portátil: --laptop es la fracción que ocupa el portátil. */
+.has-seq .device{display:none}
+.seq{position:relative;width:calc(100% / var(--laptop));aspect-ratio:var(--ratio);left:50%;transform:translateX(-50%)}
+.seq-cv,.seq-last{position:absolute;inset:0;width:100%;height:100%}
+.seq-last{display:none;object-fit:cover}
+.seq-screen{position:absolute;overflow:hidden;border-radius:4px}
+.seq-screen .screen{width:100%;height:100%;border-radius:0}
+.static .seq-cv{display:none}
+.static .seq-last{display:block}
+/* Los bordes del video se funden con el fondo del inicio: no se ve el rectángulo del cuadro. */
+.seq-cv,.seq-last{-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 72%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 72%,transparent 100%)}

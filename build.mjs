@@ -1,10 +1,14 @@
 // Arma el sitio: lee src/pages/*.html y src/posts.json y escribe las páginas en la raíz.
 // Uso: node build.mjs   (no necesita dependencias)
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 
 const SITE = { url: 'https://itsmiracleai.com.co', name: 'Miracle', today: new Date().toISOString().slice(0, 10) }; // PENDIENTE (jefe): dominio final
 const posts = JSON.parse(readFileSync('src/posts.json', 'utf8'));
+// Portátil del inicio como secuencia de cuadros (video de Higgsfield). Solo si existe el manifiesto
+// que genera scripts/hero-frames.mjs; si no, el inicio sigue con el portátil en CSS.
+const SEQ = existsSync('assets/hero/frames.json') ? JSON.parse(readFileSync('assets/hero/frames.json', 'utf8')) : null;
+const frame = (dir, i) => `/assets/hero/${dir}/${String(i).padStart(3, '0')}.webp`;
 const specs = JSON.parse(readFileSync('src/especialidades.json', 'utf8')); // secciones reales de las plantillas del portal (repo de Miracle)
 // Fecha real del último cambio de un archivo fuente (para lastmod y dateModified).
 const gitDate = f => { try { return execSync(`git log -1 --format=%cs -- ${f}`, {encoding: 'utf8'}).trim() || SITE.today; } catch { return SITE.today; } };
@@ -148,6 +152,19 @@ function schemaFor(pg, body) {
   return JSON.stringify({ '@context': 'https://schema.org', '@graph': g }, null, 1);
 }
 
+/* ---------- Secuencia del portátil: canvas + último cuadro (movimiento reducido) + hueco de la pantalla ---------- */
+function withSeq(html) {
+  const s = SEQ.screen;
+  const box = `<div class="seq" style="--ratio:${SEQ.ratio};--laptop:${SEQ.laptop}" data-frames="${SEQ.count}">
+      <canvas class="seq-cv"></canvas>
+      <img class="seq-last" src="${frame('d', SEQ.count)}" alt="" width="1280" height="${Math.round(1280 / SEQ.ratio)}" loading="lazy" decoding="async">
+      <div class="seq-screen" style="left:${s.x}%;top:${s.y}%;width:${s.w}%;height:${s.h}%"></div>
+    </div>
+    `;
+  return html.replace('<section class="stage dark"', '<section class="stage dark has-seq"')
+    .replace('<div class="device-wrap" aria-hidden="true">\n', m => m + '    ' + box);
+}
+
 /* ---------- Titular del inicio partido en letras desde el HTML ----------
    Antes lo partía home.js y lo animaba GSAP cuando cargaba: el texto aparecía tarde (LCP alto).
    Ahora cada letra trae su retraso (--i) y la animación es CSS. El lector de pantalla lee la frase entera. */
@@ -213,6 +230,7 @@ ${p.body}
   } else {
     body = readFileSync(`src/pages/${pg.src}.html`, 'utf8');
     if (pg.src === 'index') body = splitHero(body);
+    if (pg.src === 'index' && SEQ) body = withSeq(body);
   }
   const cards = posts.map(postCard).join('\n      ');
   body = body.replaceAll('@@CRUMBS@@', crumbsHtml(pg)).replaceAll('@@CTABAND@@', ctaBand).replaceAll('@@POSTCARDS@@', cards);
@@ -250,7 +268,7 @@ ${p.body}
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/schibsted-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
-<script>document.documentElement.classList.add('js')</script>
+${pg.src === 'index' && SEQ ? `<link rel="preload" as="image" href="${frame('m', 1)}" media="(max-width: 899px)">\n<link rel="preload" as="image" href="${frame('d', 1)}" media="(min-width: 900px)">\n` : ''}<script>document.documentElement.classList.add('js')</script>
 <link rel="stylesheet" href="/assets/styles.css">
 <script type="application/ld+json">
 ${schemaFor(pg, body)}
