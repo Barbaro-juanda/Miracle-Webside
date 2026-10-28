@@ -7,11 +7,15 @@
   "date": "2026-01-31",
   "updated": "2026-01-31",
   "author": null,
+  "reviewer": null,
+  "reviewed": null,
   "featured": false,
   "excerpt": "Resumen corto para la tarjeta del blog.",
   "desc": "Descripción para buscadores, de 120 a 155 caracteres.",
   "idea": "La idea central del artículo en una sola línea, sin cifras.",
-  "fragment": { "said": "Frase dicha en la consulta.", "who": "Paciente", "label": "Motivo de consulta", "text": "Cómo quedó en la nota." }
+  "fragment": { "said": "Frase dicha en la consulta.", "who": "Paciente", "label": "Motivo de consulta", "text": "Cómo quedó en la nota." },
+  "cta": null,
+  "sources": []
 }
 -->
 <!--
@@ -26,11 +30,20 @@
   - date: fecha de publicación. updated: fecha de la última revisión del contenido (si es igual a date no se muestra)
   - author: null firma "Equipo Miracle". Para firmar con una persona:
       "author": { "name": "Dra. Nombre Apellido", "jobTitle": "Médica general", "url": "https://..." }
+  - reviewer y reviewed: revisión clínica. Mientras sean null no se muestra nada. Con una persona:
+      "reviewer": { "name": "Dra. Nombre Apellido", "jobTitle": "Médica general" }, "reviewed": "2026-11-03"
   - featured: true pone el artículo en "Empieza aquí" del índice (uno solo)
   - fragment: el trozo de nota que se ve en la tarjeta. Todo es opcional menos label:
       said y who (la frase y quién la dijo), label y text (la sección de la nota), gap (lo que falta),
       codes ([["J03.9", "96 %"]]) y flag (una anotación corta)
+  - cta: el cierre sale solo según el primer rol (médico: prueba de Notes; calidad y gerencia: demo).
+      Para cambiar el texto: "cta": { "title": "…", "text": "…" }
+  - sources: fuentes reales con su enlace, [{ "title": "…", "url": "https://…" }]. Vacío no se muestra. Nunca invente una.
   - El tiempo de lectura y la fecha en letras los calcula build.mjs.
+
+  Orden de la página que arma build.mjs: tipo, título, subtítulo, autor y fechas, la idea en una línea, el cuerpo
+  (con el objeto ilustrativo en el centro y la caja al final), fuentes, "Sobre este artículo", el cierre según el
+  lector y "Sigue leyendo" (primero los del mismo tipo y los que comparten lectores).
 
   Cuerpo (HTML, debajo de estos comentarios):
   - La idea central sale arriba, sola, desde "idea". No la repita en el primer párrafo.

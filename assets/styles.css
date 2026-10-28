@@ -1678,3 +1678,13 @@ html:not(.js) .sx-view + .sx-view{margin-top:48px;padding-top:44px;border-top:1p
   .an-to::after{right:auto;left:-4px;top:auto;bottom:-1px;transform:rotate(135deg)}
   .prose .ilustra .hall{margin:-14px 8px 0}
 }
+/* Artículo: fuentes, "Sobre este artículo" y cierre según el lector */
+.fuentes{margin-top:44px}
+.fuentes h2{font-size:1.15rem}
+.fuentes ol{margin:10px 0 0;padding-left:22px;font-size:.92rem;color:var(--ink-soft)}
+.fuentes li{margin:6px 0}
+.fuentes a{color:var(--accent-ink)}
+.sobre{margin:44px 0 0;padding-top:18px;border-top:1px solid var(--line);font-size:.9rem;line-height:1.55;color:var(--muted)}
+.sobre b{color:var(--ink-soft);font-weight:600}
+.sobre + .article-cta{margin-top:28px}
+.article-cta .ctas{display:flex;flex-wrap:wrap;gap:10px}

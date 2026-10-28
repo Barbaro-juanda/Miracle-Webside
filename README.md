@@ -22,7 +22,7 @@ Sitio estático de varias páginas (sin framework). Se sirve tal cual en Vercel.
 
 ### Artículos del blog
 
-Copie `src/posts/_plantilla.html` como `src/posts/<slug>.html`; ahí están comentados todos los campos. Cada artículo lleva título, subtítulo, autor (mientras no haya un autor con nombre firma "Equipo Miracle"), fecha de publicación y de actualización, la idea central en una línea, un objeto ilustrativo en el centro (`<figure class="ilustra">`, que sale con la etiqueta "Ejemplo ilustrativo") y la caja final. El tiempo de lectura se calcula solo.
+Copie `src/posts/_plantilla.html` como `src/posts/<slug>.html`; ahí están comentados todos los campos. Cada artículo lleva título, subtítulo, autor (mientras no haya un autor con nombre firma "Equipo Miracle"), fecha de publicación y de actualización, la idea central en una línea, un objeto ilustrativo en el centro (`<figure class="ilustra">`, que sale con la etiqueta "Ejemplo ilustrativo") y la caja final. Debajo salen las fuentes (solo si las hay), "Sobre este artículo" (autor, ejemplos ilustrativos y, cuando exista, la revisión clínica con nombre), el cierre según el lector principal (médico: prueba de Notes; calidad y gerencia: demo) y "Sigue leyendo". El tiempo de lectura se calcula solo.
 
 Tipos: Práctica clínica, Nota anotada y Hallazgo de auditoría. "Medido en el portal" ya existe en `build.mjs` pero está oculto (`oculto: true`): mientras lo esté no se publica ningún artículo de ese tipo. Roles: Médico, Calidad y auditoría, Gerencia e IPS.
 3. Suba **las páginas generadas** junto con el código: Vercel no corre ningún build, solo sirve los archivos.
@@ -53,7 +53,7 @@ Planes, seguridad, artículos y páginas de filtro del blog solo cargan `core.js
 - Dominio final (hoy `https://itsmiracleai.com.co` en `build.mjs`).
 - Herramienta de agenda (hoy la solicitud sale por WhatsApp o correo).
 - Precio del plan Notes.
-- Autor con nombre (y médico revisor) para el blog; hoy firma "Equipo Miracle".
+- Autor con nombre y médico revisor para el blog: hoy firma "Equipo Miracle" y no se muestra revisión clínica (campos `author`, `reviewer` y `reviewed` de cada artículo).
 - Cifras reales del portal para activar el tipo "Medido en el portal". Hasta entonces, ningún texto del sitio cita datos medidos.
 - Políticas de tratamiento de datos y certificaciones para la página de Seguridad.
 - Testimonios y logos de clientes.

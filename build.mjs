@@ -31,6 +31,12 @@ const rolDe = id => ROLES.find(r => r.id === id);
 // Mientras no haya un autor con nombre, firma el equipo (en cada artículo, "author" puede ser una persona).
 const EQUIPO = { name: 'Equipo Miracle' };
 const autorDe = p => (p.author && p.author.name ? p.author : EQUIPO);
+// Cierre del artículo según el primer rol. Un artículo puede cambiarlo con "cta": { "title", "text" }.
+const CTA_ROL = {
+  medico: { title: 'Prueba Notes en tu próxima consulta', text: 'Son 14 días gratis, con la plantilla de tu especialidad.', main: ['Prueba Notes gratis', 'https://itsmiracleai.com.co/registro'] },
+  calidad: { title: 'Revisemos una nota de tu servicio', text: 'En la demo pasamos una nota por Auditorías y vemos qué marca antes de la firma.', main: ['Agenda una demo', '/agendar'] },
+  gerencia: { title: 'Mira tu servicio en un tablero', text: 'En la demo te mostramos Analytics como lo vería la dirección de tu IPS.', main: ['Agenda una demo', '/agendar'] },
+};
 const fechaLarga = d => new Date(d + 'T12:00:00Z').toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
 function leerPost(f) {
@@ -82,7 +88,7 @@ const pages = [
     desc: 'Notes escucha la consulta, arma la nota por secciones con la plantilla de tu especialidad, sugiere CIE-10 y CUPS y queda lista para que la firmes.' },
   { path: '/auditorias', src: 'auditorias', out: 'auditorias.html', gsap: true, js: 'product', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Auditorías']],
     app: { name: 'Miracle Auditorías', description: 'Revisa cada nota clínica antes de firmar y señala lo que falta, con la frase de la consulta que lo respalda.' },
-    title: 'Auditorías: revise todas las notas antes que la EPS | Miracle',
+    title: 'Auditorías: revisa todas las notas antes que la EPS | Miracle',
     desc: 'Reglas, no IA: Auditorías revisa cada nota clínica antes de firmar y señala lo que falta con la frase exacta del paciente, antes de que se vuelva glosa.' },
   { path: '/analytics', src: 'analytics', out: 'analytics.html', gsap: true, js: 'product', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Analytics']],
     app: { name: 'Miracle Analytics', description: 'Reportes de gerencia con la adopción por médico y servicio, las notas firmadas y los lotes RIPS de la institución.' },
@@ -147,7 +153,7 @@ const footer = `<footer>
   <div class="wrap foot">
     <div><a href="/" class="logo" aria-label="Miracle, inicio"><svg class="wm" width="92" height="29" aria-hidden="true"><use href="#wm"/></svg></a>
       <p>Para que el médico mire al paciente, no la pantalla.</p></div>
-    <div><p class="fh">Productos</p><ul><li><a href="/notes">Notes</a></li><li><a href="/analytics">Analytics</a></li><li><a href="/auditorias">Auditorías</a></li><li><a href="/planes">Planes</a></li></ul></div>
+    <div><p class="fh">Productos</p><ul><li><a href="/notes">Notes</a></li><li><a href="/auditorias">Auditorías</a></li><li><a href="/analytics">Analytics</a></li><li><a href="/planes">Planes</a></li></ul></div>
     <div><p class="fh">Miracle</p><ul><li><a href="/#como-funciona">Cómo funciona</a></li><li><a href="/seguridad">Seguridad</a></li><li><a href="/blog">Blog</a></li><li><a href="https://itsmiracleai.com.co/login">Ingresar</a></li></ul></div>
     <div><p class="fh">Contacto</p><ul><li><a href="/agendar">Agendar demo</a></li><li><a href="https://wa.me/573134582806" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:dev@itsmiracleai.com">dev@itsmiracleai.com</a></li></ul></div>
   </div>
@@ -275,6 +281,8 @@ function schemaFor(pg, body) {
       author: a === EQUIPO ? { '@type': 'Organization', name: EQUIPO.name, url: SITE.url + '/blog' }
         : { '@type': 'Person', name: a.name, ...(a.jobTitle && { jobTitle: a.jobTitle }), ...(a.url && { url: a.url }) },
       publisher: { '@type': 'Organization', '@id': SITE.url + '/#org', name: 'Miracle', logo: { '@type': 'ImageObject', url: SITE.url + '/icon-512.png' } } });
+    if (p.reviewer && p.reviewer.name) g.push({ '@type': 'WebPage', url: abs(pg.path), inLanguage: 'es-CO',
+      reviewedBy: { '@type': 'Person', name: p.reviewer.name, ...(p.reviewer.jobTitle && { jobTitle: p.reviewer.jobTitle }) }, ...(p.reviewed && { lastReviewed: p.reviewed }) });
   }
   if (pg.path === '/blog') g.push({ '@type': 'Blog', name: 'Blog de Miracle', url: abs('/blog'), inLanguage: 'es-CO', publisher: { '@id': SITE.url + '/#org' },
     blogPost: posts.map(p => ({ '@type': 'BlogPosting', headline: p.title, url: abs(`/blog/${p.slug}`), datePublished: p.date, dateModified: p.updated })) });
@@ -344,7 +352,12 @@ function render(pg) {
   let body;
   if (pg.post) {
     // Plantilla de artículo: título, subtítulo, autor y fechas; la idea en una línea; el objeto ilustrativo en el centro; la caja al final.
-    const p = pg.post, t = tipoDe(p.tipo), a = autorDe(p), rel = posts.filter(x => x.slug !== p.slug).slice(0, 3);
+    const p = pg.post, t = tipoDe(p.tipo), a = autorDe(p);
+    // Sigue leyendo: primero los del mismo tipo y los que comparten lectores, después los más recientes.
+    const afin = x => (x.tipo === p.tipo ? 2 : 0) + x.roles.filter(r => p.roles.includes(r)).length;
+    const rel = posts.filter(x => x.slug !== p.slug).sort((x, y) => afin(y) - afin(x) || y.date.localeCompare(x.date)).slice(0, 3);
+    const base = CTA_ROL[p.roles[0]] || CTA_ROL.medico, cta = { ...base, ...p.cta };
+    const rev = p.reviewer && p.reviewer.name ? p.reviewer : null;
     const prose = p.body.replace(/<figure class="ilustra([^"]*)"([^>]*)>/g, '<figure class="ilustra$1"$2><span class="ej">Ejemplo ilustrativo</span>');
     body = `<article class="article"><div class="wrap">
   ${crumbsHtml(pg)}
@@ -356,9 +369,13 @@ function render(pg) {
   <div class="prose">
 ${prose}
   </div>
-  <div class="article-cta"><div><b>¿Quieres verlo funcionando en tu consulta?</b><br>Son 30 minutos y lo vemos con tu especialidad.</div><a class="btn btn-primary" href="/agendar">Agenda una demo</a></div>
+  ${p.sources && p.sources.length ? `<section class="fuentes" aria-labelledby="h-fuentes"><h2 id="h-fuentes">Fuentes</h2><ol>${p.sources.map(f => `<li>${f.url ? `<a href="${f.url}" rel="noopener">${f.title}</a>` : f.title}</li>`).join('')}</ol></section>` : ''}
+  <aside class="sobre" aria-label="Sobre este artículo">
+    <p><b>Sobre este artículo.</b> Lo escribe ${a === EQUIPO ? 'el Equipo Miracle' : esc(a.name)}. Los ejemplos son ilustrativos: pacientes y consultas ficticias, sin datos reales de pacientes.${rev ? ` Revisión clínica: ${esc(rev.name)}${rev.jobTitle ? `, ${esc(rev.jobTitle)}` : ''}${p.reviewed ? `, el <time datetime="${p.reviewed}">${fechaLarga(p.reviewed)}</time>` : ''}.` : ''}</p>
+  </aside>
+  <div class="article-cta"><div><b>${cta.title}</b><br>${cta.text}</div><div class="ctas"><a class="btn btn-primary" href="${cta.main[1]}">${cta.main[0]}</a>${cta.main[1] !== '/agendar' ? '<a class="btn btn-dark-ghost" href="/agendar">Agenda una demo</a>' : ''}</div></div>
 </div></article>
-${rel.length ? `<section class="related" aria-labelledby="h-rel"><div class="wrap"><h2 id="h-rel">Más para leer</h2><ol class="blist">${rel.map(postCard).join('')}</ol></div></section>` : ''}`;
+${rel.length ? `<section class="related" aria-labelledby="h-rel"><div class="wrap"><h2 id="h-rel">Sigue leyendo</h2><ol class="blist">${rel.map(postCard).join('')}</ol></div></section>` : ''}`;
   } else if (pg.filtro) {
     body = filtroBody(pg);
   } else if (pg.spec) {
