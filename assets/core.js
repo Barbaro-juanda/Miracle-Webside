@@ -63,12 +63,23 @@
         const im = e.target, box = im.closest('.i3d-box');
         if (e.isIntersecting) {
           im.style.setProperty('--in-d', (k++ * .09).toFixed(2) + 's');
-          im.classList.remove('out3d'); im.classList.add('in3d'); if (box) box.classList.add('on');
-          if (im.tagName === 'VIDEO') im.play().catch(() => {});
+          im._vis = true;
+          // La entrada espera a que la imagen esté descargada y decodificada: si no, la animación corre con el
+          // ícono todavía invisible y al cargar aparece de golpe, ya en su sitio.
+          const go = () => {
+            if (!im._vis) return;
+            im.classList.remove('out3d'); im.classList.add('in3d'); im._t0 = performance.now(); if (box) box.classList.add('on');
+            if (im.tagName === 'VIDEO') im.play().catch(() => {});
+          };
+          if (im.tagName === 'IMG') {
+            const loaded = im.naturalWidth ? Promise.resolve() : new Promise(r => { im.addEventListener('load', r, {once: true}); im.addEventListener('error', r, {once: true}); setTimeout(r, 3000); });
+            loaded.then(() => (im.decode ? im.decode().catch(() => {}) : 0)).then(() => requestAnimationFrame(go));
+          } else go();
         } else if (im.classList.contains('in3d')) {
+          im._vis = false;
           im.classList.remove('in3d'); im.classList.add('out3d'); if (box) box.classList.remove('on');
           if (im.tagName === 'VIDEO') im.pause();
-        }
+        } else im._vis = false;
       });
     }, {threshold: .2});
     icons3d.forEach(im => io3.observe(im));
@@ -94,9 +105,14 @@
       // deja): si no, se queda la imagen fija en vez de un recuadro negro.
       v.addEventListener('loadeddata', () => {
         v.play().then(() => {
-          const box = im.closest('.i3d-box'); if (box) box.classList.add('has-video');
-          io3.unobserve(im); im.replaceWith(v); io3.observe(v);
-          if (!v.classList.contains('in3d')) v.pause();
+          // El cambio imagen → video espera a que termine la entrada (≈1,3 s): si no, la corta y el ícono salta a su sitio.
+          const swap = () => {
+            const box = im.closest('.i3d-box'); if (box) box.classList.add('has-video');
+            io3.unobserve(im); im.replaceWith(v); io3.observe(v);
+            if (!v.classList.contains('in3d')) v.pause();
+          };
+          const left = im.classList.contains('in3d') && im._t0 ? im._t0 + 1300 - performance.now() : 0;
+          if (left > 0) setTimeout(swap, left); else swap();
         }).catch(() => {});
       }, {once: true});
       v.load();
