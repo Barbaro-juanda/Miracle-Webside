@@ -1727,3 +1727,20 @@ html:not(.js) .sx-view + .sx-view{margin-top:48px;padding-top:44px;border-top:1p
 .tone-dark .ba2 > div:first-child{background:color-mix(in srgb,var(--black) 18%,transparent);border-right-color:color-mix(in srgb,var(--white) 10%,transparent)}
 .tone-dark .ba2 li{color:var(--d-ink)}
 .tone-dark .ba2 > div:first-child li{color:var(--d-muted)}
+
+/* Pasos numerados con el mismo lenguaje que los iconos 3D: tubo de aluminio que se llena de vidrio azul y esferas con brillo */
+.tl::before,.tl::after{top:14px;height:8px;border-radius:8px}
+.tl::before{background:linear-gradient(180deg,#f4f7fb,#cdd7e4 48%,#b4c1d3 54%,#e9eef5);box-shadow:inset 0 1px 2px rgba(14,23,38,.22),0 1px 0 rgba(255,255,255,.9)}
+.tl::after{background:linear-gradient(180deg,#a9defe,#3aa0ff 38%,#1d63da 58%,#5fb8ff);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 0 14px rgba(56,160,255,.55)}
+.tl > div::before{width:36px;height:36px;border:2px solid rgba(255,255,255,.95);background:radial-gradient(circle at 35% 28%,#fff 0,#e3e9f1 42%,#a8b5c8 100%);color:#5d6b80;box-shadow:0 6px 14px rgba(14,23,38,.2),inset 0 -4px 7px rgba(14,23,38,.14)}
+.tl.in > div::before{background:radial-gradient(circle at 35% 28%,#c3eaff 0,#3db4ff 36%,#1b6fe0 74%,#1646a8 100%);border-color:rgba(255,255,255,.95);color:#fff;box-shadow:0 0 22px rgba(56,176,255,.6),0 6px 14px rgba(22,70,168,.35),inset 0 -4px 8px rgba(10,40,120,.35);text-shadow:0 1px 2px rgba(10,40,120,.45)}
+.tl > div::after{content:"";position:absolute;left:7px;top:5px;width:13px;height:7px;border-radius:50%;background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,0));transform:rotate(-28deg);opacity:.55;z-index:2;pointer-events:none;transition:opacity .45s}
+.tl.in > div::after{opacity:.9}
+.tone-dark .tl::before{background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.05));box-shadow:inset 0 1px 2px rgba(0,0,0,.45)}
+.tone-dark .tl > div::before{background:radial-gradient(circle at 35% 28%,#3a4d73 0,#1c2b4a 55%,#101a31 100%);border-color:rgba(255,255,255,.28);color:var(--d-muted);box-shadow:0 6px 14px rgba(0,0,0,.4)}
+.tone-dark .tl.in > div::before{background:radial-gradient(circle at 35% 28%,#c3eaff 0,#3db4ff 36%,#1b6fe0 74%,#1646a8 100%);border-color:rgba(255,255,255,.95);color:#fff}
+@media (max-width:760px){
+  .tl::before,.tl::after{left:14px;width:8px;top:18px;bottom:18px;height:auto}
+  .tl::before{background:linear-gradient(90deg,#f4f7fb,#cdd7e4 48%,#b4c1d3 54%,#e9eef5)}
+  .tl::after{background:linear-gradient(90deg,#a9defe,#3aa0ff 38%,#1d63da 58%,#5fb8ff)}
+}
