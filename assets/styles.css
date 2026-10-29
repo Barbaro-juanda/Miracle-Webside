@@ -1252,7 +1252,7 @@ body.anim .statement .w{color:var(--on-dark-dim)}
 /* Selector por rol en el inicio */
 .hero-links{margin-top:26px;display:flex;flex-direction:column;align-items:center;gap:10px}
 .hero-links .rl-q{font-size:.82rem;font-weight:500;color:var(--on-dark-muted);letter-spacing:.02em}
-.hero-links .rl{position:relative;display:flex;padding:5px;border-radius:20px;background:color-mix(in srgb,var(--white) 5%,transparent);border:1px solid color-mix(in srgb,var(--white) 12%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.hero-links .rl{position:relative;display:flex;padding:5px;border-radius:20px;background:color-mix(in srgb,var(--white) 5%,transparent);border:1px solid color-mix(in srgb,var(--white) 12%,transparent)}
 .hero-links .rl a{position:relative;display:flex;align-items:center;gap:11px;padding:9px 18px 9px 10px;border-radius:15px;text-decoration:none;color:var(--on-dark);text-align:left;transition:background .3s var(--ease)}
 .hero-links .rl a + a::before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:1px;background:color-mix(in srgb,var(--white) 12%,transparent);transition:opacity .3s}
 .hero-links .rl a:hover,.hero-links .rl a:focus-visible{background:color-mix(in srgb,var(--white) 10%,transparent)}
@@ -1781,3 +1781,7 @@ html:not(.js) .sx-view + .sx-view{margin-top:48px;padding-top:44px;border-top:1p
 .day:hover,.slot:hover{transform:translateY(-1px);border-color:#9fbbe6}
 .day[aria-pressed="true"],.slot[aria-pressed="true"],.day.on,.slot.on,.day.sel,.slot.sel{background:linear-gradient(180deg,#3b79e6,#2a64d2);color:#fff;border-color:rgba(255,255,255,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 6px 14px rgba(47,111,224,.22)}
 .menu-btn{background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03));box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
+
+/* El selector de perfil no usa backdrop-filter: con videos animados dentro, Chrome y Safari lo repintan y titila */
+.hero-links .rl{backdrop-filter:none;-webkit-backdrop-filter:none;background:color-mix(in srgb,var(--white) 7%,var(--deep));transform:translateZ(0)}
+.hero-links .rl-i video,.hero-links .rl-i img{backface-visibility:hidden}
