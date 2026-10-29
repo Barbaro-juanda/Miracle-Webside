@@ -28,7 +28,7 @@
   }
   const summary = document.getElementById('summary');
   function updSummary() {
-    if (selDay && selSlot) { summary.hidden = false; summary.textContent = `Demo el ${longFmt.format(selDay)} a las ${selSlot}, hora de Colombia.`; }
+    if (selDay && selSlot) { summary.hidden = false; summary.textContent = `Demostración el ${longFmt.format(selDay)} a las ${selSlot}, hora de Colombia.`; }
     else summary.hidden = true;
   }
   daysEl.firstChild.click();
@@ -59,14 +59,14 @@
     if (bad.length) { document.getElementById(bad[0]).focus(); return; }
     const v = id => document.getElementById(id).value.trim();
     const msg = [
-      'Hola, quiero agendar una demo de Miracle.',
+      'Hola, quiero agendar una demostración de Miracle.',
       `Fecha: ${longFmt.format(selDay)}, ${selSlot} (hora de Colombia)`,
       `Nombre: ${v('f-name')}`, v('f-mail') && `Correo: ${v('f-mail')}`, `WhatsApp: ${v('f-tel')}`, `Tipo: ${v('f-type')}`,
       v('f-org') && `Institución: ${v('f-org')}`, v('f-size') && `Médicos: ${v('f-size')}`
     ].filter(Boolean).join('\n');
     const btn = document.getElementById('submitBtn');
     btn.disabled = true; btn.textContent = 'Preparando tu solicitud…';
-    document.getElementById('mailAlt').href = `mailto:${MAIL}?subject=${encodeURIComponent('Demo de Miracle · ' + v('f-name'))}&body=${encodeURIComponent(msg)}`;
+    document.getElementById('mailAlt').href = `mailto:${MAIL}?subject=${encodeURIComponent('Demostración de Miracle · ' + v('f-name'))}&body=${encodeURIComponent(msg)}`;
     setTimeout(() => {
       window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
       form.hidden = true; document.getElementById('done').classList.add('show');

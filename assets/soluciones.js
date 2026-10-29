@@ -40,7 +40,7 @@
     });
   });
 
-  // "¿Qué te duele hoy?": la respuesta elige la vista y baja al escenario. El enlace (#medico…) queda para compartir.
+  // "¿Qué te preocupa hoy?": la respuesta elige la vista y baja al escenario. El enlace (#medico…) queda para compartir.
   const go = (id, scroll) => {
     const i = views.findIndex(v => v.id === id);
     if (i < 0) return false;

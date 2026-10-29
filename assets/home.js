@@ -30,7 +30,7 @@
     const hideQr = () => { const q = $('.qr'); if (q) q.style.display = 'none'; };
     const draw = () => {
       try {
-        const q = qrcode(0, 'M'); q.addData(`https://wa.me/${WA}?text=${encodeURIComponent('Hola, quiero agendar una demo de Miracle.')}`); q.make();
+        const q = qrcode(0, 'M'); q.addData(`https://wa.me/${WA}?text=${encodeURIComponent('Hola, quiero agendar una demostración de Miracle.')}`); q.make();
         qrBox.innerHTML = q.createSvgTag({cellSize:4, margin:0, scalable:true});
         const svg = $('svg', qrBox); svg.setAttribute('aria-label', 'Código QR para escribir a Miracle por WhatsApp'); svg.setAttribute('role', 'img');
       } catch (e) { hideQr(); }
@@ -173,7 +173,7 @@
         const s = Math.round((t - 1.6) / (6.8 - 1.6) * 252); clock.textContent = String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
       else { rec.className = 'app-rec done'; recLabel.textContent = 'Consulta terminada'; clock.textContent = '04:12'; }
       saved.textContent = t >= 7.0 ? 'Firmada' : t >= 3.3 ? 'Autoguardado' : 'Borrador';
-      if (spCue) spCue.textContent = k === 3 ? 'Sigue bajando' : 'Desliza para el siguiente paso';
+      if (spCue) spCue.textContent = k === 3 ? 'Continúa hacia abajo' : 'Desliza para ver el siguiente paso';
     }
 
     /* ---------- Entrada: un gesto = un paso, sin descartar gestos y sin escaparse ----------

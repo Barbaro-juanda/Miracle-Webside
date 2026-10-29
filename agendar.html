@@ -3,20 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Agenda una demo de Miracle en 30 minutos | Miracle</title>
-<meta name="description" content="Elige día y hora y mira Miracle funcionando con una consulta de tu especialidad. Te confirmamos por WhatsApp o correo, con el enlace de la videollamada.">
+<title>Agenda una demostración de 30 minutos | Miracle</title>
+<meta name="description" content="Elige día y hora para ver Miracle en funcionamiento con una consulta de tu especialidad. Te confirmamos por WhatsApp o correo con el enlace de la videollamada.">
 <link rel="canonical" href="https://itsmiracleai.com.co/agendar">
 <meta name="theme-color" content="#0c1424">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_CO">
 <meta property="og:site_name" content="Miracle">
-<meta property="og:title" content="Agenda una demo de Miracle en 30 minutos | Miracle">
-<meta property="og:description" content="Elige día y hora y mira Miracle funcionando con una consulta de tu especialidad. Te confirmamos por WhatsApp o correo, con el enlace de la videollamada.">
+<meta property="og:title" content="Agenda una demostración de 30 minutos | Miracle">
+<meta property="og:description" content="Elige día y hora para ver Miracle en funcionamiento con una consulta de tu especialidad. Te confirmamos por WhatsApp o correo con el enlace de la videollamada.">
 <meta property="og:url" content="https://itsmiracleai.com.co/agendar">
 <meta property="og:image" content="https://itsmiracleai.com.co/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Miracle: tú atiendes al paciente, Miracle escribe la historia clínica.">
+<meta property="og:image:alt" content="Miracle: atiendes al paciente, Miracle escribe la historia clínica.">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -102,7 +102,7 @@
     </nav>
     <div class="hdr-cta">
       <a class="login" href="https://itsmiracleai.com.co/login">Ingresar</a>
-      <a class="btn btn-primary" href="/agendar">Agendar demo</a>
+      <a class="btn btn-primary" href="/agendar">Agendar<span class="hdr-x">demostración</span></a>
       <button class="menu-btn" aria-expanded="false" aria-controls="mnav" aria-label="Abrir menú"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
@@ -113,7 +113,7 @@
   <a href="/planes">Planes</a>
   <a href="/seguridad">Seguridad</a>
   <a href="/blog">Blog</a>
-  <a href="/agendar">Agendar demo</a>
+  <a href="/agendar">Agendar demostración</a>
   <a href="https://itsmiracleai.com.co/login">Ingresar</a>
 </nav>
 <main id="main">
@@ -121,12 +121,12 @@
   <div class="wrap book">
     <div class="sec-head">
       <nav class="crumbs" aria-label="Ruta"><ol><li><a href="/">Inicio</a></li><li><span aria-current="page">Agendar</span></li></ol></nav>
-      <h1 id="h1">Agenda una demo de 30 minutos</h1>
-      <p>Te mostramos Miracle con una consulta de tu especialidad y resolvemos tus preguntas. No necesitas preparar nada: con tu especialidad y el tamaño de tu equipo nos basta, y si eres una institución te dejamos una propuesta de piloto para que la revises con tu gerencia.</p>
+      <h1 id="h1">Agenda una demostración de 30 minutos</h1>
+      <p>Te mostramos Miracle con una consulta de tu especialidad y resolvemos tus preguntas. No necesitas preparar nada: basta con conocer tu especialidad y el tamaño de tu equipo. Si representas a una institución, te dejamos una propuesta de piloto para revisar con la gerencia.</p>
       <ul class="expect tl-v" data-reveal>
         <li><span>1</span><div><b>Elige día y hora</b><p>De lunes a viernes, en hora de Colombia.</p></div></li>
         <li><span>2</span><div><b>Te confirmamos</b><p>Por WhatsApp o correo, con el enlace de la videollamada.</p></div></li>
-        <li><span>3</span><div><b>Lo ves funcionando</b><p>Con una consulta de tu especialidad y, si eres una institución, una propuesta de piloto.</p></div></li>
+        <li><span>3</span><div><b>Ves Miracle en funcionamiento</b><p>Con una consulta de tu especialidad y, si eres una institución, una propuesta de piloto.</p></div></li>
       </ul>
       <p class="contact-alt">¿Prefieres escribirnos? <a href="https://wa.me/573134582806" target="_blank" rel="noopener">WhatsApp +57 313 458 2806</a> o <a href="mailto:dev@itsmiracleai.com">dev@itsmiracleai.com</a></p>
     </div>
@@ -134,11 +134,11 @@
     <div class="booker">
       <form id="bookForm" novalidate>
         <fieldset>
-          <legend>¿Cuándo te queda bien?</legend>
+          <legend>¿Qué día y hora te convienen?</legend>
           <div class="days" id="days" role="group" aria-label="Día"></div>
           <div class="slots" id="slots" role="group" aria-label="Hora"></div>
           <p class="tz">Hora de Colombia (GMT-5).</p>
-          <p class="slot-err" id="slotErr" role="alert">Elige un día y una hora para la demo.</p>
+          <p class="slot-err" id="slotErr" role="alert">Elige un día y una hora para la demostración.</p>
         </fieldset>
         <fieldset>
           <legend>Tus datos</legend>
@@ -146,7 +146,7 @@
             <div class="field"><label for="f-name">Nombre completo</label><input id="f-name" name="nombre" autocomplete="name" required><span class="err">Escribe tu nombre.</span></div>
             <div class="field"><label for="f-mail">Correo <span class="opt">(opcional)</span></label><input id="f-mail" name="correo" type="email" autocomplete="email"><span class="err">Escribe un correo válido, por ejemplo nombre@clinica.com.</span></div>
             <div class="field"><label for="f-tel">WhatsApp</label><input id="f-tel" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" required><span class="err">Escribe un número de contacto.</span></div>
-            <div class="field"><label for="f-type">Eres</label>
+            <div class="field"><label for="f-type">Perfil</label>
               <select id="f-type" name="tipo" required>
                 <option value="">Elige una opción</option>
                 <option>Médico independiente</option>
@@ -160,12 +160,12 @@
           </div>
         </fieldset>
         <p class="summary" id="summary" hidden></p>
-        <button class="btn btn-primary" type="submit" id="submitBtn">Agendar mi demo</button>
-        <p class="privacy">Te confirmamos en menos de un día hábil. Usamos tus datos solo para coordinar la demo y no los compartimos.</p>
+        <button class="btn btn-primary" type="submit" id="submitBtn">Agendar mi demostración</button>
+        <p class="privacy">Te confirmamos en menos de un día hábil. Usamos tus datos solo para coordinar la demostración y no los compartimos con terceros.</p>
       </form>
       <div class="done" id="done" role="status" aria-live="polite">
         <div class="tick"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" style="stroke:var(--success)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
-        <h2>Solicitud lista</h2>
+        <h2>Tu solicitud está lista</h2>
         <p id="doneText">Abrimos WhatsApp con tus datos. Envía el mensaje y te confirmamos la hora.</p>
         <a class="btn btn-ghost" id="mailAlt" href="#">Prefiero enviarla por correo</a>
       </div>
@@ -180,7 +180,7 @@
       <p>Para que el médico mire al paciente, no la pantalla.</p></div>
     <div><p class="fh">Productos</p><ul><li><a href="/notes">Notes</a></li><li><a href="/auditorias">Auditorías</a></li><li><a href="/analytics">Analytics</a></li><li><a href="/planes">Planes</a></li></ul></div>
     <div><p class="fh">Miracle</p><ul><li><a href="/#como-funciona">Cómo funciona</a></li><li><a href="/seguridad">Seguridad</a></li><li><a href="/blog">Blog</a></li><li><a href="https://itsmiracleai.com.co/login">Ingresar</a></li></ul></div>
-    <div><p class="fh">Contacto</p><ul><li><a href="/agendar">Agendar demo</a></li><li><a href="https://wa.me/573134582806" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:dev@itsmiracleai.com">dev@itsmiracleai.com</a></li></ul></div>
+    <div><p class="fh">Contacto</p><ul><li><a href="/agendar">Agendar demostración</a></li><li><a href="https://wa.me/573134582806" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:dev@itsmiracleai.com">dev@itsmiracleai.com</a></li></ul></div>
   </div>
   <div class="wrap legal"><span>© 2026 Miracle. Colombia.</span><span>Miracle apoya la documentación clínica. Las decisiones clínicas son del médico.</span></div>
 </footer>

@@ -1691,3 +1691,6 @@ html:not(.js) .sx-view + .sx-view{margin-top:48px;padding-top:44px;border-top:1p
 /* Soluciones y blog: el video 3D del encabezado no empuja hacia abajo lo importante en celular */
 .sx-hero .hero-2,.blog-hero .hero-2{align-items:center}
 @media (max-width:1024px){.sx-hero .illus3d,.blog-hero .illus3d{max-width:260px}}
+/* Botón del encabezado: "Agendar demostración" en pantalla grande, "Agendar" en celular */
+.hdr-cta .btn-primary{gap:.3em}
+@media (max-width:420px){.hdr-cta .hdr-x{display:none}}

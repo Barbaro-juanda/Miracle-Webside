@@ -3,10 +3,10 @@
     <div>
       @@CRUMBS@@
       <h1 id="h1">La última palabra la tiene el médico</h1>
-      <p class="lead">Miracle propone y tú decides. La información de cada institución es solo suya, cada acción queda registrada y la nota firmada no se puede modificar.</p>
-      <div class="ctas"><a class="btn btn-primary" href="/agendar">Habla con el equipo</a></div>
+      <p class="lead">Miracle propone y el médico decide. La información de cada institución es solo suya, cada acción queda registrada y la nota firmada no se puede modificar.</p>
+      <div class="ctas"><a class="btn btn-primary" href="/agendar">Habla con nuestro equipo</a></div>
     </div>
-    <img data-v="ilu-seguridad-hd" data-loop="breathe" class="illus illus3d" src="/assets/img/3d/ilu-seguridad-hd.webp" srcset="/assets/img/3d/ilu-seguridad-hd-m.webp 560w, /assets/img/3d/ilu-seguridad-hd.webp 1000w" sizes="(max-width: 900px) 80vw, 420px" alt="Escudo de seguridad con un chulo" width="440" height="440" fetchpriority="high" decoding="async" data-reveal>
+    <img data-v="ilu-seguridad-hd" data-loop="breathe" class="illus illus3d" src="/assets/img/3d/ilu-seguridad-hd.webp" srcset="/assets/img/3d/ilu-seguridad-hd-m.webp 560w, /assets/img/3d/ilu-seguridad-hd.webp 1000w" sizes="(max-width: 900px) 80vw, 420px" alt="Escudo de seguridad con una marca de verificación" width="440" height="440" fetchpriority="high" decoding="async" data-reveal>
   </div>
 </section>
 
@@ -15,7 +15,7 @@
   <div class="wrap">
     <div class="sec-head" data-reveal>
       <h2 id="h-how">Cómo se cuida cada consulta</h2>
-      <p>Seis cosas que el producto hace hoy, de la grabación a la firma.</p>
+      <p>Seis medidas que el producto aplica hoy, de la grabación a la firma.</p>
     </div>
     <div class="sec-grid" style="margin-top:48px">
       <div class="sec-card" data-reveal>
@@ -28,7 +28,7 @@
       </div>
       <div class="sec-card" data-reveal="3">
         <span class="ico2 i3d-box" style="--src:url(/assets/img/3d/roles.webp)"><img data-v="roles" data-loop="sway" class="i3d" data-src="/assets/img/3d/roles.webp" alt="" width="96" height="96" loading="lazy" decoding="async" fetchpriority="low"></span>
-        <h3>Roles y permisos</h3><p>El rol de cada persona vive en la base de datos, no en el navegador, así que nadie se puede dar más permisos de los que tiene.</p>
+        <h3>Roles y permisos</h3><p>El rol de cada persona se define en la base de datos y no en el navegador, por lo que nadie puede asignarse más permisos de los que tiene.</p>
       </div>
       <div class="sec-card" data-reveal>
         <span class="ico2 i3d-box" style="--src:url(/assets/img/3d/trazabilidad.webp)"><img data-v="trazabilidad" data-loop="float" class="i3d" data-src="/assets/img/3d/trazabilidad.webp" alt="" width="96" height="96" loading="lazy" decoding="async" fetchpriority="low"></span>
@@ -61,7 +61,7 @@
     <div class="not-do" data-reveal>
       <h2>Lo que Miracle no hace</h2>
       <ul>
-        <li>No firma por ti.</li>
+        <li>No firma en nombre del médico.</li>
         <li>No toma decisiones clínicas.</li>
         <li>No mezcla la información de dos instituciones.</li>
         <li>No cambia una nota después de firmada.</li>
@@ -74,12 +74,12 @@
   <div class="wrap">
     <div class="sec-head" data-reveal>
       <h2 id="h-path">Qué pasa con una consulta, de la grabación a la firma</h2>
-      <p>Cada paso deja una huella y ninguno se salta al médico.</p>
+      <p>Cada paso queda registrado y ninguno ocurre sin el médico.</p>
     </div>
     <div class="tl" data-reveal>
       <div><h3>Consentimiento</h3><p>La grabación empieza solo cuando el médico la inicia, con el consentimiento del paciente, y termina cuando el médico lo decide.</p></div>
       <div><h3>Transcripción</h3><p>El audio va del navegador al servicio de transcripción. Nuestro servidor solo entrega el permiso temporal para hacerlo.</p></div>
-      <div><h3>Nota y revisión</h3><p>La IA propone la nota y los códigos; el motor de auditoría revisa lo que falta. El médico corrige lo que quiera.</p></div>
+      <div><h3>Nota y revisión</h3><p>La IA propone la nota y los códigos; el motor de auditoría revisa lo que falta. El médico corrige lo que considere necesario.</p></div>
       <div><h3>Firma</h3><p>Al firmar se calcula una huella SHA-256 del contenido y la nota queda inmutable. Cada acción posterior queda registrada.</p></div>
     </div>
   </div>
@@ -89,9 +89,9 @@
   <div class="wrap">
     <div class="sec-head center"><h2 id="h-faq">Preguntas sobre seguridad</h2></div>
     <div class="faq">
-      <details><summary>¿Quién puede ver las notas de mis pacientes?<span class="pm" aria-hidden="true"></span></summary><p>Solo las personas de tu institución con el rol adecuado. El médico ve lo suyo; el supervisor, el jefe de área y el administrador ven lo que su rol permite. Otra institución no ve nada.</p></details>
+      <details><summary>¿Quién puede ver las notas de mis pacientes?<span class="pm" aria-hidden="true"></span></summary><p>Solo las personas de tu institución con el rol adecuado. El médico ve lo suyo; el supervisor, el jefe de área y el administrador ven lo que su rol permite. Ninguna otra institución tiene acceso.</p></details>
       <details><summary>¿Se puede modificar una nota después de firmada?<span class="pm" aria-hidden="true"></span></summary><p>No. Al firmar se calcula una huella SHA-256 del contenido y la nota queda inmutable. Cualquier acción posterior queda en el registro de auditoría.</p></details>
-      <details><summary>¿La IA decide algo por el médico?<span class="pm" aria-hidden="true"></span></summary><p>No. Si una frase o un código no te convence, lo cambias antes de firmar. La decisión clínica es siempre del médico.</p></details>
+      <details><summary>¿La IA decide algo por el médico?<span class="pm" aria-hidden="true"></span></summary><p>No. Si una frase o un código no te convence, puedes cambiarlo antes de firmar. La decisión clínica es siempre del médico.</p></details>
       <details><summary>¿Cómo se aísla la información de cada institución?<span class="pm" aria-hidden="true"></span></summary><p>Por organización, a nivel de base de datos: cada institución solo puede leer y escribir sus propios datos. No depende de lo que se muestre en pantalla.</p></details>
     </div>
   </div>

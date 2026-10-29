@@ -34,8 +34,8 @@ const autorDe = p => (p.author && p.author.name ? p.author : EQUIPO);
 // Cierre del artículo según el primer rol. Un artículo puede cambiarlo con "cta": { "title", "text" }.
 const CTA_ROL = {
   medico: { title: 'Prueba Notes en tu próxima consulta', text: 'Son 14 días gratis, con la plantilla de tu especialidad.', main: ['Prueba Notes gratis', 'https://itsmiracleai.com.co/registro'] },
-  calidad: { title: 'Revisemos una nota de tu servicio', text: 'En la demo pasamos una nota por Auditorías y vemos qué marca antes de la firma.', main: ['Agenda una demo', '/agendar'] },
-  gerencia: { title: 'Mira tu servicio en un tablero', text: 'En la demo te mostramos Analytics como lo vería la dirección de tu IPS.', main: ['Agenda una demo', '/agendar'] },
+  calidad: { title: 'Revisemos una nota de tu servicio', text: 'En la demostración pasamos una nota por Auditorías y revisamos qué señala antes de la firma.', main: ['Agenda una demostración', '/agendar'] },
+  gerencia: { title: 'Conoce tu servicio en un tablero', text: 'En la demostración te mostramos Analytics como lo vería la dirección de tu IPS.', main: ['Agenda una demostración', '/agendar'] },
 };
 const fechaLarga = d => new Date(d + 'T12:00:00Z').toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
@@ -78,22 +78,22 @@ const abs = p => SITE.url + (p === '/' ? '/' : p);
 const pages = [
   { path: '/', src: 'index', out: 'index.html', gsap: true, js: 'home',
     title: 'Historia clínica con IA para médicos e IPS | Miracle',
-    desc: 'Miracle escucha la consulta, escribe la nota clínica, sugiere CIE-10 y CUPS y audita cada historia antes de firmar. Agenda una demo para tu consultorio o IPS.' },
+    desc: 'Miracle escucha la consulta, redacta la nota clínica, sugiere CIE-10 y CUPS y la revisa antes de la firma. Agenda una demostración para tu consultorio o IPS.' },
   { path: '/soluciones', src: 'soluciones', out: 'soluciones.html', js: 'soluciones', crumbs: [['Soluciones']], faq: true,
     title: 'Notes, Analytics y Auditorías para médicos e IPS | Miracle',
     desc: 'Tres productos para una misma consulta: Notes escribe la historia clínica, Auditorías la revisa antes de firmar y Analytics muestra el servicio a la gerencia.' },
   { path: '/notes', src: 'notes', out: 'notes.html', gsap: true, js: 'product', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Notes']],
     app: { name: 'Miracle Notes', description: 'Escribe la nota clínica a partir de la consulta, sugiere códigos CIE-10 y CUPS, permite firma electrónica y exporta a PDF y RIPS.' },
     title: 'Notes: la nota clínica escrita por la IA | Miracle',
-    desc: 'Notes escucha la consulta, arma la nota por secciones con la plantilla de tu especialidad, sugiere CIE-10 y CUPS y queda lista para que la firmes.' },
+    desc: 'Notes escucha la consulta, redacta la nota por secciones con la plantilla de tu especialidad, sugiere CIE-10 y CUPS y la deja lista para tu firma.' },
   { path: '/auditorias', src: 'auditorias', out: 'auditorias.html', gsap: true, js: 'product', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Auditorías']],
     app: { name: 'Miracle Auditorías', description: 'Revisa cada nota clínica antes de firmar y señala lo que falta, con la frase de la consulta que lo respalda.' },
-    title: 'Auditorías: revisa todas las notas antes que la EPS | Miracle',
-    desc: 'Reglas, no IA: Auditorías revisa cada nota clínica antes de firmar y señala lo que falta con la frase exacta del paciente, antes de que se vuelva glosa.' },
+    title: 'Auditorías: revisa cada nota antes de que llegue a la EPS | Miracle',
+    desc: 'Con reglas verificables, no con IA: Auditorías revisa cada nota clínica antes de la firma y señala lo que falta con la frase exacta de la consulta.' },
   { path: '/analytics', src: 'analytics', out: 'analytics.html', gsap: true, js: 'product', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Analytics']],
     app: { name: 'Miracle Analytics', description: 'Reportes de gerencia con la adopción por médico y servicio, las notas firmadas y los lotes RIPS de la institución.' },
     title: 'Analytics: notas pendientes y RIPS de tu IPS, al día | Miracle',
-    desc: 'Para la dirección médica: qué notas quedaron sin firmar, qué servicio va más lento y los lotes RIPS listos, sin armar informes a mano.' },
+    desc: 'Para la dirección médica: qué notas quedaron sin firmar, qué servicio va más lento y los lotes RIPS listos, sin consolidar informes a mano.' },
   { path: '/planes', src: 'planes', out: 'planes.html', crumbs: [['Planes']], faq: true,
     title: 'Planes para médicos independientes e IPS | Miracle',
     desc: 'Notes con 14 días de prueba para el médico independiente y licencias a la medida para IPS, clínicas y hospitales. Compara los dos planes y resuelve tus dudas.' },
@@ -104,8 +104,8 @@ const pages = [
     title: 'Seguridad clínica: roles, trazabilidad y firma | Miracle',
     desc: 'Revisión humana, datos aislados por institución, roles y permisos, trazabilidad y firma con huella digital. Lo que Miracle hace hoy para cuidar cada nota.' },
   { path: '/agendar', src: 'agendar', out: 'agendar.html', js: 'agendar', crumbs: [['Agendar']],
-    title: 'Agenda una demo de Miracle en 30 minutos | Miracle',
-    desc: 'Elige día y hora y mira Miracle funcionando con una consulta de tu especialidad. Te confirmamos por WhatsApp o correo, con el enlace de la videollamada.' },
+    title: 'Agenda una demostración de 30 minutos | Miracle',
+    desc: 'Elige día y hora para ver Miracle en funcionamiento con una consulta de tu especialidad. Te confirmamos por WhatsApp o correo con el enlace de la videollamada.' },
 ];
 // Filtros del blog como páginas propias: funcionan sin JavaScript y los buscadores los pueden recorrer.
 for (const t of tiposVisibles) pages.push({ path: `/blog/tipo/${t.id}`, out: `blog/tipo/${t.id}.html`, src: 'blog', filtro: { tipo: t.id }, navPath: '/blog',
@@ -138,14 +138,14 @@ const header = cur => `<header class="hdr" id="top">
     </nav>
     <div class="hdr-cta">
       <a class="login" href="https://itsmiracleai.com.co/login">Ingresar</a>
-      <a class="btn btn-primary" href="/agendar">Agendar demo</a>
+      <a class="btn btn-primary" href="/agendar">Agendar<span class="hdr-x">demostración</span></a>
       <button class="menu-btn" aria-expanded="false" aria-controls="mnav" aria-label="Abrir menú"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
 </header>
 <nav class="mnav" id="mnav" aria-label="Menú móvil">
   ${NAV.map(([l, h]) => `<a href="${h}">${l}</a>`).join('\n  ')}
-  <a href="/agendar">Agendar demo</a>
+  <a href="/agendar">Agendar demostración</a>
   <a href="https://itsmiracleai.com.co/login">Ingresar</a>
 </nav>`;
 
@@ -155,7 +155,7 @@ const footer = `<footer>
       <p>Para que el médico mire al paciente, no la pantalla.</p></div>
     <div><p class="fh">Productos</p><ul><li><a href="/notes">Notes</a></li><li><a href="/auditorias">Auditorías</a></li><li><a href="/analytics">Analytics</a></li><li><a href="/planes">Planes</a></li></ul></div>
     <div><p class="fh">Miracle</p><ul><li><a href="/#como-funciona">Cómo funciona</a></li><li><a href="/seguridad">Seguridad</a></li><li><a href="/blog">Blog</a></li><li><a href="https://itsmiracleai.com.co/login">Ingresar</a></li></ul></div>
-    <div><p class="fh">Contacto</p><ul><li><a href="/agendar">Agendar demo</a></li><li><a href="https://wa.me/573134582806" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:dev@itsmiracleai.com">dev@itsmiracleai.com</a></li></ul></div>
+    <div><p class="fh">Contacto</p><ul><li><a href="/agendar">Agendar demostración</a></li><li><a href="https://wa.me/573134582806" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:dev@itsmiracleai.com">dev@itsmiracleai.com</a></li></ul></div>
   </div>
   <div class="wrap legal"><span>© 2026 Miracle. Colombia.</span><span>Miracle apoya la documentación clínica. Las decisiones clínicas son del médico.</span></div>
 </footer>
@@ -164,8 +164,8 @@ const footer = `<footer>
 </a></aside>`;
 
 const ctaBand = `<section class="cta-band" aria-labelledby="h-cta"><div class="wrap"><div class="box" data-reveal>
-  <div><h2 id="h-cta">¿Lo vemos funcionando en tu consulta?</h2><p>Son 30 minutos, con una consulta de tu especialidad.</p></div>
-  <div class="ctas"><a class="btn btn-light" href="/agendar">Agenda una demo</a><a class="btn btn-dark-ghost" href="https://itsmiracleai.com.co/registro">Prueba Notes gratis</a></div>
+  <div><h2 id="h-cta">¿Quieres ver Miracle en tu consulta?</h2><p>Una demostración de 30 minutos, con una consulta de tu especialidad.</p></div>
+  <div class="ctas"><a class="btn btn-light" href="/agendar">Agenda una demostración</a><a class="btn btn-dark-ghost" href="https://itsmiracleai.com.co/registro">Prueba Notes gratis</a></div>
 </div></div></section>`;
 
 for (const sp of specs) {
@@ -173,7 +173,7 @@ for (const sp of specs) {
   pages.push({ path: `/especialidades/${sp.slug}`, out: `especialidades/${sp.slug}.html`, spec: sp, navPath: '/soluciones',
     crumbs: [['Notes', '/notes'], [sp.name]], src: 'especialidad', srcFile: 'src/especialidades.json',
     title: `Historia clínica de ${sp.low} con IA | Miracle`,
-    desc: `Las ${n} plantillas de ${sp.low} de Miracle Notes, con las secciones de cada nota. Tú atiendes, Miracle escribe la nota y tú la firmas.` });
+    desc: `Las ${n} plantillas de ${sp.low} de Miracle Notes, con las secciones de cada nota. Mientras atiendes, Miracle redacta la nota y luego la revisas y la firmas.` });
 }
 
 const crumbsHtml = pg => !pg.crumbs ? '' : `<nav class="crumbs" aria-label="Ruta"><ol><li><a href="/">Inicio</a></li>${pg.crumbs.map(([l, h], i) =>
@@ -324,8 +324,8 @@ function specBody(pg) {
   ${crumbsHtml(pg)}
   <span class="badge-only">Notes · ${sp.name}</span>
   <h1 id="h1">Historia clínica de ${sp.low}, escrita mientras atiendes</h1>
-  <p class="lead">Miracle Notes trae ${n} plantillas de ${sp.low}. Cada una pide lo que esa consulta necesita: aquí están con sus secciones, tal como salen en la nota que lees y firmas.</p>
-  <div class="ctas"><a class="btn btn-primary" href="/agendar">Agenda una demo</a><a class="btn btn-ghost" href="/notes">Ver Notes</a></div>
+  <p class="lead">Miracle Notes incluye ${n} plantillas de ${sp.low}. Cada una recoge lo que esa consulta requiere; aquí están con sus secciones, tal como aparecen en la nota que revisas y firmas.</p>
+  <div class="ctas"><a class="btn btn-primary" href="/agendar">Agenda una demostración</a><a class="btn btn-ghost" href="/notes">Ver Notes</a></div>
 </div></section>
 <section class="sec" style="padding-top:20px" aria-labelledby="h-tpl"><div class="wrap">
   <h2 id="h-tpl" class="skip">Plantillas de ${sp.low}</h2>
@@ -338,7 +338,7 @@ ${sp.templates.map((t, i) => `    <article class="stpl" data-reveal>
       <ol>${t.sections.map(x => `<li>${x}</li>`).join('')}</ol>
     </article>`).join('\n')}
   </div>
-  <p class="stpl-note">Si tu consulta necesita algo distinto, puedes crear tu propia plantilla. La IA propone el texto de cada sección y tú lo revisas y firmas.</p>
+  <p class="stpl-note">Si tu consulta requiere algo distinto, puedes crear tu propia plantilla. La IA propone el texto de cada sección y el médico lo revisa y lo firma.</p>
 </div></section>
 <section class="sec tone-ice" aria-labelledby="h-otras"><div class="wrap">
   <h2 id="h-otras">Otras especialidades</h2>
@@ -373,7 +373,7 @@ ${prose}
   <aside class="sobre" aria-label="Sobre este artículo">
     <p><b>Sobre este artículo.</b> Lo escribe ${a === EQUIPO ? 'el Equipo Miracle' : esc(a.name)}. Los ejemplos son ilustrativos: pacientes y consultas ficticias, sin datos reales de pacientes.${rev ? ` Revisión clínica: ${esc(rev.name)}${rev.jobTitle ? `, ${esc(rev.jobTitle)}` : ''}${p.reviewed ? `, el <time datetime="${p.reviewed}">${fechaLarga(p.reviewed)}</time>` : ''}.` : ''}</p>
   </aside>
-  <div class="article-cta"><div><b>${cta.title}</b><br>${cta.text}</div><div class="ctas"><a class="btn btn-primary" href="${cta.main[1]}">${cta.main[0]}</a>${cta.main[1] !== '/agendar' ? '<a class="btn btn-dark-ghost" href="/agendar">Agenda una demo</a>' : ''}</div></div>
+  <div class="article-cta"><div><b>${cta.title}</b><br>${cta.text}</div><div class="ctas"><a class="btn btn-primary" href="${cta.main[1]}">${cta.main[0]}</a>${cta.main[1] !== '/agendar' ? '<a class="btn btn-dark-ghost" href="/agendar">Agenda una demostración</a>' : ''}</div></div>
 </div></article>
 ${rel.length ? `<section class="related" aria-labelledby="h-rel"><div class="wrap"><h2 id="h-rel">Sigue leyendo</h2><ol class="blist">${rel.map(postCard).join('')}</ol></div></section>` : ''}`;
   } else if (pg.filtro) {
@@ -415,7 +415,7 @@ ${rel.length ? `<section class="related" aria-labelledby="h-rel"><div class="wra
 <meta property="og:image" content="${SITE.url}/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Miracle: tú atiendes al paciente, Miracle escribe la historia clínica.">
+<meta property="og:image:alt" content="Miracle: atiendes al paciente, Miracle escribe la historia clínica.">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
