@@ -1710,3 +1710,20 @@ html:not(.js) .sx-view + .sx-view{margin-top:48px;padding-top:44px;border-top:1p
 .faq summary{padding:20px 0;font-size:1.05rem}
 .faq details p{padding:0 0 22px}
 @media (max-width:860px){.faq{grid-template-columns:1fr}}
+
+/* Sección oscura intermedia: da ritmo entre bloques claros (mismo lenguaje que la home) */
+.sec.tone-dark{position:relative;overflow:hidden;background:var(--d-bg);border:0;color:var(--d-soft)}
+.sec.tone-dark::before{content:"";position:absolute;left:50%;top:-220px;width:1000px;height:520px;transform:translateX(-50%);background:radial-gradient(closest-side,color-mix(in srgb,var(--glow-strong) 16%,transparent),transparent 72%);pointer-events:none}
+.sec.tone-dark .wrap{position:relative}
+.tone-dark h2,.tone-dark h3{color:var(--d-ink)}
+.tone-dark .sec-head p,.tone-dark p{color:var(--d-soft)}
+.tone-dark .sec-card{background:color-mix(in srgb,var(--white) 5%,transparent);border-color:color-mix(in srgb,var(--white) 12%,transparent);box-shadow:none}
+.tone-dark .sec-card p{color:var(--d-soft)}
+.tone-dark .tl::before{background:color-mix(in srgb,var(--white) 14%,transparent)}
+.tone-dark .tl > div::before{background:var(--d-bg);border-color:color-mix(in srgb,var(--white) 25%,transparent);color:var(--d-muted)}
+.tone-dark .tl.in > div::before{background:var(--accent);border-color:var(--accent);color:var(--white)}
+.tone-dark .tl p{color:var(--d-soft)}
+.tone-dark .ba2{background:color-mix(in srgb,var(--white) 5%,transparent);border-color:color-mix(in srgb,var(--white) 12%,transparent)}
+.tone-dark .ba2 > div:first-child{background:color-mix(in srgb,var(--black) 18%,transparent);border-right-color:color-mix(in srgb,var(--white) 10%,transparent)}
+.tone-dark .ba2 li{color:var(--d-ink)}
+.tone-dark .ba2 > div:first-child li{color:var(--d-muted)}
