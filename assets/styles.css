@@ -1694,3 +1694,19 @@ html:not(.js) .sx-view + .sx-view{margin-top:48px;padding-top:44px;border-top:1p
 /* Botón del encabezado: "Agendar demostración" en pantalla grande, "Agendar" en celular */
 .hdr-cta .btn-primary{gap:.3em}
 @media (max-width:420px){.hdr-cta .hdr-x{display:none}}
+
+/* ---------- Pulido común de subpáginas (mismo lenguaje que Soluciones) ---------- */
+.sub-hero:not(.dark){background:radial-gradient(60% 70% at 8% 100%,color-mix(in srgb,var(--mint) 16%,transparent),transparent 70%),linear-gradient(180deg,var(--ice-soft),var(--canvas))}
+.sub-hero .hero-2{gap:32px}
+.sub-hero .illus3d{max-width:520px}
+.sub-hero .hero-2 .illus3d{margin-right:-20px}
+@media (max-width:1024px){.sub-hero .illus3d{max-width:300px;margin-right:0}}
+.sub-hero .ctas .btn{min-height:50px}
+/* Preguntas frecuentes: tarjetas en dos columnas, cada una con su pregunta bien visible */
+.faq{max-width:1000px;display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+.faq details{border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface);box-shadow:var(--sh-sm);padding:0 22px;transition:border-color .25s,box-shadow .25s}
+.faq details:hover{border-color:var(--line-strong)}
+.faq details[open]{border-color:color-mix(in srgb,var(--accent) 35%,var(--line));box-shadow:var(--sh-md)}
+.faq summary{padding:20px 0;font-size:1.05rem}
+.faq details p{padding:0 0 22px}
+@media (max-width:860px){.faq{grid-template-columns:1fr}}
