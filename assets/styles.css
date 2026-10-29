@@ -1730,12 +1730,12 @@ html:not(.js) .sx-view + .sx-view{margin-top:48px;padding-top:44px;border-top:1p
 
 /* Pasos numerados con el mismo lenguaje que los iconos 3D: tubo de aluminio que se llena de vidrio azul y esferas con brillo */
 .tl::before,.tl::after{top:14px;height:8px;border-radius:8px}
-.tl::before{background:linear-gradient(180deg,#f4f7fb,#cdd7e4 48%,#b4c1d3 54%,#e9eef5);box-shadow:inset 0 1px 2px rgba(14,23,38,.22),0 1px 0 rgba(255,255,255,.9)}
-.tl::after{background:linear-gradient(180deg,#a9defe,#3aa0ff 38%,#1d63da 58%,#5fb8ff);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 0 14px rgba(56,160,255,.55)}
-.tl > div::before{width:36px;height:36px;border:2px solid rgba(255,255,255,.95);background:radial-gradient(circle at 35% 28%,#fff 0,#e3e9f1 42%,#a8b5c8 100%);color:#5d6b80;box-shadow:0 6px 14px rgba(14,23,38,.2),inset 0 -4px 7px rgba(14,23,38,.14)}
-.tl.in > div::before{background:radial-gradient(circle at 35% 28%,#c3eaff 0,#3db4ff 36%,#1b6fe0 74%,#1646a8 100%);border-color:rgba(255,255,255,.95);color:#fff;box-shadow:0 0 22px rgba(56,176,255,.6),0 6px 14px rgba(22,70,168,.35),inset 0 -4px 8px rgba(10,40,120,.35);text-shadow:0 1px 2px rgba(10,40,120,.45)}
-.tl > div::after{content:"";position:absolute;left:7px;top:5px;width:13px;height:7px;border-radius:50%;background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,0));transform:rotate(-28deg);opacity:.55;z-index:2;pointer-events:none;transition:opacity .45s}
-.tl.in > div::after{opacity:.9}
+.tl::before{background:linear-gradient(180deg,#eef2f7,#d6deea);box-shadow:inset 0 1px 2px rgba(14,23,38,.14)}
+.tl::after{background:linear-gradient(180deg,#5aa6f5,#2f6fe0 60%,#2a64d2);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 0 8px rgba(47,111,224,.3)}
+.tl > div::before{width:36px;height:36px;border:2px solid rgba(255,255,255,.95);background:radial-gradient(circle at 35% 28%,#fff 0,#eef2f7 55%,#c9d3e0 100%);color:#5d6b80;box-shadow:0 3px 8px rgba(14,23,38,.12),inset 0 -3px 5px rgba(14,23,38,.08)}
+.tl.in > div::before{background:radial-gradient(circle at 35% 28%,#7cc0ff 0,#3c8bf0 45%,#2559c4 100%);border-color:rgba(255,255,255,.9);color:#fff;box-shadow:0 0 12px rgba(56,140,255,.3),0 4px 10px rgba(22,70,168,.25),inset 0 -3px 6px rgba(10,40,120,.25);text-shadow:none}
+.tl > div::after{content:"";position:absolute;left:7px;top:5px;width:13px;height:7px;border-radius:50%;background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,0));transform:rotate(-28deg);opacity:.3;z-index:2;pointer-events:none;transition:opacity .45s}
+.tl.in > div::after{opacity:.5}
 .tone-dark .tl::before{background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.05));box-shadow:inset 0 1px 2px rgba(0,0,0,.45)}
 .tone-dark .tl > div::before{background:radial-gradient(circle at 35% 28%,#3a4d73 0,#1c2b4a 55%,#101a31 100%);border-color:rgba(255,255,255,.28);color:var(--d-muted);box-shadow:0 6px 14px rgba(0,0,0,.4)}
 .tone-dark .tl.in > div::before{background:radial-gradient(circle at 35% 28%,#c3eaff 0,#3db4ff 36%,#1b6fe0 74%,#1646a8 100%);border-color:rgba(255,255,255,.95);color:#fff}
@@ -1747,37 +1747,37 @@ html:not(.js) .sx-view + .sx-view{margin-top:48px;padding-top:44px;border-top:1p
 
 /* Botones con el mismo lenguaje que los tubos y los iconos 3D: vidrio azul y aluminio, con brillo superior */
 .btn{position:relative;isolation:isolate;overflow:hidden}
-.btn::before{content:"";position:absolute;z-index:-1;left:5%;right:5%;top:2px;height:46%;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,.04));pointer-events:none}
-.btn-primary{background:linear-gradient(180deg,#63adff 0,#2f6fe0 46%,#2559c4 54%,#3f86f2 100%);border-color:rgba(255,255,255,.4);text-shadow:0 1px 2px rgba(10,40,120,.45);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -2px 5px rgba(10,40,120,.35),0 8px 22px color-mix(in srgb,var(--accent) 38%,transparent)}
-.btn-primary:hover{background:linear-gradient(180deg,#78baff 0,#3a7bec 46%,#2c63d0 54%,#4b92fa 100%);transform:translateY(-1px)}
-.btn-ghost,.btn-light{background:linear-gradient(180deg,#fff,#eef2f7 48%,#dde5ee 54%,#f4f7fb);border-color:#cfd8e4;color:var(--deep);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -2px 4px rgba(14,23,38,.08),0 4px 12px rgba(14,23,38,.1)}
-.btn-ghost:hover,.btn-light:hover{background:linear-gradient(180deg,#fff,#f4f8fc 48%,#e4ebf3 54%,#fafcfe);border-color:#b9c5d6;transform:translateY(-1px)}
-.btn-dark-ghost,.final .btn-ghost{background:linear-gradient(180deg,rgba(255,255,255,.2),rgba(255,255,255,.05) 50%,rgba(255,255,255,.1));border-color:rgba(255,255,255,.3);color:var(--white);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -2px 4px rgba(0,0,0,.25),0 4px 14px rgba(0,0,0,.25)}
-.btn-dark-ghost:hover,.final .btn-ghost:hover{border-color:rgba(255,255,255,.6);background:linear-gradient(180deg,rgba(255,255,255,.28),rgba(255,255,255,.08) 50%,rgba(255,255,255,.14));transform:translateY(-1px)}
-.btn-light::before,.btn-ghost::before{background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,0))}
-.btn-dark-ghost::before,.final .btn-ghost::before{background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,0))}
+.btn::before{content:"";position:absolute;z-index:-1;left:5%;right:5%;top:2px;height:46%;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.2),rgba(255,255,255,0));pointer-events:none}
+.btn-primary{background:linear-gradient(180deg,#3b79e6 0,#2f6fe0 55%,#2a64d2 100%);border-color:rgba(255,255,255,.18);text-shadow:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),inset 0 -1px 2px rgba(10,40,120,.2),0 6px 16px color-mix(in srgb,var(--accent) 24%,transparent)}
+.btn-primary:hover{background:linear-gradient(180deg,#4a86ee 0,#3a78e8 55%,#2f6bd9 100%);transform:translateY(-1px)}
+.btn-ghost,.btn-light{background:linear-gradient(180deg,#fff,#f4f7fa);border-color:#d4dbe6;color:var(--deep);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 2px 6px rgba(14,23,38,.06)}
+.btn-ghost:hover,.btn-light:hover{background:linear-gradient(180deg,#fff,#f8fafc);border-color:#b9c5d6;transform:translateY(-1px)}
+.btn-dark-ghost,.final .btn-ghost{background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.04));border-color:rgba(255,255,255,.2);color:var(--white);box-shadow:inset 0 1px 0 rgba(255,255,255,.16)}
+.btn-dark-ghost:hover,.final .btn-ghost:hover{border-color:rgba(255,255,255,.6);background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.07));transform:translateY(-1px)}
+.btn-light::before,.btn-ghost::before{background:none}
+.btn-dark-ghost::before,.final .btn-ghost::before{background:none}
 
 /* ============================================================
    Lenguaje "aluminio y vidrio" en todo el contenido (tarjetas, etiquetas, campos, pestañas).
    Para volver atrás: git revert del commit que añadió este bloque.
    ============================================================ */
 :is(.plan,.compare,.booker,.sec-card,.steps-long > div,.also-card,.hub-card,.example,.mini-plan,.bx,.hood,.fnd,.kpi,.faq details,.day,.slot,.stpl,.hall,.sx-ask a,.rolegrid > *,.vk div,.file):not(.dark *,.band-dark *,.tone-dark *,.circuit *,.stage *,.final *){
-  background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,0) 42%),linear-gradient(180deg,#fcfdfe,#edf2f8);
-  border-color:#d7e0ec;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.98),inset 0 -2px 6px rgba(14,23,38,.045),0 1px 2px rgba(14,23,38,.06),0 12px 28px rgba(14,23,38,.07)}
-:is(.sx-ask a,.plan,.sec-card,.also-card,.hub-card):not(.dark *,.band-dark *,.tone-dark *):hover{box-shadow:inset 0 1px 0 #fff,inset 0 -2px 6px rgba(14,23,38,.045),0 2px 4px rgba(14,23,38,.08),0 18px 38px rgba(14,23,38,.12)}
-.plan.feat:not(.dark *){border:2px solid var(--accent);box-shadow:inset 0 1px 0 #fff,0 0 0 4px rgba(47,111,224,.14),0 18px 40px rgba(47,111,224,.2)}
-.faq details[open]{background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,0) 42%),linear-gradient(180deg,#f6faff,#e7f0fd)}
+  background:linear-gradient(180deg,#fff,#f8fafc);
+  border-color:#e0e7f0;
+  box-shadow:inset 0 1px 0 #fff,0 1px 2px rgba(14,23,38,.04),0 8px 20px rgba(14,23,38,.045)}
+:is(.sx-ask a,.plan,.sec-card,.also-card,.hub-card):not(.dark *,.band-dark *,.tone-dark *):hover{box-shadow:inset 0 1px 0 #fff,0 2px 4px rgba(14,23,38,.06),0 12px 28px rgba(14,23,38,.09)}
+.plan.feat:not(.dark *){border:2px solid var(--accent);box-shadow:inset 0 1px 0 #fff,0 0 0 3px rgba(47,111,224,.1),0 12px 28px rgba(47,111,224,.12)}
+.faq details[open]{background:linear-gradient(180deg,#fff,#f5f9ff)}
 /* Etiquetas: pastillas de vidrio con brillo */
-.pill,.chips span{box-shadow:inset 0 1px 0 rgba(255,255,255,.85),inset 0 -1px 2px rgba(14,23,38,.08),0 1px 2px rgba(14,23,38,.08)}
-.chips span{background:linear-gradient(180deg,#f4f9ff,#dcebfd);border:1px solid #c5daf6}
-.badge-only{background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.04));box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 4px 12px rgba(0,0,0,.2)}
-.chips-nav a{background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.04));box-shadow:inset 0 1px 0 rgba(255,255,255,.3),inset 0 -2px 4px rgba(0,0,0,.22)}
+.pill,.chips span{box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}
+.chips span{background:var(--ice-soft);border:1px solid #d3e3f8}
+.badge-only{background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.04));box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
+.chips-nav a{background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03));box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
 /* Campos del formulario: tubo hundido */
-.field input,.field select,.field textarea{background:linear-gradient(180deg,#eef2f7,#fafcfe);border-color:#cdd7e4;box-shadow:inset 0 2px 4px rgba(14,23,38,.1),0 1px 0 rgba(255,255,255,.9)}
+.field input,.field select,.field textarea{background:#f7f9fc;border-color:#d4dbe6;box-shadow:inset 0 1px 2px rgba(14,23,38,.06)}
 .field input:focus,.field select:focus,.field textarea:focus{background:#fff;box-shadow:inset 0 1px 2px rgba(14,23,38,.06),0 0 0 4px var(--accent-soft)}
 /* Selectores y pestañas */
 .day,.slot{transition:box-shadow .2s,border-color .2s,transform .2s}
 .day:hover,.slot:hover{transform:translateY(-1px);border-color:#9fbbe6}
-.day[aria-pressed="true"],.slot[aria-pressed="true"],.day.on,.slot.on,.day.sel,.slot.sel{background:linear-gradient(180deg,#63adff 0,#2f6fe0 46%,#2559c4 54%,#3f86f2 100%);color:#fff;border-color:rgba(255,255,255,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -2px 5px rgba(10,40,120,.35),0 8px 20px rgba(47,111,224,.35)}
-.menu-btn{background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.04));box-shadow:inset 0 1px 0 rgba(255,255,255,.3),inset 0 -2px 4px rgba(0,0,0,.22)}
+.day[aria-pressed="true"],.slot[aria-pressed="true"],.day.on,.slot.on,.day.sel,.slot.sel{background:linear-gradient(180deg,#3b79e6,#2a64d2);color:#fff;border-color:rgba(255,255,255,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 6px 14px rgba(47,111,224,.22)}
+.menu-btn{background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03));box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
