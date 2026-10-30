@@ -79,7 +79,7 @@
      "name": "¿Se usa mi micrófono?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Solo si lo permites: se activa cuando pulsas \"Empezar con micrófono\" y se apaga al terminar o al salir de la página. Si prefieres no usarlo, puedes escribir tus respuestas."
+      "text": "Solo si lo permites: se activa cuando pulsas \"Empezar con micrófono\" y se apaga al terminar o al salir de la página. Esta práctica es por voz, así que sin micrófono no se puede hacer; si prefieres no usarlo, agenda una demostración y la vemos juntos."
      }
     },
     {
@@ -100,10 +100,10 @@
     },
     {
      "@type": "Question",
-     "name": "¿Qué pasa si mi navegador no deja usar el micrófono?",
+     "name": "¿Qué pasa si el micrófono no funciona?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Puedes escribir las respuestas y la práctica funciona igual. El dictado de voz depende del navegador: funciona mejor en Chrome y Edge."
+      "text": "La práctica te muestra un medidor con tu voz y te dice qué falla: permiso bloqueado, micrófono no encontrado o dictado no disponible. El dictado de voz depende del navegador y funciona en Google Chrome y Microsoft Edge; en otros, como Firefox, no está disponible."
      }
     },
     {
@@ -183,16 +183,16 @@
     </div>
     <div class="ld-stage" aria-live="polite">
       <div class="ld-view" data-view="intro">
-        <div class="ld-role"><b>Hoy tú eres el paciente</b><p data-role>Eres una persona adulta que consulta por insomnio y desgano desde hace un mes. Responde con tus palabras o improvisa lo que quieras.</p></div>
-        <ul class="ld-how"><li>Miracle te hace 4 preguntas, como lo haría el médico.</li><li>Respondes en voz alta, o escribiendo si prefieres.</li><li>Al final recibes la nota ordenada por secciones, lista para firmar.</li></ul>
+        <div class="ld-role"><b>Hoy tú eres el paciente</b><p>Elige una especialidad y cuéntale al médico lo que quieras, como si tú fueras el paciente. Puede ser algo inventado o algo que de verdad te pase: tú decides qué te preocupa.</p></div>
+        <ul class="ld-how"><li>Miracle te hace 4 preguntas, como lo haría el médico.</li><li>Respondes en voz alta, con tus palabras.</li><li>Al final recibes la nota ordenada por secciones, lista para firmar.</li></ul>
       </div>
       <div class="ld-view" data-view="ask" hidden>
         <div class="ld-prog"><span>Pregunta <b data-n>1</b> de <b data-total>4</b></span><i><u></u></i></div>
         <div class="ld-q"><b>El médico pregunta</b><p data-q></p></div>
         <div class="ld-ans">
-          <div class="ld-listen" hidden><i></i><span>Escuchando… responde en voz alta</span><span class="ld-wave" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b><b></b><b></b></span></div>
-          <label for="ld-ta-prueba">Tu respuesta como paciente</label>
-          <textarea id="ld-ta-prueba" rows="3" placeholder="Habla o escribe tu respuesta"></textarea>
+          <div class="ld-listen" hidden><i></i><span data-status>Escuchando… responde en voz alta</span><span class="ld-wave" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b><b></b><b></b></span></div>
+          <label for="ld-ta-prueba">Lo que dices, transcrito</label>
+          <textarea id="ld-ta-prueba" rows="3" readonly placeholder="Tu respuesta aparecerá aquí mientras hablas"></textarea>
         </div>
         <label class="ld-tts"><input type="checkbox" data-tts> Leer las preguntas en voz alta</label>
       </div>
@@ -208,9 +208,9 @@
     <div class="ld-foot">
       <p class="ld-hint"></p>
       <div class="ld-act">
+        <button type="button" class="btn btn-ghost btn-sm" data-act="redo" hidden>Repetir respuesta</button>
         <button type="button" class="btn btn-ghost btn-sm" data-act="mic" hidden>Pausar micrófono</button>
         <button type="button" class="btn btn-ghost btn-sm" data-act="again" hidden>Repetir</button>
-        <button type="button" class="btn btn-ghost btn-sm" data-act="type">Prefiero escribir</button>
         <a class="btn btn-ghost btn-sm" data-act="cta" href="/agendar" hidden>Agenda una demostración</a>
         <button type="button" class="btn btn-primary btn-sm" data-act="main">Empezar con micrófono</button>
       </div>
@@ -224,8 +224,8 @@
   <div class="wrap">
     <div class="sec-head" data-reveal><h2 id="h-qv">Qué estás viendo</h2><p>La demo sigue el mismo recorrido de una consulta real en Notes, en cuatro pasos.</p></div>
     <div class="tl" data-reveal>
-      <div><h3>Eres el paciente</h3><p>Elige una especialidad: la pantalla te dice qué papel interpretar, y puedes improvisar lo que quieras.</p></div>
-      <div><h3>Miracle pregunta</h3><p>Hace cuatro preguntas, como lo haría el médico, y tú respondes en voz alta o escribiendo.</p></div>
+      <div><h3>Eres el paciente</h3><p>Elige una especialidad y cuéntale al médico lo que quieras: algo inventado o algo que de verdad te pase. Tú decides qué te preocupa.</p></div>
+      <div><h3>Miracle pregunta</h3><p>Hace cuatro preguntas, como lo haría el médico, y tú respondes en voz alta con tus palabras.</p></div>
       <div><h3>Se arma la nota</h3><p>Tus respuestas se ordenan por las secciones de la plantilla y la revisión señala lo que falte.</p></div>
       <div><h3>Revisas y firmas</h3><p>Al firmar se calcula una huella SHA-256 del contenido. La que ves aquí es real, calculada en tu navegador.</p></div>
     </div>
@@ -236,10 +236,10 @@
   <div class="wrap">
     <div class="sec-head center"><h2 id="h-faq">Preguntas sobre la demo</h2></div>
     <div class="faq">
-      <details><summary>¿Se usa mi micrófono?<span class="pm" aria-hidden="true"></span></summary><p>Solo si lo permites: se activa cuando pulsas "Empezar con micrófono" y se apaga al terminar o al salir de la página. Si prefieres no usarlo, puedes escribir tus respuestas.</p></details>
+      <details><summary>¿Se usa mi micrófono?<span class="pm" aria-hidden="true"></span></summary><p>Solo si lo permites: se activa cuando pulsas "Empezar con micrófono" y se apaga al terminar o al salir de la página. Esta práctica es por voz, así que sin micrófono no se puede hacer; si prefieres no usarlo, agenda una demostración y la vemos juntos.</p></details>
       <details><summary>¿Quién escucha lo que digo?<span class="pm" aria-hidden="true"></span></summary><p>La voz la transcribe el reconocimiento de voz de tu navegador. En Chrome y Edge, ese servicio puede procesar el audio en los servidores de Google o de Microsoft. Miracle no recibe ni guarda tu audio ni tus respuestas: todo vive solo en esta página.</p></details>
       <details><summary>¿La nota la escribe una IA?<span class="pm" aria-hidden="true"></span></summary><p>En esta práctica no: tus respuestas se ordenan por las secciones de la plantilla y una regla revisa si falta algo. En Notes, la IA redacta la nota en lenguaje clínico y sugiere los códigos CIE-10 y CUPS, y el médico revisa y corrige antes de firmar.</p></details>
-      <details><summary>¿Qué pasa si mi navegador no deja usar el micrófono?<span class="pm" aria-hidden="true"></span></summary><p>Puedes escribir las respuestas y la práctica funciona igual. El dictado de voz depende del navegador: funciona mejor en Chrome y Edge.</p></details>
+      <details><summary>¿Qué pasa si el micrófono no funciona?<span class="pm" aria-hidden="true"></span></summary><p>La práctica te muestra un medidor con tu voz y te dice qué falla: permiso bloqueado, micrófono no encontrado o dictado no disponible. El dictado de voz depende del navegador y funciona en Google Chrome y Microsoft Edge; en otros, como Firefox, no está disponible.</p></details>
       <details><summary>¿Cómo lo pruebo con mis propias consultas?<span class="pm" aria-hidden="true"></span></summary><p>Si trabajas por tu cuenta, empieza la prueba gratis de 14 días. Si diriges una institución, agenda una demostración y la vemos con una consulta de tu especialidad.</p></details>
     </div>
   </div>

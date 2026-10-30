@@ -1946,3 +1946,8 @@ html:not(.js) .sx-view + .sx-view{margin-top:48px;padding-top:44px;border-top:1p
 .ld-audit .pill.warn{background:var(--warning-soft);color:var(--warning)}
 .ld-hint{max-width:22rem}
 .ld-act [hidden]{display:none}
+.ld-listen.bad{background:var(--warning-soft);color:var(--warning);border-radius:12px;align-items:flex-start;line-height:1.4}
+.ld-listen.bad > i{background:var(--warning);animation:none;margin-top:.35em;flex:none}
+.ld-listen.bad .ld-wave{display:none}
+.metered .ld-wave b{animation:none;transition:height .08s linear}
+.ld-ans textarea[readonly]{background:#fafbfc;cursor:default}
