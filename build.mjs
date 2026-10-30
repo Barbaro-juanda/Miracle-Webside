@@ -76,13 +76,13 @@ const esc = s => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, 
 const abs = p => SITE.url + (p === '/' ? '/' : p);
 
 const pages = [
-  { path: '/', src: 'index', out: 'index.html', gsap: true, js: 'home',
+  { path: '/', src: 'index', out: 'index.html', gsap: true, js: 'home', demo: true,
     title: 'Historia clínica con IA para médicos e IPS | Miracle',
     desc: 'Miracle escucha la consulta, redacta la nota clínica, sugiere CIE-10 y CUPS y la revisa antes de la firma. Agenda una demostración para tu consultorio o IPS.' },
   { path: '/soluciones', src: 'soluciones', out: 'soluciones.html', js: 'soluciones', crumbs: [['Soluciones']], faq: true,
     title: 'Notes, Analytics y Auditorías para médicos e IPS | Miracle',
     desc: 'Tres productos para una misma consulta: Notes escribe la historia clínica, Auditorías la revisa antes de firmar y Analytics muestra el servicio a la gerencia.' },
-  { path: '/notes', src: 'notes', out: 'notes.html', gsap: true, js: 'product', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Notes']],
+  { path: '/notes', src: 'notes', out: 'notes.html', gsap: true, js: 'product', demo: true, navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Notes']],
     app: { name: 'Miracle Notes', description: 'Escribe la nota clínica a partir de la consulta, sugiere códigos CIE-10 y CUPS, permite firma electrónica y exporta a PDF y RIPS.' },
     title: 'Notes: la nota clínica escrita por la IA | Miracle',
     desc: 'Notes escucha la consulta, redacta la nota por secciones con la plantilla de tu especialidad, sugiere CIE-10 y CUPS y la deja lista para tu firma.' },
@@ -386,7 +386,7 @@ ${rel.length ? `<section class="related" aria-labelledby="h-rel"><div class="wra
     if (pg.src === 'index' && SEQ) body = withSeq(body);
   }
   if (pg.src === 'blog' && !pg.filtro) body = body.replace('@@BLOGFEAT@@', featHtml()).replace('@@BLOGLIST@@', listaHtml(posts, '/blog', 'Todos los artículos'));
-  body = body.replaceAll('@@CRUMBS@@', crumbsHtml(pg)).replaceAll('@@CTABAND@@', ctaBand);
+  body = body.replaceAll('@@LIVEDEMO@@', readFileSync(new URL('./src/partials/livedemo.html', import.meta.url), 'utf8').trim()).replaceAll('@@CRUMBS@@', crumbsHtml(pg)).replaceAll('@@CTABAND@@', ctaBand);
 
   const depth = pg.out.includes('/') ? '/' : '';
   const url = abs(pg.path);
@@ -396,6 +396,7 @@ ${rel.length ? `<section class="related" aria-labelledby="h-rel"><div class="wra
     pg.gsap ? GSAP : '',
     '<script defer src="/assets/core.js"></script>',
     pg.js ? `<script defer src="/assets/${pg.js}.js"></script>` : '',
+    pg.demo ? '<script defer src="/assets/demo.js"></script>' : '',
   ].filter(Boolean).join('\n');
   return `<!doctype html>
 <html lang="es-CO">

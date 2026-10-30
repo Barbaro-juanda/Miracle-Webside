@@ -221,6 +221,57 @@
 </section>
 
 <!-- 2 · SOLUCIONES -->
+<section class="try dark" data-theme="dark" aria-labelledby="h-try">
+  <div class="wrap try-row">
+    <div class="try-copy">
+      <h2 id="h-try">Pruébalo: de la conversación a la nota firmada</h2>
+      <p>Elige una especialidad e inicia una consulta de ejemplo. Verás cómo Miracle transcribe, ordena la nota por secciones, sugiere los códigos y calcula la huella de la firma.</p>
+      <ul class="try-points"><li>Cada especialidad usa su plantilla.</li><li>Tú revisas y firmas; la IA propone.</li><li>Es una simulación: no usa tu micrófono ni datos reales.</li></ul>
+    </div>
+    <div class="mock ld" data-demo data-state="idle">
+  <div class="mock-top"><i></i><i></i><i></i><span>Notes · Nueva consulta</span><em class="ld-tag">Ejemplo ilustrativo</em></div>
+  <div class="ld-body">
+    <div class="tpl ld-tpl" role="group" aria-label="Especialidad del ejemplo">
+      <button type="button" data-spec="psiquiatria" aria-pressed="true"><b>Psiquiatría</b>Consulta inicial</button>
+      <button type="button" data-spec="urgencias" aria-pressed="false"><b>Urgencias</b>Triage</button>
+      <button type="button" data-spec="pediatria" aria-pressed="false"><b>Pediatría</b>Control</button>
+    </div>
+    <div class="ld-stage" aria-live="polite">
+      <div class="ld-view" data-view="idle">
+        <div class="ld-skel">
+          <div><span>Motivo de consulta</span><i></i></div>
+          <div><span>Enfermedad actual</span><i></i><i></i></div>
+          <div><span>Examen mental</span><i></i><i></i></div>
+          <div><span>Impresión y plan</span><i></i></div>
+        </div>
+      </div>
+      <div class="ld-view" data-view="rec" hidden>
+        <div class="ld-rec"><i></i><span>Grabando consulta</span><time>00:00</time><span class="ld-wave" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b><b></b><b></b></span></div>
+        <div class="ld-tr"></div>
+      </div>
+      <div class="ld-view" data-view="gen" hidden>
+        <ul class="ld-steps"><li>Transcribiendo la conversación</li><li>Ordenando por las secciones de la plantilla</li><li>Sugiriendo códigos CIE-10</li></ul>
+      </div>
+      <div class="ld-view" data-view="note" hidden>
+        <div class="docmini ld-doc"></div>
+        <div class="ld-codes"></div>
+        <div class="ld-audit"></div>
+        <div class="ld-sign" hidden></div>
+      </div>
+    </div>
+    <div class="ld-foot">
+      <p class="ld-hint">Consulta simulada con datos ficticios. No usa tu micrófono.</p>
+      <div class="ld-act">
+        <button type="button" class="btn btn-ghost btn-sm" data-act="again" hidden>Repetir</button>
+        <a class="btn btn-ghost btn-sm" data-act="cta" href="/agendar" hidden>Agenda una demostración</a>
+        <button type="button" class="btn btn-primary btn-sm" data-act="main">Iniciar consulta</button>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+</section>
+
 <section class="circuit dark" data-theme="dark" aria-labelledby="h-sol">
   <div class="wrap">
     <div class="sec-head center">
@@ -316,5 +367,6 @@
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script defer src="/assets/core.js"></script>
 <script defer src="/assets/home.js"></script>
+<script defer src="/assets/demo.js"></script>
 </body>
 </html>
