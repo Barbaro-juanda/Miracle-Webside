@@ -70,19 +70,19 @@ const frame = (dir, i) => `/assets/hero/${dir}/${String(i).padStart(3, '0')}.web
 const specs = JSON.parse(readFileSync('src/especialidades.json', 'utf8')); // secciones reales de las plantillas del portal (repo de Miracle)
 // Fecha real del último cambio de un archivo fuente (para lastmod y dateModified).
 const gitDate = f => { try { return execSync(`git log -1 --format=%cs -- ${f}`, {encoding: 'utf8'}).trim() || SITE.today; } catch { return SITE.today; } };
-const NAV = [['Cómo funciona', '/#como-funciona'], ['Soluciones', '/soluciones'], ['Planes', '/planes'], ['Seguridad', '/seguridad'], ['Blog', '/blog']];
+const NAV = [['Cómo funciona', '/#como-funciona'], ['Soluciones', '/soluciones'], ['Pruébalo', '/prueba'], ['Planes', '/planes'], ['Seguridad', '/seguridad'], ['Blog', '/blog']];
 
 const esc = s => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 const abs = p => SITE.url + (p === '/' ? '/' : p);
 
 const pages = [
-  { path: '/', src: 'index', out: 'index.html', gsap: true, js: 'home', demo: true,
+  { path: '/', src: 'index', out: 'index.html', gsap: true, js: 'home',
     title: 'Historia clínica con IA para médicos e IPS | Miracle',
     desc: 'Miracle escucha la consulta, redacta la nota clínica, sugiere CIE-10 y CUPS y la revisa antes de la firma. Agenda una demostración para tu consultorio o IPS.' },
   { path: '/soluciones', src: 'soluciones', out: 'soluciones.html', js: 'soluciones', crumbs: [['Soluciones']], faq: true,
     title: 'Notes, Analytics y Auditorías para médicos e IPS | Miracle',
     desc: 'Tres productos para una misma consulta: Notes escribe la historia clínica, Auditorías la revisa antes de firmar y Analytics muestra el servicio a la gerencia.' },
-  { path: '/notes', src: 'notes', out: 'notes.html', gsap: true, js: 'product', demo: true, navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Notes']],
+  { path: '/notes', src: 'notes', out: 'notes.html', gsap: true, js: 'product', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Notes']],
     app: { name: 'Miracle Notes', description: 'Escribe la nota clínica a partir de la consulta, sugiere códigos CIE-10 y CUPS, permite firma electrónica y exporta a PDF y RIPS.' },
     title: 'Notes: la nota clínica escrita por la IA | Miracle',
     desc: 'Notes escucha la consulta, redacta la nota por secciones con la plantilla de tu especialidad, sugiere CIE-10 y CUPS y la deja lista para tu firma.' },
@@ -94,6 +94,9 @@ const pages = [
     app: { name: 'Miracle Analytics', description: 'Reportes de gerencia con la adopción por médico y servicio, las notas firmadas y los lotes RIPS de la institución.' },
     title: 'Analytics: notas pendientes y RIPS de tu IPS, al día | Miracle',
     desc: 'Para la dirección médica: qué notas quedaron sin firmar, qué servicio va más lento y los lotes RIPS listos, sin consolidar informes a mano.' },
+  { path: '/prueba', src: 'prueba', out: 'prueba.html', gsap: true, js: 'product', demo: true, faq: true, crumbs: [['Pruébalo']],
+    title: 'Pruébalo: una consulta de ejemplo, de la voz a la nota firmada | Miracle',
+    desc: 'Elige una especialidad e inicia una consulta simulada: transcripción, nota por secciones, códigos CIE-10 y firma con huella SHA-256. Sin micrófono y con datos ficticios.' },
   { path: '/planes', src: 'planes', out: 'planes.html', crumbs: [['Planes']], faq: true,
     title: 'Planes para médicos independientes e IPS | Miracle',
     desc: 'Notes con 14 días de prueba para el médico independiente y licencias a la medida para IPS, clínicas y hospitales. Compara los dos planes y resuelve tus dudas.' },
@@ -154,7 +157,7 @@ const footer = `<footer>
     <div><a href="/" class="logo" aria-label="Miracle, inicio"><svg class="wm" width="92" height="29" aria-hidden="true"><use href="#wm"/></svg></a>
       <p>Para que el médico mire al paciente, no la pantalla.</p></div>
     <div><p class="fh">Productos</p><ul><li><a href="/notes">Notes</a></li><li><a href="/auditorias">Auditorías</a></li><li><a href="/analytics">Analytics</a></li><li><a href="/planes">Planes</a></li></ul></div>
-    <div><p class="fh">Miracle</p><ul><li><a href="/#como-funciona">Cómo funciona</a></li><li><a href="/seguridad">Seguridad</a></li><li><a href="/blog">Blog</a></li><li><a href="https://itsmiracleai.com.co/login">Ingresar</a></li></ul></div>
+    <div><p class="fh">Miracle</p><ul><li><a href="/#como-funciona">Cómo funciona</a></li><li><a href="/prueba">Pruébalo</a></li><li><a href="/seguridad">Seguridad</a></li><li><a href="/blog">Blog</a></li><li><a href="https://itsmiracleai.com.co/login">Ingresar</a></li></ul></div>
     <div><p class="fh">Contacto</p><ul><li><a href="/agendar">Agendar demostración</a></li><li><a href="https://wa.me/573134582806" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:dev@itsmiracleai.com">dev@itsmiracleai.com</a></li></ul></div>
   </div>
   <div class="wrap legal"><span>© 2026 Miracle. Colombia.</span><span>Miracle apoya la documentación clínica. Las decisiones clínicas son del médico.</span></div>

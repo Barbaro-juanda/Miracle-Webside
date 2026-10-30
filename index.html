@@ -81,6 +81,7 @@
     <nav class="nav" aria-label="Principal">
       <a href="/#como-funciona">Cómo funciona</a>
       <a href="/soluciones">Soluciones</a>
+      <a href="/prueba">Pruébalo</a>
       <a href="/planes">Planes</a>
       <a href="/seguridad">Seguridad</a>
       <a href="/blog">Blog</a>
@@ -95,6 +96,7 @@
 <nav class="mnav" id="mnav" aria-label="Menú móvil">
   <a href="/#como-funciona">Cómo funciona</a>
   <a href="/soluciones">Soluciones</a>
+  <a href="/prueba">Pruébalo</a>
   <a href="/planes">Planes</a>
   <a href="/seguridad">Seguridad</a>
   <a href="/blog">Blog</a>
@@ -239,48 +241,8 @@
       <h2 id="h-try">Pruébalo: de la conversación a la nota firmada</h2>
       <p>Elige una especialidad e inicia una consulta de ejemplo. Verás cómo Miracle transcribe, ordena la nota por secciones, sugiere los códigos y calcula la huella de la firma.</p>
       <ul class="try-points"><li>Cada especialidad usa su plantilla.</li><li>Tú revisas y firmas; la IA propone.</li><li>Es una simulación: no usa tu micrófono ni datos reales.</li></ul>
+      <div class="try-cta"><a class="btn btn-primary" href="/prueba">Pruébalo tú mismo</a><a class="btn btn-dark-ghost" href="/agendar">Agenda una demostración</a></div>
     </div>
-    <div class="mock ld" data-demo data-state="idle">
-  <div class="mock-top"><i></i><i></i><i></i><span>Notes · Nueva consulta</span><em class="ld-tag">Ejemplo ilustrativo</em></div>
-  <div class="ld-body">
-    <div class="tpl ld-tpl" role="group" aria-label="Especialidad del ejemplo">
-      <button type="button" data-spec="psiquiatria" aria-pressed="true"><b>Psiquiatría</b>Consulta inicial</button>
-      <button type="button" data-spec="urgencias" aria-pressed="false"><b>Urgencias</b>Triage</button>
-      <button type="button" data-spec="pediatria" aria-pressed="false"><b>Pediatría</b>Control</button>
-    </div>
-    <div class="ld-stage" aria-live="polite">
-      <div class="ld-view" data-view="idle">
-        <div class="ld-skel">
-          <div><span>Motivo de consulta</span><i></i></div>
-          <div><span>Enfermedad actual</span><i></i><i></i></div>
-          <div><span>Examen mental</span><i></i><i></i></div>
-          <div><span>Impresión y plan</span><i></i></div>
-        </div>
-      </div>
-      <div class="ld-view" data-view="rec" hidden>
-        <div class="ld-rec"><i></i><span>Grabando consulta</span><time>00:00</time><span class="ld-wave" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b><b></b><b></b></span></div>
-        <div class="ld-tr"></div>
-      </div>
-      <div class="ld-view" data-view="gen" hidden>
-        <ul class="ld-steps"><li>Transcribiendo la conversación</li><li>Ordenando por las secciones de la plantilla</li><li>Sugiriendo códigos CIE-10</li></ul>
-      </div>
-      <div class="ld-view" data-view="note" hidden>
-        <div class="docmini ld-doc"></div>
-        <div class="ld-codes"></div>
-        <div class="ld-audit"></div>
-        <div class="ld-sign" hidden></div>
-      </div>
-    </div>
-    <div class="ld-foot">
-      <p class="ld-hint">Consulta simulada con datos ficticios. No usa tu micrófono.</p>
-      <div class="ld-act">
-        <button type="button" class="btn btn-ghost btn-sm" data-act="again" hidden>Repetir</button>
-        <a class="btn btn-ghost btn-sm" data-act="cta" href="/agendar" hidden>Agenda una demostración</a>
-        <button type="button" class="btn btn-primary btn-sm" data-act="main">Iniciar consulta</button>
-      </div>
-    </div>
-  </div>
-</div>
   </div>
 </section>
 
@@ -367,7 +329,7 @@
     <div><a href="/" class="logo" aria-label="Miracle, inicio"><svg class="wm" width="92" height="29" aria-hidden="true"><use href="#wm"/></svg></a>
       <p>Para que el médico mire al paciente, no la pantalla.</p></div>
     <div><p class="fh">Productos</p><ul><li><a href="/notes">Notes</a></li><li><a href="/auditorias">Auditorías</a></li><li><a href="/analytics">Analytics</a></li><li><a href="/planes">Planes</a></li></ul></div>
-    <div><p class="fh">Miracle</p><ul><li><a href="/#como-funciona">Cómo funciona</a></li><li><a href="/seguridad">Seguridad</a></li><li><a href="/blog">Blog</a></li><li><a href="https://itsmiracleai.com.co/login">Ingresar</a></li></ul></div>
+    <div><p class="fh">Miracle</p><ul><li><a href="/#como-funciona">Cómo funciona</a></li><li><a href="/prueba">Pruébalo</a></li><li><a href="/seguridad">Seguridad</a></li><li><a href="/blog">Blog</a></li><li><a href="https://itsmiracleai.com.co/login">Ingresar</a></li></ul></div>
     <div><p class="fh">Contacto</p><ul><li><a href="/agendar">Agendar demostración</a></li><li><a href="https://wa.me/573134582806" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:dev@itsmiracleai.com">dev@itsmiracleai.com</a></li></ul></div>
   </div>
   <div class="wrap legal"><span>© 2026 Miracle. Colombia.</span><span>Miracle apoya la documentación clínica. Las decisiones clínicas son del médico.</span></div>
@@ -379,6 +341,5 @@
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script defer src="/assets/core.js"></script>
 <script defer src="/assets/home.js"></script>
-<script defer src="/assets/demo.js"></script>
 </body>
 </html>
