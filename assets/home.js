@@ -98,21 +98,40 @@
     const codes = $$('.app-codes .code'), audit = $('.app-audit'), sign = $('.app-sign');
     const rec = $('#appRec'), recLabel = $('#appRecLabel'), clock = $('#appClock'), saved = $('#appSaved');
     const spNum = $('#spNum'), spBar = $('#spBar'), spCue = $('#spCueText');
-    const S = [0, 2.4, 4.2, 6.0, 7.6], MAX = S.length - 1;
+    const S = [0, 3.0, 4.8, 6.6, 8.2], MAX = S.length - 1;
+    const home = $('.app-home'), cur = $('.ah-cursor'), pill = $('.ah-pill'), cap = $('#stCap'), railItems = $$('.ar-i');
+    let capTxt = cap && cap.firstElementChild;
+    let zbase = null;
     // Con animación, los pasos visibles son decorativos: el lector de pantalla y el teclado usan la lista .sr-steps.
     panel.setAttribute('aria-hidden', 'true'); $$('a', panel).forEach(l => l.tabIndex = -1);
     document.body.classList.add('has-sr-steps');
     let idx = 0, busy = false, tl = null;
     const seq = seqEl ? makeSeq(seqEl) : null;
 
-    gsap.set(dw, {xPercent:-50, yPercent:-50});
+    gsap.set(dw, {xPercent:-50, yPercent:-50, transformOrigin:'50% 44.6%'});
+    /* Cámara: mide la pantalla en el plano general y calcula a dónde llevarla. Escritorio: a la derecha del
+       texto, grande. Celular: el doble, centrada en la conversación (fx .3) o en la nota (fx .74). */
+    const zMeasure = () => {
+      const r = seqScreen.getBoundingClientRect();
+      return zbase = {cx:r.left + r.width / 2, cy:r.top + r.height / 2, w:r.width, h:r.height, s:+gsap.getProperty(dw, 'scale'), x:+gsap.getProperty(dw, 'x'), y:+gsap.getProperty(dw, 'y')};
+    };
+    let zDesk = true;
+    const zTarget = fx => {
+      const b = zbase || zMeasure(), vw = innerWidth, vh = innerHeight, pr = panel.getBoundingClientRect();
+      let k, tx, ty;
+      if (zDesk) { const W = Math.max(b.w, Math.min(880, vw - pr.right - 56)); k = W / b.w; tx = pr.right + 28 + W / 2; ty = (96 + vh) / 2 - 34; }
+      else { k = 2; tx = vw / 2 - (fx - .5) * b.w * k; ty = (116 + pr.top) / 2; }
+      return {scale:b.s * k, x:b.x + tx - b.cx, y:b.y + ty - b.cy};
+    };
     const mm = gsap.matchMedia();
     mm.add({desk:'(min-width: 900px)', mob:'(max-width: 899px)'}, ctx => {
-      const desk = ctx.conditions.desk;
+      const desk = ctx.conditions.desk; zDesk = desk;
       gsap.set(dev, {rotateX:-58, scale:desk ? .6 : .8});
       gsap.set(dw, {y:() => innerHeight * (desk ? .16 : .2), x:0, scale:1});
       gsap.set(lid, {rotateX:-89});
       gsap.set(panel, {autoAlpha:0, y:20});
+      gsap.set(home, {autoAlpha:0}); gsap.set(cur, {x:() => pill.offsetLeft - 190, y:() => pill.offsetTop - 120, autoAlpha:0});
+      zbase = null;
       gsap.set(items, {autoAlpha:0, y:16});
       gsap.set(utts, {autoAlpha:0, y:10});
       wsets.flat().forEach(w => w.style.opacity = .1);
@@ -130,13 +149,22 @@
         .to(dw, {y:() => desk ? -innerHeight * .1 : -innerHeight * .07, duration:1.4, ease:'power2.inOut'}, .1)
         .to(dw, {x:() => desk ? Math.max(0, Math.min(290, innerWidth * .2, innerWidth / 2 - 14 - dw.offsetWidth * 1.34 * .86 / 2)) : 0, scale:desk ? .86 : 1, duration:.7, ease:'power2.inOut'}, 1.3)
         .to(seq ? seqScreen : {}, seq ? {autoAlpha:1, duration:.35} : {duration:.35}, 1.3)
-        .to(panel, {autoAlpha:1, y:0, duration:.4}, 1.6)
-        .to(items[0], {autoAlpha:1, y:0, duration:.3}, 1.9)
-        .to(utts.slice(0, 3), {autoAlpha:1, y:0, duration:.25, stagger:.12}, 1.85)
+        // La pantalla de inicio de Notes: el cursor toca "Iniciar consulta" y arranca la grabación
+        .to(home, {autoAlpha:1, duration:.01}, 1.3)
+        .to(cur, {autoAlpha:1, duration:.2}, 1.7)
+        .to(cur, {x:() => pill.offsetLeft + pill.offsetWidth * .6, y:() => pill.offsetTop + pill.offsetHeight * .55, duration:.45, ease:'power2.inOut'}, 1.8)
+        .to(pill, {scale:.94, duration:.08}, 2.25).to(pill, {scale:1, duration:.12}, 2.33)
+        .to(home, {autoAlpha:0, duration:.25}, 2.42)
+        .to(panel, {autoAlpha:1, y:0, duration:.4}, 1.9)
+        .to(items[0], {autoAlpha:1, y:0, duration:.3}, 2.2)
+        .to(utts.slice(0, 3), {autoAlpha:1, y:0, duration:.25, stagger:.12}, 2.45)
+        // Cámara: se acerca a la pantalla para que se lea (en el celular, a la conversación y luego a la nota)
+        .to(dw, {scale:() => zTarget(.3).scale, x:() => zTarget(.3).x, y:() => zTarget(.3).y, duration:.65, ease:'power2.inOut'}, 2.35)
         // 1 → 2 · Miracle escribe
         .to(items[0], {autoAlpha:0, y:-16, duration:.25}, S[1])
         .to(items[1], {autoAlpha:1, y:0, duration:.3}, S[1] + .15)
         .to(utts.slice(3), {autoAlpha:1, y:0, duration:.3, stagger:.25}, S[1])
+        .to(dw, desk ? {duration:.001} : {x:() => zTarget(.74).x, y:() => zTarget(.74).y, duration:.9, ease:'power2.inOut'}, S[1] + .3)
         .to(wsets[0], {opacity:1, duration:.05, stagger:.02}, S[1] + .2)
         .to(wsets[1], {opacity:1, duration:.05, stagger:.02}, S[1] + .45)
         .to(wsets[2], {opacity:1, duration:.05, stagger:.02}, S[1] + .9)
@@ -150,10 +178,19 @@
         .to(items[2], {autoAlpha:0, y:-16, duration:.25}, S[3])
         .to(items[3], {autoAlpha:1, y:0, duration:.3}, S[3] + .15)
         .to(sign, {autoAlpha:1, y:0, duration:.35, ease:'back.out(1.6)'}, S[3] + .3)
+        // Plano general otra vez: el portátil vuelve a su sitio
+        .to(dw, {scale:() => (zbase || zMeasure()).s, x:() => (zbase || zMeasure()).x, y:() => (zbase || zMeasure()).y, duration:1.1, ease:'power2.inOut'}, S[3] + .4)
         .to({}, {duration:.001}, S[4]);
       tl.time(S[idx]);
       paint();
       return () => { wsets.flat().forEach(w => w.style.opacity = ''); };
+    });
+
+    // Si cambia el tamaño de la ventana, la cámara se recalcula (se rehace la línea de tiempo desde el principio hasta donde estaba).
+    let rzT = null;
+    addEventListener('resize', () => {
+      clearTimeout(rzT);
+      rzT = setTimeout(() => { if (!tl || busy) return; const t = tl.time(); zbase = null; tl.time(0, true); tl.invalidate(); tl.time(t, true); paint(); }, 220);
     });
 
     // El estado inicial (portátil cerrado, panel oculto) ya está puesto: ahora sí se muestra la escena.
@@ -163,16 +200,25 @@
     function paint() {
       if (!tl) return;
       const t = tl.time();
-      const k = t >= 6.8 ? 3 : t >= 5.1 ? 2 : t >= 3.3 ? 1 : 0;
+      const k = t >= 7.4 ? 3 : t >= 5.7 ? 2 : t >= 3.9 ? 1 : 0;
       spNum.textContent = '0' + (k + 1);
       // La barra avanza continua con la línea de tiempo (no a saltos por paso): 25 % al terminar el paso 01 y 100 % en el 04.
       const bp = t <= S[1] ? .25 * Math.max(0, t) / S[1] : .25 + .75 * Math.min(1, (t - S[1]) / (S[MAX] - S[1]));
       spBar.style.transform = `scaleX(${bp.toFixed(4)})`;
-      if (t < 1.6) { rec.className = 'app-rec'; recLabel.textContent = 'Lista para grabar'; clock.textContent = '00:00'; }
-      else if (t < 6.8) { rec.className = 'app-rec live'; recLabel.textContent = 'Grabando consulta';
-        const s = Math.round((t - 1.6) / (6.8 - 1.6) * 252); clock.textContent = String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
+      if (t < 2.3) { rec.className = 'app-rec'; recLabel.textContent = 'Lista para grabar'; clock.textContent = '00:00'; }
+      else if (t < 7.4) { rec.className = 'app-rec live'; recLabel.textContent = 'Grabando consulta';
+        const s = Math.round((t - 2.3) / (7.4 - 2.3) * 252); clock.textContent = String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
       else { rec.className = 'app-rec done'; recLabel.textContent = 'Consulta terminada'; clock.textContent = '04:12'; }
-      saved.textContent = t >= 7.0 ? 'Firmada' : t >= 3.3 ? 'Autoguardado' : 'Borrador';
+      saved.textContent = t >= 7.6 ? 'Firmada' : t >= 3.9 ? 'Autoguardado' : 'Borrador';
+      if (railItems.length > 1) { railItems[0].classList.toggle('on', t < 2.4); railItems[1].classList.toggle('on', t >= 2.4); }
+      // Subtítulo guía: dice en grande qué está pasando en la pantalla
+      if (capTxt) {
+        const msg = t < 1.9 ? '' : t < 2.3 ? 'Abres Notes y tocas Iniciar consulta' : t < 3.9 ? 'Transcribiendo: el médico habla y Miracle escucha' : t < 5.7 ? 'Miracle redacta la nota por secciones' : t < 7.4 ? 'Sugiere los códigos y revisa que no falte nada' : 'Firmas, y la nota va a tu historia clínica';
+        if (msg !== capTxt.dataset.m) {
+          capTxt.dataset.m = msg; cap.classList.toggle('on', !!msg);
+          if (msg) { const n = capTxt.cloneNode(false); n.textContent = msg; n.dataset.m = msg; capTxt.replaceWith(n); capTxt = n; }
+        }
+      }
       if (spCue) spCue.textContent = k === 3 ? 'Continúa hacia abajo' : 'Desliza para ver el siguiente paso';
     }
 
