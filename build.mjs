@@ -96,8 +96,8 @@ const pages = [
     title: 'Analytics: notas pendientes y RIPS de tu IPS, al día | Miracle',
     desc: 'Para la dirección médica: qué notas quedaron sin firmar, qué servicio va más lento y los lotes RIPS listos, sin consolidar informes a mano.' },
   { path: '/prueba', src: 'prueba', out: 'prueba.html', gsap: true, js: 'product', demo: true, faq: true, crumbs: [['Pruébalo']],
-    title: 'Pruébalo: una consulta de ejemplo, de la voz a la nota firmada | Miracle',
-    desc: 'Elige una especialidad e inicia una consulta simulada: transcripción, nota por secciones, códigos CIE-10 y firma con huella SHA-256. Sin micrófono y con datos ficticios.' },
+    title: 'Pruébalo: sé el paciente y mira cómo Miracle escribe la nota | Miracle',
+    desc: 'Practica una consulta como paciente: responde en voz alta o escribiendo, y recibe la nota ordenada por secciones y firmada con huella SHA-256. El micrófono es opcional.' },
   { path: '/planes', src: 'planes', out: 'planes.html', crumbs: [['Planes']], faq: true,
     title: 'Planes para médicos independientes e IPS | Miracle',
     desc: 'Notes con 14 días de prueba para el médico independiente y licencias a la medida para IPS, clínicas y hospitales. Compara los dos planes y resuelve tus dudas.' },
@@ -390,7 +390,7 @@ ${rel.length ? `<section class="related" aria-labelledby="h-rel"><div class="wra
     if (pg.src === 'index' && SEQ) body = withSeq(body);
   }
   if (pg.src === 'blog' && !pg.filtro) body = body.replace('@@BLOGFEAT@@', featHtml()).replace('@@BLOGLIST@@', listaHtml(posts, '/blog', 'Todos los artículos'));
-  body = body.replaceAll('@@LIVEDEMO@@', readFileSync(new URL('./src/partials/livedemo.html', import.meta.url), 'utf8').trim()).replaceAll('@@CRUMBS@@', crumbsHtml(pg)).replaceAll('@@CTABAND@@', ctaBand);
+  body = body.replaceAll('@@LIVEDEMO@@', readFileSync(new URL('./src/partials/livedemo.html', import.meta.url), 'utf8').trim().replaceAll('@@ID@@', pg.src)).replaceAll('@@CRUMBS@@', crumbsHtml(pg)).replaceAll('@@CTABAND@@', ctaBand);
 
   const depth = pg.out.includes('/') ? '/' : '';
   const url = abs(pg.path);

@@ -1914,3 +1914,35 @@ html:not(.js) .sx-view + .sx-view{margin-top:48px;padding-top:44px;border-top:1p
 .mnav a.hl::before{content:"";display:inline-block;width:8px;height:8px;margin-right:9px;border-radius:50%;background:var(--accent)}
 @keyframes hlpulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 45%,transparent)}70%,100%{box-shadow:0 0 0 7px transparent}}
 @media (prefers-reduced-motion:reduce){.nav a.hl::before{animation:none}}
+
+/* ---------- Práctica de Notes: tú eres el paciente ---------- */
+.ld-role{padding:12px 14px;border-radius:12px;background:#fff;border:1px solid var(--doc-line)}
+.ld-role b{display:block;font-size:.9rem;color:var(--deep)}
+.ld-role p{margin:4px 0 0;font-size:.86rem;line-height:1.45;color:var(--ink-soft)}
+.ld-how{margin:14px 2px 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;font-size:.88rem;color:var(--ink-soft)}
+.ld-how li{position:relative;padding-left:24px}
+.ld-how li::before{content:"";position:absolute;left:2px;top:.45em;width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.ld-prog{display:flex;align-items:center;gap:12px;font-size:.78rem;font-weight:600;color:var(--doc-muted)}
+.ld-prog b{color:var(--deep)}
+.ld-prog i{flex:1;height:5px;border-radius:5px;background:var(--doc-line);overflow:hidden}
+.ld-prog u{display:block;height:100%;width:25%;border-radius:5px;background:var(--accent);transition:width .45s var(--ease)}
+.ld-q{margin-top:12px;padding:11px 14px;border-radius:12px;background:#fff;border:1px solid var(--doc-line)}
+.ld-q b{display:block;font-size:.72rem;font-weight:650;color:var(--accent-ink)}
+.ld-q p{margin:3px 0 0;font-size:1rem;line-height:1.4;font-weight:600;color:var(--deep)}
+.ld-ans{margin-top:12px}
+.ld-ans label{display:block;font-size:.74rem;font-weight:650;color:var(--doc-muted);margin-bottom:5px}
+.ld-ans textarea{width:100%;min-height:92px;resize:vertical;padding:10px 12px;border-radius:12px;border:1px solid var(--line-strong);background:#fff;font:inherit;font-size:.92rem;line-height:1.45;color:var(--deep)}
+.ld-ans textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.ld-listen{display:flex;align-items:center;gap:9px;margin-bottom:8px;padding:6px 11px;border-radius:999px;background:var(--danger-soft);color:var(--danger);font-size:.8rem;font-weight:600}
+.ld-listen[hidden]{display:none}
+.ld-listen > i{width:9px;height:9px;border-radius:50%;background:var(--danger-bright);animation:pulse 1.4s ease-in-out infinite}
+.ld-listen .ld-wave b{background:var(--danger-bright)}
+.ld-tts{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:.78rem;color:var(--doc-muted);cursor:pointer}
+.ld-tts input{accent-color:var(--accent)}
+.ld-missing{font-style:italic;color:var(--doc-muted)}
+.ld-doc-note{margin:12px 0 0!important;padding-top:10px;border-top:1px dashed var(--doc-line);font-family:var(--f-sans)!important;font-size:.76rem!important;line-height:1.45!important;color:var(--doc-muted)!important}
+.ld-doc .w{opacity:0;transition:opacity .35s}
+.ld-doc .w.on{opacity:1}
+.ld-audit .pill.warn{background:var(--warning-soft);color:var(--warning)}
+.ld-hint{max-width:22rem}
+.ld-act [hidden]{display:none}

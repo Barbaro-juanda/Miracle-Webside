@@ -1,40 +1,43 @@
-<div class="mock ld" data-demo data-state="idle">
-  <div class="mock-top"><i></i><i></i><i></i><span>Notes · Nueva consulta</span><em class="ld-tag">Ejemplo ilustrativo</em></div>
+<div class="mock ld" data-demo data-state="intro">
+  <div class="mock-top"><i></i><i></i><i></i><span>Notes · Consulta de práctica</span><em class="ld-tag">Simulación</em></div>
   <div class="ld-body">
-    <div class="tpl ld-tpl" role="group" aria-label="Especialidad del ejemplo">
+    <div class="tpl ld-tpl" role="group" aria-label="Especialidad de la práctica">
       <button type="button" data-spec="psiquiatria" aria-pressed="true"><b>Psiquiatría</b>Consulta inicial</button>
       <button type="button" data-spec="urgencias" aria-pressed="false"><b>Urgencias</b>Triage</button>
       <button type="button" data-spec="pediatria" aria-pressed="false"><b>Pediatría</b>Control</button>
     </div>
     <div class="ld-stage" aria-live="polite">
-      <div class="ld-view" data-view="idle">
-        <div class="ld-skel">
-          <div><span>Motivo de consulta</span><i></i></div>
-          <div><span>Enfermedad actual</span><i></i><i></i></div>
-          <div><span>Examen mental</span><i></i><i></i></div>
-          <div><span>Impresión y plan</span><i></i></div>
-        </div>
+      <div class="ld-view" data-view="intro">
+        <div class="ld-role"><b>Hoy tú eres el paciente</b><p data-role>Eres una persona adulta que consulta por insomnio y desgano desde hace un mes. Responde con tus palabras o improvisa lo que quieras.</p></div>
+        <ul class="ld-how"><li>Miracle te hace 4 preguntas, como lo haría el médico.</li><li>Respondes en voz alta, o escribiendo si prefieres.</li><li>Al final recibes la nota ordenada por secciones, lista para firmar.</li></ul>
       </div>
-      <div class="ld-view" data-view="rec" hidden>
-        <div class="ld-rec"><i></i><span>Grabando consulta</span><time>00:00</time><span class="ld-wave" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b><b></b><b></b></span></div>
-        <div class="ld-tr"></div>
+      <div class="ld-view" data-view="ask" hidden>
+        <div class="ld-prog"><span>Pregunta <b data-n>1</b> de <b data-total>4</b></span><i><u></u></i></div>
+        <div class="ld-q"><b>El médico pregunta</b><p data-q></p></div>
+        <div class="ld-ans">
+          <div class="ld-listen" hidden><i></i><span>Escuchando… responde en voz alta</span><span class="ld-wave" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b><b></b><b></b></span></div>
+          <label for="ld-ta-@@ID@@">Tu respuesta como paciente</label>
+          <textarea id="ld-ta-@@ID@@" rows="3" placeholder="Habla o escribe tu respuesta"></textarea>
+        </div>
+        <label class="ld-tts"><input type="checkbox" data-tts> Leer las preguntas en voz alta</label>
       </div>
       <div class="ld-view" data-view="gen" hidden>
-        <ul class="ld-steps"><li>Transcribiendo la conversación</li><li>Ordenando por las secciones de la plantilla</li><li>Sugiriendo códigos CIE-10</li></ul>
+        <ul class="ld-steps"><li>Transcribiendo tus respuestas</li><li>Ordenando por las secciones de la plantilla</li><li>Revisando que no falte nada</li></ul>
       </div>
       <div class="ld-view" data-view="note" hidden>
         <div class="docmini ld-doc"></div>
-        <div class="ld-codes"></div>
         <div class="ld-audit"></div>
         <div class="ld-sign" hidden></div>
       </div>
     </div>
     <div class="ld-foot">
-      <p class="ld-hint">Consulta simulada con datos ficticios. No usa tu micrófono.</p>
+      <p class="ld-hint"></p>
       <div class="ld-act">
+        <button type="button" class="btn btn-ghost btn-sm" data-act="mic" hidden>Pausar micrófono</button>
         <button type="button" class="btn btn-ghost btn-sm" data-act="again" hidden>Repetir</button>
+        <button type="button" class="btn btn-ghost btn-sm" data-act="type">Prefiero escribir</button>
         <a class="btn btn-ghost btn-sm" data-act="cta" href="/agendar" hidden>Agenda una demostración</a>
-        <button type="button" class="btn btn-primary btn-sm" data-act="main">Iniciar consulta</button>
+        <button type="button" class="btn btn-primary btn-sm" data-act="main">Empezar con micrófono</button>
       </div>
     </div>
   </div>
