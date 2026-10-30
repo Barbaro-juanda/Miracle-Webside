@@ -70,7 +70,8 @@ const frame = (dir, i) => `/assets/hero/${dir}/${String(i).padStart(3, '0')}.web
 const specs = JSON.parse(readFileSync('src/especialidades.json', 'utf8')); // secciones reales de las plantillas del portal (repo de Miracle)
 // Fecha real del último cambio de un archivo fuente (para lastmod y dateModified).
 const gitDate = f => { try { return execSync(`git log -1 --format=%cs -- ${f}`, {encoding: 'utf8'}).trim() || SITE.today; } catch { return SITE.today; } };
-const NAV = [['Cómo funciona', '/#como-funciona'], ['Soluciones', '/soluciones'], ['Pruébalo', '/prueba'], ['Planes', '/planes'], ['Seguridad', '/seguridad'], ['Blog', '/blog']];
+const NAV = [['Cómo funciona', '/#como-funciona'], ['Soluciones', '/soluciones'], ['Planes', '/planes'], ['Seguridad', '/seguridad'], ['Pruébalo', '/prueba'], ['Blog', '/blog']];
+const NAV_HL = '/prueba'; // el enlace que resalta en el menú
 
 const esc = s => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 const abs = p => SITE.url + (p === '/' ? '/' : p);
@@ -137,7 +138,7 @@ const header = cur => `<header class="hdr" id="top">
   <div class="wrap">
     <a href="/" class="logo" aria-label="Miracle, inicio"><svg class="wm" width="98" height="31" aria-hidden="true"><use href="#wm"/></svg></a>
     <nav class="nav" aria-label="Principal">
-      ${NAV.map(([l, h]) => `<a href="${h}"${h === cur ? ' aria-current="page"' : ''}>${l}</a>`).join('\n      ')}
+      ${NAV.map(([l, h]) => `<a href="${h}"${h === NAV_HL ? ' class="hl"' : ''}${h === cur ? ' aria-current="page"' : ''}>${l}</a>`).join('\n      ')}
     </nav>
     <div class="hdr-cta">
       <a class="login" href="https://itsmiracleai.com.co/login">Ingresar</a>
@@ -147,7 +148,7 @@ const header = cur => `<header class="hdr" id="top">
   </div>
 </header>
 <nav class="mnav" id="mnav" aria-label="Menú móvil">
-  ${NAV.map(([l, h]) => `<a href="${h}">${l}</a>`).join('\n  ')}
+  ${NAV.map(([l, h]) => `<a href="${h}"${h === NAV_HL ? ' class="hl"' : ''}>${l}</a>`).join('\n  ')}
   <a href="/agendar">Agendar demostración</a>
   <a href="https://itsmiracleai.com.co/login">Ingresar</a>
 </nav>`;
