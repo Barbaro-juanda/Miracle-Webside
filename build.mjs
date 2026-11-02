@@ -167,6 +167,22 @@ const footer = `<footer>
   <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
 </a></aside>`;
 
+
+/* Recorrido entre subpáginas: cada una termina con un enlace directo a la siguiente (y a la anterior). */
+const FLOW = {
+  '/soluciones': { prev: ['Cómo funciona', '/#como-funciona'], next: ['Planes', '/planes', 'Notes para tu consultorio y licencias para tu institución, con lo que incluye cada plan.'] },
+  '/planes': { prev: ['Soluciones', '/soluciones'], next: ['Seguridad', '/seguridad', 'Cómo se cuida cada consulta: revisión humana, datos aislados y firma con huella.'] },
+  '/seguridad': { prev: ['Planes', '/planes'], next: ['Pruébalo', '/prueba', 'Sé el paciente por un minuto y mira cómo Miracle escribe la nota.'] },
+  '/prueba': { prev: ['Seguridad', '/seguridad'], next: ['Blog', '/blog', 'Práctica clínica, auditoría y codificación, escritos desde la consulta en Colombia.'] },
+  '/blog': { prev: ['Pruébalo', '/prueba'], next: ['Agenda una demostración', '/agendar', 'Te mostramos Miracle con una consulta de tu especialidad, en 30 minutos.'] },
+};
+for (const k of ['/notes', '/auditorias', '/analytics']) FLOW[k] = { prev: ['Soluciones', '/soluciones'], next: FLOW['/soluciones'].next };
+const nextHtml = pg => {
+  const f = FLOW[pg.path];
+  if (!f) return '';
+  const arrow = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  return `<nav class="next-link" aria-label="Seguir recorriendo el sitio"><div class="wrap"><a class="nl-prev" href="${f.prev[1]}"><span aria-hidden="true">←</span> ${f.prev[0]}</a><a class="nl-next" href="${f.next[1]}"><span class="nl-t"><small>Siguiente</small><b>${f.next[0]}</b><em>${f.next[2]}</em></span><span class="nl-go">${arrow}</span></a></div></nav>`;
+};
 const ctaBand = `<section class="cta-band" aria-labelledby="h-cta"><div class="wrap"><div class="box" data-reveal>
   <div><h2 id="h-cta">¿Quieres ver Miracle en tu consulta?</h2><p>Una demostración de 30 minutos, con una consulta de tu especialidad.</p></div>
   <div class="ctas"><a class="btn btn-light" href="/agendar">Agenda una demostración</a><a class="btn btn-dark-ghost" href="https://itsmiracleai.com.co/registro">Prueba Notes gratis</a></div>
@@ -390,7 +406,8 @@ ${rel.length ? `<section class="related" aria-labelledby="h-rel"><div class="wra
     if (pg.src === 'index' && SEQ) body = withSeq(body);
   }
   if (pg.src === 'blog' && !pg.filtro) body = body.replace('@@BLOGFEAT@@', featHtml()).replace('@@BLOGLIST@@', listaHtml(posts, '/blog', 'Todos los artículos'));
-  body = body.replaceAll('@@LIVEDEMO@@', readFileSync(new URL('./src/partials/livedemo.html', import.meta.url), 'utf8').trim().replaceAll('@@ID@@', pg.src)).replaceAll('@@CRUMBS@@', crumbsHtml(pg)).replaceAll('@@CTABAND@@', ctaBand);
+  body = body.replaceAll('@@LIVEDEMO@@', readFileSync(new URL('./src/partials/livedemo.html', import.meta.url), 'utf8').trim().replaceAll('@@ID@@', pg.src)).replaceAll('@@CRUMBS@@', crumbsHtml(pg)).replaceAll('@@CTABAND@@', nextHtml(pg) + ctaBand);
+  if (FLOW[pg.path] && !body.includes('next-link')) body += '\n' + nextHtml(pg);
 
   const depth = pg.out.includes('/') ? '/' : '';
   const url = abs(pg.path);
