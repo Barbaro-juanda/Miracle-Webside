@@ -1,6 +1,6 @@
 /* Núcleo: se carga en todas las páginas (menú, cabecera, anclas y aparición al entrar en pantalla). */
 (() => {
-  const WA = '573134582806';
+  const WA = '573004564592';
   const MAIL = 'dev@itsmiracleai.com';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const $ = (s, r = document) => r.querySelector(s);
