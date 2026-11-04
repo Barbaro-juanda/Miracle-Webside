@@ -2986,3 +2986,10 @@ html:not(.js) .stc{opacity:1;transform:none}
 
 /* MIRA: el disco solo, sin collar, más grande y con tilt 3D */
 .mira-pd{width:68%;margin:-34% 0 0 -34%;top:55%}
+
+/* MIRA gira de verdad: secuencia de cuadros controlada por el scroll (sobre la imagen fija, que queda de respaldo) */
+.mira-cv{position:absolute;left:50%;top:55%;width:76%;aspect-ratio:1;margin:-38% 0 0 -38%;opacity:0;transition:opacity .5s;filter:drop-shadow(0 30px 44px rgba(0,0,0,.55)) drop-shadow(0 0 40px color-mix(in srgb,var(--glow-strong) 30%,transparent));animation:miraflt 7s ease-in-out infinite;pointer-events:none}
+.mira-stage.seq-on .mira-cv{opacity:1}
+.mira-stage.seq-on .mira-pd{opacity:0}
+.mira-pd{transition:opacity .5s}
+@media (prefers-reduced-motion:reduce){.mira-cv{display:none}}

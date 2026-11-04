@@ -140,3 +140,28 @@
     if ('IntersectionObserver' in window) { const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { run(); io.disconnect(); } }, {threshold: .5}); io.observe(root); } else run();
   });
 })();
+
+/* MIRA: el disco gira con el scroll (60 cuadros con transparencia). Carga cuando la sección está cerca y no hace nada con movimiento reducido. */
+(() => {
+  const stage = document.querySelector('.mira-stage'); if (!stage) return;
+  const cv = stage.querySelector('.mira-cv'); if (!cv || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const ctx = cv.getContext('2d'), N = +cv.dataset.frames, mid = Math.round((N - 1) / 2);
+  const imgs = new Array(N); let cur = mid, target = mid, ready = false, loaded = false, raf = 0;
+  const src = i => `/assets/img/mira/seq/${String(i + 1).padStart(3, '0')}.webp`;
+  const draw = () => {
+    const i = Math.round(cur); let k = i;
+    for (let r = 0; r < N; r++) { if (imgs[i - r] && imgs[i - r].ok) { k = i - r; break; } if (imgs[i + r] && imgs[i + r].ok) { k = i + r; break; } }
+    const im = imgs[k]; if (!im || !im.ok) return;
+    ctx.clearRect(0, 0, cv.width, cv.height); ctx.drawImage(im, 0, 0, cv.width, cv.height);
+  };
+  const load = i => {
+    if (imgs[i]) return; const im = new Image(); im.decoding = 'async';
+    im.onload = () => { im.ok = true; if (!ready && i === mid) { ready = true; stage.classList.add('seq-on'); } if (ready) draw(); };
+    im.src = src(i); imgs[i] = im;
+  };
+  const start = () => { if (loaded) return; loaded = true; load(mid); for (let i = 0; i < N; i += 6) load(i); setTimeout(() => { for (let i = 0; i < N; i++) load(i); }, 400); };
+  const loop = () => { raf = 0; cur += (target - cur) * .16; if (Math.abs(target - cur) > .05) raf = requestAnimationFrame(loop); else cur = target; draw(); };
+  const aim = () => { const p = parseFloat(stage.style.getPropertyValue('--p')); if (isNaN(p)) return; target = Math.min(1, Math.max(0, p)) * (N - 1); if (!raf) raf = requestAnimationFrame(loop); };
+  if ('IntersectionObserver' in window) new IntersectionObserver(es => { if (es[0].isIntersecting) start(); }, {rootMargin: '900px 0px'}).observe(stage); else start();
+  addEventListener('scroll', () => requestAnimationFrame(aim), {passive: true}); addEventListener('resize', aim); aim();
+})();
