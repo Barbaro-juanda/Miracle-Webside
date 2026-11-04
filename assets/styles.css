@@ -2943,3 +2943,25 @@ html:not(.js) .stc{opacity:1;transform:none}
 .mira-stats em{font-style:normal}.mira-stats span{display:block;margin-top:6px;color:var(--d-soft);font-size:.95rem}
 @media (max-width:960px){.mira-top{grid-template-columns:1fr}.mira-stage{max-width:440px}.mira-flow{grid-template-columns:1fr;gap:20px;padding:26px 22px}.mf-arrow{width:4px;height:34px;margin:0 auto}.mf-arrow i{left:-1px;top:-30%;width:6px;height:30%;animation-name:rmxrunv;background:linear-gradient(180deg,transparent,#fff,var(--glow-strong))}.mf-out{grid-template-columns:1fr}.mira-photos{grid-template-columns:1fr}.mp{aspect-ratio:4/4.4}.mira-stats{grid-template-columns:1fr 1fr}.mira{padding:90px 0 80px}}
 @media (prefers-reduced-motion:reduce){.mira-stage .mr,.mira-pd,.mira-led,.mira-chip,.mf-wave i,.mf-arrow i,.mp::after,.mira-k i{animation:none}.mira-stage .r1{opacity:.5}.mira-pd{transform:none}}
+
+/* ============================================================
+   Explora Miracle · aurora sobre claro: luz de aurora detrás y tarjetas de vidrio esmerilado con neón suave por destino
+   ============================================================ */
+.explore{position:relative;overflow:hidden}
+.explore::before,.explore::after{content:"";position:absolute;z-index:0;border-radius:50%;pointer-events:none}
+.explore::before{left:-12%;top:-8%;width:52%;aspect-ratio:1;background:radial-gradient(closest-side,rgba(143,123,255,.3),transparent);animation:aur1 34s ease-in-out infinite alternate}
+.explore::after{right:-12%;top:14%;width:52%;aspect-ratio:1;background:radial-gradient(closest-side,rgba(55,201,253,.3),transparent);animation:aur2 42s ease-in-out infinite alternate}
+.explore .wrap{position:relative;z-index:1}
+.explore .xtile{--nx:#2f6fe0;--mx:50%;--my:0%;background:rgba(255,255,255,.64)!important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#0c1424;border:1px solid rgba(255,255,255,.92)!important;box-shadow:0 0 0 1px color-mix(in srgb,var(--nx) 38%,transparent),0 0 34px color-mix(in srgb,var(--nx) 28%,transparent),0 22px 44px rgba(14,23,38,.08)!important;transition:transform .4s var(--ease),box-shadow .4s}
+.explore .xtile.t-blue{--nx:#8f7bff}.explore .xtile.t-mint{--nx:#10b981}.explore .xtile.t-light{--nx:#37c9fd}
+.explore .xtile::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(300px circle at var(--mx) var(--my),color-mix(in srgb,var(--nx) 20%,transparent),transparent 70%);opacity:.55;transition:opacity .3s}
+.explore .xtile:hover::before{opacity:1}
+.explore .xtile:hover{transform:translateY(-8px);box-shadow:0 0 0 1px color-mix(in srgb,var(--nx) 65%,transparent),0 0 56px color-mix(in srgb,var(--nx) 48%,transparent),0 26px 50px rgba(14,23,38,.12)!important}
+.explore .xtile::after{left:24px;right:auto;top:auto;bottom:0;width:56px;height:3px;border-radius:3px;background:var(--nx);box-shadow:0 0 14px var(--nx);animation:none;opacity:1;transition:width .4s var(--ease)}
+.explore .xtile:hover::after{width:120px}
+.explore .xtile .xtxt b{color:#0c1424}
+.explore .xtile .xtxt em,.explore .xtile.t-dark em,.explore .xtile.t-blue em,.explore .xtile.t-mint em,.explore .xtile.t-light em{color:#4a5a73}
+.explore .xtile .xmini{width:142px;filter:drop-shadow(0 14px 24px color-mix(in srgb,var(--nx) 50%,transparent))}
+.explore .xtile .xgo,.explore .xtile.t-dark .xgo,.explore .xtile.t-blue .xgo,.explore .xtile.t-mint .xgo,.explore .xtile.t-light .xgo{background:var(--nx);color:#fff;box-shadow:0 0 18px color-mix(in srgb,var(--nx) 60%,transparent)}
+.explore .xbar{position:relative;z-index:1}
+@media (prefers-reduced-motion:reduce){.explore::before,.explore::after{animation:none}}
