@@ -2126,3 +2126,10 @@ body[data-product="ana"] .btn-primary,[data-p="ana"] .btn-primary{box-shadow:non
    Paso 4 · secciones oscuras: del azul marino a un tono apenas más claro (5 %) en el borde inferior.
    ============================================================ */
 .statement.dark,.try.dark,.circuit.dark,.closing.dark{background-image:linear-gradient(180deg,transparent 58%,color-mix(in srgb,var(--white) 5%,transparent) 100%)}
+
+/* ============================================================
+   Paso 5 · "49 especialidades": forma orgánica borrosa durazno detrás del número (12 %).
+   ============================================================ */
+.numbers{position:relative;overflow:hidden;isolation:isolate}
+.numbers::before{content:"";position:absolute;z-index:-1;left:50%;top:44%;width:min(560px,80vw);height:min(430px,60vw);transform:translate(-50%,-50%) rotate(-8deg);
+  border-radius:63% 37% 54% 46% / 55% 48% 52% 45%;background:var(--peach);opacity:.12;filter:blur(60px);pointer-events:none}
