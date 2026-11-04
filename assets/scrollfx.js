@@ -65,3 +65,57 @@
     });
   }
 })();
+
+/* Recorridos interactivos: pasos que se eligen (.stp), camino que se llena al bajar (.zz) y selector de caso (.rmx).
+   Funcionan también con movimiento reducido: solo se detienen los avances automáticos. */
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll('[data-stp]').forEach(root => {
+    const tabs = [...root.querySelectorAll('.stp-n')], panels = [...root.querySelectorAll('.stp-p')];
+    let cur = 0, timer = null, userMoved = false;
+    const set = i => {
+      cur = (i + tabs.length) % tabs.length;
+      tabs.forEach((t, k) => { t.classList.toggle('on', k === cur); t.classList.toggle('done', k < cur); t.setAttribute('aria-selected', k === cur); t.tabIndex = k === cur ? 0 : -1; });
+      panels.forEach((p, k) => p.classList.toggle('on', k === cur));
+      root.style.setProperty('--sp', (cur / (tabs.length - 1)).toFixed(3));
+    };
+    tabs.forEach((t, k) => {
+      t.addEventListener('click', () => { userMoved = true; stop(); set(k); });
+      t.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); userMoved = true; stop(); set(cur + (e.key === 'ArrowRight' ? 1 : -1)); tabs[cur].focus(); }
+      });
+    });
+    const stop = () => { clearInterval(timer); timer = null; };
+    const start = () => { if (!timer && !userMoved && !reduce) timer = setInterval(() => set(cur + 1), 5200); };
+    set(0);
+    if ('IntersectionObserver' in window) new IntersectionObserver(es => es[0].isIntersecting ? start() : stop(), {threshold: .4}).observe(root);
+    root.addEventListener('pointerenter', stop);
+    root.addEventListener('pointerleave', start);
+  });
+
+  document.querySelectorAll('[data-rmx]').forEach(root => {
+    const tabs = [...root.querySelectorAll('.rmx-tabs button')], panes = [...root.querySelectorAll('.rmx-pane')];
+    root.dataset.on = '0';
+    tabs.forEach((t, k) => t.addEventListener('click', () => {
+      root.dataset.on = String(k);
+      tabs.forEach((b, j) => { b.classList.toggle('on', j === k); b.setAttribute('aria-selected', j === k); });
+      panes.forEach((p, j) => { p.hidden = j !== k; p.classList.toggle('on', j === k); });
+    }));
+  });
+
+  const zzs = [...document.querySelectorAll('[data-zz]')];
+  if (zzs.length) {
+    const upd = () => {
+      const vh = innerHeight, mark = vh * .55;
+      zzs.forEach(z => {
+        const r = z.getBoundingClientRect();
+        z.style.setProperty('--zp', Math.min(1, Math.max(0, (mark - r.top) / r.height)).toFixed(3));
+        z.querySelectorAll('.zz-s').forEach(s => s.classList.toggle('lit', s.getBoundingClientRect().top + 44 < mark));
+      });
+    };
+    let tk = false;
+    const on = () => { if (!tk) { tk = true; requestAnimationFrame(() => { tk = false; upd(); }); } };
+    addEventListener('scroll', on, {passive: true}); addEventListener('resize', on); upd();
+  }
+})();
