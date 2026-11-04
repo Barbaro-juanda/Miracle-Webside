@@ -2307,3 +2307,22 @@ footer{border-top:0;background:linear-gradient(to bottom,transparent 0,var(--sur
 body[data-product="ana"] .btn-primary,[data-p="ana"] .btn-primary{background:linear-gradient(180deg,#f9b73c 0,#f5a524 52%,#e79a14 100%);border-color:#f8c466}
 body[data-product="ana"] .btn-primary:hover,[data-p="ana"] .btn-primary:hover{background:linear-gradient(180deg,#fbc25a 0,#f8b038 52%,#eba018 100%)}
 .nav a.hl,.hdr.on-dark .nav a.hl{background:linear-gradient(180deg,color-mix(in srgb,var(--lilac) 92%,#fff) 0,var(--lilac) 52%,color-mix(in srgb,var(--lilac) 94%,#000) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.26)}
+
+/* ============================================================
+   Hero fusionado con el resto de la página: sin fondo propio, apoya en la franja oscura continua de la capa de
+   fondo; el electrocardiograma sube al hueco entre el menú y el titular y baja de intensidad para no estorbar al texto.
+   ============================================================ */
+html.pgbg main > section.stage{background:none!important}
+.bg-traces .ecg{opacity:.45}
+.bg-traces .ecg-pulse{opacity:.6}
+/* El borde inferior del hero se desvanece (laptop, cuadrícula y trazos) para fundirse con la sección del párrafo */
+.stage{-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 110px),transparent 100%);mask-image:linear-gradient(to bottom,#000 calc(100% - 110px),transparent 100%)}
+.bg-hero{-webkit-mask-image:linear-gradient(to bottom,#000 0,#000 calc(100% - 360px),transparent 100%);mask-image:linear-gradient(to bottom,#000 0,#000 calc(100% - 360px),transparent 100%)}
+.scroll-hint{bottom:120px}
+@media (min-width:900px){.stage-cap{bottom:13vh}}
+/* El contenedor del párrafo fijado ya no pinta su propio fondo: así la capa continua de fondo se ve de corrido */
+html.pgbg .pin-spacer:has(> .statement),html.pgbg .pin-spacer{background:none!important}
+
+/* Las secciones fijadas con GSAP viven dentro de un .pin-spacer: también deben ser transparentes */
+html.pgbg main section:not(.stage){background:none!important}
+html.pgbg main section > .fx{display:none}

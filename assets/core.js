@@ -162,7 +162,7 @@
    nodo en cada una. Las secciones pasan a ser transparentes y la luz cruza de una a otra sin cortes. */
 (() => {
   const main = document.getElementById('main');
-  const secs = main ? [...main.children].filter(e => e.tagName === 'SECTION') : [];
+  const secs = main ? [...main.querySelectorAll(':scope > section, :scope > .pin-spacer > section')] : [];  // las fijadas con GSAP quedan dentro de un .pin-spacer
   if (!main || !secs.length) return;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isPost = document.body.classList.contains('page-post');
@@ -174,7 +174,7 @@
   const home = document.body.classList.contains('page-index');
 
   const theme = s => {
-    if (s.classList.contains('stage')) return null;
+    if (s.classList.contains('stage')) return 'dark'; // el hero también es parte de la franja oscura continua
     if (s.classList.contains('dark') || s.classList.contains('tone-dark')) return 'dark';
     if (s.classList.contains('tone-pearl') || s.classList.contains('walk-sec')) return 'pearl';
     if (s.classList.contains('tone-ice')) return 'ice';
