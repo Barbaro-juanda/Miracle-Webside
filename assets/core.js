@@ -1,7 +1,7 @@
 /* Núcleo: se carga en todas las páginas (menú, cabecera, anclas y aparición al entrar en pantalla). */
 (() => {
   const WA = '573004564592';
-  const MAIL = 'contacto@itsmiracleai.com'; // TODO: confirmar el correo de contacto definitivo (mismo valor que CONTACT_EMAIL en build.mjs)
+  const MAIL = 'dev@itsmiracleai.com';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -26,17 +26,7 @@
     const el = document.getElementById(decodeURIComponent(u.hash.slice(1)));
     if (!el) return;
     e.preventDefault();
-    // Desplazamiento propio (no depende del scroll suave del navegador): el ancla #como-funciona no se movía en algunos casos.
-    const pad = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
-    const to = Math.max(0, Math.round(el.getBoundingClientRect().top + scrollY - pad)), from = scrollY, dist = to - from;
-    if (reduce || Math.abs(dist) < 2) scrollTo(0, to);
-    else {
-      const t0 = performance.now(), dur = Math.min(900, 350 + Math.abs(dist) * .12);
-      const ease = k => k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
-      // Con temporizador y no con requestAnimationFrame: el avance es por tiempo y no se frena si la pestaña no pinta cuadros.
-      const step = () => { const k = Math.min(1, (performance.now() - t0) / dur); scrollTo(0, from + dist * ease(k)); if (k < 1) setTimeout(step, 16); };
-      step();
-    }
+    el.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'start'});
     history.pushState(null, '', u.hash);
   });
 

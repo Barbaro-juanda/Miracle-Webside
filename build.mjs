@@ -3,8 +3,6 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 
-// TODO: confirmar el correo de contacto definitivo. Una sola variable para todo el sitio.
-const CONTACT_EMAIL = 'contacto@itsmiracleai.com';
 const SITE = { url: 'https://itsmiracleai.com.co', name: 'Miracle', today: new Date().toISOString().slice(0, 10) }; // PENDIENTE (jefe): dominio final
 /* ---------- Blog: tipos, roles y artículos ----------
    Cada artículo es src/posts/<slug>.html: un bloque JSON con sus datos y el cuerpo en HTML
@@ -161,7 +159,7 @@ const footer = `<footer>
       <p>Para que el médico mire al paciente, no la pantalla.</p></div>
     <div><p class="fh">Productos</p><ul><li><a href="/notes">Notes</a></li><li><a href="/auditorias">Auditorías</a></li><li><a href="/analytics">Analytics</a></li><li><a href="/planes">Planes</a></li></ul></div>
     <div><p class="fh">Miracle</p><ul><li><a href="/#como-funciona">Cómo funciona</a></li><li><a href="/prueba">Pruébalo</a></li><li><a href="/seguridad">Seguridad</a></li><li><a href="/blog">Blog</a></li><li><a href="https://itsmiracleai.com.co/login">Ingresar</a></li></ul></div>
-    <div><p class="fh">Contacto</p><ul><li><a href="/agendar">Agendar demostración</a></li><li><a href="https://wa.me/573004564592" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a></li></ul></div>
+    <div><p class="fh">Contacto</p><ul><li><a href="/agendar">Agendar demostración</a></li><li><a href="https://wa.me/573004564592" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:dev@itsmiracleai.com">dev@itsmiracleai.com</a></li></ul></div>
   </div>
   <div class="wrap legal"><span>© 2026 Miracle. Colombia.</span><span>Miracle apoya la documentación clínica. Las decisiones clínicas son del médico.</span></div>
 </footer>
@@ -275,7 +273,7 @@ ${listaHtml(list, pg.path, 'Artículos')}
 const orgGraph = [
   { '@type': 'Organization', '@id': SITE.url + '/#org', name: 'Miracle', url: SITE.url + '/',
     description: 'Software clínico con IA para Colombia: notas clínicas, analítica para la gerencia y auditoría de historias clínicas.',
-    logo: SITE.url + '/icon-512.png', email: CONTACT_EMAIL, areaServed: 'CO',
+    logo: SITE.url + '/icon-512.png', email: 'dev@itsmiracleai.com', areaServed: 'CO',
     contactPoint: { '@type': 'ContactPoint', contactType: 'sales', telephone: '+57-313-458-2806', availableLanguage: 'es' } },
   { '@type': 'WebSite', '@id': SITE.url + '/#web', url: SITE.url + '/', name: 'Miracle', inLanguage: 'es-CO', publisher: { '@id': SITE.url + '/#org' } },
 ];
@@ -408,7 +406,7 @@ ${rel.length ? `<section class="related" aria-labelledby="h-rel"><div class="wra
     if (pg.src === 'index' && SEQ) body = withSeq(body);
   }
   if (pg.src === 'blog' && !pg.filtro) body = body.replace('@@BLOGFEAT@@', featHtml()).replace('@@BLOGLIST@@', listaHtml(posts, '/blog', 'Todos los artículos'));
-  body = body.replaceAll('@@EMAIL@@', CONTACT_EMAIL).replaceAll('@@LIVEDEMO@@', readFileSync(new URL('./src/partials/livedemo.html', import.meta.url), 'utf8').trim().replaceAll('@@ID@@', pg.src)).replaceAll('@@CRUMBS@@', crumbsHtml(pg)).replaceAll('@@CTABAND@@', nextHtml(pg) + ctaBand);
+  body = body.replaceAll('@@LIVEDEMO@@', readFileSync(new URL('./src/partials/livedemo.html', import.meta.url), 'utf8').trim().replaceAll('@@ID@@', pg.src)).replaceAll('@@CRUMBS@@', crumbsHtml(pg)).replaceAll('@@CTABAND@@', nextHtml(pg) + ctaBand);
   if (FLOW[pg.path] && !body.includes('next-link')) body += '\n' + nextHtml(pg);
 
   const depth = pg.out.includes('/') ? '/' : '';
