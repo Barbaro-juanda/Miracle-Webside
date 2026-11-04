@@ -225,7 +225,7 @@
         const r = s.getBoundingClientRect(), top = r.top + scrollY - mt;
         if (top < 200) return;
         // latido flotante en el aire de arriba de la sección (entre secciones, lejos de los títulos)
-        html += `<div class="pg-beat" style="top:${Math.round(top + 24)}px;left:${6 + (n * 29) % 44}%">${beat}</div>`;
+        html += `<div class="pg-beat" style="top:${Math.round(top + r.height - 70)}px;left:${6 + (n * 29) % 44}%">${beat}</div>`;
         // figura de salud en el margen lateral (solo si cabe fuera del contenido)
         if (innerWidth >= 1280 && r.height > 420) {
           const side = home ? 'right' : (n % 2 ? 'left' : 'right');
@@ -247,7 +247,7 @@
         const r = s.getBoundingClientRect(), top = r.top + scrollY - mt;
         if (r.height < 260) return;
         const right = m % 2 === 0, edge = Math.max(14, Math.min(70, (innerWidth - 1180) / 2 - 36));
-        html += `<div class="g3w" style="top:${Math.round(top + r.height * (.22 + (m % 3) * .2))}px;${right ? 'right' : 'left'}:${Math.round(edge)}px;animation-delay:-${(m * 2.3) % 9}s">${OBJ[m % 3]}</div>`;
+        html += `<div class="g3w" style="top:${Math.round(top + 70 + r.height * (m % 3) * .06)}px;${right ? 'right' : 'left'}:${Math.round(edge)}px;animation-delay:-${(m * 2.3) % 9}s">${OBJ[m % 3]}</div>`;
         m++;
       });
     }
