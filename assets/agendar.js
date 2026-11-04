@@ -36,9 +36,10 @@
   const form = document.getElementById('bookForm');
   const typeSel = document.getElementById('f-type');
   typeSel.addEventListener('change', () => {
-    const inst = /IPS|Hospital/.test(typeSel.value);
+    const inst = /IPS|Hospital|Corporación/.test(typeSel.value);
     form.querySelectorAll('.inst-only').forEach(f => f.hidden = !inst);
   });
+  document.querySelectorAll('[data-plan="Corp"]').forEach(a => a.addEventListener('click', () => { typeSel.value = 'Corporación o red de instituciones'; typeSel.dispatchEvent(new Event('change')); }));
   document.querySelectorAll('[data-plan="Institucional"]').forEach(a => a.addEventListener('click', () => { typeSel.value = 'IPS o clínica'; typeSel.dispatchEvent(new Event('change')); }));
 
   const rules = {

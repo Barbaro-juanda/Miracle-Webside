@@ -100,7 +100,7 @@ const pages = [
     desc: 'Practica una consulta como paciente: responde en voz alta o escribiendo, y recibe la nota ordenada por secciones y firmada con huella SHA-256. El micrófono es opcional.' },
   { path: '/planes', src: 'planes', out: 'planes.html', crumbs: [['Planes']], faq: true,
     title: 'Planes para médicos independientes e IPS | Miracle',
-    desc: 'Notes con 14 días de prueba para el médico independiente y licencias a la medida para IPS, clínicas y hospitales. Compara los dos planes y resuelve tus dudas.' },
+    desc: 'Notes con 14 días de prueba para el médico independiente, licencias a la medida para IPS, clínicas y hospitales, y el plan Corp para corporaciones y redes. Compara los tres planes y resuelve tus dudas.' },
   { path: '/blog', src: 'blog', out: 'blog.html', js: 'blog', crumbs: [['Blog']],
     title: 'Blog de Miracle: práctica clínica, auditoría y codificación',
     desc: 'Artículos sobre cómo recuperar tiempo de consulta, qué revisar antes de firmar una nota y cómo codificar CIE-10 y CUPS sin buscar en tablas, con ejemplos.' },
