@@ -1,12 +1,12 @@
 {
   "count": 90,
-  "ratio": 1.7647,
+  "ratio": 1.5652,
   "screen": {
-    "x": 28.59,
-    "y": 21.88,
-    "w": 42.86,
-    "h": 45.5
+    "x": 11.85,
+    "y": 6.52,
+    "w": 76.3,
+    "h": 71.88
   },
-  "laptop": 0.442,
-  "source": "portatil-recortado.mp4"
+  "laptop": 0.956,
+  "source": "portatil.mp4 (4K, Topaz)"
 }
