@@ -95,11 +95,16 @@
   // Planes: cada paso de la hoja de ruta se enciende al llegar a él
   const flows = [...document.querySelectorAll('[data-flowscroll] .rmx-flow')];
 
+  const xps = [...document.querySelectorAll('[data-xp]')];
   const zzs = [...document.querySelectorAll('[data-zz]')];
-  if (zzs.length || stps.length || flows.length) {
+  if (zzs.length || stps.length || flows.length || xps.length) {
     const upd = () => {
       const vh = innerHeight, mark = vh * .55;
       stps.forEach(r => r.__upd());
+      xps.forEach(x => {
+        const cs = [...x.querySelectorAll('.xp-c')], as = [...x.querySelectorAll('.xp-a')];
+        cs.forEach((c, k) => { const on = c.getBoundingClientRect().top < vh * .82; c.classList.toggle('lit', on); if (as[k]) as[k].classList.toggle('lit', on); });
+      });
       flows.forEach(f => {
         const cs = [...f.querySelectorAll('.rmx-c')], as = [...f.querySelectorAll('.rmx-a')];
         cs.forEach((c, k) => { const on = c.getBoundingClientRect().top < vh * .8; c.classList.toggle('lit', on); if (as[k]) as[k].classList.toggle('lit', on); });
