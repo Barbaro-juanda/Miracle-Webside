@@ -362,7 +362,7 @@ ${sp.templates.map((t, i) => `    <article class="stpl" data-reveal>
 </div></section>
 <section class="sec tone-ice" aria-labelledby="h-otras"><div class="wrap">
   <h2 id="h-otras">Otras especialidades</h2>
-  <ul class="spec-links">${others.map(x => `<li><a href="/especialidades/${x.slug}">Plantillas de ${x.low}</a></li>`).join('')}<li><a href="/base">Las 49 especialidades en Ü Notes</a></li></ul>
+  <ul class="spec-links">${others.map(x => `<li><a href="/especialidades/${x.slug}">Plantillas de ${x.low}</a></li>`).join('')}<li><a href="/base">Todas las especialidades en Ü Notes</a></li></ul>
 </div></section>
 @@CTABAND@@`;
 }
