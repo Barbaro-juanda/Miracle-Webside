@@ -2184,3 +2184,31 @@ section:has(> .fx){position:relative;isolation:isolate;overflow-x:clip}
 .tone-pearl{background:linear-gradient(to bottom,transparent 0,var(--pearl) 150px,var(--pearl) calc(100% - 150px),transparent 100%)}
 .tone-ice{background:linear-gradient(to bottom,transparent 0,var(--ice-soft) 150px,var(--ice-soft) calc(100% - 150px),transparent 100%)}
 .walk-sec{background:linear-gradient(to bottom,transparent 0,var(--pearl) 150px,var(--pearl) calc(100% - 150px),transparent 100%)}
+
+/* ============================================================
+   Parte clara · propuesta B: aurora clara de baja intensidad + malla de puntos que aparece por zonas +
+   trazos de datos finos a un lado. Es la versión clara del hero oscuro. (Sobre fondo oscuro no se usan.)
+   ============================================================ */
+/* Aurora clara: más amplia y un poco más presente */
+.fx .o1,.fx .o2{width:min(54vw,740px);height:min(54vw,740px)}
+.fx .o1{background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 30%,transparent),transparent)}
+.fx .o2{background:radial-gradient(closest-side,color-mix(in srgb,var(--lilac) 30%,transparent),transparent)}
+.fx.flip .o1{background:radial-gradient(closest-side,color-mix(in srgb,var(--lilac) 30%,transparent),transparent)}
+.fx.flip .o2{background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 30%,transparent),transparent)}
+/* Malla de puntos que se desvanece por zonas */
+.fx::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,color-mix(in srgb,var(--accent) 40%,transparent) 1.1px,transparent 1.5px);background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(ellipse 46% 62% at 16% 46%,#000,transparent 72%);mask-image:radial-gradient(ellipse 46% 62% at 16% 46%,#000,transparent 72%);opacity:.55}
+.fx.flip::after{-webkit-mask-image:radial-gradient(ellipse 46% 62% at 84% 46%,#000,transparent 72%);mask-image:radial-gradient(ellipse 46% 62% at 84% 46%,#000,transparent 72%)}
+/* Trazos de datos a un lado */
+.fx-tr{position:absolute;left:0;top:66%;width:min(15vw,210px);height:auto;overflow:visible}
+.fx.flip .fx-tr{left:auto;right:0;transform:scaleX(-1)}
+.fx-tr path{stroke:color-mix(in srgb,var(--accent) 45%,transparent);stroke-width:1.2}
+.fx-tr path + path{stroke:color-mix(in srgb,var(--lilac) 50%,transparent)}
+.fx-tr circle{fill:var(--lilac);opacity:.7;transform-box:fill-box;transform-origin:center;animation:ndpulse 3.6s ease-in-out infinite}
+.fx-tr circle + circle{fill:var(--accent);animation-delay:-1.6s}
+/* Sobre fondo oscuro estos detalles no se muestran (ahí ya está la aurora intensa) */
+.dark > .fx::after,.tone-dark > .fx::after,.dark > .fx .fx-tr,.tone-dark > .fx .fx-tr{display:none}
+@media (max-width:899px){.fx-tr{display:none}.fx::after{opacity:.4;background-size:22px 22px}}
+@media (prefers-reduced-motion:reduce){.fx-tr circle{animation:none}}
+.page-post .fx::after,.page-post .fx-tr{display:none}

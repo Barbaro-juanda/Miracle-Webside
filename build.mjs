@@ -378,7 +378,8 @@ function addFx(html) {
     if (/class="[^"]*\b(stage|statement)\b/.test(attrs)) return m;
     const i = k++, flip = i % 2 ? ' flip' : '';
     const codes = [0, 1, 2, 3].map(j => `<span class="cd c${(i + [0, 1, 3, 4][j]) % 6 + 1}">${FX_CODES[(i * 3 + j) % FX_CODES.length]}</span>`).join('');
-    return `${m}<div class="fx${flip}" aria-hidden="true"><i class="o1"></i><i class="o2"></i>${codes}</div>`;
+    const tr = '<svg class="fx-tr" viewBox="0 0 300 220" fill="none"><path d="M0 70 H78 L122 114 H226"/><path d="M0 150 H44 L84 110 H150"/><circle cx="226" cy="114" r="3.5"/><circle cx="150" cy="110" r="3"/></svg>';
+    return `${m}<div class="fx${flip}" aria-hidden="true"><i class="o1"></i><i class="o2"></i>${tr}${codes}</div>`;
   });
 }
 
