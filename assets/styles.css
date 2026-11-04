@@ -18,6 +18,8 @@
   --glow:#9fe3ff; --glow-soft:#c8ecff; --glow-strong:#37c9fd;
   /* Segundo acento: violeta eléctrico. --pulse sobre oscuro y como relleno; --pulse-ink para texto sobre claro */
   --pulse:#7b61ff; --pulse-soft:#b4a4ff; --pulse-ink:#5a43d6; --pulse-bg:#f2efff;
+  /* Acento durazno: máximo un elemento por sección (subrayado fino, puntos de lista, etiquetas pequeñas) */
+  --peach:#ff8a6b; --peach-soft:#ffd9cf;
   /* Neutros */
   --white:#fff; --black:#000;
   --canvas:#fbfcfe; --pearl:#f6f8fb; --surface:var(--white);
@@ -2065,3 +2067,15 @@ body[data-product="ana"] .i3d,body[data-product="ana"] .illus3d,[data-p="ana"] .
 /* Ámbar: relleno brillante con texto oscuro (el blanco sobre ámbar no cumple contraste) */
 body[data-product="ana"] .btn-primary,[data-p="ana"] .btn-primary{background:#f5a524;color:var(--deep);box-shadow:0 1px 0 rgba(0,0,0,.14)}
 body[data-product="ana"] .btn-primary:hover,[data-p="ana"] .btn-primary:hover{background:#e8960c}
+
+/* ============================================================
+   Paso 1 · acento durazno (--peach). Un solo elemento por sección.
+   ============================================================ */
+/* Hero: subrayado fino bajo la última palabra del titular */
+.hero-copy h1 .l2 .word:last-child{position:relative}
+.hero-copy h1 .l2 .word:last-child::after{content:"";position:absolute;left:0;right:.14em;bottom:-.04em;height:2px;border-radius:2px;background:var(--peach);transform:scaleX(0);transform-origin:left;transition:transform .9s var(--ease) 1.4s}
+.stage.ready .hero-copy h1 .l2 .word:last-child::after{transform:scaleX(1)}
+/* "Pruébalo": los puntos de la lista */
+.try-points li::before{background:var(--peach);box-shadow:none}
+@media (prefers-reduced-motion:reduce){.hero-copy h1 .l2 .word:last-child::after{transform:scaleX(1);transition:none}}
+.static .hero-copy h1 .l2 .word:last-child::after{transform:scaleX(1);transition:none}
