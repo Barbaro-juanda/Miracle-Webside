@@ -2405,3 +2405,9 @@ html.pgbg main section > .fx{display:none}
 /* El difuminado final de la página queda más abajo: más espacio oscuro debajo de los botones. */
 .closing{padding-bottom:300px}
 @media (max-width:899px){.closing{padding-bottom:220px}}
+
+/* Hero: el lila y el azul intercambian lado; el azul claro (cielo) baja y queda junto al lila; fondo de azul más oscuro. */
+.bg-hero{background:radial-gradient(120% 90% at 70% 40%,#13264a 0,transparent 70%),radial-gradient(90% 80% at 20% 70%,#0f1d3a 0,transparent 70%),var(--deep)}
+.bg-aurora .a1{left:auto;right:-4%;top:30%;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 36%,transparent),transparent)}
+.bg-aurora .a2{right:auto;left:-6%;top:22%;background:radial-gradient(closest-side,color-mix(in srgb,var(--lilac) 32%,transparent),transparent)}
+.bg-aurora .a3{left:14%;top:44%;max-width:420px;max-height:420px;background:radial-gradient(closest-side,color-mix(in srgb,var(--glow-strong) 17%,transparent),transparent)}
