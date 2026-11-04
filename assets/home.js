@@ -377,7 +377,7 @@
     const ctx = cv.getContext('2d'); if (!ctx) return;
     const stage = cv.closest('.stage');
     const small = matchMedia('(max-width: 899px)').matches;
-    const N = small ? 22 : 46;
+    const N = small ? 28 : 64;
     let w = 0, h = 0, dpr = 1, run = false, parts = [];
     const size = () => { dpr = Math.min(1.5, devicePixelRatio || 1); w = cv.clientWidth; h = cv.clientHeight; cv.width = w * dpr; cv.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
     const seed = () => { parts = Array.from({length: N}, () => ({x: Math.random() * w, y: Math.random() * h, z: .25 + Math.random() * .75, p: Math.random() * 6.28, lilac: Math.random() < .4})); };
@@ -391,7 +391,7 @@
       for (const q of parts) {
         q.y -= dt * .012 * q.z; q.x += Math.sin(q.p + now * .0003) * .12 * q.z;
         if (q.y < -6) { q.y = h + 6; q.x = Math.random() * w; }
-        const r = .6 + q.z * 1.5, a = .12 + q.z * .38 * (.6 + .4 * Math.sin(now * .001 + q.p));
+        const r = .8 + q.z * 1.9, a = .25 + q.z * .6 * (.6 + .4 * Math.sin(now * .001 + q.p));
         ctx.beginPath(); ctx.arc(q.x, q.y, r, 0, 6.283);
         ctx.fillStyle = q.lilac ? `rgba(180,164,255,${a})` : `rgba(159,227,255,${a})`;
         ctx.fill();
