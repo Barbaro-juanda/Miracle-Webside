@@ -2858,3 +2858,12 @@ html:not(.js) .rmx-c{opacity:1;transform:none}
 @keyframes rmxrunv{from{top:-30%}to{top:100%}}
 html:not(.js) .xp-c,html:not(.js) .xp-c li{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.xp-c,.xp-c li{opacity:1!important;transform:none!important}.xp-i,.xp-c::after,.xp-go::before,.xp-a i{animation:none}.xp-a i{opacity:1}}
+
+/* Soluciones y planes en una sola página */
+.xp-for{display:block;margin-top:6px;font-size:.9rem;font-weight:600;color:color-mix(in srgb,var(--nx) 70%,#fff)}
+.xp-contr{align-self:flex-start;margin-top:14px;padding:7px 14px;border-radius:12px;font:600 .88rem var(--f-sans);color:#fff;background:color-mix(in srgb,var(--nx) 14%,transparent);border:1px dashed color-mix(in srgb,var(--nx) 70%,transparent)}
+.xp-cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;margin-top:44px}
+.xp-cta .btn-light{box-shadow:0 0 30px color-mix(in srgb,var(--glow-strong) 55%,transparent)}
+.xp-cta p{flex-basis:100%;margin-top:6px;text-align:center;color:var(--d-muted);font-size:.92rem}
+.xp-c h3{margin-top:60px}
+#planes{scroll-margin-top:90px}#areas{scroll-margin-top:90px}

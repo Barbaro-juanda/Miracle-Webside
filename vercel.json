@@ -11,6 +11,11 @@
       "source": "/auditorias",
       "destination": "/analytics",
       "permanent": true
+    },
+    {
+      "source": "/planes",
+      "destination": "/soluciones",
+      "permanent": true
     }
   ],
   "headers": [

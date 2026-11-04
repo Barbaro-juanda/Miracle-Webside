@@ -70,7 +70,7 @@ const frame = (dir, i) => `/assets/hero/${dir}/${String(i).padStart(3, '0')}.web
 const specs = JSON.parse(readFileSync('src/especialidades.json', 'utf8')); // secciones reales de las plantillas del portal (repo de Miracle)
 // Fecha real del último cambio de un archivo fuente (para lastmod y dateModified).
 const gitDate = f => { try { return execSync(`git log -1 --format=%cs -- ${f}`, {encoding: 'utf8'}).trim() || SITE.today; } catch { return SITE.today; } };
-const NAV = [['Cómo funciona', '/#como-funciona'], ['Soluciones', '/soluciones'], ['Planes', '/planes'], ['Seguridad', '/seguridad'], ['Pruébalo', '/prueba'], ['Blog', '/blog']];
+const NAV = [['Cómo funciona', '/#como-funciona'], ['Soluciones y planes', '/soluciones'], ['Seguridad', '/seguridad'], ['Pruébalo', '/prueba'], ['Blog', '/blog']];
 const NAV_HL = '/prueba'; // el enlace que resalta en el menú
 
 const esc = s => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
@@ -81,8 +81,8 @@ const pages = [
     title: 'Historia clínica con IA para médicos e IPS | Miracle',
     desc: 'Miracle escucha la consulta, redacta la nota clínica, sugiere CIE-10 y CUPS y la revisa antes de la firma. Agenda una demostración para tu consultorio o IPS.' },
   { path: '/soluciones', src: 'soluciones', out: 'soluciones.html', js: 'soluciones', crumbs: [['Soluciones']], faq: true,
-    title: 'Ü Base, Ü Analytics y Ü Corp: documenta, comprende y gestiona | Miracle',
-    desc: 'Tres áreas para un mismo recorrido: Ü Base acompaña la documentación clínica, Ü Analytics analiza la actividad y apoya la auditoría, y Ü Corp convierte los hallazgos en decisiones.' },
+    title: 'Soluciones y planes: Ü Base, Ü Analytics y Ü Corp | Miracle',
+    desc: 'Tres áreas para un mismo recorrido: Ü Base documenta, Ü Analytics comprende y apoya la auditoría, y Ü Corp gestiona. Mira cómo se contrata cada una y empieza con 14 días de prueba.' },
   { path: '/base', src: 'base', out: 'base.html', gsap: true, js: 'product', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Ü Base']],
     app: { name: 'Miracle Ü Base', description: 'Acompaña el trabajo clínico: captura y transcribe la consulta, prepara borradores con Ü Notes para revisión profesional y facilita llevar la información validada al sistema de la institución.' },
     title: 'Ü Base: más tiempo para atender, menos carga documental | Miracle',
@@ -98,9 +98,6 @@ const pages = [
   { path: '/prueba', src: 'prueba', out: 'prueba.html', gsap: true, js: 'product', demo: true, faq: true, crumbs: [['Pruébalo']],
     title: 'Pruébalo: sé el paciente y mira cómo Miracle escribe la nota | Miracle',
     desc: 'Practica una consulta como paciente: responde en voz alta o escribiendo, y recibe la nota ordenada por secciones y firmada con huella SHA-256. El micrófono es opcional.' },
-  { path: '/planes', src: 'planes', out: 'planes.html', crumbs: [['Planes']], faq: true,
-    title: 'Planes y módulos: Ü Base, Ü Analytics y Ü Corp | Miracle',
-    desc: 'Ü Base con 14 días de prueba, licencias Miracle One y Miracle Pro, y los módulos adicionales Ü Analytics y Ü Corp. La propuesta de cada cliente define qué se activa.' },
   { path: '/blog', src: 'blog', out: 'blog.html', js: 'blog', crumbs: [['Blog']],
     title: 'Blog de Miracle: práctica clínica, auditoría y codificación',
     desc: 'Artículos sobre cómo recuperar tiempo de consulta, qué revisar antes de firmar una nota y cómo codificar CIE-10 y CUPS sin buscar en tablas, con ejemplos.' },
@@ -161,7 +158,7 @@ const footer = `<footer>
   <div class="wrap foot">
     <div><a href="/" class="logo" aria-label="Miracle, inicio"><svg class="wm" width="92" height="29" aria-hidden="true"><use href="#wm"/></svg></a>
       <p>Para que el médico mire al paciente, no la pantalla.</p></div>
-    <div><p class="fh">Productos</p><ul><li><a href="/base">Ü Base</a></li><li><a href="/analytics">Ü Analytics</a></li><li><a href="/corp">Ü Corp</a></li><li><a href="/planes">Planes</a></li></ul></div>
+    <div><p class="fh">Productos</p><ul><li><a href="/base">Ü Base</a></li><li><a href="/analytics">Ü Analytics</a></li><li><a href="/corp">Ü Corp</a></li><li><a href="/soluciones#planes">Planes</a></li></ul></div>
     <div><p class="fh">Miracle</p><ul><li><a href="/#como-funciona">Cómo funciona</a></li><li><a href="/prueba">Pruébalo</a></li><li><a href="/seguridad">Seguridad</a></li><li><a href="/blog">Blog</a></li><li><a href="https://itsmiracleai.com.co/login">Ingresar</a></li></ul></div>
     <div><p class="fh">Contacto</p><ul><li><a href="/agendar">Agendar demostración</a></li><li><a href="https://wa.me/573004564592" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:dev@itsmiracleai.com">dev@itsmiracleai.com</a></li></ul></div>
   </div>
@@ -174,9 +171,8 @@ const footer = `<footer>
 
 /* Recorrido entre subpáginas: cada una termina con un enlace directo a la siguiente (y a la anterior). */
 const FLOW = {
-  '/soluciones': { prev: ['Cómo funciona', '/#como-funciona'], next: ['Planes', '/planes', 'Las licencias de Ü Base y los módulos Ü Analytics y Ü Corp, con lo que incluye cada uno.'] },
-  '/planes': { prev: ['Soluciones', '/soluciones'], next: ['Seguridad', '/seguridad', 'Cómo se cuida cada consulta: revisión humana, datos aislados y firma con huella.'] },
-  '/seguridad': { prev: ['Planes', '/planes'], next: ['Pruébalo', '/prueba', 'Sé el paciente por un minuto y mira cómo Miracle escribe la nota.'] },
+  '/soluciones': { prev: ['Cómo funciona', '/#como-funciona'], next: ['Seguridad', '/seguridad', 'Cómo se cuida cada consulta: revisión humana, datos aislados y firma con huella.'] },
+  '/seguridad': { prev: ['Soluciones y planes', '/soluciones'], next: ['Pruébalo', '/prueba', 'Sé el paciente por un minuto y mira cómo Miracle escribe la nota.'] },
   '/prueba': { prev: ['Seguridad', '/seguridad'], next: ['Blog', '/blog', 'Práctica clínica, auditoría y codificación, escritos desde la consulta en Colombia.'] },
   '/blog': { prev: ['Pruébalo', '/prueba'], next: ['Agenda una demostración', '/agendar', 'Te mostramos Miracle con una consulta de tu especialidad, en 30 minutos.'] },
 };
@@ -495,7 +491,7 @@ writeFileSync('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xm
 writeFileSync('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${SITE.url}/sitemap.xml\n`);
 // Las URL de vista previa (*.vercel.app) no se indexan; el dominio de producción sí.
 writeFileSync('vercel.json', JSON.stringify({ cleanUrls: true, trailingSlash: false,
-  redirects: [{ source: '/notes', destination: '/base', permanent: true }, { source: '/auditorias', destination: '/analytics', permanent: true }],
+  redirects: [{ source: '/notes', destination: '/base', permanent: true }, { source: '/auditorias', destination: '/analytics', permanent: true }, { source: '/planes', destination: '/soluciones', permanent: true }],
   headers: [{ source: '/assets/fonts/(.*)', headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] },
     { source: '/(.*)', has: [{ type: 'host', value: '(?<sub>.*)\\.vercel\\.app' }], headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }] }] }, null, 2) + '\n');
 console.log(`Listo: ${pages.length} páginas`);
