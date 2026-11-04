@@ -227,7 +227,7 @@
         // latido flotante en el aire de arriba de la sección (entre secciones, lejos de los títulos)
         html += `<div class="pg-beat" style="top:${Math.round(top + r.height - 70)}px;left:${6 + (n * 29) % 44}%">${beat}</div>`;
         // figura de salud en el margen lateral (solo si cabe fuera del contenido)
-        if (innerWidth >= 1280 && r.height > 420) {
+        if (false && innerWidth >= 1280 && r.height > 420) {
           const side = home ? 'right' : (n % 2 ? 'left' : 'right');
           const margin = Math.max(8, (innerWidth - 1180) / 2 - 110);
           html += `<div class="pg-glyph" style="top:${Math.round(top + r.height * .38)}px;${side}:${Math.round(margin)}px">${GL[n % GL.length]}</div>`;
@@ -236,7 +236,7 @@
       });
     }
     // Figuras 3D pequeñas que giran, solo en las subpáginas: cubo, giroscopio y prisma, en los bordes de cada sección
-    if (!home && !isPost && innerWidth >= 900) {
+    if (false) {  // retiradas: los íconos van dentro del contenido (tarjetas), no sueltos en los márgenes
       const cube = '<div class="g3 g3-cube"><div class="g3-in">' + ['f','b','r','l','t','u'].map(k => `<i class="${k}"></i>`).join('') + '</div></div>';
       const gyro = '<div class="g3 g3-gyro"><div class="g3-in"><i class="a"></i><i class="b"></i><i class="c"></i><b></b></div></div>';
       const prism = '<div class="g3 g3-prism"><div class="g3-in">' + ['p1','p2','p3'].map(k => `<i class="${k}"></i>`).join('') + '</div></div>';
