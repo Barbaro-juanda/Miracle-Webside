@@ -427,6 +427,9 @@ ${rel.length ? `<section class="related" aria-labelledby="h-rel"><div class="wra
   if (pg.src === 'blog' && !pg.filtro) body = body.replace('@@BLOGFEAT@@', featHtml()).replace('@@BLOGLIST@@', listaHtml(posts, '/blog', 'Todos los artículos'));
   body = body.replaceAll('@@LIVEDEMO@@', readFileSync(new URL('./src/partials/livedemo.html', import.meta.url), 'utf8').trim().replaceAll('@@ID@@', pg.src)).replaceAll('@@CRUMBS@@', crumbsHtml(pg)).replaceAll('@@CTABAND@@', nextHtml(pg) + ctaBand);
   if (FLOW[pg.path] && !body.includes('next-link')) body += '\n' + nextHtml(pg);
+  // Las preguntas frecuentes van siempre al final de todo, justo antes del pie de página
+  { const m = body.match(/<section class="[^"]*"[^>]*aria-labelledby="h-faq">[\s\S]*?<\/section>/);
+    if (m) body = body.replace(m[0], '') + '\n' + m[0]; }
   body = addFx(body);
 
   const depth = pg.out.includes('/') ? '/' : '';
