@@ -2136,3 +2136,6 @@ body[data-product="ana"] .btn-primary,[data-p="ana"] .btn-primary{box-shadow:non
 
 /* Paso 7 · movimiento reducido: nada de lo nuevo se mueve */
 @media (prefers-reduced-motion:reduce){.nav a.hl::before,.ld-listen > i{animation:none}}
+
+/* Paso 6 (opcional, parte aprobada por defecto) · una línea de luz diagonal al 5 % en el hero */
+.stage{background-image:linear-gradient(115deg,transparent 49.85%,rgba(255,255,255,.05) 50%,transparent 50.15%)}
