@@ -2276,3 +2276,34 @@ body[data-product="ana"] .btn-primary:hover,[data-p="ana"] .btn-primary:hover{ba
 .sp-node{background:radial-gradient(circle at 34% 30%,#fff,#b9d4f5 38%,#5f7fb0 72%,#1d2f55);border-color:rgba(255,255,255,.7)}
 .sp-node.lit{background:radial-gradient(circle at 34% 30%,#fff,#e5ddff 34%,var(--lilac) 74%,#4a35c9);border-color:#fff}
 @media (prefers-reduced-motion:reduce){.btn-primary,.btn-ghost{transition:none}}
+
+/* ============================================================
+   Conexión total · del hero al orbe del circuito, sin cortes ni líneas que se corran
+   ============================================================ */
+/* Sin la línea de colores bajo "Soy médico / Dirijo una IPS / Audito notas" */
+.hero-links .rl a[data-p]::after{display:none}
+/* Tramo del hilo dentro del hero: sube desde el suelo y llega al borde inferior, donde sigue el hilo de la página */
+.hero-spine{position:absolute;z-index:1;left:max(20px,calc((100vw - 1180px) / 2 - 76px));bottom:0;width:0;height:240px;pointer-events:none}
+.hero-spine i{position:absolute;left:-1px;bottom:0;width:2px;height:100%;background:linear-gradient(to top,var(--glow-strong),transparent);opacity:.8}
+.hero-spine b{position:absolute;left:-6px;bottom:-6px;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 34% 30%,#fff,#b9d4f5 38%,#5f7fb0 72%,#1d2f55);border:2px solid rgba(255,255,255,.7)}
+@media (max-width:1099px){.hero-spine{display:none}}
+/* Enlace del hilo al orbe del circuito */
+.pg-link{position:absolute;overflow:visible}
+.pg-link path{fill:none;stroke:url(#chrome-line);stroke-width:2;stroke-linecap:round;transition:stroke-dashoffset 1.1s var(--ease)}
+/* La capa de fondo se funde con el pie de página */
+.pg-bg{-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 260px),transparent 100%);mask-image:linear-gradient(to bottom,#000 calc(100% - 260px),transparent 100%)}
+.pb-last{-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 150px),transparent 100%);mask-image:linear-gradient(to bottom,#000 calc(100% - 150px),transparent 100%)}
+footer{border-top:0;background:linear-gradient(to bottom,transparent 0,var(--surface) 150px)}
+/* Botones: el mismo cromado, mucho más disimulado */
+.btn::before{height:42%;background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,0))}
+.btn-primary{background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 91%,#fff) 0,var(--accent) 52%,color-mix(in srgb,var(--accent) 95%,#000) 100%);border-color:color-mix(in srgb,var(--accent) 82%,#fff);box-shadow:inset 0 1px 0 rgba(255,255,255,.26),0 1px 2px rgba(0,0,0,.14),0 4px 10px color-mix(in srgb,var(--accent) 14%,transparent)}
+.btn-primary:hover{background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 86%,#fff) 0,color-mix(in srgb,var(--accent) 96%,#fff) 52%,var(--accent) 100%)}
+.btn-ghost,.btn-light{background:linear-gradient(180deg,#fff 0,#f3f6fa 100%);border-color:#d4dbe6;box-shadow:inset 0 1px 0 #fff,0 1px 2px rgba(14,23,38,.07)}
+.btn-ghost:hover,.btn-light:hover{background:linear-gradient(180deg,#fff 0,#f8fafc 100%);border-color:#b9c5d6}
+.btn-ghost::before,.btn-light::before{background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(255,255,255,0))}
+.btn-dark-ghost,.final .btn-ghost{background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.05));border-color:rgba(255,255,255,.26);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 1px 2px rgba(0,0,0,.2)}
+.btn-dark-ghost:hover,.final .btn-ghost:hover{background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.08));border-color:rgba(255,255,255,.5)}
+.btn-dark-ghost::before,.final .btn-ghost::before{background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,0))}
+body[data-product="ana"] .btn-primary,[data-p="ana"] .btn-primary{background:linear-gradient(180deg,#f9b73c 0,#f5a524 52%,#e79a14 100%);border-color:#f8c466}
+body[data-product="ana"] .btn-primary:hover,[data-p="ana"] .btn-primary:hover{background:linear-gradient(180deg,#fbc25a 0,#f8b038 52%,#eba018 100%)}
+.nav a.hl,.hdr.on-dark .nav a.hl{background:linear-gradient(180deg,color-mix(in srgb,var(--lilac) 92%,#fff) 0,var(--lilac) 52%,color-mix(in srgb,var(--lilac) 94%,#000) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.26)}

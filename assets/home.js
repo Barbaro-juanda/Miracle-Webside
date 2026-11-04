@@ -342,7 +342,6 @@
       scrollTrigger:{trigger:stEl, start:'top top', end:() => '+=' + Math.round(innerHeight * 1.6), pin:true, scrub:.35, anticipatePin:1, invalidateOnRefresh:true}});
     stTl.from('.statement p', {y:40, duration:.15, ease:'power2.out'}, 0)
         .to(sw, {color:stLit, duration:.06, stagger:{each:.74 / sw.length}}, .1)
-        .fromTo('.st-thread i', {scaleY:0}, {scaleY:1, duration:.8, ease:'none'}, .1)
         .to({}, {duration:.15});
 
     /* Circuito: las líneas salen del orbe y encienden cada producto */

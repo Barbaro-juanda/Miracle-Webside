@@ -170,7 +170,8 @@
   const bg = document.createElement('div'); bg.className = 'pg-bg'; bg.setAttribute('aria-hidden', 'true');
   main.prepend(bg);
   const CODES = ['J03.9', '890201', 'CIE-10', 'CUPS', 'SHA-256', 'F41.2', 'RIPS', 'Z00.1', 'FIRMA'];
-  let spineTop = 0, spineH = 1, nodes = [], onEl = null, lastP = -1;
+  let spineTop = 0, spineH = 1, nodes = [], onEl = null, lastP = -1, link = null;
+  const home = document.body.classList.contains('page-index');
 
   const theme = s => {
     if (s.classList.contains('stage')) return null;
@@ -187,7 +188,8 @@
     secs.forEach(s => {
       const t = theme(s); if (!t) return;
       const r = s.getBoundingClientRect(), top = r.top + scrollY - mt;
-      html += `<div class="pb pb-${t}" style="top:${Math.round(top)}px;height:${Math.round(r.height)}px"></div>`;
+      const last = s === [...secs].reverse().find(x => theme(x));
+      html += `<div class="pb pb-${t}${last ? ' pb-last' : ''}" style="top:${Math.round(top)}px;height:${Math.round(r.height)}px"></div>`;
     });
     // Aurora: masas de luz repartidas por toda la página, alternando lado y color
     const stepY = innerWidth < 900 ? 720 : 620;
@@ -201,21 +203,31 @@
         html += `<span class="pc" style="top:${Math.round(i * 520 + 150 + (i * 71) % 160)}px;left:${x}%;animation-delay:-${(i * 3) % 12}s">${CODES[(i * 5) % CODES.length]}</span>`;
       }
     }
-    // Hilo de datos
-    nodes = [];
-    if (innerWidth >= 1100) {
-      const first = secs.find(s => !s.classList.contains('stage')) || secs[0];
-      spineTop = first.getBoundingClientRect().top + scrollY - mt + 40;
-      spineH = Math.max(1, H - spineTop - 120);
+    // Hilo de datos (solo en la home): sale del hero, baja por el costado, une las secciones y entra al orbe del circuito
+    nodes = []; link = null;
+    if (home && innerWidth >= 1100) {
+      const stage = secs.find(s => s.classList.contains('stage'));
+      const sr = stage ? stage.getBoundingClientRect() : null;
+      spineTop = sr ? sr.bottom + scrollY - mt : 0;
+      spineH = Math.max(1, H - spineTop - 140);
+      const sx = Math.max(20, (innerWidth - 1180) / 2 - 76);
       html += `<div class="spine" style="top:${Math.round(spineTop)}px;height:${Math.round(spineH)}px"><i class="sp-base"></i><i class="sp-on"></i>`;
+      html += `<b class="sp-node" style="top:0"><em>CIE-10</em></b>`; nodes.push(mt + spineTop);
       secs.forEach((s, k) => {
         if (s.classList.contains('stage')) return;
         const y = s.getBoundingClientRect().top + scrollY - mt + 60 - spineTop;
-        if (y < 0 || y > spineH) return;
+        if (y < 40 || y > spineH) return;
         html += `<b class="sp-node" style="top:${Math.round(y)}px"><em>${CODES[(k * 3 + 1) % CODES.length]}</em></b>`;
         nodes.push(mt + spineTop + y);
       });
       html += '</div>';
+      const orb = document.querySelector('.cx-orb');
+      if (orb) {
+        const o = orb.getBoundingClientRect(), cy = o.top + scrollY - mt + o.height / 2, ox = o.left + o.width / 2 - 62;
+        const L = Math.round(ox - sx);
+        html += `<svg class="pg-link" style="top:${Math.round(cy) - 6}px;left:${Math.round(sx)}px;width:${L}px;height:12px" viewBox="0 0 ${L} 12"><path d="M0 6 H${L}" stroke-dasharray="${L}" stroke-dashoffset="${L}"/></svg>`;
+        link = {y: mt + cy, L};
+      }
     }
     bg.innerHTML = html;
     onEl = bg.querySelector('.sp-on'); lastP = -1;
@@ -229,6 +241,7 @@
     if (Math.abs(p - lastP) < .001) return; lastP = p;
     onEl.style.transform = `scaleY(${p.toFixed(4)})`;
     bg.querySelectorAll('.sp-node').forEach((n, i) => n.classList.toggle('lit', reduce || sy > nodes[i]));
+    const lk = bg.querySelector('.pg-link path'); if (lk && link) lk.style.strokeDashoffset = (reduce || sy > link.y) ? 0 : link.L;
   };
 
   let t = null; const later = () => { clearTimeout(t); t = setTimeout(build, 180); };
