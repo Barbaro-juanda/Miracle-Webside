@@ -3008,3 +3008,13 @@ html:not(.js) .stc{opacity:1;transform:none}
 /* MIRA: disco más pequeño y con aire alrededor para no chocar con las etiquetas */
 .mira-pd{width:64%;margin:-32% 0 0 -32%}
 .mira-cv{width:70%;margin:-35% 0 0 -35%}
+
+/* Botón "Saltar animación" del hero */
+.hero-skip{position:absolute;z-index:6;left:max(20px,calc((100vw - 1180px)/2 + 20px));bottom:26px;display:inline-flex;align-items:center;gap:10px;padding:10px 16px 10px 18px;border-radius:999px;font:600 .9rem var(--f-sans);color:#e8f1ff;cursor:pointer;background:color-mix(in srgb,#0c1424 70%,transparent);border:1px solid color-mix(in srgb,var(--glow-strong) 55%,transparent);box-shadow:0 0 22px color-mix(in srgb,var(--glow-strong) 28%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .35s,transform .35s,box-shadow .3s}
+.hero-skip.on{opacity:1;pointer-events:auto;transform:none}
+.hero-skip:hover{box-shadow:0 0 34px color-mix(in srgb,var(--glow-strong) 55%,transparent)}
+.hero-skip i{width:9px;height:9px;border-right:2px solid var(--glow);border-bottom:2px solid var(--glow);transform:rotate(45deg) translate(-2px,-2px);animation:skipdown 1.6s ease-in-out infinite}
+@keyframes skipdown{0%,100%{transform:rotate(45deg) translate(-2px,-2px)}50%{transform:rotate(45deg) translate(2px,2px)}}
+.static .hero-skip{display:none}
+@media (max-width:899px){.hero-skip{left:20px;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);padding:9px 14px}}
+@media (prefers-reduced-motion:reduce){.hero-skip i{animation:none}}

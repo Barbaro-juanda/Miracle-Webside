@@ -283,6 +283,26 @@
     const inField = e => /^(input|textarea|select)$/i.test(e.target.tagName) || e.target.isContentEditable;
     const atEnd = down => down ? idx === MAX : idx === 0;
 
+    /* ---------- Saltar la animación: va directo al final del recorrido y baja a lo que sigue ---------- */
+    const skipBtn = document.createElement('button');
+    skipBtn.type = 'button'; skipBtn.className = 'hero-skip'; skipBtn.setAttribute('aria-label', 'Saltar la animación y seguir a la página');
+    skipBtn.innerHTML = '<span>Saltar animación</span><i aria-hidden="true"></i>';
+    stage.appendChild(skipBtn);
+    let skipOn = false;
+    const skipTick = () => {
+      const show = !!tl && idx < MAX && scrollY < 2;
+      if (show !== skipOn) { skipOn = show; skipBtn.classList.toggle('on', show); skipBtn.tabIndex = show ? 0 : -1; }
+    };
+    gsap.ticker.add(skipTick);
+    skipBtn.addEventListener('click', () => {
+      if (!tl) return;
+      gsap.killTweensOf(tl); queued = 0; cooling = false; busy = false;
+      idx = MAX; tl.time(S[MAX], false); paint();
+      const next = stage.nextElementSibling;
+      if (next) window.scrollTo({top: next.getBoundingClientRect().top + scrollY - 72, behavior: reduce ? 'auto' : 'smooth'});
+      skipOn = false; skipBtn.classList.remove('on'); skipBtn.tabIndex = -1;
+    });
+
     let lastEvt = 0, acc = 0;
     addEventListener('wheel', e => {
       if (e.ctrlKey) return;
