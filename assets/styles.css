@@ -2821,3 +2821,7 @@ html:not(.js) .stp{height:auto}html:not(.js) .stp-pin{position:static}html:not(.
 .rmx-a.lit i{animation-play-state:running;opacity:1}
 html:not(.js) .rmx-c{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.rmx-c{opacity:1;transform:none}.rmx-a i{opacity:1}}
+
+/* El número del nodo queda por encima de la línea */
+.walk-steps::before,.walk-steps::after{z-index:0}
+.walk .walk-step .n{z-index:2}
