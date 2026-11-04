@@ -437,6 +437,7 @@ ${rel.length ? `<section class="related" aria-labelledby="h-rel"><div class="wra
     pg.gsap ? GSAP : '',
     '<script defer src="/assets/core.js"></script>',
     pg.js ? `<script defer src="/assets/${pg.js}.js"></script>` : '',
+    (pg.src !== 'index' && !pg.post) ? '<script defer src="/assets/scrollfx.js"></script>' : '',
     pg.demo ? '<script defer src="/assets/demo.js"></script>' : '',
   ].filter(Boolean).join('\n');
   return `<!doctype html>

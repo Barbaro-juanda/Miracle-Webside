@@ -12,7 +12,7 @@
   const walk = $('.walk');
   if (walk) {
     const vz = $('.vz', walk), steps = $$('.walk-step', walk);
-    const set = n => { vz.dataset.step = n; steps.forEach((s, i) => s.classList.toggle('on', i === n - 1)); };
+    const set = n => { walk.style.setProperty('--wn', n); vz.dataset.step = n; steps.forEach((s, i) => s.classList.toggle('on', i === n - 1)); };
     set(reduce ? 3 : 1);
     if (!reduce && 'IntersectionObserver' in window) {
       const wide = matchMedia('(min-width: 1025px)');
