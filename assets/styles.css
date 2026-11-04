@@ -2401,3 +2401,7 @@ html.pgbg main section > .fx{display:none}
 @keyframes g3float{0%,100%{translate:0 -8px}50%{translate:0 10px}}
 @media (prefers-reduced-motion:reduce){.g3w,.g3-in,.g3 i{animation:none!important}}
 @media (max-width:899px){.g3w{display:none}}
+
+/* El difuminado final de la página queda más abajo: más espacio oscuro debajo de los botones. */
+.closing{padding-bottom:300px}
+@media (max-width:899px){.closing{padding-bottom:220px}}
