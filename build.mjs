@@ -439,6 +439,7 @@ ${rel.length ? `<section class="related" aria-labelledby="h-rel"><div class="wra
     '<script defer src="/assets/core.js"></script>',
     pg.js ? `<script defer src="/assets/${pg.js}.js"></script>` : '',
     (!pg.post) ? '<script defer src="/assets/scrollfx.js"></script>' : '',
+    (!pg.post) ? '<script defer src="/assets/mira3d.js"></script>' : '',
     pg.demo ? '<script defer src="/assets/demo.js"></script>' : '',
   ].filter(Boolean).join('\n');
   return `<!doctype html>
