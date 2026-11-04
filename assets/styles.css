@@ -2965,3 +2965,21 @@ html:not(.js) .stc{opacity:1;transform:none}
 .explore .xtile .xgo,.explore .xtile.t-dark .xgo,.explore .xtile.t-blue .xgo,.explore .xtile.t-mint .xgo,.explore .xtile.t-light .xgo{background:var(--nx);color:#fff;box-shadow:0 0 18px color-mix(in srgb,var(--nx) 60%,transparent)}
 .explore .xbar{position:relative;z-index:1}
 @media (prefers-reduced-motion:reduce){.explore::before,.explore::after{animation:none}}
+
+/* Tabla "Cada área suma a la anterior": sin X; cada área aporta algo y se apoya en la anterior */
+.cmp2{margin-top:36px;border-radius:var(--r-xl);background:var(--surface);border:1px solid var(--line);box-shadow:0 18px 44px rgba(14,23,38,.08);overflow:hidden}
+.cm-top,.cm-r{display:grid;grid-template-columns:200px repeat(3,minmax(0,1fr))}
+.cm-top{background:linear-gradient(180deg,#12264d,#0c1424);padding:24px 0 22px;align-items:center;position:relative}
+.cm-h{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:0 24px;color:#fff}
+.cm-h:nth-child(2){padding-left:24px}
+.cm-n{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;font:700 .95rem var(--f-display);color:#fff;border:2px solid rgba(255,255,255,.95);background:radial-gradient(circle at 35% 28%,#fff 0,var(--nx) 55%,color-mix(in srgb,var(--nx) 55%,#000) 100%);box-shadow:0 0 18px color-mix(in srgb,var(--nx) 80%,transparent)}
+.cm-h b{margin-top:8px;font:700 1.3rem var(--f-display);text-shadow:0 0 22px color-mix(in srgb,var(--nx) 60%,transparent)}
+.cm-h em{font-style:normal;font-weight:600;font-size:.88rem;color:color-mix(in srgb,var(--nx) 55%,#fff)}
+.cm-a{display:none}
+.cm-r{border-top:1px solid var(--line)}
+.cm-r:nth-child(even){background:color-mix(in srgb,var(--accent) 3%,transparent)}
+.cm-l{padding:22px 24px;font-weight:700;color:var(--deep)}
+.cm-c{position:relative;padding:22px 24px;color:var(--ink-soft);line-height:1.5;border-left:1px solid var(--line)}
+.cm-c::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:3px;border-radius:3px;background:var(--nx);box-shadow:0 0 10px var(--nx);opacity:.9}
+.cm-r:last-child .cm-c{font-weight:600;color:var(--deep)}
+@media (max-width:900px){.cm-top{display:none}.cm-r{grid-template-columns:1fr;padding:18px 0}.cm-l{padding:0 22px 6px;color:var(--accent-ink)}.cm-c{display:flex;flex-direction:column;border-left:0;padding:12px 22px 12px 32px}.cm-c::before{left:18px;top:10px;bottom:10px}.cm-c::after{content:attr(data-l);display:block;order:-1;margin-bottom:2px;font:700 .8rem var(--f-sans);color:var(--ink)}}
