@@ -421,6 +421,8 @@ ${rel.length ? `<section class="related" aria-labelledby="h-rel"><div class="wra
     if (pg.src === 'index' && SEQ) body = withSeq(body);
   }
   if (pg.src === 'blog' && !pg.filtro) body = body.replace('@@BLOGFEAT@@', featHtml()).replace('@@BLOGLIST@@', listaHtml(posts, '/blog', 'Todos los artículos'));
+  { const mira = readFileSync(new URL('./src/partials/mira-hook.html', import.meta.url), 'utf8');
+    body = body.replaceAll('@@MIRAHOOK:base@@', mira.replace('@@MIRACTA@@', '')).replaceAll('@@MIRAHOOK@@', mira.replace('@@MIRACTA@@', '<a class="btn btn-dark-ghost" href="/base">Conoce Ü Base</a>')); }
   body = body.replaceAll('@@LIVEDEMO@@', readFileSync(new URL('./src/partials/livedemo.html', import.meta.url), 'utf8').trim().replaceAll('@@ID@@', pg.src)).replaceAll('@@CRUMBS@@', crumbsHtml(pg)).replaceAll('@@CTABAND@@', nextHtml(pg) + ctaBand);
   if (FLOW[pg.path] && !body.includes('next-link')) body += '\n' + nextHtml(pg);
   // Las preguntas frecuentes van siempre al final de todo, justo antes del pie de página
@@ -436,7 +438,7 @@ ${rel.length ? `<section class="related" aria-labelledby="h-rel"><div class="wra
     pg.gsap ? GSAP : '',
     '<script defer src="/assets/core.js"></script>',
     pg.js ? `<script defer src="/assets/${pg.js}.js"></script>` : '',
-    (pg.src !== 'index' && !pg.post) ? '<script defer src="/assets/scrollfx.js"></script>' : '',
+    (!pg.post) ? '<script defer src="/assets/scrollfx.js"></script>' : '',
     pg.demo ? '<script defer src="/assets/demo.js"></script>' : '',
   ].filter(Boolean).join('\n');
   return `<!doctype html>

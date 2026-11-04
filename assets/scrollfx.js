@@ -5,12 +5,12 @@
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) return;
   const root = document.documentElement;
-  const figs = [...document.querySelectorAll('.fig')];
+  const figs = [...document.querySelectorAll('.fig,.mira-stage,.mira-flow,.mira-photos')];
   const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   // Riel de neón a la izquierda: se llena a medida que bajas por la página
   let rail = null;
-  if (innerWidth >= 1200) {
+  if (innerWidth >= 1200 && !document.body.classList.contains('page-index')) {
     rail = document.createElement('div'); rail.className = 'sx-rail'; rail.setAttribute('aria-hidden', 'true');
     rail.innerHTML = '<i></i><b></b>'; document.body.appendChild(rail);
   }
@@ -121,4 +121,22 @@
     const on = () => { if (!tk) { tk = true; requestAnimationFrame(() => { tk = false; upd(); }); } };
     addEventListener('scroll', on, {passive: true}); addEventListener('resize', on); upd();
   }
+})();
+
+/* MIRA: las cifras cuentan hacia arriba al llegar a la pantalla */
+(() => {
+  const roots = document.querySelectorAll('.mira-stats'); if (!roots.length) return;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fmt = (v, d) => v.toLocaleString('es-CO', {minimumFractionDigits: d, maximumFractionDigits: d});
+  roots.forEach(root => {
+    const els = [...root.querySelectorAll('em[data-to]')];
+    const run = () => els.forEach(el => {
+      const to = parseFloat(el.dataset.to), d = +(el.dataset.dec || 0);
+      if (reduce) { el.textContent = fmt(to, d); return; }
+      const t0 = performance.now(), dur = 1300;
+      const step = n => { const k = Math.min(1, (n - t0) / dur), e = 1 - Math.pow(1 - k, 3); el.textContent = fmt(to * e, d); if (k < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    });
+    if ('IntersectionObserver' in window) { const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { run(); io.disconnect(); } }, {threshold: .5}); io.observe(root); } else run();
+  });
 })();

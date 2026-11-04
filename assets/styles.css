@@ -2885,3 +2885,61 @@ html:not(.js) .xp-c,html:not(.js) .xp-c li{opacity:1;transform:none}
 @media (max-width:820px){.stg{grid-template-columns:1fr}}
 html:not(.js) .stc{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.stc{opacity:1;transform:none}.stc::after{animation:none}}
+
+/* ============================================================
+   MIRA · gancho publicitario. Neón, anillos de sonido y un colgante que gira con el scroll.
+   ============================================================ */
+.mira{position:relative;overflow:hidden;padding:120px 0 110px}
+.mira .wrap{position:relative}
+.mira-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center}
+.mira-k{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:999px;font:700 .85rem var(--f-sans);color:var(--glow);border:1px solid color-mix(in srgb,var(--glow-strong) 60%,transparent);background:color-mix(in srgb,var(--glow-strong) 10%,transparent);box-shadow:0 0 22px color-mix(in srgb,var(--glow-strong) 32%,transparent)}
+.mira-k i{width:9px;height:9px;border-radius:50%;background:var(--glow-strong);box-shadow:0 0 14px var(--glow-strong);animation:miraled 1.8s ease-in-out infinite}
+@keyframes miraled{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(1.5)}}
+.mira-copy h2{margin-top:20px;font-size:clamp(2.4rem,5.4vw,4.4rem);line-height:1.02;letter-spacing:-.04em;color:#fff;text-shadow:0 0 44px color-mix(in srgb,var(--glow-strong) 45%,transparent);max-width:13ch}
+.mira-lead{margin-top:22px;max-width:34rem;font-size:1.22rem;color:var(--d-soft)}
+.mira-pts{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.mira-pts li{position:relative;padding-left:32px;color:#fff;font-weight:500}
+.mira-pts li::before{content:"";position:absolute;left:0;top:.15em;width:20px;height:20px;border-radius:50%;background:color-mix(in srgb,var(--glow-strong) 22%,transparent);border:1px solid var(--glow-strong);box-shadow:0 0 14px color-mix(in srgb,var(--glow-strong) 75%,transparent)}
+.mira-pts li::after{content:"";position:absolute;left:7px;top:calc(.15em + 4px);width:6px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) scale(.8)}
+.mira-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.mira-cta .btn-primary{box-shadow:0 0 34px color-mix(in srgb,var(--glow-strong) 60%,transparent)}
+.mira-fine{margin-top:14px;font-size:.88rem;color:var(--d-muted)}
+/* escenario del colgante */
+.mira-stage{--p:.5;position:relative;aspect-ratio:1/1;width:100%;max-width:600px;margin:0 auto;perspective:900px}
+.mira-stage .mr{position:absolute;left:50%;top:55%;width:46%;aspect-ratio:1;margin:-23% 0 0 -23%;border-radius:50%;border:2px solid color-mix(in srgb,var(--glow-strong) 75%,transparent);box-shadow:0 0 22px color-mix(in srgb,var(--glow-strong) 55%,transparent),inset 0 0 22px color-mix(in srgb,var(--glow-strong) 30%,transparent);opacity:0;animation:miraring 4.2s ease-out infinite}
+.mira-stage .r2{animation-delay:1.4s}.mira-stage .r3{animation-delay:2.8s}
+@keyframes miraring{0%{transform:scale(.55);opacity:.9}100%{transform:scale(2);opacity:0}}
+.mira-glow{position:absolute;left:50%;top:55%;width:80%;aspect-ratio:1;margin:-40% 0 0 -40%;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--glow-strong) 38%,transparent),transparent);filter:blur(10px)}
+.mira-pd{position:absolute;left:50%;top:50%;width:70%;height:auto;margin:-36% 0 0 -35%;transform-style:preserve-3d;transform:rotateY(calc((var(--p) - .5) * 70deg)) rotateX(calc((.5 - var(--p)) * 14deg)) translateY(calc((.5 - var(--p)) * 30px));filter:drop-shadow(0 30px 50px rgba(0,0,0,.55)) drop-shadow(0 0 40px color-mix(in srgb,var(--glow-strong) 35%,transparent));transition:transform .2s linear;animation:miraflt 7s ease-in-out infinite}
+@keyframes miraflt{0%,100%{translate:0 0}50%{translate:0 -14px}}
+.mira-led{position:absolute;left:51.5%;top:59%;width:20px;height:20px;margin:-10px;border-radius:50%;background:radial-gradient(circle,#fff 0,#6fb8ff 35%,transparent 70%);box-shadow:0 0 30px #3d8bff,0 0 70px #3d8bff;animation:miraled 1.6s ease-in-out infinite;pointer-events:none}
+.mira-chip{position:absolute;padding:9px 16px;border-radius:999px;font:700 .9rem var(--f-sans);color:#fff;background:color-mix(in srgb,#0c1424 70%,transparent);border:1px solid color-mix(in srgb,var(--glow-strong) 65%,transparent);box-shadow:0 0 22px color-mix(in srgb,var(--glow-strong) 38%,transparent);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:miraflt 6s ease-in-out infinite}
+.mira-chip.c1{left:2%;top:18%}.mira-chip.c2{right:0;top:30%;animation-delay:-2s}.mira-chip.c3{left:10%;bottom:12%;animation-delay:-4s}
+/* de la voz al resultado */
+.mira-flow{--p:1;display:grid;grid-template-columns:minmax(0,.8fr) 70px minmax(0,2fr);gap:0;align-items:center;margin-top:70px;padding:34px 36px;border-radius:var(--r-xl);background:linear-gradient(150deg,#12264d 0,#0a1222 78%);border:1px solid color-mix(in srgb,var(--glow-strong) 60%,transparent);box-shadow:0 0 0 1px color-mix(in srgb,var(--glow-strong) 16%,transparent),0 0 56px color-mix(in srgb,var(--glow-strong) 28%,transparent),inset 0 0 30px color-mix(in srgb,var(--glow-strong) 8%,transparent)}
+.mf-in{display:flex;flex-direction:column;align-items:center;gap:14px}.mf-in>span{font-weight:700;color:#fff}
+.mf-wave{display:flex;align-items:center;gap:6px;height:70px}
+.mf-wave i{width:6px;height:100%;border-radius:4px;background:linear-gradient(180deg,#fff,var(--glow-strong));box-shadow:0 0 12px var(--glow-strong);transform-origin:center;animation:svwv 1s ease-in-out infinite}
+.mf-wave i:nth-child(2n){animation-delay:.15s}.mf-wave i:nth-child(3n){animation-delay:.3s}.mf-wave i:nth-child(4n){animation-delay:.45s}
+.mf-arrow{position:relative;height:4px;margin:0 8px;border-radius:4px;background:rgba(55,201,253,.25)}
+.mf-arrow i{position:absolute;left:-30%;top:-1px;width:30%;height:6px;border-radius:6px;background:linear-gradient(90deg,transparent,#fff,var(--glow-strong));box-shadow:0 0 14px var(--glow-strong);animation:rmxrun 1.8s linear infinite}
+.mf-out{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.mf-o{padding:20px 20px 22px;border-radius:var(--r-lg);background:color-mix(in srgb,var(--white) 5%,transparent);border:1px solid color-mix(in srgb,var(--glow-strong) 45%,transparent);box-shadow:0 0 24px color-mix(in srgb,var(--glow-strong) 20%,transparent);opacity:clamp(.25,calc((var(--p) - var(--t,.2)) * 5),1);translate:0 calc((1 - clamp(0,calc((var(--p) - var(--t,.2)) * 5),1)) * 26px)}
+.mf-o.o1{--t:.2}.mf-o.o2{--t:.38}.mf-o.o3{--t:.56}
+.mf-o b{display:block;font:700 1.3rem var(--f-display);color:#fff;text-shadow:0 0 20px color-mix(in srgb,var(--glow-strong) 55%,transparent)}.mf-o span{display:block;margin-top:6px;color:var(--d-soft);font-size:.95rem}
+/* fotos */
+.mira-head{margin-top:80px;text-align:center}.mira-head h3{font-size:clamp(1.7rem,3.4vw,2.6rem);color:#fff;text-shadow:0 0 34px color-mix(in srgb,var(--glow-strong) 40%,transparent)}
+.mira-photos{--p:.5;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:36px}
+.mp{position:relative;margin:0;aspect-ratio:4/5;border-radius:var(--r-xl);overflow:hidden;isolation:isolate;border:1px solid color-mix(in srgb,var(--glow-strong) 55%,transparent);box-shadow:0 0 0 1px color-mix(in srgb,var(--glow-strong) 14%,transparent),0 0 44px color-mix(in srgb,var(--glow-strong) 26%,transparent);transition:transform .4s var(--ease),box-shadow .4s}
+.mp:hover{transform:translateY(-8px);box-shadow:0 0 0 1px color-mix(in srgb,var(--glow-strong) 50%,transparent),0 0 70px color-mix(in srgb,var(--glow-strong) 50%,transparent)}
+.mp img{position:absolute;left:0;top:-6%;width:100%;height:112%;object-fit:cover;transform:translateY(calc((var(--p) - .5) * -40px));transition:transform .2s linear;z-index:-2}
+.mp::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 45%,rgba(6,12,26,.88))}
+.mp::after{content:"";position:absolute;left:-40%;top:0;width:60%;height:2px;background:linear-gradient(90deg,transparent,var(--glow-strong),transparent);animation:nxrun 5.5s ease-in-out infinite}
+.mp figcaption{position:absolute;left:24px;right:24px;bottom:22px;color:#fff}.mp figcaption b{display:block;font:700 1.5rem var(--f-display)}.mp figcaption span{display:block;margin-top:4px;color:var(--d-soft)}
+/* cifras */
+.mira-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:46px}
+.mira-stats>div{padding:26px 18px;text-align:center;border-radius:var(--r-lg);background:color-mix(in srgb,var(--white) 4%,transparent);border:1px solid color-mix(in srgb,var(--glow-strong) 35%,transparent)}
+.mira-stats b{display:block;font:800 clamp(2rem,3.6vw,3rem) var(--f-display);color:#fff;letter-spacing:-.03em;text-shadow:0 0 30px color-mix(in srgb,var(--glow-strong) 65%,transparent)}
+.mira-stats em{font-style:normal}.mira-stats span{display:block;margin-top:6px;color:var(--d-soft);font-size:.95rem}
+@media (max-width:960px){.mira-top{grid-template-columns:1fr}.mira-stage{max-width:440px}.mira-flow{grid-template-columns:1fr;gap:20px;padding:26px 22px}.mf-arrow{width:4px;height:34px;margin:0 auto}.mf-arrow i{left:-1px;top:-30%;width:6px;height:30%;animation-name:rmxrunv;background:linear-gradient(180deg,transparent,#fff,var(--glow-strong))}.mf-out{grid-template-columns:1fr}.mira-photos{grid-template-columns:1fr}.mp{aspect-ratio:4/4.4}.mira-stats{grid-template-columns:1fr 1fr}.mira{padding:90px 0 80px}}
+@media (prefers-reduced-motion:reduce){.mira-stage .mr,.mira-pd,.mira-led,.mira-chip,.mf-wave i,.mf-arrow i,.mp::after,.mira-k i{animation:none}.mira-stage .r1{opacity:.5}.mira-pd{transform:none}}
