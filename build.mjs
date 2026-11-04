@@ -23,8 +23,8 @@ const ROLES = [
     desc: 'Artículos para el médico que atiende y firma la historia clínica: tiempo de consulta, revisión de la nota y codificación CIE-10 y CUPS.' },
   { id: 'calidad', name: 'Calidad y auditoría', h1: 'Para calidad y auditoría', lead: 'Para quien revisa las notas antes de que lleguen a la EPS.',
     desc: 'Artículos para equipos de calidad y auditoría médica: qué revisar en una nota clínica antes de que llegue a la EPS y cómo evitar glosas.' },
-  { id: 'gerencia', name: 'Gerencia e IPS', h1: 'Para la gerencia de una IPS', lead: 'Para la dirección médica de una IPS, una clínica o un hospital.',
-    desc: 'Artículos para la dirección médica y la gerencia de IPS, clínicas y hospitales: tiempo de consulta, notas pendientes y documentación.' },
+  { id: 'gerencia', name: 'Gerencia, IPS y EPS', h1: 'Para la gerencia de una IPS o EPS', lead: 'Para la dirección médica de una IPS, una EPS, una clínica o un hospital.',
+    desc: 'Artículos para la dirección médica y la gerencia de IPS, EPS, clínicas y hospitales: tiempo de consulta, notas pendientes y documentación.' },
 ];
 const tipoDe = id => TIPOS.find(t => t.id === id);
 const rolDe = id => ROLES.find(r => r.id === id);
@@ -78,15 +78,15 @@ const abs = p => SITE.url + (p === '/' ? '/' : p);
 
 const pages = [
   { path: '/', src: 'index', out: 'index.html', gsap: true, js: 'home',
-    title: 'Historia clínica con IA para médicos e IPS | Miracle',
-    desc: 'Miracle escucha la consulta, redacta la nota clínica, sugiere CIE-10 y CUPS y la revisa antes de la firma. Agenda una demostración para tu consultorio o IPS.' },
+    title: 'Historia clínica con IA para médicos, IPS y EPS | Miracle',
+    desc: 'Miracle escucha la consulta, redacta la nota clínica, sugiere CIE-10 y CUPS y la revisa antes de la firma. Agenda una demostración para tu consultorio, IPS o EPS.' },
   { path: '/soluciones', src: 'soluciones', out: 'soluciones.html', js: 'soluciones', crumbs: [['Soluciones']], faq: true,
     title: 'Soluciones y planes: Ü Base, Ü Analytics y Ü Corp | Miracle',
     desc: 'Tres áreas para un mismo recorrido: Ü Base documenta, Ü Analytics comprende y apoya la auditoría, y Ü Corp gestiona. Mira cómo se contrata cada una y empieza con 14 días de prueba.' },
   { path: '/base', src: 'base', out: 'base.html', gsap: true, js: 'product', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Ü Base']],
     app: { name: 'Miracle Ü Base', description: 'Acompaña el trabajo clínico: captura y transcribe la consulta, prepara borradores con Ü Notes para revisión profesional y facilita llevar la información validada al sistema de la institución.' },
     title: 'Ü Base: más tiempo para atender, menos carga documental | Miracle',
-    desc: 'Ü Base captura la consulta, la transcribe y prepara con Ü Notes un borrador que el profesional revisa y valida, con códigos CIE-10 y CUPS sugeridos. El dispositivo MIRA se comercializa por separado.' },
+    desc: 'Ü Base captura la consulta, la transcribe y prepara con Ü Notes un borrador que el profesional revisa y valida, con códigos CIE-10 y CUPS sugeridos. Para usar Miracle se necesita MIRA, que se adquiere por separado.' },
   { path: '/analytics', src: 'analytics', out: 'analytics.html', gsap: true, js: 'product', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Ü Analytics']],
     app: { name: 'Miracle Ü Analytics', description: 'Reúne la analítica de Ü Base y el apoyo a la auditoría: conecta la actividad con soportes, contratos, facturación y pagos para que el auditor y los equipos responsables revisen con evidencia.' },
     title: 'Ü Analytics: analítica de Ü Base y revisión auditora con evidencia | Miracle',
@@ -160,7 +160,7 @@ const footer = `<footer>
       <p>Para que el médico mire al paciente, no la pantalla.</p></div>
     <div><p class="fh">Productos</p><ul><li><a href="/base">Ü Base</a></li><li><a href="/analytics">Ü Analytics</a></li><li><a href="/corp">Ü Corp</a></li><li><a href="/soluciones#planes">Planes</a></li></ul></div>
     <div><p class="fh">Miracle</p><ul><li><a href="/#como-funciona">Cómo funciona</a></li><li><a href="/prueba">Pruébalo</a></li><li><a href="/seguridad">Seguridad</a></li><li><a href="/blog">Blog</a></li><li><a href="https://itsmiracleai.com.co/login">Ingresar</a></li></ul></div>
-    <div><p class="fh">Contacto</p><ul><li><a href="/agendar">Agendar demostración</a></li><li><a href="https://wa.me/573004564592" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:dev@itsmiracleai.com">dev@itsmiracleai.com</a></li></ul></div>
+    <div><p class="fh">Contacto</p><ul><li><a href="/agendar">Agendar demostración</a></li><li><a href="https://wa.me/573004564592" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:itsmiracleai@gmail.com">itsmiracleai@gmail.com</a></li></ul></div>
   </div>
   <div class="wrap legal"><span>© 2026 Miracle. Colombia.</span><span>Miracle apoya la documentación clínica. Las decisiones clínicas son del médico.</span></div>
 </footer>
@@ -273,7 +273,7 @@ ${listaHtml(list, pg.path, 'Artículos')}
 const orgGraph = [
   { '@type': 'Organization', '@id': SITE.url + '/#org', name: 'Miracle', url: SITE.url + '/',
     description: 'Software clínico con IA para Colombia: notas clínicas, analítica para la gerencia y auditoría de historias clínicas.',
-    logo: SITE.url + '/icon-512.png', email: 'dev@itsmiracleai.com', areaServed: 'CO',
+    logo: SITE.url + '/icon-512.png', email: 'itsmiracleai@gmail.com', areaServed: 'CO',
     contactPoint: { '@type': 'ContactPoint', contactType: 'sales', telephone: '+57-313-458-2806', availableLanguage: 'es' } },
   { '@type': 'WebSite', '@id': SITE.url + '/#web', url: SITE.url + '/', name: 'Miracle', inLanguage: 'es-CO', publisher: { '@id': SITE.url + '/#org' } },
 ];

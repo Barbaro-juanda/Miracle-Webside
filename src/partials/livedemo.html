@@ -1,5 +1,5 @@
 <div class="mock ld" data-ui data-demo data-state="intro">
-  <div class="mock-top"><i></i><i></i><i></i><span>Notes · Consulta de práctica</span><em class="ld-tag">Simulación</em></div>
+  <div class="mock-top"><i></i><i></i><i></i><span>Ü Notes · Consulta de práctica</span><em class="ld-tag">Simulación</em></div>
   <div class="ld-body">
     <div class="tpl ld-tpl" role="group" aria-label="Especialidad de la práctica">
       <button type="button" data-spec="psiquiatria" aria-pressed="true"><b>Psiquiatría</b>Consulta inicial</button>
@@ -9,7 +9,7 @@
     <div class="ld-stage" aria-live="polite">
       <div class="ld-view" data-view="intro">
         <div class="ld-role"><b>Hoy tú eres el paciente</b><p>Elige una especialidad y cuéntale al médico lo que quieras, como si tú fueras el paciente. Puede ser algo inventado o algo que de verdad te pase: tú decides qué te preocupa.</p></div>
-        <ul class="ld-how"><li>Miracle te hace 4 preguntas, como lo haría el médico.</li><li>Respondes en voz alta, con tus palabras.</li><li>Al final recibes la nota ordenada por secciones, lista para firmar.</li></ul>
+        <ul class="ld-how"><li>Miracle te hace 4 preguntas, como lo haría el médico.</li><li>Respondes en voz alta, con tus palabras, o saltas la pregunta que no quieras responder.</li><li>Al final recibes la nota ordenada por secciones, lista para firmar.</li><li>La práctica usa el micrófono de tu dispositivo. En tus consultas, Miracle captura la conversación con MIRA.</li></ul>
       </div>
       <div class="ld-view" data-view="ask" hidden>
         <div class="ld-prog"><span>Pregunta <b data-n>1</b> de <b data-total>4</b></span><i><u></u></i></div>
@@ -34,10 +34,11 @@
       <p class="ld-hint"></p>
       <div class="ld-act">
         <button type="button" class="btn btn-ghost btn-sm" data-act="redo" hidden>Repetir respuesta</button>
+        <button type="button" class="btn btn-ghost btn-sm" data-act="skip" hidden>Saltar pregunta</button>
         <button type="button" class="btn btn-ghost btn-sm" data-act="mic" hidden>Pausar micrófono</button>
         <button type="button" class="btn btn-ghost btn-sm" data-act="again" hidden>Repetir</button>
         <a class="btn btn-ghost btn-sm" data-act="cta" href="/agendar" hidden>Agenda una demostración</a>
-        <button type="button" class="btn btn-primary btn-sm" data-act="main">Empezar con micrófono</button>
+        <button type="button" class="btn btn-primary btn-sm" data-act="main">Empezar la práctica</button>
       </div>
     </div>
   </div>

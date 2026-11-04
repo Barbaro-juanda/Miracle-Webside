@@ -2993,3 +2993,15 @@ html:not(.js) .stc{opacity:1;transform:none}
 .mira-stage.seq-on .mira-pd{opacity:0}
 .mira-pd{transition:opacity .5s}
 @media (prefers-reduced-motion:reduce){.mira-cv{display:none}}
+
+/* Plantillas por especialidad: en vez de una cifra, el nombre de la especialidad cambia solo */
+.num-k{margin:0 0 6px;font:700 .95rem var(--f-sans);color:var(--accent-ink);text-align:center}
+.odo.odo-w{position:relative;display:block;height:clamp(4rem,10vw,7.4rem);margin:0 auto;overflow:hidden;text-align:center}
+.odo-w span{position:absolute;left:0;right:0;top:0;font:800 clamp(2.4rem,7.6vw,6.4rem)/1.1 var(--f-display);letter-spacing:-.045em;white-space:nowrap;background:linear-gradient(90deg,var(--accent),var(--lilac) 60%,var(--glow-strong));-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0;transform:translateY(60%);animation:odow calc(var(--n) * 2.6s) ease-in-out infinite;animation-delay:calc(var(--i) * 2.6s)}
+@keyframes odow{0%{opacity:0;transform:translateY(60%)}3%,10.5%{opacity:1;transform:none}13.5%,100%{opacity:0;transform:translateY(-60%)}}
+@media (prefers-reduced-motion:reduce){.odo-w span{animation:none;opacity:0}.odo-w span:first-child{opacity:1;transform:none}}
+
+/* MIRA es necesario: aviso visible en la sección de MIRA y en la prueba */
+.mira-need,.need-mira{display:flex;gap:12px;align-items:flex-start;margin:18px 0 0;padding:14px 18px;border-radius:var(--r-lg);max-width:36rem;font-size:.98rem;line-height:1.5;color:#e8f1ff;background:color-mix(in srgb,var(--glow-strong) 10%,transparent);border:1px solid color-mix(in srgb,var(--glow-strong) 55%,transparent);box-shadow:0 0 28px color-mix(in srgb,var(--glow-strong) 22%,transparent)}
+.mira-need i,.need-mira i{flex:none;width:10px;height:10px;margin-top:.5em;border-radius:50%;background:var(--glow-strong);box-shadow:0 0 14px var(--glow-strong);animation:miraled 1.8s ease-in-out infinite}
+.mira-need b,.need-mira b{color:#fff}

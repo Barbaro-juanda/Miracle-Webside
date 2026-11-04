@@ -353,14 +353,6 @@
     gsap.from(cards, {y:40, autoAlpha:0, duration:.8, ease:'power3.out', stagger:.12, scrollTrigger:{trigger:'.cx-cards', start:'top 85%'}});
     if (matchMedia('(max-width: 1024px)').matches) cards.forEach(c => ScrollTrigger.create({trigger:c, start:'top 70%', onEnter:() => c.classList.add('lit')}));
 
-    /* Odómetro: 49 */
-    const odo = $('#odo');
-    odo.innerHTML = '49'.split('').map(d => `<span class="digit"><span class="reel">${'0123456789'.split('').map(n => `<span>${n}</span>`).join('')}</span></span>`).join('');
-    const reels = $$('.reel', odo);
-    gsap.set(reels, {yPercent:0});
-    ScrollTrigger.create({trigger:odo, start:'top 80%', once:true, onEnter:() => {
-      reels.forEach((r, i) => gsap.to(r, {yPercent:-(+'49'[i]) * 10, duration:1.6 + i * .3, ease:'power4.out'}));
-    }});
     gsap.from('.numbers h2, .numbers p', {y:24, autoAlpha:0, duration:.7, stagger:.1, scrollTrigger:{trigger:'.numbers h2', start:'top 85%'}});
 
     }

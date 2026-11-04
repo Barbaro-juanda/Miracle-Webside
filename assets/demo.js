@@ -46,7 +46,7 @@
     root.querySelectorAll('[data-view]').forEach(v => { views[v.dataset.view] = v; });
     const tabs = [...root.querySelectorAll('[data-spec]')];
     const main = $('[data-act="main"]'), again = $('[data-act="again"]'), cta = $('[data-act="cta"]'),
-      redoBtn = $('[data-act="redo"]'), micBtn = $('[data-act="mic"]');
+      redoBtn = $('[data-act="redo"]'), micBtn = $('[data-act="mic"]'), skipBtn = $('[data-act="skip"]');
     const hint = $('.ld-hint'), ta = $('textarea'), listenBox = $('.ld-listen'), statusEl = $('[data-status]'), ttsBox = $('[data-tts]'),
       qEl = $('[data-q]'), nEl = $('[data-n]'), totalEl = $('[data-total]'), bar = $('.ld-prog u'), bars = [...root.querySelectorAll('.ld-wave b')],
       doc = $('.ld-doc'), audit = $('.ld-audit'), sign = $('.ld-sign'), steps = [...root.querySelectorAll('.ld-steps li')];
@@ -176,7 +176,7 @@
     };
     const setHint = () => {
       const m = {
-        intro: SR ? 'Usa el dictado de voz de tu navegador (Chrome o Edge). Miracle no recibe ni guarda tu audio ni tus respuestas.' : 'Esta práctica necesita el dictado de voz, que tu navegador no ofrece. Ábrela en Google Chrome o Microsoft Edge.',
+        intro: SR ? 'Usa el dictado de voz de tu navegador (Chrome o Edge) solo para esta práctica; Miracle no recibe ni guarda tu audio ni tus respuestas. En tus consultas, Miracle captura la conversación con MIRA.' : 'Esta práctica necesita el dictado de voz, que tu navegador no ofrece. Ábrela en Google Chrome o Microsoft Edge.',
         ask: 'Habla con calma y toca "Siguiente pregunta" cuando termines.',
         gen: '',
         note: 'Nada de esto se envía ni se guarda: vive solo en esta página.',
@@ -185,13 +185,13 @@
       hint.textContent = m[state];
     };
     const setButtons = () => {
-      main.hidden = false; main.disabled = false; again.hidden = true; cta.hidden = true; redoBtn.hidden = true; micBtn.hidden = true;
+      main.hidden = false; main.disabled = false; again.hidden = true; cta.hidden = true; redoBtn.hidden = true; micBtn.hidden = true; skipBtn.hidden = true;
       if (state === 'intro') {
-        main.textContent = 'Empezar con micrófono';
+        main.textContent = 'Empezar la práctica';
         if (!SR) { main.hidden = true; cta.hidden = false; }
       } else if (state === 'ask') {
         main.textContent = cur === DATA[spec].length - 1 ? 'Generar la nota' : 'Siguiente pregunta';
-        micBtn.hidden = false; redoBtn.hidden = false;
+        micBtn.hidden = false; redoBtn.hidden = false; skipBtn.hidden = cur === DATA[spec].length - 1;
         again.hidden = false; again.textContent = 'Salir';
       } else if (state === 'gen') { main.textContent = 'Redactando la nota…'; main.disabled = true; }
       else if (state === 'note') { main.textContent = 'Aprobar y firmar'; again.hidden = false; again.textContent = 'Repetir'; }
@@ -288,6 +288,7 @@
       else if (state === 'ask') next();
       else if (state === 'note') doSign();
     });
+    skipBtn.addEventListener('click', () => { if (state !== 'ask') return; ta.value = ''; answers[cur] = ''; next(); });
     redoBtn.addEventListener('click', () => { if (state !== 'ask') return; ta.value = ''; answers[cur] = ''; startListen(); });
     micBtn.addEventListener('click', () => { if (listening) stopListen(); else startListen(); });
     again.addEventListener('click', reset);
