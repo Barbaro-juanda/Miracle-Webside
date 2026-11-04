@@ -97,8 +97,9 @@
     /* ---------- Estado del colgante e interacción ---------- */
     const q = new T.Quaternion(), qRest = new T.Quaternion(), tmpQ = new T.Quaternion(), tmpE = new T.Euler(), omega = new T.Vector3();
     let drag = false, lx = 0, ly = 0, lt = 0, idle = 99, clock = 0, kickX = 0;
+    stage.addEventListener('dragstart', e => e.preventDefault()); stage.addEventListener('selectstart', e => e.preventDefault());
     stage.style.touchAction = 'pan-y'; // en móvil, el gesto vertical sigue desplazando la página
-    stage.addEventListener('pointerdown', e => { drag = true; idle = 0; lx = e.clientX; ly = e.clientY; lt = performance.now(); omega.set(0, 0, 0); stage.classList.add('grab'); try { stage.setPointerCapture(e.pointerId); } catch (_) {} });
+    stage.addEventListener('pointerdown', e => { if (e.button > 0) return; e.preventDefault(); drag = true; idle = 0; lx = e.clientX; ly = e.clientY; lt = performance.now(); omega.set(0, 0, 0); stage.classList.add('grab'); try { stage.setPointerCapture(e.pointerId); } catch (_) {} });
     const up = () => { drag = false; stage.classList.remove('grab'); };
     stage.addEventListener('pointerup', up); stage.addEventListener('pointercancel', up); stage.addEventListener('lostpointercapture', up);
     stage.addEventListener('pointermove', e => {

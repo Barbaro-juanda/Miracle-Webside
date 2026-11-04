@@ -3043,3 +3043,5 @@ html:not(.js) .stc{opacity:1;transform:none}
 .mira-stage.gl-on .mira-pd{opacity:0}
 .mira-hint{position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);font-size:.8rem;color:color-mix(in srgb,var(--glow-strong) 80%,#fff);letter-spacing:.02em;opacity:.8;pointer-events:none;white-space:nowrap}
 .mira-stage.grab .mira-hint{opacity:0}
+.mira-stage .mira-pd,.mira-stage .mira-chip,.mira-stage .mira-hint{pointer-events:none;-webkit-user-drag:none;user-select:none}
+.mira-stage.gl-on .mira-pd{display:none}
