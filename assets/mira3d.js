@@ -7,16 +7,23 @@
   const hasGL = (() => { try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { return false; } })();
   if (!hasGL) return;
   let started = false;
-  const start = () => {
+  const start = async () => {
     if (started) return; started = true;
-    const s = document.createElement('script');
-    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/0.152.2/three.min.js';
-    s.onload = init; document.head.appendChild(s);
+    const base = 'https://cdn.jsdelivr.net/npm/three@0.152.2';
+    try {
+      const m = document.createElement('script'); m.type = 'importmap';
+      m.textContent = JSON.stringify({imports: {three: base + '/build/three.module.js', 'three/addons/': base + '/examples/jsm/'}}); document.head.appendChild(m);
+      const [T, G] = await Promise.all([import('three'), import('three/addons/loaders/GLTFLoader.js')]);
+      init(T, G.GLTFLoader);
+    } catch (e) { // navegador sin import maps: three clásico y colgante procedural
+      const s = document.createElement('script'); s.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/0.152.2/three.min.js';
+      s.onload = () => init(window.THREE, null); document.head.appendChild(s);
+    }
   };
   if ('IntersectionObserver' in window) new IntersectionObserver(es => { if (es[0].isIntersecting) start(); }, {rootMargin: '900px 0px'}).observe(stage); else start();
 
-  function init() {
-    const T = window.THREE; if (!T) return;
+  function init(T, GLTFLoader) {
+    if (!T) return;
     const cv = document.createElement('canvas'); cv.className = 'mira-3d'; stage.appendChild(cv);
     const renderer = new T.WebGLRenderer({canvas: cv, antialias: true, alpha: true, powerPreference: 'high-performance'});
     renderer.setClearColor(0x000000, 0);
@@ -39,16 +46,16 @@
     const dl = new T.DirectionalLight(0x8fc4ff, 1.1); dl.position.set(4, 3, 6); scene.add(dl);
 
     /* ---------- Colgante ---------- */
-    const pg = new T.Group(); scene.add(pg);
+    const pg = new T.Group(); scene.add(pg); const proc = new T.Group(); pg.add(proc);
     const arc = (cx, cy, r, a0, a1, n) => Array.from({length: n + 1}, (_, k) => { const a = a0 + (a1 - a0) * k / n; return new T.Vector2(cx + r * Math.cos(a), cy + r * Math.sin(a)); });
     const RI = .8, RO = 1.0, ZH = .19, CO = .11, CI = .05;
     const prof = [new T.Vector2(RI + CI, -ZH),
       ...arc(RO - CO, -ZH + CO, CO, -Math.PI / 2, 0, 8), ...arc(RO - CO, ZH - CO, CO, 0, Math.PI / 2, 8),
       ...arc(RI + CI, ZH - CI, CI, Math.PI / 2, Math.PI, 5), ...arc(RI + CI, -ZH + CI, CI, Math.PI, 1.5 * Math.PI, 5)];
-    const glassMat = new T.MeshPhysicalMaterial({color: 0xcfe4ff, metalness: 0, roughness: .05, transmission: 1, thickness: .7, ior: 1.5, attenuationColor: new T.Color(0x8fbdff), attenuationDistance: 2.2, envMapIntensity: 1.7, clearcoat: 1, clearcoatRoughness: .05, side: T.DoubleSide});
-    const ring = new T.Mesh(new T.LatheGeometry(prof, 120), glassMat); ring.rotation.x = Math.PI / 2; pg.add(ring);
+    const glassMat = new T.MeshPhysicalMaterial({color: 0xdde7f6, metalness: 0, roughness: .05, transmission: 1, thickness: .5, ior: 1.45, attenuationColor: new T.Color(0xaec4e0), attenuationDistance: 1.6, envMapIntensity: 1.2, clearcoat: 1, clearcoatRoughness: .05, side: T.DoubleSide});
+    const ring = new T.Mesh(new T.LatheGeometry(prof, 120), glassMat); ring.rotation.x = Math.PI / 2; proc.add(ring);
     const dark = new T.MeshStandardMaterial({color: 0x14171e, metalness: .9, roughness: .5, envMapIntensity: .8});
-    const cup = new T.Mesh(new T.CylinderGeometry(.83, .83, .34, 80), dark); cup.rotation.x = Math.PI / 2; pg.add(cup);
+    const cup = new T.Mesh(new T.CylinderGeometry(.83, .83, .34, 80), dark); cup.rotation.x = Math.PI / 2; proc.add(cup);
     // cara de metal cepillado, con una ligera cúpula
     const brushed = (() => {
       const c = document.createElement('canvas'); c.width = c.height = 512; const g = c.getContext('2d'); g.fillStyle = '#808080'; g.fillRect(0, 0, 512, 512);
@@ -57,17 +64,29 @@
       const t = new T.CanvasTexture(c); return t;
     })();
     const fp = Array.from({length: 18}, (_, k) => { const r = .82 * k / 17; return new T.Vector2(r, .07 * (1 - (r / .82) ** 2)); });
-    const faceMat = new T.MeshStandardMaterial({color: 0x6a727e, metalness: .9, roughness: .36, bumpMap: brushed, bumpScale: .6, envMapIntensity: 1.5});
-    const face = new T.Mesh(new T.LatheGeometry(fp, 96), faceMat); face.rotation.x = Math.PI / 2; face.position.z = .06; pg.add(face);
-    const back = new T.Mesh(new T.CircleGeometry(.9, 64), dark); back.rotation.y = Math.PI; back.position.z = -.185; pg.add(back);
+    const faceMat = new T.MeshStandardMaterial({color: 0x62666e, metalness: .7, roughness: .46, bumpMap: brushed, bumpScale: .12, envMapIntensity: 1.1});
+    const face = new T.Mesh(new T.LatheGeometry(fp, 96), faceMat); face.rotation.x = Math.PI / 2; face.position.z = .06; proc.add(face);
+    const back = new T.Mesh(new T.CircleGeometry(.9, 64), dark); back.rotation.y = Math.PI; back.position.z = -.185; proc.add(back);
     // LED con halo
-    const led = new T.Mesh(new T.SphereGeometry(.04, 20, 20), new T.MeshBasicMaterial({color: 0xa8ccff})); led.position.z = .145; pg.add(led);
+    const led = new T.Mesh(new T.SphereGeometry(.04, 20, 20), new T.MeshBasicMaterial({color: 0xa8ccff})); led.position.z = .145; proc.add(led);
     const glowTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 128; const g = c.getContext('2d'); const gr = g.createRadialGradient(64, 64, 0, 64, 64, 64);
       gr.addColorStop(0, 'rgba(120,175,255,1)'); gr.addColorStop(.25, 'rgba(60,120,255,.55)'); gr.addColorStop(1, 'rgba(40,90,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, 128, 128); return new T.CanvasTexture(c); })();
-    const glow = new T.Sprite(new T.SpriteMaterial({map: glowTex, blending: T.AdditiveBlending, depthWrite: false, transparent: true})); glow.scale.set(.9, .9, 1); glow.position.z = .16; pg.add(glow);
+    const glow = new T.Sprite(new T.SpriteMaterial({map: glowTex, blending: T.AdditiveBlending, depthWrite: false, transparent: true})); glow.scale.set(.6, .6, 1); glow.position.z = .135; pg.add(glow);
     // argolla de vidrio
-    const bail = new T.Mesh(new T.TorusGeometry(.13, .05, 20, 48), glassMat); bail.rotation.y = Math.PI / 2; bail.position.y = 1.12; pg.add(bail);
-    const ATT = new T.Vector3(0, 1.12, 0);
+    const bail = new T.Mesh(new T.TorusGeometry(.13, .05, 20, 48), glassMat); bail.rotation.y = Math.PI / 2; bail.position.y = 1.12; proc.add(bail);
+    const ATT = new T.Vector3(0, 1.1, 0);
+    if (GLTFLoader) new GLTFLoader().load('/assets/img/mira/mira.glb', g => {
+      const model = g.scene, ledMat = new T.MeshBasicMaterial({color: 0xb4d4ff});
+      model.traverse(o => {
+        if (!o.isMesh) return; const n = o.name;
+        if (/metal/.test(n)) { // UV plano para el cepillado
+          const pa = o.geometry.attributes.position, uv = new Float32Array(pa.count * 2);
+          for (let i = 0; i < pa.count; i++) { uv[i * 2] = pa.getX(i) * .64 + .5; uv[i * 2 + 1] = pa.getY(i) * .64 + .5; }
+          o.geometry.setAttribute('uv', new T.BufferAttribute(uv, 2)); o.material = faceMat;
+        } else o.material = /led/.test(n) ? ledMat : glassMat;
+      });
+      pg.remove(proc); pg.add(model);
+    }, undefined, () => {});
 
     /* ---------- Collar: cuerda cerrada con física ---------- */
     const N = 48, YB = -.63, H = 3.0, W = 3.0;
@@ -80,7 +99,7 @@
     const tgt = i => RS[i];
     const X = new Float32Array(N), Y = new Float32Array(N), PX = new Float32Array(N), PY = new Float32Array(N), TX = new Float32Array(N), TY = new Float32Array(N), IM = new Float32Array(N).fill(1);
     for (let i = 0; i < N; i++) { const [x, y] = tgt(i); X[i] = PX[i] = TX[i] = x; Y[i] = PY[i] = TY[i] = y; }
-    const PIN = new Set(); PIN.forEach(i => IM[i] = 0);
+    IM[0] = 0; const PCY = YB - 1.1;
     const weave = (() => { const c = document.createElement('canvas'); c.width = 64; c.height = 64; const g = c.getContext('2d'); g.fillStyle = '#9a9a9a'; g.fillRect(0, 0, 64, 64);
       g.strokeStyle = '#ffffff'; g.lineWidth = 6; for (let k = -64; k < 128; k += 16) { g.beginPath(); g.moveTo(k, 0); g.lineTo(k + 64, 64); g.stroke(); }
       g.strokeStyle = '#4a4a4a'; g.lineWidth = 3; for (let k = -64; k < 128; k += 16) { g.beginPath(); g.moveTo(k + 8, 0); g.lineTo(k + 72, 64); g.stroke(); }
@@ -110,7 +129,7 @@
       const axis = new T.Vector3(dy, dx, 0).normalize();
       q.premultiply(tmpQ.setFromAxisAngle(axis, ang));
       omega.lerp(axis.multiplyScalar(ang / dt), .45);
-      kickX = Math.max(-2, Math.min(2, kickX + dx * .0016));                                // el arrastre sacude el collar
+      kickX = Math.max(-2, Math.min(2, kickX + dx * .0016));
     });
 
     /* ---------- Bucle ---------- */
@@ -133,14 +152,14 @@
         const ox = X[i] - TX[i], oy = Y[i] - TY[i], d = Math.hypot(ox, oy);
         if (!(d < 3)) { const k = d > 0 && isFinite(d) ? 3 / d : 0; X[i] = TX[i] + ox * k; Y[i] = TY[i] + oy * k; PX[i] = X[i]; PY[i] = Y[i]; }
       }
-      for (let it = 0; it < 6; it++) {
+      for (let it = 0; it < 10; it++) {
         for (let i = 0; i < N; i++) {
           const j = (i + 1) % N, dx = X[j] - X[i], dy = Y[j] - Y[i], d = Math.hypot(dx, dy) || 1e-6, w = IM[i] + IM[j]; if (!w) continue;
           const diff = (d - SEG) / d / w; X[i] += dx * diff * IM[i]; Y[i] += dy * diff * IM[i]; X[j] -= dx * diff * IM[j]; Y[j] -= dy * diff * IM[j];
         }
         // el colgante pesa: el collar no lo atraviesa
         const cx = pg.position.x, cy = pg.position.y;
-        for (let i = 6; i < N - 5; i++) { if (IM[i] === 0) continue; const dx = X[i] - cx, dy = Y[i] - cy, d = Math.hypot(dx, dy), r = .98;
+        for (let i = 5; i < N - 4; i++) { if (IM[i] === 0) continue; const dx = X[i] - cx, dy = Y[i] - cy, d = Math.hypot(dx, dy), r = 1.06;
           if (d < r) { const k = (r - d) / (d || 1e-6); X[i] += dx * k; Y[i] += dy * k; } }
       }
       // orientación del colgante: inercia tras soltar, y vuelve despacio a su postura natural
@@ -150,15 +169,14 @@
         idle += dt;
         const amp = reduce ? 0 : 1;
         tmpE.set(.05 * Math.sin(clock * .9) * amp, .42 * Math.sin(clock * .55) * amp, 0, 'YXZ'); qRest.setFromEuler(tmpE);
-        if (idle > 1.8) q.slerp(qRest, 1 - Math.exp(-dt * 1.1));
+        if (idle > 3) q.slerp(qRest, 1 - Math.exp(-dt * 1.1));
       }
       q.normalize();
-      // el colgante cuelga de la argolla (nudo 0) y gira alrededor de ella
-      tmpE.setFromQuaternion(q, 'YXZ');
-      const roll = new T.Quaternion().setFromAxisAngle(new T.Vector3(0, 0, 1), -X[0] * .35);
-      pg.quaternion.copy(q).premultiply(roll);
-      pg.position.set(X[0], Y[0], 0).sub(ATT.clone().applyQuaternion(pg.quaternion));
-      cordGroup.rotation.y = tmpE.y * .22;
+      // el colgante gira sobre su propio centro, justo como lo arrastra el dedo; la argolla lleva consigo el collar
+      pg.quaternion.copy(q);
+      pg.position.set(Math.sin(clock * .8) * .03 * (reduce ? 0 : 1), PCY + Math.sin(clock * 1.3) * .025 * (reduce ? 0 : 1), 0);
+      const bw = ATT.clone().applyQuaternion(q).add(pg.position);
+      X[0] = PX[0] = bw.x; Y[0] = PY[0] = bw.y;
       glow.material.opacity = .85 + .15 * Math.sin(clock * 2.6);
     };
 
