@@ -2212,3 +2212,33 @@ section:has(> .fx){position:relative;isolation:isolate;overflow-x:clip}
 @media (max-width:899px){.fx-tr{display:none}.fx::after{opacity:.4;background-size:22px 22px}}
 @media (prefers-reduced-motion:reduce){.fx-tr circle{animation:none}}
 .page-post .fx::after,.page-post .fx-tr{display:none}
+
+/* ============================================================
+   Fondo único de la página (ver core.js): capa continua detrás de todas las secciones.
+   ============================================================ */
+html.pgbg main{position:relative}
+html.pgbg main > section:not(.stage){background:none!important}
+html.pgbg main > section:not(.stage) > .fx{display:none}
+.pg-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.pb{position:absolute;left:0;right:0}
+.pb-dark{background:var(--d-bg)}
+.pb-hero{background:linear-gradient(180deg,var(--ice-soft),var(--canvas))}
+.pb-pearl{background:linear-gradient(to bottom,transparent 0,var(--pearl) 150px,var(--pearl) calc(100% - 150px),transparent 100%)}
+.pb-ice{background:linear-gradient(to bottom,transparent 0,var(--ice-soft) 150px,var(--ice-soft) calc(100% - 150px),transparent 100%)}
+.po{position:absolute;border-radius:50%;will-change:transform}
+.po-b{background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 30%,transparent),transparent);animation:aur1 40s ease-in-out infinite alternate}
+.po-l{background:radial-gradient(closest-side,color-mix(in srgb,var(--lilac) 30%,transparent),transparent);animation:aur2 46s ease-in-out infinite alternate}
+.pc{position:absolute;font:600 13px var(--f-sans);letter-spacing:.16em;color:var(--lilac);opacity:.3;animation:cdfloat 14s ease-in-out infinite alternate}
+/* Hilo de datos: baja por el costado y une las secciones; se enciende con el avance del scroll */
+.spine{position:absolute;left:max(20px,calc((100vw - 1180px) / 2 - 76px));width:0}
+.spine i{position:absolute;left:-1px;top:0;width:2px;height:100%;border-radius:2px}
+.sp-base{background:color-mix(in srgb,var(--accent) 22%,transparent)}
+.sp-on{background:linear-gradient(to bottom,var(--glow-strong),var(--lilac));transform-origin:top;transform:scaleY(0);box-shadow:0 0 8px color-mix(in srgb,var(--lilac) 35%,transparent)}
+.sp-node{position:absolute;left:-6px;width:12px;height:12px;border-radius:50%;background:var(--canvas);border:2px solid color-mix(in srgb,var(--accent) 45%,transparent);margin-top:-6px;transition:border-color .4s,background .4s,box-shadow .4s}
+.sp-node::after{content:"";position:absolute;left:12px;top:3px;width:30px;height:1px;background:color-mix(in srgb,var(--accent) 35%,transparent)}
+.sp-node em{position:absolute;left:48px;top:-4px;font:600 11px var(--f-sans);font-style:normal;letter-spacing:.16em;color:var(--lilac);opacity:.55;white-space:nowrap}
+.sp-node.lit{border-color:var(--lilac);background:var(--lilac);box-shadow:0 0 0 4px color-mix(in srgb,var(--lilac) 18%,transparent)}
+.sp-node.lit em{opacity:.9}
+.page-post .po{opacity:.7}
+@media (max-width:899px){.po{width:78vw!important;height:78vw!important}}
+@media (prefers-reduced-motion:reduce){.po,.pc{animation:none}.sp-on{transition:none}}

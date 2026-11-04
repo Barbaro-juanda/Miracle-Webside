@@ -155,3 +155,86 @@
     addEventListener('scroll', upd, {passive: true}); upd();
   }
 })();
+
+/* ---------- Fondo único de la página ----------
+   Una sola capa continua detrás de todas las secciones: las franjas de color de cada sección (oscuras y claras),
+   la aurora azul y lila, códigos clínicos y un hilo de datos que baja por el costado y une las secciones, con un
+   nodo en cada una. Las secciones pasan a ser transparentes y la luz cruza de una a otra sin cortes. */
+(() => {
+  const main = document.getElementById('main');
+  const secs = main ? [...main.children].filter(e => e.tagName === 'SECTION') : [];
+  if (!main || !secs.length) return;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isPost = document.body.classList.contains('page-post');
+  document.documentElement.classList.add('pgbg');
+  const bg = document.createElement('div'); bg.className = 'pg-bg'; bg.setAttribute('aria-hidden', 'true');
+  main.prepend(bg);
+  const CODES = ['J03.9', '890201', 'CIE-10', 'CUPS', 'SHA-256', 'F41.2', 'RIPS', 'Z00.1', 'FIRMA'];
+  let spineTop = 0, spineH = 1, nodes = [], onEl = null, lastP = -1;
+
+  const theme = s => {
+    if (s.classList.contains('stage')) return null;
+    if (s.classList.contains('dark') || s.classList.contains('tone-dark')) return 'dark';
+    if (s.classList.contains('tone-pearl') || s.classList.contains('walk-sec')) return 'pearl';
+    if (s.classList.contains('tone-ice')) return 'ice';
+    if (s.classList.contains('sub-hero')) return 'hero';
+    return null;
+  };
+
+  const build = () => {
+    const mt = main.getBoundingClientRect().top + scrollY, H = main.offsetHeight;
+    let html = '';
+    secs.forEach(s => {
+      const t = theme(s); if (!t) return;
+      const r = s.getBoundingClientRect(), top = r.top + scrollY - mt;
+      html += `<div class="pb pb-${t}" style="top:${Math.round(top)}px;height:${Math.round(r.height)}px"></div>`;
+    });
+    // Aurora: masas de luz repartidas por toda la página, alternando lado y color
+    const stepY = innerWidth < 900 ? 720 : 620;
+    for (let i = 0, n = Math.ceil(H / stepY); i < n; i++) {
+      const left = i % 2 === 0, size = 560 + (i * 97) % 260;
+      html += `<i class="po ${i % 3 === 1 ? 'po-l' : 'po-b'}" style="top:${Math.round(i * stepY + 40 + (i * 53) % 120)}px;${left ? 'left' : 'right'}:-${Math.round(size * .28)}px;width:${size}px;height:${size}px;animation-delay:-${(i * 7) % 30}s"></i>`;
+    }
+    if (!isPost && innerWidth >= 900) {
+      for (let i = 0, n = Math.floor(H / 520); i < n; i++) {
+        const x = 8 + (i * 37) % 80;
+        html += `<span class="pc" style="top:${Math.round(i * 520 + 150 + (i * 71) % 160)}px;left:${x}%;animation-delay:-${(i * 3) % 12}s">${CODES[(i * 5) % CODES.length]}</span>`;
+      }
+    }
+    // Hilo de datos
+    nodes = [];
+    if (innerWidth >= 1100) {
+      const first = secs.find(s => !s.classList.contains('stage')) || secs[0];
+      spineTop = first.getBoundingClientRect().top + scrollY - mt + 40;
+      spineH = Math.max(1, H - spineTop - 120);
+      html += `<div class="spine" style="top:${Math.round(spineTop)}px;height:${Math.round(spineH)}px"><i class="sp-base"></i><i class="sp-on"></i>`;
+      secs.forEach((s, k) => {
+        if (s.classList.contains('stage')) return;
+        const y = s.getBoundingClientRect().top + scrollY - mt + 60 - spineTop;
+        if (y < 0 || y > spineH) return;
+        html += `<b class="sp-node" style="top:${Math.round(y)}px"><em>${CODES[(k * 3 + 1) % CODES.length]}</em></b>`;
+        nodes.push(mt + spineTop + y);
+      });
+      html += '</div>';
+    }
+    bg.innerHTML = html;
+    onEl = bg.querySelector('.sp-on'); lastP = -1;
+    progress();
+  };
+
+  const progress = () => {
+    if (!onEl) return;
+    const sy = scrollY + innerHeight * .6;
+    const p = reduce ? 1 : Math.min(1, Math.max(0, (sy - (main.getBoundingClientRect().top + scrollY + spineTop)) / spineH));
+    if (Math.abs(p - lastP) < .001) return; lastP = p;
+    onEl.style.transform = `scaleY(${p.toFixed(4)})`;
+    bg.querySelectorAll('.sp-node').forEach((n, i) => n.classList.toggle('lit', reduce || sy > nodes[i]));
+  };
+
+  let t = null; const later = () => { clearTimeout(t); t = setTimeout(build, 180); };
+  build();
+  addEventListener('load', later); addEventListener('resize', later);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(later);
+  if ('ResizeObserver' in window) new ResizeObserver(later).observe(main);
+  let ticking = 0; addEventListener('scroll', () => { const n = performance.now(); if (n - ticking > 24) { ticking = n; progress(); } }, {passive: true});
+})();
