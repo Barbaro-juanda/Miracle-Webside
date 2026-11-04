@@ -2214,7 +2214,6 @@ section:has(> .fx){position:relative;isolation:isolate;overflow-x:clip}
 .page-post .fx::after,.page-post .fx-tr{display:none}
 
 /* ============================================================
-<<<<<<< HEAD
    Fondo único de la página (ver core.js): capa continua detrás de todas las secciones.
    ============================================================ */
 html.pgbg main{position:relative}
@@ -2243,7 +2242,6 @@ html.pgbg main > section:not(.stage) > .fx{display:none}
 .page-post .po{opacity:.7}
 @media (max-width:899px){.po{width:78vw!important;height:78vw!important}}
 @media (prefers-reduced-motion:reduce){.po,.pc{animation:none}.sp-on{transition:none}}
-=======
    Cromado sutil (un poquito): reflejo metálico fino en los botones y en los detalles del hero, en lugar de
    la estética plana de dibujo. Los colores de producto se conservan (el cromado se mezcla con --accent).
    ============================================================ */
@@ -2278,4 +2276,3 @@ body[data-product="ana"] .btn-primary:hover,[data-p="ana"] .btn-primary:hover{ba
 .sp-node{background:radial-gradient(circle at 34% 30%,#fff,#b9d4f5 38%,#5f7fb0 72%,#1d2f55);border-color:rgba(255,255,255,.7)}
 .sp-node.lit{background:radial-gradient(circle at 34% 30%,#fff,#e5ddff 34%,var(--lilac) 74%,#4a35c9);border-color:#fff}
 @media (prefers-reduced-motion:reduce){.btn-primary,.btn-ghost{transition:none}}
->>>>>>> cromado-sutil
