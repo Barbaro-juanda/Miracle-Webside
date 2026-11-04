@@ -2019,3 +2019,49 @@ html:not(.js) .sx-view + .sx-view{margin-top:48px;padding-top:44px;border-top:1p
 /* Subtítulo guía del portátil y barra de avance del hero */
 .stage-cap span{box-shadow:0 8px 30px rgba(0,0,0,.35),0 0 0 1px color-mix(in srgb,var(--pulse) 30%,transparent)}
 .sp-bar i{background:linear-gradient(90deg,var(--glow-strong),var(--pulse))}
+
+/* ============================================================
+   Un color por producto: Notes azul, Auditorías verde clínico, Analytics ámbar.
+   Cada página de producto, y cada escena de Soluciones, cambia el acento completo: botones, enlaces,
+   tubos, resplandores y los íconos 3D. Superficies más planas: sin vidrio ni degradados de adorno.
+   El violeta queda fuera: --pulse sigue al acento del producto.
+   ============================================================ */
+body,[data-p]{--pulse:var(--accent);--pulse-soft:var(--glow-soft);--pulse-ink:var(--accent-ink);--pulse-bg:var(--accent-soft)}
+body[data-product="aud"],[data-p="aud"]{--accent:#047857;--accent-hover:#065f46;--accent-ink:#065f46;--accent-soft:#e7f8f0;--ice:#dff5ea;--ice-soft:#f0faf5;--glow:#6ee7b7;--glow-soft:#a7f3d0;--glow-strong:#10b981}
+body[data-product="ana"],[data-p="ana"]{--accent:#b45309;--accent-hover:#92400e;--accent-ink:#92400e;--accent-soft:#fef3dc;--ice:#fdecc8;--ice-soft:#fff8ea;--glow:#fcd34d;--glow-soft:#fde68a;--glow-strong:#f59e0b}
+[data-sx][data-p="aud"],[data-sx][data-p="ana"]{background:var(--deep)}
+/* Íconos 3D: del azul del vidrio al verde o al ámbar del producto */
+body[data-product="aud"] .i3d,body[data-product="aud"] .illus3d,[data-p="aud"] .i3d,[data-sx][data-p="aud"] .illus3d{filter:hue-rotate(-62deg) saturate(1.05) drop-shadow(0 10px 14px rgba(0,0,0,.28))}
+body[data-product="ana"] .i3d,body[data-product="ana"] .illus3d,[data-p="ana"] .i3d,[data-sx][data-p="ana"] .illus3d{filter:hue-rotate(185deg) saturate(1.15) drop-shadow(0 10px 14px rgba(0,0,0,.28))}
+/* Home: cada tarjeta del circuito y cada opción del selector de rol con su color */
+.cx-card[data-p]{border-color:color-mix(in srgb,var(--glow-strong) 38%,transparent);background:linear-gradient(180deg,color-mix(in srgb,var(--glow-strong) 12%,transparent),color-mix(in srgb,var(--glow-strong) 3%,transparent))}
+.cx-card[data-p] .ico{background:color-mix(in srgb,var(--glow-strong) 16%,transparent)}
+.cx-card[data-p] h3{color:var(--white)}
+.cx-card[data-p] a{border-bottom-color:var(--glow-strong)}
+.hero-links .rl a[data-p]::after{content:"";position:absolute;left:18px;right:18px;bottom:5px;height:2px;border-radius:2px;background:var(--glow-strong);opacity:.55;transition:opacity .25s}
+.hero-links .rl a[data-p]:hover::after{opacity:1}
+/* Botones planos: un solo color de relleno, sin brillo */
+.btn::before{display:none}
+.btn-primary{background:var(--accent);border-color:transparent;text-shadow:none;box-shadow:0 1px 0 color-mix(in srgb,var(--black) 18%,transparent),0 6px 14px color-mix(in srgb,var(--accent) 22%,transparent)}
+.btn-primary:hover{background:var(--accent-hover)}
+.btn-ghost,.btn-light{background:var(--surface);box-shadow:none;border-color:var(--line-strong)}
+.btn-ghost:hover,.btn-light:hover{background:var(--surface);border-color:var(--deep)}
+.btn-dark-ghost,.final .btn-ghost{background:transparent;box-shadow:none;border-color:color-mix(in srgb,var(--white) 28%,transparent)}
+.btn-dark-ghost:hover,.final .btn-ghost:hover{background:color-mix(in srgb,var(--white) 8%,transparent);border-color:var(--white)}
+.t-blue{background:var(--accent)}
+.nl-next{background:var(--deep)}
+.nl-go{background:var(--accent);box-shadow:none}
+/* "Pruébalo" en el menú: pastilla oscura y plana, la que más resalta */
+.nav a.hl,.hdr.on-dark .nav a.hl{background:var(--deep);color:var(--white);box-shadow:none}
+.nav a.hl::before{background:var(--glow-strong);animation:none}
+.nav a.hl:hover,.nav a.hl[aria-current="page"]{background:var(--night);color:var(--white)}
+.hdr.on-dark .nav a.hl{background:var(--white);color:var(--deep)}
+.hdr.on-dark .nav a.hl::before{background:var(--accent)}
+.hdr.on-dark .nav a.hl:hover,.hdr.on-dark .nav a.hl[aria-current="page"]{background:var(--ice);color:var(--deep)}
+.mnav a.hl{color:var(--deep)}
+.mnav a.hl::before{background:var(--accent)}
+/* Menos resplandor: fuera el destello secundario de la escena del portátil */
+.stage::before{background:radial-gradient(circle 550px at 50% 58%,color-mix(in srgb,var(--glow-strong) 20%,transparent),color-mix(in srgb,var(--accent) 10%,transparent) 62%,transparent 100%)}
+/* Ámbar: relleno brillante con texto oscuro (el blanco sobre ámbar no cumple contraste) */
+body[data-product="ana"] .btn-primary,[data-p="ana"] .btn-primary{background:#f5a524;color:var(--deep);box-shadow:0 1px 0 rgba(0,0,0,.14)}
+body[data-product="ana"] .btn-primary:hover,[data-p="ana"] .btn-primary:hover{background:#e8960c}

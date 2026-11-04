@@ -24,6 +24,7 @@
       cur = i;
       tabs.forEach((t, k) => { const on = k === i; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; views[k].hidden = !on; });
       list.style.setProperty('--i', i);
+      sx.dataset.p = ['notes', 'aud', 'ana'][i] || 'notes';
       // reinicia la entrada de la vista (solo transform y opacity)
       views[i].classList.remove('sx-in'); void views[i].offsetWidth; views[i].classList.add('sx-in');
     }

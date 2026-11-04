@@ -449,7 +449,7 @@ ${pg.src === 'index' && SEQ ? `<link rel="preload" as="image" href="${frame('m',
 ${schemaFor(pg, body)}
 </script>
 </head>
-<body class="page-${pg.post ? 'post' : pg.filtro ? 'blog-filtro' : pg.src}">
+<body class="page-${pg.post ? 'post' : pg.filtro ? 'blog-filtro' : pg.src}"${({ notes: 'notes', auditorias: 'aud', analytics: 'ana' })[pg.src] ? ` data-product="${({ notes: 'notes', auditorias: 'aud', analytics: 'ana' })[pg.src]}"` : ''}>
 <a class="skip" href="#main">Saltar al contenido</a>
 ${svgDefs}
 ${header(pg.navPath || pg.path)}
