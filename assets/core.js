@@ -19,6 +19,10 @@
   }
   addEventListener('scroll', headerTheme, {passive:true}); headerTheme();
 
+  // Las capas decorativas de fondo se detienen cuando su sección no está a la vista.
+  const fxs = $$('.fx');
+  if (fxs.length && 'IntersectionObserver' in window) { const iox = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('fx-off', !e.isIntersecting)), {rootMargin: '200px 0px'}); fxs.forEach(f => iox.observe(f)); }
+
   document.addEventListener('click', e => {
     const a = e.target.closest('a[href]'); if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || a.target === '_blank') return;
     const u = new URL(a.href, location.href);

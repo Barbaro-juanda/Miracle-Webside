@@ -2138,3 +2138,33 @@ body[data-product="ana"] .btn-primary:hover,[data-p="ana"] .btn-primary:hover{ba
   .bg-traces .ecg-pulse{display:none}.bg-traces .nd,.bg-traces .tg{opacity:.8;animation:none}
   .st-thread i{transform:scaleY(1)}
 }
+
+/* ============================================================
+   Estética global · esferas de luz azul y lila y códigos clínicos tenues detrás de cada sección.
+   Sobre fondo claro la luz es más suave; sobre oscuro, como en la sección del párrafo.
+   ============================================================ */
+section:has(> .fx){position:relative;isolation:isolate;overflow-x:clip}
+.fx{position:absolute;inset:0;z-index:-1;pointer-events:none;user-select:none;overflow:hidden}
+.fx .o1,.fx .o2{position:absolute;border-radius:50%;will-change:transform}
+.fx .o1{left:-9%;top:8%;width:min(44vw,600px);height:min(44vw,600px);background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 24%,transparent),transparent);animation:aur1 36s ease-in-out infinite alternate}
+.fx .o2{right:-9%;bottom:4%;width:min(40vw,560px);height:min(40vw,560px);background:radial-gradient(closest-side,color-mix(in srgb,var(--lilac) 24%,transparent),transparent);animation:aur2 42s ease-in-out infinite alternate}
+.fx.flip .o1{left:auto;right:-9%;top:auto;bottom:6%;background:radial-gradient(closest-side,color-mix(in srgb,var(--lilac) 24%,transparent),transparent)}
+.fx.flip .o2{right:auto;left:-9%;bottom:auto;top:6%;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 24%,transparent),transparent)}
+.fx .cd{position:absolute;font:600 13px var(--f-sans);letter-spacing:.16em;color:var(--lilac-ink);opacity:.3;animation:cdfloat 14s ease-in-out infinite alternate}
+.fx .c1{left:6%;top:14%}.fx .c2{right:7%;top:20%;animation-delay:-4s}.fx .c3{left:11%;bottom:14%;animation-delay:-8s}.fx .c4{right:12%;bottom:12%;animation-delay:-2s}.fx .c5{left:44%;top:8%;animation-delay:-6s}.fx .c6{right:28%;bottom:7%;animation-delay:-10s}
+/* Sobre fondos oscuros */
+.dark > .fx,.tone-dark > .fx,.sub-hero.dark > .fx{--fxo:1}
+.dark > .fx .o1,.tone-dark > .fx .o1{background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 44%,transparent),transparent)}
+.dark > .fx .o2,.tone-dark > .fx .o2{background:radial-gradient(closest-side,color-mix(in srgb,var(--lilac) 44%,transparent),transparent)}
+.dark > .fx.flip .o1,.tone-dark > .fx.flip .o1{background:radial-gradient(closest-side,color-mix(in srgb,var(--lilac) 44%,transparent),transparent)}
+.dark > .fx.flip .o2,.tone-dark > .fx.flip .o2{background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 44%,transparent),transparent)}
+.dark > .fx .cd,.tone-dark > .fx .cd{color:var(--lilac-soft);opacity:.5}
+/* Fuera de pantalla se detienen */
+.fx.fx-off *{animation-play-state:paused}
+/* Artículos: solo la luz, sin códigos, para no distraer la lectura */
+.page-post .fx .cd{display:none}
+@media (max-width:899px){.fx .cd{display:none}.fx .o1,.fx .o2{width:78vw;height:78vw}}
+@media (prefers-reduced-motion:reduce){.fx .o1,.fx .o2,.fx .cd{animation:none}}
+/* Sección del párrafo: el hilo de luz ya no cruza el texto por el centro; sube al borde izquierdo */
+.st-thread{left:3.5%;margin-left:0;background:color-mix(in srgb,var(--white) 8%,transparent)}
+@media (max-width:899px){.st-thread{left:4%}}

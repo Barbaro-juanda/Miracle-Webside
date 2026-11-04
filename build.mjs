@@ -368,6 +368,20 @@ ${sp.templates.map((t, i) => `    <article class="stpl" data-reveal>
 }
 
 /* ---------- Páginas ---------- */
+
+/* Capa decorativa de fondo para cada sección (misma estética de la sección del párrafo): dos esferas de luz azul y lila
+   y códigos clínicos tenues. Todo aria-hidden. El hero y la sección del párrafo de la home ya traen la suya. */
+const FX_CODES = ['J03.9', '890201', 'CIE-10', 'CUPS', 'SHA-256', 'F41.2', 'RIPS', 'Z00.1'];
+function addFx(html) {
+  let k = 0;
+  return html.replace(/<section\b([^>]*)>/g, (m, attrs) => {
+    if (/class="[^"]*\b(stage|statement)\b/.test(attrs)) return m;
+    const i = k++, flip = i % 2 ? ' flip' : '';
+    const codes = [0, 1, 2, 3].map(j => `<span class="cd c${(i + [0, 1, 3, 4][j]) % 6 + 1}">${FX_CODES[(i * 3 + j) % FX_CODES.length]}</span>`).join('');
+    return `${m}<div class="fx${flip}" aria-hidden="true"><i class="o1"></i><i class="o2"></i>${codes}</div>`;
+  });
+}
+
 function render(pg) {
   let body;
   if (pg.post) {
@@ -408,6 +422,7 @@ ${rel.length ? `<section class="related" aria-labelledby="h-rel"><div class="wra
   if (pg.src === 'blog' && !pg.filtro) body = body.replace('@@BLOGFEAT@@', featHtml()).replace('@@BLOGLIST@@', listaHtml(posts, '/blog', 'Todos los artículos'));
   body = body.replaceAll('@@LIVEDEMO@@', readFileSync(new URL('./src/partials/livedemo.html', import.meta.url), 'utf8').trim().replaceAll('@@ID@@', pg.src)).replaceAll('@@CRUMBS@@', crumbsHtml(pg)).replaceAll('@@CTABAND@@', nextHtml(pg) + ctaBand);
   if (FLOW[pg.path] && !body.includes('next-link')) body += '\n' + nextHtml(pg);
+  body = addFx(body);
 
   const depth = pg.out.includes('/') ? '/' : '';
   const url = abs(pg.path);
