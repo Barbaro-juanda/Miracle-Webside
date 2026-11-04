@@ -2349,3 +2349,55 @@ html.pgbg main section > .fx{display:none}
 .nl-next:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 -1px 0 rgba(0,0,0,.35),0 1px 2px rgba(0,0,0,.25),0 18px 38px rgba(14,23,38,.28)}
 .nl-go{background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 80%,#fff) 0,var(--accent) 52%,color-mix(in srgb,var(--accent) 90%,#000) 100%);border:1px solid color-mix(in srgb,var(--accent) 60%,#fff);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 2px rgba(0,0,0,.25)}
 .nl-prev{background:linear-gradient(180deg,#fff 0,#f1f4f8 100%);border-color:#d4dbe6;box-shadow:inset 0 1px 0 #fff,0 1px 2px rgba(14,23,38,.07)}
+
+/* ============================================================
+   Menos presencia de los colores difuminados; electrocardiograma con el color de la barra de pasos (1 a 4);
+   figuras 3D pequeñas y animadas en las subpáginas.
+   ============================================================ */
+.po-b{background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 17%,transparent),transparent)}
+.po-l{background:radial-gradient(closest-side,color-mix(in srgb,var(--lilac) 15%,transparent),transparent)}
+.po{scale:.78}
+.st-bg .o1{background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 24%,transparent),transparent)}
+.st-bg .o2{background:radial-gradient(closest-side,color-mix(in srgb,var(--lilac) 22%,transparent),transparent)}
+.st-bg .o1,.st-bg .o2{width:min(34vw,470px);height:min(34vw,470px)}
+.bg-aurora .a1{background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 34%,transparent),transparent)}
+.bg-aurora .a2{background:radial-gradient(closest-side,color-mix(in srgb,var(--lilac) 28%,transparent),transparent)}
+.bg-aurora .a3{background:radial-gradient(closest-side,color-mix(in srgb,var(--glow-strong) 20%,transparent),transparent)}
+.bg-aurora .a1,.bg-aurora .a2{max-width:640px;max-height:640px}
+.bg-aurora .a3{max-width:520px;max-height:520px}
+.bg-traces .ecg{stroke:url(#ecg-line);stroke-width:1.3;opacity:.5}
+.bg-traces .ecg-pulse{stroke:#c8ecff;stroke-width:1.8;opacity:.6}
+.pg-ecg path{stroke:url(#ecg-line);stroke-width:1.3}
+.pg-beat{opacity:.42}
+
+/* Figuras 3D (CSS puro): giran despacio y flotan; discretas pero visibles */
+.g3w{position:absolute;pointer-events:none;animation:g3float 9s ease-in-out infinite}
+.g3{--s:54px;width:var(--s);height:var(--s);perspective:520px}
+.g3-in{position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:g3spin 16s linear infinite}
+.g3 i{position:absolute;inset:0;display:block;border:1.4px solid color-mix(in srgb,var(--accent) 80%,#fff);background:color-mix(in srgb,var(--accent) 7%,transparent);box-shadow:0 0 14px color-mix(in srgb,var(--accent) 35%,transparent) inset,0 0 10px color-mix(in srgb,var(--accent) 22%,transparent)}
+.g3-cube i.f{transform:translateZ(calc(var(--s)/2))}
+.g3-cube i.b{transform:rotateY(180deg) translateZ(calc(var(--s)/2))}
+.g3-cube i.r{transform:rotateY(90deg) translateZ(calc(var(--s)/2))}
+.g3-cube i.l{transform:rotateY(-90deg) translateZ(calc(var(--s)/2))}
+.g3-cube i.t{transform:rotateX(90deg) translateZ(calc(var(--s)/2))}
+.g3-cube i.u{transform:rotateX(-90deg) translateZ(calc(var(--s)/2))}
+.g3-cube{--s:46px}
+.g3-gyro{--s:64px}
+.g3-gyro i{border-radius:50%;background:none;box-shadow:0 0 10px color-mix(in srgb,var(--lilac) 40%,transparent);border-color:color-mix(in srgb,var(--lilac) 80%,#fff)}
+.g3-gyro i.a{animation:g3ring 7s linear infinite}
+.g3-gyro i.b{transform:rotateY(90deg);animation:g3ring2 9s linear infinite}
+.g3-gyro i.c{inset:12px;border-color:color-mix(in srgb,var(--accent) 85%,#fff);transform:rotateX(70deg)}
+.g3-gyro b{position:absolute;left:50%;top:50%;width:9px;height:9px;margin:-4.5px;border-radius:50%;background:radial-gradient(circle,#fff,var(--accent));box-shadow:0 0 14px var(--accent)}
+.g3-prism{--s:50px}
+.g3-prism i{background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 14%,transparent),transparent);border-color:color-mix(in srgb,var(--accent) 75%,#fff)}
+.g3-prism i.p1{transform:rotateY(0) translateZ(14px)}
+.g3-prism i.p2{transform:rotateY(120deg) translateZ(14px)}
+.g3-prism i.p3{transform:rotateY(240deg) translateZ(14px)}
+.g3-prism i{inset:0 8px}
+.pb-dark ~ .g3w .g3 i{border-color:var(--lilac-soft)}
+@keyframes g3spin{from{transform:rotateX(-24deg) rotateY(0)}to{transform:rotateX(-24deg) rotateY(360deg)}}
+@keyframes g3ring{to{transform:rotateX(360deg)}}
+@keyframes g3ring2{to{transform:rotateY(450deg)}}
+@keyframes g3float{0%,100%{translate:0 -8px}50%{translate:0 10px}}
+@media (prefers-reduced-motion:reduce){.g3w,.g3-in,.g3 i{animation:none!important}}
+@media (max-width:899px){.g3w{display:none}}

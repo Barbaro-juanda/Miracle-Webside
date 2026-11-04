@@ -187,7 +187,8 @@
     let html = '';
     secs.forEach(s => {
       const t = theme(s); if (!t) return;
-      const r = s.getBoundingClientRect(), top = r.top + scrollY - mt;
+      const host = s.parentElement && s.parentElement.classList.contains('pin-spacer') ? s.parentElement : s;  // la sección fijada se mide por su contenedor, que conserva el alto real
+      const r = host.getBoundingClientRect(), top = r.top + scrollY - mt;
       const last = s === [...secs].reverse().find(x => theme(x));
       html += `<div class="pb pb-${t}${last ? ' pb-last' : ''}" style="top:${Math.round(top)}px;height:${Math.round(r.height)}px"></div>`;
     });
@@ -232,6 +233,22 @@
           html += `<div class="pg-glyph" style="top:${Math.round(top + r.height * .38)}px;${side}:${Math.round(margin)}px">${GL[n % GL.length]}</div>`;
         }
         n++;
+      });
+    }
+    // Figuras 3D pequeñas que giran, solo en las subpáginas: cubo, giroscopio y prisma, en los bordes de cada sección
+    if (!home && !isPost && innerWidth >= 900) {
+      const cube = '<div class="g3 g3-cube"><div class="g3-in">' + ['f','b','r','l','t','u'].map(k => `<i class="${k}"></i>`).join('') + '</div></div>';
+      const gyro = '<div class="g3 g3-gyro"><div class="g3-in"><i class="a"></i><i class="b"></i><i class="c"></i><b></b></div></div>';
+      const prism = '<div class="g3 g3-prism"><div class="g3-in">' + ['p1','p2','p3'].map(k => `<i class="${k}"></i>`).join('') + '</div></div>';
+      const OBJ = [gyro, cube, prism];
+      let m = 0;
+      secs.forEach(s => {
+        if (s.classList.contains('stage')) return;
+        const r = s.getBoundingClientRect(), top = r.top + scrollY - mt;
+        if (r.height < 260) return;
+        const right = m % 2 === 0, edge = Math.max(14, Math.min(70, (innerWidth - 1180) / 2 - 36));
+        html += `<div class="g3w" style="top:${Math.round(top + r.height * (.22 + (m % 3) * .2))}px;${right ? 'right' : 'left'}:${Math.round(edge)}px;animation-delay:-${(m * 2.3) % 9}s">${OBJ[m % 3]}</div>`;
+        m++;
       });
     }
     // Hilo de datos (solo en la home): sale del hero, baja por el costado, une las secciones y entra al orbe del circuito
@@ -280,5 +297,9 @@
   addEventListener('load', later); addEventListener('resize', later);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(later);
   if ('ResizeObserver' in window) new ResizeObserver(later).observe(main);
+  // GSAP crea y recalcula los contenedores de las secciones fijadas después de cargar: se vuelve a medir
+  const hookST = () => { if (window.ScrollTrigger && ScrollTrigger.addEventListener) { ScrollTrigger.addEventListener('refresh', later); later(); } };
+  if (window.ScrollTrigger) hookST(); else addEventListener('load', hookST, {once: true});
+  setTimeout(later, 1200);
   let ticking = 0; addEventListener('scroll', () => { const n = performance.now(); if (n - ticking > 24) { ticking = n; progress(); } }, {passive: true});
 })();

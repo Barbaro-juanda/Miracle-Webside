@@ -66,6 +66,7 @@
   <defs>
     <!-- Cromado sutil: línea de plata a cian y lila, y cuenta cromada para los nodos -->
     <linearGradient id="chrome-line" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1440" y2="0"><stop offset="0" stop-color="#e9eef6"/><stop offset=".35" stop-color="#9fe3ff"/><stop offset=".7" stop-color="#c9c1ff"/><stop offset="1" stop-color="#f2f5fb"/></linearGradient>
+    <linearGradient id="ecg-line" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1440" y2="0"><stop offset="0" stop-color="#2f6fe0"/><stop offset=".7" stop-color="#37c9fd"/><stop offset="1" stop-color="#c8ecff"/></linearGradient>
     <radialGradient id="chrome-bead" cx="34%" cy="30%" r="78%"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="#b9d4f5"/><stop offset=".7" stop-color="#5f7fb0"/><stop offset="1" stop-color="#1d2f55"/></radialGradient>
     <radialGradient id="orb-core" cx="43%" cy="41%" r="64%"><stop offset="0%" stop-color="#57d2fd"/><stop offset="30%" stop-color="#37c9fd"/><stop offset="62%" stop-color="#12aef2"/><stop offset="100%" stop-color="#0a9aea"/></radialGradient>
     <radialGradient id="orb-rim" cx="50%" cy="50%" r="50%"><stop offset="68%" stop-color="#fff" stop-opacity="0"/><stop offset="88%" stop-color="#c8ecff" stop-opacity=".45"/><stop offset="97%" stop-color="#fff" stop-opacity=".92"/><stop offset="100%" stop-color="#fff"/></radialGradient>
@@ -115,8 +116,8 @@
     <div class="bg-floor"></div>
     <svg class="bg-traces" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none">
       <!-- Trazo de electrocardiograma que cruza el fondo, con un pulso que lo recorre -->
-      <path class="ecg" d="M0 112 H470 l14 0 l10 -22 l16 52 l14 -40 l10 10 H1440" pathLength="1000"/>
-      <path class="ecg-pulse" d="M0 112 H470 l14 0 l10 -22 l16 52 l14 -40 l10 10 H1440" pathLength="1000"/>
+      <path class="ecg" d="M0 128 H470 l14 0 l10 -22 l16 52 l14 -40 l10 10 H1440" pathLength="1000"/>
+      <path class="ecg-pulse" d="M0 128 H470 l14 0 l10 -22 l16 52 l14 -40 l10 10 H1440" pathLength="1000"/>
       <!-- Trazos de datos: nota → código → firma -->
       <path class="tr" d="M0 640 H170 L230 580 H420 L450 610" pathLength="1000"/>
       <path class="tr tr2" d="M0 690 H110 L170 750 H330" pathLength="1000"/>
