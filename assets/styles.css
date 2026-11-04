@@ -2416,3 +2416,10 @@ html.pgbg main section > .fx{display:none}
 .sec-grid.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media (max-width:760px){.sec-grid.g2{grid-template-columns:1fr}}
 .sec-card .fine{margin-top:12px;font-size:.92rem}
+
+/* Los pasos del hero se leen sobre un velo suave: las líneas de datos y los códigos quedan detrás sin cruzarse con el texto */
+.steps-panel::before{content:"";position:absolute;z-index:-1;inset:-70px -80px -60px -80px;pointer-events:none;background:radial-gradient(closest-side,color-mix(in srgb,var(--deep) 86%,transparent) 0,color-mix(in srgb,var(--deep) 70%,transparent) 55%,transparent 100%)}
+.sp-link{display:inline-block;margin:10px 0 0 4px;padding:7px 14px;border:1px solid color-mix(in srgb,var(--glow) 34%,transparent);border-radius:999px;background:color-mix(in srgb,var(--deep) 72%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.sp-link:hover{border-color:var(--glow)}
+.static .steps-panel::before{display:none}
+@media (max-width:899px){.steps-panel::before{inset:-40px -20px -30px -20px}}
