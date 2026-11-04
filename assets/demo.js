@@ -10,6 +10,8 @@
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   const ua = navigator.userAgent;
   const IS_SAFARI = /safari/i.test(ua) && !/chrome|crios|android|edg/i.test(ua);
+  const IS_ANDROID = /android/i.test(ua);
+  // En Android el micrófono solo lo puede tener una captura a la vez: si el medidor lo retiene, el dictado de Chrome se queda sordo.
   const DATA = {
     psiquiatria: [
       ['Cuéntame, ¿qué te trae hoy?', 'Motivo de consulta'],
@@ -70,8 +72,8 @@
       } catch (e) {
         return {ok: false, name: e.name};
       }
-      // En Safari el medidor y el dictado compiten por el micrófono: ahí solo se pide el permiso.
-      if (IS_SAFARI) { stream.getTracks().forEach(t => t.stop()); stream = null; return {ok: true, meter: false}; }
+      // En Safari y en Android el medidor y el dictado compiten por el micrófono: ahí solo se pide el permiso y se suelta.
+      if (IS_SAFARI || IS_ANDROID) { stream.getTracks().forEach(t => t.stop()); stream = null; await new Promise(r => setTimeout(r, 350)); return {ok: true, meter: false}; }
       try {
         ac = new (window.AudioContext || window.webkitAudioContext)();
         const an = ac.createAnalyser(); an.fftSize = 256;
@@ -107,7 +109,7 @@
 
     const startRec = () => {
       const r = new SR();
-      rec = r; r.lang = 'es-CO'; r.interimResults = true; r.continuous = true;
+      rec = r; r.lang = 'es-CO'; r.interimResults = true; r.continuous = !IS_ANDROID; // en Android, continuous repite el texto: se dicta por frases y se reanuda
       base = ta.value.trim() ? ta.value.trim() + ' ' : '';
       r.onstart = () => { startedAt = Date.now(); };
       r.onresult = e => {
