@@ -62,6 +62,7 @@
       let k = i;
       for (let r = 0; r < n; r++) { if (imgs[i - r]?.ok) { k = i - r; break; } if (imgs[i + r]?.ok) { k = i + r; break; } }
       const im = imgs[k]; if (!im?.ok || !cv.width) return;
+      ctx.clearRect(0, 0, cv.width, cv.height); // los cuadros ahora tienen transparencia: se limpia antes de dibujar
       ctx.drawImage(im, 0, 0, cv.width, cv.height);
     }
     load(0);
