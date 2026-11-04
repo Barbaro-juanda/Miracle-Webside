@@ -2326,3 +2326,26 @@ html.pgbg .pin-spacer:has(> .statement),html.pgbg .pin-spacer{background:none!im
 /* Las secciones fijadas con GSAP viven dentro de un .pin-spacer: también deben ser transparentes */
 html.pgbg main section:not(.stage){background:none!important}
 html.pgbg main section > .fx{display:none}
+
+/* ============================================================
+   Elementos gráficos de salud, discretos: latidos flotantes entre secciones y figuras en los márgenes
+   (hélice de ADN, cruz médica, anillo con pulso, molécula). Van fuera del texto, con poca opacidad.
+   ============================================================ */
+.pg-beat{position:absolute;width:42vw;max-width:620px;height:60px;opacity:.5;-webkit-mask-image:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent);mask-image:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent)}
+.pg-ecg{width:100%;height:100%;overflow:visible}
+.pg-ecg path{stroke:url(#chrome-line);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1000;stroke-dashoffset:0}
+.pg-glyph{position:absolute;opacity:.36;transform:translateY(-50%)}
+.hg{display:block;height:auto;overflow:visible;animation:cdfloat 16s ease-in-out infinite alternate}
+.hg path,.hg circle{stroke:color-mix(in srgb,var(--lilac) 70%,var(--accent));stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.hg .r{stroke-width:.9;opacity:.6}
+.hg .d{fill:var(--lilac);stroke:none}
+.pb-dark ~ .pg-glyph .hg path{stroke:var(--lilac-soft)}
+@media (max-width:1279px){.pg-glyph{display:none}}
+@media (max-width:899px){.pg-beat{opacity:.35}}
+@media (prefers-reduced-motion:reduce){.hg{animation:none}}
+.page-post .pg-beat,.page-post .pg-glyph{display:none}
+/* Botón de "Siguiente": mismo cromado sutil de los demás botones */
+.nl-next{background:linear-gradient(180deg,#223760 0,#13213f 50%,#0d1830 100%);border:1px solid rgba(255,255,255,.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 -1px 0 rgba(0,0,0,.35),0 1px 2px rgba(0,0,0,.25),0 12px 28px rgba(14,23,38,.2)}
+.nl-next:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 -1px 0 rgba(0,0,0,.35),0 1px 2px rgba(0,0,0,.25),0 18px 38px rgba(14,23,38,.28)}
+.nl-go{background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 80%,#fff) 0,var(--accent) 52%,color-mix(in srgb,var(--accent) 90%,#000) 100%);border:1px solid color-mix(in srgb,var(--accent) 60%,#fff);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 2px rgba(0,0,0,.25)}
+.nl-prev{background:linear-gradient(180deg,#fff 0,#f1f4f8 100%);border-color:#d4dbe6;box-shadow:inset 0 1px 0 #fff,0 1px 2px rgba(14,23,38,.07)}

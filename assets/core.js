@@ -203,6 +203,37 @@
         html += `<span class="pc" style="top:${Math.round(i * 520 + 150 + (i * 71) % 160)}px;left:${x}%;animation-delay:-${(i * 3) % 12}s">${CODES[(i * 5) % CODES.length]}</span>`;
       }
     }
+    // Elementos gráficos de salud, discretos: latidos flotantes entre secciones y figuras en los márgenes laterales
+    {
+      const wave = (n) => {                       // hélice de ADN: dos hebras y peldaños
+        let a = '', b = '', r = '';
+        for (let y = 0; y <= 300; y += 6) { const x = 45 + 26 * Math.sin(y / 300 * Math.PI * 4 + n); a += (y ? 'L' : 'M') + x.toFixed(1) + ' ' + y + ' '; b += (y ? 'L' : 'M') + (90 - x).toFixed(1) + ' ' + y + ' '; }
+        for (let y = 12; y <= 292; y += 24) { const x = 45 + 26 * Math.sin(y / 300 * Math.PI * 4 + n); r += `M${x.toFixed(1)} ${y}L${(90 - x).toFixed(1)} ${y}`; }
+        return `<svg class="hg" viewBox="0 0 90 300" width="76" fill="none"><path d="${a}"/><path d="${b}"/><path class="r" d="${r}"/></svg>`;
+      };
+      const GL = [
+        wave(0),
+        '<svg class="hg" viewBox="0 0 100 100" width="84" fill="none"><path d="M36 8h28v28h28v28H64v28H36V64H8V36h28z"/><circle cx="50" cy="50" r="6" class="d"/></svg>',
+        '<svg class="hg" viewBox="0 0 120 120" width="100" fill="none"><circle cx="60" cy="60" r="52"/><circle cx="60" cy="60" r="38" class="r"/><path d="M12 62h26l8-18 12 40 10-28 6 6h46"/></svg>',
+        '<svg class="hg" viewBox="0 0 120 110" width="96" fill="none"><path d="M60 6l46 26v46L60 104 14 78V32z"/><circle cx="60" cy="6" r="4" class="d"/><circle cx="106" cy="32" r="4" class="d"/><circle cx="106" cy="78" r="4" class="d"/><circle cx="60" cy="104" r="4" class="d"/><circle cx="14" cy="78" r="4" class="d"/><circle cx="14" cy="32" r="4" class="d"/><path class="r" d="M60 6v98M14 32l92 46M106 32L14 78"/></svg>',
+      ];
+      const beat = '<svg class="pg-ecg" viewBox="0 0 600 60" preserveAspectRatio="none" fill="none"><path d="M0 34H210l10 0 8-14 12 38 10-30 6 6H600" pathLength="1000"/></svg>';
+      let n = 0;
+      secs.forEach((s, k) => {
+        if (s.classList.contains('stage') || s.classList.contains('statement')) return;
+        const r = s.getBoundingClientRect(), top = r.top + scrollY - mt;
+        if (top < 200) return;
+        // latido flotante en el aire de arriba de la sección (entre secciones, lejos de los títulos)
+        html += `<div class="pg-beat" style="top:${Math.round(top + 24)}px;left:${6 + (n * 29) % 44}%">${beat}</div>`;
+        // figura de salud en el margen lateral (solo si cabe fuera del contenido)
+        if (innerWidth >= 1280 && r.height > 420) {
+          const side = home ? 'right' : (n % 2 ? 'left' : 'right');
+          const margin = Math.max(8, (innerWidth - 1180) / 2 - 110);
+          html += `<div class="pg-glyph" style="top:${Math.round(top + r.height * .38)}px;${side}:${Math.round(margin)}px">${GL[n % GL.length]}</div>`;
+        }
+        n++;
+      });
+    }
     // Hilo de datos (solo en la home): sale del hero, baja por el costado, une las secciones y entra al orbe del circuito
     nodes = []; link = null;
     if (home && innerWidth >= 1100) {
