@@ -2121,3 +2121,8 @@ body[data-product="ana"] .btn-primary:hover,[data-p="ana"] .btn-primary:hover{ba
 .btn-primary{box-shadow:none;border-color:var(--accent-hover)}
 body[data-product="ana"] .btn-primary,[data-p="ana"] .btn-primary{box-shadow:none;border-color:#e8960c}
 .nl-go{box-shadow:none}
+
+/* ============================================================
+   Paso 4 · secciones oscuras: del azul marino a un tono apenas más claro (5 %) en el borde inferior.
+   ============================================================ */
+.statement.dark,.try.dark,.circuit.dark,.closing.dark{background-image:linear-gradient(180deg,transparent 58%,color-mix(in srgb,var(--white) 5%,transparent) 100%)}
