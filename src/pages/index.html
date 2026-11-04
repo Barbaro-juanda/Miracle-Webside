@@ -1,5 +1,25 @@
 <!-- 1 · INICIO + CÓMO FUNCIONA: un solo escenario que el scroll va contando -->
 <section class="stage dark" id="como-funciona" data-theme="dark" aria-labelledby="h1">
+  <div class="bg-hero" aria-hidden="true">
+    <div class="bg-aurora"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
+    <div class="bg-floor"></div>
+    <svg class="bg-traces" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none">
+      <!-- Trazo de electrocardiograma que cruza el fondo, con un pulso que lo recorre -->
+      <path class="ecg" d="M0 214 H470 l14 0 l10 -22 l16 52 l14 -40 l10 10 H1440" pathLength="1000"/>
+      <path class="ecg-pulse" d="M0 214 H470 l14 0 l10 -22 l16 52 l14 -40 l10 10 H1440" pathLength="1000"/>
+      <!-- Trazos de datos: nota → código → firma -->
+      <path class="tr" d="M0 640 H170 L230 580 H420 L450 610" pathLength="1000"/>
+      <path class="tr tr2" d="M0 690 H110 L170 750 H330" pathLength="1000"/>
+      <path class="tr tr3" d="M1440 600 H1270 L1210 540 H1020 L990 570" pathLength="1000"/>
+      <path class="tr tr4" d="M1440 700 H1330 L1270 760 H1110" pathLength="1000"/>
+      <circle class="nd" cx="450" cy="610" r="4"/><circle class="nd nd2" cx="330" cy="750" r="4"/>
+      <circle class="nd nd3" cx="990" cy="570" r="4"/><circle class="nd nd4" cx="1110" cy="760" r="4"/>
+      <text class="tg" x="250" y="568">CIE-10</text><text class="tg" x="190" y="738">SHA-256</text>
+      <text class="tg" x="1030" y="528">CUPS</text><text class="tg" x="1130" y="748">FIRMA</text>
+    </svg>
+    <canvas class="bg-dust"></canvas>
+    <div class="bg-grain"></div>
+  </div>
   <div class="hero-copy">
     <h1 id="h1"><span class="split">Atiendes al paciente.</span> <span class="l2 split">Miracle escribe la historia clínica.</span></h1>
     <p>La nota, los códigos CIE-10 y CUPS y la revisión quedan listos antes de tu firma.</p>
@@ -18,6 +38,7 @@
   </div>
 
   <div class="device-wrap" aria-hidden="true">
+    <div class="visor"><i></i><i></i><i></i><i></i></div>
     <div class="device">
       <div class="lid">
         <div class="lid-front">
@@ -120,6 +141,11 @@
 </section>
 
 <section class="statement dark" data-theme="dark" aria-label="Por qué existe Miracle">
+  <div class="st-bg" aria-hidden="true">
+    <i class="o1"></i><i class="o2"></i>
+    <span class="cd c1">J03.9</span><span class="cd c2">890201</span><span class="cd c3">CIE-10</span><span class="cd c4">CUPS</span><span class="cd c5">SHA-256</span><span class="cd c6">F41.2</span>
+    <div class="st-thread"><i></i></div>
+  </div>
   <p class="split-words">Menos pantalla, más paciente. Miracle se encarga de la nota para que puedas dedicarte a lo que importa.</p>
 </section>
 

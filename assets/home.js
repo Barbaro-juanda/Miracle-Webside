@@ -130,6 +130,7 @@
       gsap.set(dw, {y:() => innerHeight * (desk ? .16 : .2), x:0, scale:1});
       gsap.set(lid, {rotateX:-89});
       gsap.set(panel, {autoAlpha:0, y:20});
+      gsap.set('.visor', {autoAlpha:0});
       gsap.set(home, {autoAlpha:0}); gsap.set(cur, {x:() => pill.offsetLeft - 190, y:() => pill.offsetTop - 120, autoAlpha:0});
       zbase = null;
       gsap.set(items, {autoAlpha:0, y:16});
@@ -155,6 +156,7 @@
         .to(cur, {x:() => pill.offsetLeft + pill.offsetWidth * .6, y:() => pill.offsetTop + pill.offsetHeight * .55, duration:.45, ease:'power2.inOut'}, 1.8)
         .to(pill, {scale:.94, duration:.08}, 2.25).to(pill, {scale:1, duration:.12}, 2.33)
         .to(home, {autoAlpha:0, duration:.25}, 2.42)
+        .to('.visor', {autoAlpha:.8, duration:.7}, 1.6)
         .to(panel, {autoAlpha:1, y:0, duration:.4}, 1.9)
         .to(items[0], {autoAlpha:1, y:0, duration:.3}, 2.2)
         .to(utts.slice(0, 3), {autoAlpha:1, y:0, duration:.25, stagger:.12}, 2.45)
@@ -339,6 +341,7 @@
       scrollTrigger:{trigger:stEl, start:'top top', end:() => '+=' + Math.round(innerHeight * 1.6), pin:true, scrub:.35, anticipatePin:1, invalidateOnRefresh:true}});
     stTl.from('.statement p', {y:40, duration:.15, ease:'power2.out'}, 0)
         .to(sw, {color:stLit, duration:.06, stagger:{each:.74 / sw.length}}, .1)
+        .fromTo('.st-thread i', {scaleY:0}, {scaleY:1, duration:.8, ease:'none'}, .1)
         .to({}, {duration:.15});
 
     /* Circuito: las líneas salen del orbe y encienden cada producto */
@@ -367,4 +370,36 @@
     addEventListener('load', () => ScrollTrigger.refresh());
     document.fonts && document.fonts.ready.then(() => ScrollTrigger.refresh());
   }
+
+  /* ---------- Polvo luminoso del hero: partículas lentas a distintas profundidades ---------- */
+  (() => {
+    const cv = $('.bg-dust'); if (!cv || reduce) return;
+    const ctx = cv.getContext('2d'); if (!ctx) return;
+    const stage = cv.closest('.stage');
+    const small = matchMedia('(max-width: 899px)').matches;
+    const N = small ? 22 : 46;
+    let w = 0, h = 0, dpr = 1, run = false, parts = [];
+    const size = () => { dpr = Math.min(1.5, devicePixelRatio || 1); w = cv.clientWidth; h = cv.clientHeight; cv.width = w * dpr; cv.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
+    const seed = () => { parts = Array.from({length: N}, () => ({x: Math.random() * w, y: Math.random() * h, z: .25 + Math.random() * .75, p: Math.random() * 6.28, lilac: Math.random() < .4})); };
+    size(); seed();
+    addEventListener('resize', () => { size(); seed(); });
+    let last = performance.now();
+    const frame = () => {
+      if (!run) return;
+      const now = performance.now(), dt = Math.min(64, now - last); last = now;
+      ctx.clearRect(0, 0, w, h);
+      for (const q of parts) {
+        q.y -= dt * .012 * q.z; q.x += Math.sin(q.p + now * .0003) * .12 * q.z;
+        if (q.y < -6) { q.y = h + 6; q.x = Math.random() * w; }
+        const r = .6 + q.z * 1.5, a = .12 + q.z * .38 * (.6 + .4 * Math.sin(now * .001 + q.p));
+        ctx.beginPath(); ctx.arc(q.x, q.y, r, 0, 6.283);
+        ctx.fillStyle = q.lilac ? `rgba(180,164,255,${a})` : `rgba(159,227,255,${a})`;
+        ctx.fill();
+      }
+      setTimeout(frame, 33);
+    };
+    const set = on => { if (on && !run) { run = true; last = performance.now(); frame(); } else if (!on) run = false; };
+    if ('IntersectionObserver' in window) new IntersectionObserver(es => es.forEach(e => set(e.isIntersecting && !document.hidden)), {threshold: 0}).observe(stage); else set(true);
+    document.addEventListener('visibilitychange', () => set(!document.hidden));
+  })();
 })();

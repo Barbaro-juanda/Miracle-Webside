@@ -106,6 +106,26 @@
 <main id="main">
 <!-- 1 · INICIO + CÓMO FUNCIONA: un solo escenario que el scroll va contando -->
 <section class="stage dark has-seq" id="como-funciona" data-theme="dark" aria-labelledby="h1">
+  <div class="bg-hero" aria-hidden="true">
+    <div class="bg-aurora"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
+    <div class="bg-floor"></div>
+    <svg class="bg-traces" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none">
+      <!-- Trazo de electrocardiograma que cruza el fondo, con un pulso que lo recorre -->
+      <path class="ecg" d="M0 214 H470 l14 0 l10 -22 l16 52 l14 -40 l10 10 H1440" pathLength="1000"/>
+      <path class="ecg-pulse" d="M0 214 H470 l14 0 l10 -22 l16 52 l14 -40 l10 10 H1440" pathLength="1000"/>
+      <!-- Trazos de datos: nota → código → firma -->
+      <path class="tr" d="M0 640 H170 L230 580 H420 L450 610" pathLength="1000"/>
+      <path class="tr tr2" d="M0 690 H110 L170 750 H330" pathLength="1000"/>
+      <path class="tr tr3" d="M1440 600 H1270 L1210 540 H1020 L990 570" pathLength="1000"/>
+      <path class="tr tr4" d="M1440 700 H1330 L1270 760 H1110" pathLength="1000"/>
+      <circle class="nd" cx="450" cy="610" r="4"/><circle class="nd nd2" cx="330" cy="750" r="4"/>
+      <circle class="nd nd3" cx="990" cy="570" r="4"/><circle class="nd nd4" cx="1110" cy="760" r="4"/>
+      <text class="tg" x="250" y="568">CIE-10</text><text class="tg" x="190" y="738">SHA-256</text>
+      <text class="tg" x="1030" y="528">CUPS</text><text class="tg" x="1130" y="748">FIRMA</text>
+    </svg>
+    <canvas class="bg-dust"></canvas>
+    <div class="bg-grain"></div>
+  </div>
   <div class="hero-copy">
     <h1 id="h1" aria-label="Atiendes al paciente. Miracle escribe la historia clínica."><span class="split" aria-hidden="true"><span class="word"><span class="ch" style="--i:0">A</span><span class="ch" style="--i:1">t</span><span class="ch" style="--i:2">i</span><span class="ch" style="--i:3">e</span><span class="ch" style="--i:4">n</span><span class="ch" style="--i:5">d</span><span class="ch" style="--i:6">e</span><span class="ch" style="--i:7">s</span></span> <span class="word"><span class="ch" style="--i:8">a</span><span class="ch" style="--i:9">l</span></span> <span class="word"><span class="ch" style="--i:10">p</span><span class="ch" style="--i:11">a</span><span class="ch" style="--i:12">c</span><span class="ch" style="--i:13">i</span><span class="ch" style="--i:14">e</span><span class="ch" style="--i:15">n</span><span class="ch" style="--i:16">t</span><span class="ch" style="--i:17">e</span><span class="ch" style="--i:18">.</span></span></span> <span class="l2 split" aria-hidden="true"><span class="word"><span class="ch" style="--i:19">M</span><span class="ch" style="--i:20">i</span><span class="ch" style="--i:21">r</span><span class="ch" style="--i:22">a</span><span class="ch" style="--i:23">c</span><span class="ch" style="--i:24">l</span><span class="ch" style="--i:25">e</span></span> <span class="word"><span class="ch" style="--i:26">e</span><span class="ch" style="--i:27">s</span><span class="ch" style="--i:28">c</span><span class="ch" style="--i:29">r</span><span class="ch" style="--i:30">i</span><span class="ch" style="--i:31">b</span><span class="ch" style="--i:32">e</span></span> <span class="word"><span class="ch" style="--i:33">l</span><span class="ch" style="--i:34">a</span></span> <span class="word"><span class="ch" style="--i:35">h</span><span class="ch" style="--i:36">i</span><span class="ch" style="--i:37">s</span><span class="ch" style="--i:38">t</span><span class="ch" style="--i:39">o</span><span class="ch" style="--i:40">r</span><span class="ch" style="--i:41">i</span><span class="ch" style="--i:42">a</span></span> <span class="word"><span class="ch" style="--i:43">c</span><span class="ch" style="--i:44">l</span><span class="ch" style="--i:45">í</span><span class="ch" style="--i:46">n</span><span class="ch" style="--i:47">i</span><span class="ch" style="--i:48">c</span><span class="ch" style="--i:49">a</span><span class="ch" style="--i:50">.</span></span></span></h1>
     <p>La nota, los códigos CIE-10 y CUPS y la revisión quedan listos antes de tu firma.</p>
@@ -129,7 +149,8 @@
       <img class="seq-last" src="/assets/hero/d/090.webp" alt="" width="1280" height="725" loading="lazy" decoding="async">
       <div class="seq-screen" style="left:28.59%;top:21.88%;width:42.86%;height:45.5%"></div>
     </div>
-        <div class="device">
+        <div class="visor"><i></i><i></i><i></i><i></i></div>
+    <div class="device">
       <div class="lid">
         <div class="lid-front">
           <div class="screen" data-ui>
@@ -231,6 +252,11 @@
 </section>
 
 <section class="statement dark" data-theme="dark" aria-label="Por qué existe Miracle">
+  <div class="st-bg" aria-hidden="true">
+    <i class="o1"></i><i class="o2"></i>
+    <span class="cd c1">J03.9</span><span class="cd c2">890201</span><span class="cd c3">CIE-10</span><span class="cd c4">CUPS</span><span class="cd c5">SHA-256</span><span class="cd c6">F41.2</span>
+    <div class="st-thread"><i></i></div>
+  </div>
   <p class="split-words">Menos pantalla, más paciente. Miracle se encarga de la nota para que puedas dedicarte a lo que importa.</p>
 </section>
 
