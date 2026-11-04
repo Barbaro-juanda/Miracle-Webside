@@ -2168,3 +2168,19 @@ section:has(> .fx){position:relative;isolation:isolate;overflow-x:clip}
 /* Sección del párrafo: el hilo de luz ya no cruza el texto por el centro; sube al borde izquierdo */
 .st-thread{left:3.5%;margin-left:0;background:color-mix(in srgb,var(--white) 8%,transparent)}
 @media (max-width:899px){.st-thread{left:4%}}
+
+/* ============================================================
+   Sin cortes: toda la luz de fondo se desvanece hacia los bordes de su sección, así no queda ningún borde duro
+   y la luz de una sección se funde con la siguiente (del mismo color de fondo).
+   ============================================================ */
+.fx,.st-bg{-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 170px,#000 calc(100% - 170px),transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 170px,#000 calc(100% - 170px),transparent 100%)}
+/* Hero: el fondo se funde con la sección siguiente en vez de cortarse */
+.bg-hero{-webkit-mask-image:linear-gradient(to bottom,#000 0,#000 calc(100% - 200px),transparent 100%);mask-image:linear-gradient(to bottom,#000 0,#000 calc(100% - 200px),transparent 100%)}
+/* Los orbes no se recortan en seco por los lados: se acercan al borde con desvanecido */
+.fx .o1,.fx .o2,.st-bg .o1,.st-bg .o2{opacity:.95}
+
+/* Parte clara sin cortes: las franjas de color de las secciones se funden con el fondo en vez de empezar y terminar en seco */
+.tone-pearl,.tone-ice,.walk-sec{border-top:0;border-bottom:0}
+.tone-pearl{background:linear-gradient(to bottom,transparent 0,var(--pearl) 150px,var(--pearl) calc(100% - 150px),transparent 100%)}
+.tone-ice{background:linear-gradient(to bottom,transparent 0,var(--ice-soft) 150px,var(--ice-soft) calc(100% - 150px),transparent 100%)}
+.walk-sec{background:linear-gradient(to bottom,transparent 0,var(--pearl) 150px,var(--pearl) calc(100% - 150px),transparent 100%)}
