@@ -96,11 +96,13 @@
   const flows = [...document.querySelectorAll('[data-flowscroll] .rmx-flow')];
 
   const xps = [...document.querySelectorAll('[data-xp]')];
+  const stgs = [...document.querySelectorAll('[data-stg]')];
   const zzs = [...document.querySelectorAll('[data-zz]')];
-  if (zzs.length || stps.length || flows.length || xps.length) {
+  if (zzs.length || stps.length || flows.length || xps.length || stgs.length) {
     const upd = () => {
       const vh = innerHeight, mark = vh * .55;
       stps.forEach(r => r.__upd());
+      stgs.forEach(g => g.querySelectorAll('.stc').forEach(c => c.classList.toggle('lit', c.getBoundingClientRect().top < vh * .85)));
       xps.forEach(x => {
         const cs = [...x.querySelectorAll('.xp-c')], as = [...x.querySelectorAll('.xp-a')];
         cs.forEach((c, k) => { const on = c.getBoundingClientRect().top < vh * .82; c.classList.toggle('lit', on); if (as[k]) as[k].classList.toggle('lit', on); });

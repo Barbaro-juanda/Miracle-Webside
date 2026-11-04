@@ -2867,3 +2867,21 @@ html:not(.js) .xp-c,html:not(.js) .xp-c li{opacity:1;transform:none}
 .xp-cta p{flex-basis:100%;margin-top:6px;text-align:center;color:var(--d-muted);font-size:.92rem}
 .xp-c h3{margin-top:60px}
 #planes{scroll-margin-top:90px}#areas{scroll-margin-top:90px}
+
+/* Pruébalo · cuatro tarjetas con su visual; cada una arranca su animación cuando llega a la pantalla (sin paneles fijos) */
+.stg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px;margin-top:40px}
+.stc{position:relative;display:flex;flex-direction:column;padding:26px 28px 30px;border-radius:var(--r-xl);overflow:hidden;isolation:isolate;background:linear-gradient(155deg,#12264d 0,#0a1222 78%);border:1px solid color-mix(in srgb,var(--glow-strong) 55%,transparent);box-shadow:0 0 0 1px color-mix(in srgb,var(--glow-strong) 14%,transparent),0 0 38px color-mix(in srgb,var(--glow-strong) 22%,transparent),inset 0 0 28px color-mix(in srgb,var(--glow-strong) 7%,transparent);opacity:.35;transform:translateY(36px);transition:opacity .8s var(--ease),transform .8s var(--ease),box-shadow .4s}
+.stc.lit{opacity:1;transform:none}
+.stc.lit:hover{transform:translateY(-6px);box-shadow:0 0 0 1px color-mix(in srgb,var(--glow-strong) 45%,transparent),0 0 60px color-mix(in srgb,var(--glow-strong) 42%,transparent)}
+.stc::after{content:"";position:absolute;left:-40%;top:0;width:60%;height:2px;background:linear-gradient(90deg,transparent,var(--glow-strong),transparent);animation:nxrun 5.5s ease-in-out infinite}
+.stc-n{position:absolute;left:22px;top:20px;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;font:700 1.05rem var(--f-display);color:#fff;border:2px solid rgba(255,255,255,.95);background:radial-gradient(circle at 35% 28%,#c3eaff 0,#3db4ff 36%,#1b6fe0 74%,#1646a8 100%);box-shadow:0 0 20px rgba(56,140,255,.85),0 0 44px rgba(56,140,255,.35);z-index:2}
+.stc-v{margin:0 0 6px}
+.stc-v svg{display:block;width:100%;height:auto;max-height:230px}
+.stc h3{font-size:1.45rem;color:#fff}
+.stc p{margin-top:8px;color:var(--d-soft);font-size:1.02rem}
+.stg:not(.on) .sv *{animation-play-state:paused}
+.stc:not(.lit) .sv *{animation-play-state:paused}
+.stc.lit .sv *{animation-play-state:running}
+@media (max-width:820px){.stg{grid-template-columns:1fr}}
+html:not(.js) .stc{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.stc{opacity:1;transform:none}.stc::after{animation:none}}
