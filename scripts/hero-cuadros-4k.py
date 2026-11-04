@@ -52,3 +52,10 @@ sx,sy,sw,sh = (x0-CROP[0])/cw*100, (y0-CROP[1])/ch*100, (x1-x0)/cw*100, (y1-y0)/
 laptop = (2952-888)/cw
 info = {"count":N,"ratio":round(cw/ch,4),"screen":{"x":round(sx,2),"y":round(sy,2),"w":round(sw,2),"h":round(sh,2)},"laptop":round(laptop,3),"source":"portatil.mp4 (4K, Topaz)"}
 json.dump(info, open('out/frames.json','w'), indent=2); print(info)
+
+# Los primeros cuadros del video traen otro brillo de fondo y el recorte genera una mancha: se usa el primer cuadro limpio.
+import PIL.Image as _I
+for i in range(2, 12):
+    a = np.asarray(_I.open(f'out/d/{i:03d}.webp').convert('RGBA'))[..., 3]
+    if ((a > 10) & (a < 200)).mean() > 0.02 or (a > 10).mean() > 0.3:
+        for d in ('d', 'm'): shutil.copy(f'out/{d}/001.webp', f'out/{d}/{i:03d}.webp')
