@@ -2079,3 +2079,27 @@ body[data-product="ana"] .btn-primary:hover,[data-p="ana"] .btn-primary:hover{ba
 .try-points li::before{background:var(--peach);box-shadow:none}
 @media (prefers-reduced-motion:reduce){.hero-copy h1 .l2 .word:last-child::after{transform:scaleX(1);transition:none}}
 .static .hero-copy h1 .l2 .word:last-child::after{transform:scaleX(1);transition:none}
+
+/* ============================================================
+   Paso 2 · luz detrás de los 3D y sombra de contacto debajo.
+   Solo CSS (degradados radiales suaves, sin filtros de desenfoque), 25 a 35 % de opacidad, del color de su
+   producto o de su tarjeta. La luz cae siempre desde arriba a la izquierda. No se toca ningún 3D.
+   ============================================================ */
+/* Selector de perfil: un color por perfil (médico azul, IPS ámbar, auditor verde) */
+.hero-links .rl-i{position:relative;isolation:isolate}
+.hero-links .rl-i::before{content:"";position:absolute;z-index:-1;left:-22px;top:-24px;width:84px;height:84px;pointer-events:none;
+  background:radial-gradient(circle 40px at 30px 28px,color-mix(in srgb,var(--glow-strong) 34%,transparent),transparent),
+             radial-gradient(ellipse 15px 3px at 41px 62px,rgba(0,0,0,.32),transparent)}
+/* Tres productos del circuito: luz del color de cada producto */
+.cx-card .ico.i3d-box{isolation:isolate}
+.cx-card .ico.i3d-box::before{content:"";position:absolute;z-index:-1;left:-34px;top:-34px;width:150px;height:150px;pointer-events:none;
+  background:radial-gradient(circle 74px at 58px 56px,color-mix(in srgb,var(--glow-strong) 32%,transparent),transparent),
+             radial-gradient(ellipse 28px 5px at 72px 118px,rgba(0,0,0,.36),transparent)}
+/* Explora: luz del color de cada tarjeta detrás del objeto */
+.xtile{--tg:var(--glow-strong)}
+.t-blue{--tg:var(--white)}
+.t-mint{--tg:var(--success-bright)}
+.t-light{--tg:var(--accent)}
+.xtile::before{content:"";position:absolute;z-index:-2;left:0;top:0;width:100%;height:190px;pointer-events:none;
+  background:radial-gradient(circle 130px at 80px 76px,color-mix(in srgb,var(--tg) 30%,transparent),transparent),
+             radial-gradient(ellipse 56px 7px at 82px 142px,rgba(0,0,0,.26),transparent)}
