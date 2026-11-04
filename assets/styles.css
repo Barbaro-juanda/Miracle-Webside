@@ -2983,3 +2983,6 @@ html:not(.js) .stc{opacity:1;transform:none}
 .cm-c::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:3px;border-radius:3px;background:var(--nx);box-shadow:0 0 10px var(--nx);opacity:.9}
 .cm-r:last-child .cm-c{font-weight:600;color:var(--deep)}
 @media (max-width:900px){.cm-top{display:none}.cm-r{grid-template-columns:1fr;padding:18px 0}.cm-l{padding:0 22px 6px;color:var(--accent-ink)}.cm-c{display:flex;flex-direction:column;border-left:0;padding:12px 22px 12px 32px}.cm-c::before{left:18px;top:10px;bottom:10px}.cm-c::after{content:attr(data-l);display:block;order:-1;margin-bottom:2px;font:700 .8rem var(--f-sans);color:var(--ink)}}
+
+/* MIRA: el disco solo, sin collar, más grande y con tilt 3D */
+.mira-pd{width:68%;margin:-34% 0 0 -34%;top:55%}
