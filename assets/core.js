@@ -303,3 +303,24 @@
   setTimeout(later, 1200);
   let ticking = 0; addEventListener('scroll', () => { const n = performance.now(); if (n - ticking > 24) { ticking = n; progress(); } }, {passive: true});
 })();
+
+/* Subpáginas: el encabezado hereda la estética del hero (aurora, piso en perspectiva, trazos de datos y electrocardiograma).
+   Todo es CSS y SVG: no pesa, no usa video y no añade texto, así que no afecta al SEO ni al rendimiento. */
+(() => {
+  document.querySelectorAll('.sub-hero').forEach(h => {
+    if (h.querySelector('.sh-bg')) return;
+    const dark = h.classList.contains('dark');
+    const bg = document.createElement('div');
+    bg.className = 'sh-bg' + (dark ? '' : ' sh-light'); bg.setAttribute('aria-hidden', 'true');
+    bg.innerHTML = '<i class="sha a1"></i><i class="sha a2"></i><i class="sha a3"></i><div class="shfloor"></div>'
+      + '<svg class="shtr" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice" fill="none">'
+      + '<path class="t t1" d="M0 84H240L282 46H560L600 84H900" pathLength="1000"/>'
+      + '<path class="t t2" d="M1440 120H1180L1138 78H900" pathLength="1000"/>'
+      + '<path class="ecg" d="M0 566H520l14 0 l10 -22 l16 52 l14 -40 l10 10H1440" pathLength="1000"/>'
+      + '<path class="pulse" d="M0 566H520l14 0 l10 -22 l16 52 l14 -40 l10 10H1440" pathLength="1000"/>'
+      + '<circle class="nd" cx="282" cy="46" r="4"/><circle class="nd nd2" cx="600" cy="84" r="4"/><circle class="nd nd3" cx="1138" cy="78" r="4"/>'
+      + '</svg>'
+      + Array.from({length: 12}, (_, i) => `<b class="shd" style="left:${(i * 83 + 7) % 96}%;top:${(i * 47 + 11) % 88}%;animation-delay:-${(i * 1.7) % 9}s"></b>`).join('');
+    h.prepend(bg);
+  });
+})();

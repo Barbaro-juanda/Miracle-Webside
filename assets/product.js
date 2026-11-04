@@ -20,11 +20,11 @@
       const stop = () => { clearInterval(timer); timer = null; };
       const mode = () => {
         stop();
-        if (wide.matches) return;
+        if (wide.matches && !walk.classList.contains('walk-tl')) return;
         timer = setInterval(() => { n = n % 3 + 1; set(n); }, 3600);
       };
       // Escritorio: el paso que cruza la franja central de la pantalla es el activo.
-      const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && wide.matches) { n = steps.indexOf(e.target) + 1; set(n); } }),
+      const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && wide.matches && !walk.classList.contains('walk-tl')) { n = steps.indexOf(e.target) + 1; set(n); } }),
         {rootMargin: '-42% 0px -42% 0px'});
       steps.forEach(s => io.observe(s));
       // Celular: solo corre mientras la imagen se ve.
