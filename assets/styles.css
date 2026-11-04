@@ -2103,3 +2103,21 @@ body[data-product="ana"] .btn-primary:hover,[data-p="ana"] .btn-primary:hover{ba
 .xtile::before{content:"";position:absolute;z-index:-2;left:0;top:0;width:100%;height:190px;pointer-events:none;
   background:radial-gradient(circle 130px at 80px 76px,color-mix(in srgb,var(--tg) 30%,transparent),transparent),
              radial-gradient(ellipse 56px 7px at 82px 142px,rgba(0,0,0,.26),transparent)}
+
+/* ============================================================
+   Paso 3 · hero con una luz muy tenue (azul → durazno) detrás del portátil, y sin resplandores brillantes
+   alrededor de otros elementos: donde había brillo ahora hay un borde de 1px.
+   ============================================================ */
+.stage::before{background:
+  radial-gradient(circle 640px at 50% 60%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 72%),
+  radial-gradient(circle 520px at 64% 72%,color-mix(in srgb,var(--peach) 7%,transparent),transparent 72%)}
+/* Tarjeta encendida del circuito: borde de 1px, sin sombra de brillo */
+.cx-card.lit{box-shadow:none;border-color:color-mix(in srgb,var(--glow-strong) 55%,transparent)}
+/* Líneas del circuito y barra de avance: sin halo */
+.wire{filter:none}
+.sp-bar i{box-shadow:none}
+.lid-back svg{filter:none}
+/* Botón principal: borde de 1px en vez de sombra de color */
+.btn-primary{box-shadow:none;border-color:var(--accent-hover)}
+body[data-product="ana"] .btn-primary,[data-p="ana"] .btn-primary{box-shadow:none;border-color:#e8960c}
+.nl-go{box-shadow:none}
