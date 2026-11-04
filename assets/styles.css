@@ -2800,3 +2800,24 @@ html:not(.js) .zz-c,.zz.static .zz-c{opacity:1;transform:none}
 @keyframes rmxrun{from{left:-30%}to{left:100%}}
 @media (max-width:900px){.rmx-flow{grid-template-columns:1fr;row-gap:30px}.rmx-a{width:4px;height:34px;justify-self:center}.rmx-a i{left:-1px;top:0;width:6px;height:30%;animation:rmxrunv 2s linear infinite;background:linear-gradient(180deg,transparent,var(--glow-strong),#fff)}@keyframes rmxrunv{from{top:-30%}to{top:100%}}.rmx-tabs button{padding:11px 14px;font-size:.92rem}}
 @media (prefers-reduced-motion:reduce){.rmx-i,.rmx-a i{animation:none}.rmx-pane.on{animation:none}}
+
+/* ============================================================
+   Solo scroll: sin pestañas ni botones. Pruébalo avanza al bajar (panel fijo); Planes enciende cada paso al llegar.
+   ============================================================ */
+.stp{height:330vh;margin-top:30px}
+.stp-pin{position:sticky;top:104px}
+.stp-n{cursor:default}
+.stp-n:hover i{transform:none}
+html:not(.js) .stp{height:auto}html:not(.js) .stp-pin{position:static}html:not(.js) .stp-p{display:grid;margin-bottom:18px}
+@media (max-width:860px){.stp{height:300vh}.stp-pin{top:84px}}
+@media (prefers-reduced-motion:reduce){.stp{height:auto}.stp-pin{position:static}.stp-p{display:grid;margin-top:18px}.stp-p:not(.on){display:grid}}
+.rmx{margin-top:44px;display:grid;gap:54px}
+.rmx-h{margin-bottom:34px;font-size:1.45rem;text-align:left}
+.rmx-g .rmx-h::before{content:"";display:inline-block;width:34px;height:3px;margin:0 14px 5px 0;border-radius:3px;background:linear-gradient(90deg,var(--glow-strong),var(--lilac));box-shadow:0 0 12px var(--glow-strong)}
+.rmx-c{opacity:.35;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease),box-shadow .4s}
+.rmx-c.lit{opacity:1;transform:none}
+.rmx-c.lit:hover{transform:translateY(-6px)}
+.rmx-a i{animation-play-state:paused;opacity:0;transition:opacity .4s}
+.rmx-a.lit i{animation-play-state:running;opacity:1}
+html:not(.js) .rmx-c{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rmx-c{opacity:1;transform:none}.rmx-a i{opacity:1}}

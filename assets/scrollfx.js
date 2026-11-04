@@ -71,43 +71,39 @@
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  document.querySelectorAll('[data-stp]').forEach(root => {
+  // Pruébalo: el panel queda fijo y el paso cambia según cuánto se haya bajado por la sección
+  const stps = [...document.querySelectorAll('[data-stp]')];
+  stps.forEach(root => {
     const tabs = [...root.querySelectorAll('.stp-n')], panels = [...root.querySelectorAll('.stp-p')];
-    let cur = 0, timer = null, userMoved = false;
+    const pin = root.querySelector('.stp-pin');
+    let cur = -1;
     const set = i => {
-      cur = (i + tabs.length) % tabs.length;
-      tabs.forEach((t, k) => { t.classList.toggle('on', k === cur); t.classList.toggle('done', k < cur); t.setAttribute('aria-selected', k === cur); t.tabIndex = k === cur ? 0 : -1; });
+      if (i === cur) return; cur = i;
+      tabs.forEach((t, k) => { t.classList.toggle('on', k === cur); t.classList.toggle('done', k < cur); });
       panels.forEach((p, k) => p.classList.toggle('on', k === cur));
       root.style.setProperty('--sp', (cur / (tabs.length - 1)).toFixed(3));
     };
-    tabs.forEach((t, k) => {
-      t.addEventListener('click', () => { userMoved = true; stop(); set(k); });
-      t.addEventListener('keydown', e => {
-        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); userMoved = true; stop(); set(cur + (e.key === 'ArrowRight' ? 1 : -1)); tabs[cur].focus(); }
-      });
-    });
-    const stop = () => { clearInterval(timer); timer = null; };
-    const start = () => { if (!timer && !userMoved && !reduce) timer = setInterval(() => set(cur + 1), 5200); };
-    set(0);
-    if ('IntersectionObserver' in window) new IntersectionObserver(es => es[0].isIntersecting ? start() : stop(), {threshold: .4}).observe(root);
-    root.addEventListener('pointerenter', stop);
-    root.addEventListener('pointerleave', start);
+    root.__upd = () => {
+      if (reduce) { set(tabs.length - 1); return; }
+      const r = root.getBoundingClientRect(), run = Math.max(1, r.height - pin.offsetHeight - 104);
+      const p = Math.min(1, Math.max(0, (104 - r.top) / run));
+      set(Math.min(tabs.length - 1, Math.floor(p * tabs.length * .999)));
+    };
+    root.__upd();
   });
 
-  document.querySelectorAll('[data-rmx]').forEach(root => {
-    const tabs = [...root.querySelectorAll('.rmx-tabs button')], panes = [...root.querySelectorAll('.rmx-pane')];
-    root.dataset.on = '0';
-    tabs.forEach((t, k) => t.addEventListener('click', () => {
-      root.dataset.on = String(k);
-      tabs.forEach((b, j) => { b.classList.toggle('on', j === k); b.setAttribute('aria-selected', j === k); });
-      panes.forEach((p, j) => { p.hidden = j !== k; p.classList.toggle('on', j === k); });
-    }));
-  });
+  // Planes: cada paso de la hoja de ruta se enciende al llegar a él
+  const flows = [...document.querySelectorAll('[data-flowscroll] .rmx-flow')];
 
   const zzs = [...document.querySelectorAll('[data-zz]')];
-  if (zzs.length) {
+  if (zzs.length || stps.length || flows.length) {
     const upd = () => {
       const vh = innerHeight, mark = vh * .55;
+      stps.forEach(r => r.__upd());
+      flows.forEach(f => {
+        const cs = [...f.querySelectorAll('.rmx-c')], as = [...f.querySelectorAll('.rmx-a')];
+        cs.forEach((c, k) => { const on = c.getBoundingClientRect().top < vh * .8; c.classList.toggle('lit', on); if (as[k]) as[k].classList.toggle('lit', on); });
+      });
       zzs.forEach(z => {
         const r = z.getBoundingClientRect();
         z.style.setProperty('--zp', Math.min(1, Math.max(0, (mark - r.top) / r.height)).toFixed(3));
