@@ -216,7 +216,7 @@
       if (railItems.length > 1) { railItems[0].classList.toggle('on', t < 2.4); railItems[1].classList.toggle('on', t >= 2.4); }
       // Subtítulo guía: dice en grande qué está pasando en la pantalla
       if (capTxt) {
-        const msg = t < 1.9 ? '' : t < 2.3 ? 'Abres Notes y tocas Iniciar consulta' : t < 3.9 ? 'Transcribiendo: el médico habla y Miracle escucha' : t < 5.7 ? 'Miracle redacta la nota por secciones' : t < 7.4 ? 'Sugiere los códigos y revisa que no falte nada' : 'Firmas, y la nota va a tu historia clínica';
+        const msg = t < 1.9 ? '' : t < 2.3 ? 'Abres Ü Notes y tocas Iniciar consulta' : t < 3.9 ? 'Transcribiendo: el médico habla y Miracle escucha' : t < 5.7 ? 'Miracle redacta la nota por secciones' : t < 7.4 ? 'Sugiere los códigos y revisa que no falte nada' : 'Firmas, y la nota va a tu historia clínica';
         if (msg !== capTxt.dataset.m) {
           capTxt.dataset.m = msg; cap.classList.toggle('on', !!msg);
           if (msg) { const n = capTxt.cloneNode(false); n.textContent = msg; n.dataset.m = msg; capTxt.replaceWith(n); capTxt = n; }

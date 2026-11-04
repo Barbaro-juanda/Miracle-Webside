@@ -1,4 +1,4 @@
-/* Solo las páginas de producto (Notes, Auditorías, Analytics): entrada del encabezado,
+/* Solo las páginas de producto (Ü Base, Ü Analytics, Ü Corp): entrada del encabezado,
    recorrido paso a paso con una imagen que cambia mientras se lee, y movimiento suave. */
 (() => {
   const {$, $$, reduce} = window.MZ;

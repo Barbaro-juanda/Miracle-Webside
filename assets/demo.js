@@ -252,7 +252,7 @@
         doc.append(h, p);
       });
       const nota = document.createElement('p'); nota.className = 'ld-doc-note';
-      nota.textContent = 'Aquí la nota usa tus palabras, ordenadas por las secciones de la plantilla. En Notes, la IA las redacta en lenguaje clínico y sugiere los códigos CIE-10.';
+      nota.textContent = 'Aquí la nota usa tus palabras, ordenadas por las secciones de la plantilla. En Ü Notes, la IA las redacta en lenguaje clínico y sugiere los códigos CIE-10.';
       doc.appendChild(nota);
       setButtons(); show('note');
       const showAudit = () => {

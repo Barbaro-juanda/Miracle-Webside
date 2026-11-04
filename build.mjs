@@ -33,9 +33,9 @@ const EQUIPO = { name: 'Equipo Miracle' };
 const autorDe = p => (p.author && p.author.name ? p.author : EQUIPO);
 // Cierre del artículo según el primer rol. Un artículo puede cambiarlo con "cta": { "title", "text" }.
 const CTA_ROL = {
-  medico: { title: 'Prueba Notes en tu próxima consulta', text: 'Son 14 días gratis, con la plantilla de tu especialidad.', main: ['Prueba Notes gratis', 'https://itsmiracleai.com.co/registro'] },
-  calidad: { title: 'Revisemos una nota de tu servicio', text: 'En la demostración pasamos una nota por Auditorías y revisamos qué señala antes de la firma.', main: ['Agenda una demostración', '/agendar'] },
-  gerencia: { title: 'Conoce tu servicio en un tablero', text: 'En la demostración te mostramos Analytics como lo vería la dirección de tu IPS.', main: ['Agenda una demostración', '/agendar'] },
+  medico: { title: 'Prueba Ü Notes en tu próxima consulta', text: 'Son 14 días gratis, con la plantilla de tu especialidad.', main: ['Prueba Ü Notes gratis', 'https://itsmiracleai.com.co/registro'] },
+  calidad: { title: 'Revisemos una nota de tu servicio', text: 'En la demostración recorremos con Ü Analytics cómo se revisa una cuenta con evidencia: qué se encontró, qué fuente lo respalda y quién lo revisa.', main: ['Agenda una demostración', '/agendar'] },
+  gerencia: { title: 'Conoce tu servicio en un tablero', text: 'En la demostración te mostramos Ü Corp como lo vería la dirección de tu institución: prioridades, responsables y seguimiento.', main: ['Agenda una demostración', '/agendar'] },
 };
 const fechaLarga = d => new Date(d + 'T12:00:00Z').toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
@@ -81,26 +81,26 @@ const pages = [
     title: 'Historia clínica con IA para médicos e IPS | Miracle',
     desc: 'Miracle escucha la consulta, redacta la nota clínica, sugiere CIE-10 y CUPS y la revisa antes de la firma. Agenda una demostración para tu consultorio o IPS.' },
   { path: '/soluciones', src: 'soluciones', out: 'soluciones.html', js: 'soluciones', crumbs: [['Soluciones']], faq: true,
-    title: 'Notes, Analytics y Auditorías para médicos e IPS | Miracle',
-    desc: 'Tres productos para una misma consulta: Notes escribe la historia clínica, Auditorías la revisa antes de firmar y Analytics muestra el servicio a la gerencia.' },
-  { path: '/notes', src: 'notes', out: 'notes.html', gsap: true, js: 'product', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Notes']],
-    app: { name: 'Miracle Notes', description: 'Escribe la nota clínica a partir de la consulta, sugiere códigos CIE-10 y CUPS, permite firma electrónica y exporta a PDF y RIPS.' },
-    title: 'Notes: la nota clínica escrita por la IA | Miracle',
-    desc: 'Notes escucha la consulta, redacta la nota por secciones con la plantilla de tu especialidad, sugiere CIE-10 y CUPS y la deja lista para tu firma.' },
-  { path: '/auditorias', src: 'auditorias', out: 'auditorias.html', gsap: true, js: 'product', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Auditorías']],
-    app: { name: 'Miracle Auditorías', description: 'Revisa cada nota clínica antes de firmar y señala lo que falta, con la frase de la consulta que lo respalda.' },
-    title: 'Auditorías: revisa cada nota antes de que llegue a la EPS | Miracle',
-    desc: 'Con reglas verificables, no con IA: Auditorías revisa cada nota clínica antes de la firma y señala lo que falta con la frase exacta de la consulta.' },
-  { path: '/analytics', src: 'analytics', out: 'analytics.html', gsap: true, js: 'product', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Analytics']],
-    app: { name: 'Miracle Analytics', description: 'Reportes de gerencia con la adopción por médico y servicio, las notas firmadas y los lotes RIPS de la institución.' },
-    title: 'Analytics: notas pendientes y RIPS de tu IPS, al día | Miracle',
-    desc: 'Para la dirección médica: qué notas quedaron sin firmar, qué servicio va más lento y los lotes RIPS listos, sin consolidar informes a mano.' },
+    title: 'Ü Base, Ü Analytics y Ü Corp: documenta, comprende y gestiona | Miracle',
+    desc: 'Tres áreas para un mismo recorrido: Ü Base acompaña la documentación clínica, Ü Analytics analiza la actividad y apoya la auditoría, y Ü Corp convierte los hallazgos en decisiones.' },
+  { path: '/base', src: 'base', out: 'base.html', gsap: true, js: 'product', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Ü Base']],
+    app: { name: 'Miracle Ü Base', description: 'Acompaña el trabajo clínico: captura y transcribe la consulta, prepara borradores con Ü Notes para revisión profesional y facilita llevar la información validada al sistema de la institución.' },
+    title: 'Ü Base: más tiempo para atender, menos carga documental | Miracle',
+    desc: 'Ü Base captura la consulta, la transcribe y prepara con Ü Notes un borrador que el profesional revisa y valida, con códigos CIE-10 y CUPS sugeridos. El dispositivo MIRA se comercializa por separado.' },
+  { path: '/analytics', src: 'analytics', out: 'analytics.html', gsap: true, js: 'product', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Ü Analytics']],
+    app: { name: 'Miracle Ü Analytics', description: 'Reúne la analítica de Ü Base y el apoyo a la auditoría: conecta la actividad con soportes, contratos, facturación y pagos para que el auditor y los equipos responsables revisen con evidencia.' },
+    title: 'Ü Analytics: analítica de Ü Base y revisión auditora con evidencia | Miracle',
+    desc: 'Comprende la actividad de Ü Base y revisa con el auditor la coherencia entre atención, soportes, contratos, facturación y pagos. Cada hallazgo trae su evidencia y su responsable.' },
+  { path: '/corp', src: 'corp', out: 'corp.html', gsap: true, js: 'product', navPath: '/soluciones', faq: true, crumbs: [['Soluciones', '/soluciones'], ['Ü Corp']],
+    app: { name: 'Miracle Ü Corp', description: 'Control, Operación, Rentabilidad y Proyección: organiza prioridades, responsables y seguimiento, compara resultados y evalúa escenarios con las fuentes conectadas.' },
+    title: 'Ü Corp: Control, Operación, Rentabilidad y Proyección | Miracle',
+    desc: 'Convierte los hallazgos de Ü Analytics en prioridades, planes con responsables, seguimiento, análisis de rentabilidad y escenarios de proyección para la gerencia.' },
   { path: '/prueba', src: 'prueba', out: 'prueba.html', gsap: true, js: 'product', demo: true, faq: true, crumbs: [['Pruébalo']],
     title: 'Pruébalo: sé el paciente y mira cómo Miracle escribe la nota | Miracle',
     desc: 'Practica una consulta como paciente: responde en voz alta o escribiendo, y recibe la nota ordenada por secciones y firmada con huella SHA-256. El micrófono es opcional.' },
   { path: '/planes', src: 'planes', out: 'planes.html', crumbs: [['Planes']], faq: true,
-    title: 'Planes para médicos independientes e IPS | Miracle',
-    desc: 'Notes con 14 días de prueba para el médico independiente, licencias a la medida para IPS, clínicas y hospitales, y el plan Corp para corporaciones y redes. Compara los tres planes y resuelve tus dudas.' },
+    title: 'Planes y módulos: Ü Base, Ü Analytics y Ü Corp | Miracle',
+    desc: 'Ü Base con 14 días de prueba, licencias Miracle One y Miracle Pro, y los módulos adicionales Ü Analytics y Ü Corp. La propuesta de cada cliente define qué se activa.' },
   { path: '/blog', src: 'blog', out: 'blog.html', js: 'blog', crumbs: [['Blog']],
     title: 'Blog de Miracle: práctica clínica, auditoría y codificación',
     desc: 'Artículos sobre cómo recuperar tiempo de consulta, qué revisar antes de firmar una nota y cómo codificar CIE-10 y CUPS sin buscar en tablas, con ejemplos.' },
@@ -161,7 +161,7 @@ const footer = `<footer>
   <div class="wrap foot">
     <div><a href="/" class="logo" aria-label="Miracle, inicio"><svg class="wm" width="92" height="29" aria-hidden="true"><use href="#wm"/></svg></a>
       <p>Para que el médico mire al paciente, no la pantalla.</p></div>
-    <div><p class="fh">Productos</p><ul><li><a href="/notes">Notes</a></li><li><a href="/auditorias">Auditorías</a></li><li><a href="/analytics">Analytics</a></li><li><a href="/planes">Planes</a></li></ul></div>
+    <div><p class="fh">Productos</p><ul><li><a href="/base">Ü Base</a></li><li><a href="/analytics">Ü Analytics</a></li><li><a href="/corp">Ü Corp</a></li><li><a href="/planes">Planes</a></li></ul></div>
     <div><p class="fh">Miracle</p><ul><li><a href="/#como-funciona">Cómo funciona</a></li><li><a href="/prueba">Pruébalo</a></li><li><a href="/seguridad">Seguridad</a></li><li><a href="/blog">Blog</a></li><li><a href="https://itsmiracleai.com.co/login">Ingresar</a></li></ul></div>
     <div><p class="fh">Contacto</p><ul><li><a href="/agendar">Agendar demostración</a></li><li><a href="https://wa.me/573004564592" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:dev@itsmiracleai.com">dev@itsmiracleai.com</a></li></ul></div>
   </div>
@@ -174,13 +174,13 @@ const footer = `<footer>
 
 /* Recorrido entre subpáginas: cada una termina con un enlace directo a la siguiente (y a la anterior). */
 const FLOW = {
-  '/soluciones': { prev: ['Cómo funciona', '/#como-funciona'], next: ['Planes', '/planes', 'Notes para tu consultorio y licencias para tu institución, con lo que incluye cada plan.'] },
+  '/soluciones': { prev: ['Cómo funciona', '/#como-funciona'], next: ['Planes', '/planes', 'Las licencias de Ü Base y los módulos Ü Analytics y Ü Corp, con lo que incluye cada uno.'] },
   '/planes': { prev: ['Soluciones', '/soluciones'], next: ['Seguridad', '/seguridad', 'Cómo se cuida cada consulta: revisión humana, datos aislados y firma con huella.'] },
   '/seguridad': { prev: ['Planes', '/planes'], next: ['Pruébalo', '/prueba', 'Sé el paciente por un minuto y mira cómo Miracle escribe la nota.'] },
   '/prueba': { prev: ['Seguridad', '/seguridad'], next: ['Blog', '/blog', 'Práctica clínica, auditoría y codificación, escritos desde la consulta en Colombia.'] },
   '/blog': { prev: ['Pruébalo', '/prueba'], next: ['Agenda una demostración', '/agendar', 'Te mostramos Miracle con una consulta de tu especialidad, en 30 minutos.'] },
 };
-for (const k of ['/notes', '/auditorias', '/analytics']) FLOW[k] = { prev: ['Soluciones', '/soluciones'], next: FLOW['/soluciones'].next };
+for (const k of ['/base', '/analytics', '/corp']) FLOW[k] = { prev: ['Soluciones', '/soluciones'], next: FLOW['/soluciones'].next };
 const nextHtml = pg => {
   const f = FLOW[pg.path];
   if (!f) return '';
@@ -189,15 +189,15 @@ const nextHtml = pg => {
 };
 const ctaBand = `<section class="cta-band" aria-labelledby="h-cta"><div class="wrap"><div class="box" data-reveal>
   <div><h2 id="h-cta">¿Quieres ver Miracle en tu consulta?</h2><p>Una demostración de 30 minutos, con una consulta de tu especialidad.</p></div>
-  <div class="ctas"><a class="btn btn-light" href="/agendar">Agenda una demostración</a><a class="btn btn-dark-ghost" href="https://itsmiracleai.com.co/registro">Prueba Notes gratis</a></div>
+  <div class="ctas"><a class="btn btn-light" href="/agendar">Agenda una demostración</a><a class="btn btn-dark-ghost" href="https://itsmiracleai.com.co/registro">Prueba Ü Notes gratis</a></div>
 </div></div></section>`;
 
 for (const sp of specs) {
   const n = sp.templates.length;
   pages.push({ path: `/especialidades/${sp.slug}`, out: `especialidades/${sp.slug}.html`, spec: sp, navPath: '/soluciones',
-    crumbs: [['Notes', '/notes'], [sp.name]], src: 'especialidad', srcFile: 'src/especialidades.json',
+    crumbs: [['Ü Base', '/base'], [sp.name]], src: 'especialidad', srcFile: 'src/especialidades.json',
     title: `Historia clínica de ${sp.low} con IA | Miracle`,
-    desc: `Las ${n} plantillas de ${sp.low} de Miracle Notes, con las secciones de cada nota. Mientras atiendes, Miracle redacta la nota y luego la revisas y la firmas.` });
+    desc: `Las ${n} plantillas de ${sp.low} de Ü Notes, con las secciones de cada nota. Mientras atiendes, Miracle redacta la nota y luego la revisas y la firmas.` });
 }
 
 const crumbsHtml = pg => !pg.crumbs ? '' : `<nav class="crumbs" aria-label="Ruta"><ol><li><a href="/">Inicio</a></li>${pg.crumbs.map(([l, h], i) =>
@@ -346,10 +346,10 @@ function specBody(pg) {
   const others = specs.filter(x => x.slug !== sp.slug);
   return `<section class="sub-hero spec-hero" aria-labelledby="h1"><div class="wrap">
   ${crumbsHtml(pg)}
-  <span class="badge-only">Notes · ${sp.name}</span>
+  <span class="badge-only">Ü Notes · ${sp.name}</span>
   <h1 id="h1">Historia clínica de ${sp.low}, escrita mientras atiendes</h1>
-  <p class="lead">Miracle Notes incluye ${n} plantillas de ${sp.low}. Cada una recoge lo que esa consulta requiere; aquí están con sus secciones, tal como aparecen en la nota que revisas y firmas.</p>
-  <div class="ctas"><a class="btn btn-primary" href="/agendar">Agenda una demostración</a><a class="btn btn-ghost" href="/notes">Ver Notes</a></div>
+  <p class="lead">Ü Notes, dentro de Ü Base, incluye ${n} plantillas de ${sp.low}. Cada una recoge lo que esa consulta requiere; aquí están con sus secciones, tal como aparecen en la nota que revisas y firmas.</p>
+  <div class="ctas"><a class="btn btn-primary" href="/agendar">Agenda una demostración</a><a class="btn btn-ghost" href="/base">Ver Ü Base</a></div>
 </div></section>
 <section class="sec" style="padding-top:20px" aria-labelledby="h-tpl"><div class="wrap">
   <h2 id="h-tpl" class="skip">Plantillas de ${sp.low}</h2>
@@ -366,7 +366,7 @@ ${sp.templates.map((t, i) => `    <article class="stpl" data-reveal>
 </div></section>
 <section class="sec tone-ice" aria-labelledby="h-otras"><div class="wrap">
   <h2 id="h-otras">Otras especialidades</h2>
-  <ul class="spec-links">${others.map(x => `<li><a href="/especialidades/${x.slug}">Plantillas de ${x.low}</a></li>`).join('')}<li><a href="/notes">Las 49 especialidades en Notes</a></li></ul>
+  <ul class="spec-links">${others.map(x => `<li><a href="/especialidades/${x.slug}">Plantillas de ${x.low}</a></li>`).join('')}<li><a href="/base">Las 49 especialidades en Ü Notes</a></li></ul>
 </div></section>
 @@CTABAND@@`;
 }
@@ -469,7 +469,7 @@ ${pg.src === 'index' && SEQ ? `<link rel="preload" as="image" href="${frame('m',
 ${schemaFor(pg, body)}
 </script>
 </head>
-<body class="page-${pg.post ? 'post' : pg.filtro ? 'blog-filtro' : pg.src}"${({ notes: 'notes', auditorias: 'aud', analytics: 'ana' })[pg.src] ? ` data-product="${({ notes: 'notes', auditorias: 'aud', analytics: 'ana' })[pg.src]}"` : ''}>
+<body class="page-${pg.post ? 'post' : pg.filtro ? 'blog-filtro' : pg.src}"${({ base: 'notes', analytics: 'aud', corp: 'ana' })[pg.src] ? ` data-product="${({ base: 'notes', analytics: 'aud', corp: 'ana' })[pg.src]}"` : ''}>
 <a class="skip" href="#main">Saltar al contenido</a>
 ${svgDefs}
 ${header(pg.navPath || pg.path)}
@@ -491,6 +491,7 @@ writeFileSync('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xm
 writeFileSync('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${SITE.url}/sitemap.xml\n`);
 // Las URL de vista previa (*.vercel.app) no se indexan; el dominio de producción sí.
 writeFileSync('vercel.json', JSON.stringify({ cleanUrls: true, trailingSlash: false,
+  redirects: [{ source: '/notes', destination: '/base', permanent: true }, { source: '/auditorias', destination: '/analytics', permanent: true }],
   headers: [{ source: '/assets/fonts/(.*)', headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] },
     { source: '/(.*)', has: [{ type: 'host', value: '(?<sub>.*)\\.vercel\\.app' }], headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }] }] }, null, 2) + '\n');
 console.log(`Listo: ${pages.length} páginas`);

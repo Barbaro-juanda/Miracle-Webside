@@ -1,6 +1,18 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/notes",
+      "destination": "/base",
+      "permanent": true
+    },
+    {
+      "source": "/auditorias",
+      "destination": "/analytics",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/assets/fonts/(.*)",

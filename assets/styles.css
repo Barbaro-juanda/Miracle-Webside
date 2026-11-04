@@ -2411,3 +2411,8 @@ html.pgbg main section > .fx{display:none}
 .bg-aurora .a1{left:auto;right:-4%;top:30%;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 36%,transparent),transparent)}
 .bg-aurora .a2{right:auto;left:-6%;top:22%;background:radial-gradient(closest-side,color-mix(in srgb,var(--lilac) 32%,transparent),transparent)}
 .bg-aurora .a3{left:14%;top:44%;max-width:420px;max-height:420px;background:radial-gradient(closest-side,color-mix(in srgb,var(--glow-strong) 17%,transparent),transparent)}
+
+/* Cuatro tarjetas en dos columnas (Ü Corp) */
+.sec-grid.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:760px){.sec-grid.g2{grid-template-columns:1fr}}
+.sec-card .fine{margin-top:12px;font-size:.92rem}
