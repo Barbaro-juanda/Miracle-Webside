@@ -86,7 +86,7 @@ module.exports = async (req, res) => {
       let texto = String(sal[i] && sal[i].texto || '').replace(/\s{2,}/g, ' ').replace(/\s+([.,;:])/g, '$1').replace(/\s+"(?=[.,;:]?$)/, '"').replace(/:"/g, ': "').trim() || NO;
       if (texto !== NO) { // una cifra que nadie dijo no pasa: se quita la frase que la trae
         const frases = texto.match(/[^.!?]+[.!?]?/g) || [texto];
-        texto = frases.filter(f => (f.match(/\d+/g) || []).every(n => nums.has(n))).join(' ').trim() || NO;
+        texto = frases.map(f => f.trim()).filter(f => f && (f.match(/\d+/g) || []).every(n => nums.has(n))).join(' ') || NO;
       }
       return {titulo, texto};
     });
