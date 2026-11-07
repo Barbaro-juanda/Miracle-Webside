@@ -4,7 +4,8 @@
    - Todo es por voz: el cuadro de texto solo muestra lo que se transcribe.
    - El micrófono solo se activa al pulsar "Empezar con micrófono" y se apaga al terminar o al salir.
    - La voz la transcribe el reconocimiento de voz del navegador (Chrome y Edge); Miracle no recibe ni guarda
-     audio ni respuestas. No hay IA: las respuestas se ordenan por secciones. */
+     audio ni respuestas. Por defecto no hay IA: las respuestas se ordenan por secciones. Si la persona lo activa y su
+     dispositivo tiene WebGPU, un modelo abierto pequeño (WebLLM) redacta la historia clínica en el propio dispositivo. */
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -39,6 +40,43 @@
     if (!t) return '';
     t = t.charAt(0).toUpperCase() + t.slice(1);
     return /[.!?…]$/.test(t) ? t : t + '.';
+  };
+  /* ---------- Redacción con IA en el dispositivo (WebLLM): opcional, sin servidor ---------- */
+  const WEBLLM = 'https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm@0.2.79/+esm';
+  // En escritorio con memoria de sobra se usa el modelo de 3B (mejor redacción); en el resto, el de 1.5B.
+  const BIG = !/android|iphone|ipad|mobile/i.test(ua) && (navigator.deviceMemory || 0) >= 8;
+  const MODEL = BIG ? 'Qwen2.5-3B-Instruct-q4f16_1-MLC' : 'Qwen2.5-1.5B-Instruct-q4f16_1-MLC', MODEL_GB = BIG ? '2' : '1';
+  let enginePromise = null;
+  const getEngine = onProgress => {
+    if (!enginePromise) enginePromise = import(WEBLLM).then(m => m.CreateMLCEngine(MODEL, {initProgressCallback: r => onProgress && onProgress(r)})).catch(e => { enginePromise = null; throw e; });
+    return enginePromise;
+  };
+  /* Un modelo pequeño puede inventar. Cada sección se verifica contra lo dicho: números y palabras de contenido que no estén en el relato
+     (salvo el vocabulario de redacción clínica) hacen que esa sección se quede con las palabras de la persona. */
+  const stem = w => w.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().slice(0, 5);
+  const toks = t => (t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().match(/[a-zñ]{4,}/g) || []);
+  const ALLOW = new Set('refie niega pacie consu evolu cursa mante trata prese antec actua semana meses horas desde sigue sinto manif indic lleva refer persi cuand tiene tambi porqu debid mismo habit actual sin con por para que como mas pero'.split(' ').map(stem));
+  const supported = (out, src) => {
+    const nums = out.match(/\d+/g) || [], sn = src.match(/\d+/g) || [];
+    if (nums.some(n => !sn.includes(n))) return false;
+    const have = new Set(toks(src).map(stem));
+    return toks(out).every(w => have.has(stem(w)) || ALLOW.has(stem(w)));
+  };
+  const aiNote = async (titles, answers, onProgress) => {
+    const eng = await getEngine(onProgress);
+    const sys = 'Eres un médico colombiano que pasa a historia clínica lo que dijo un paciente. Reescribe el relato en lenguaje clínico formal, en tercera persona (por ejemplo "Refiere…", "Niega…", "Cursa con…", "Mantiene tratamiento con…"). Una o dos frases. Usa únicamente los datos del relato: no agregues nada que no se haya dicho. Responde solo con el texto de la sección.';
+    const shots = [['Sección: Motivo de consulta\nRelato: Me duele la garganta desde el lunes y me cuesta tragar.', 'Paciente consulta por odinofagia y disfagia de cuatro días de evolución.'], ['Sección: Antecedentes\nRelato: No tengo alergias y tomo una pastilla para la tensión todos los días.', 'Niega alergias conocidas. Mantiene tratamiento antihipertensivo de uso diario.']];
+    const out = [];
+    for (let i = 0; i < titles.length; i++) {
+      if (words(answers[i]) < 2) { out.push(''); continue; }
+      const msgs = [{role: 'system', content: sys}];
+      shots.forEach(([u, a]) => msgs.push({role: 'user', content: u}, {role: 'assistant', content: a}));
+      msgs.push({role: 'user', content: 'Sección: ' + titles[i] + '\nRelato: ' + answers[i]});
+      const r = await eng.chat.completions.create({messages: msgs, temperature: .2, max_tokens: 140});
+      const t = (r.choices[0].message.content || '').trim();
+      out.push(t && supported(t, answers[i]) ? t : '');
+    }
+    return out;
   };
   const words = t => (t.match(/\S+/g) || []).length;
 
@@ -227,16 +265,38 @@
     };
 
     /* ---------- La nota ---------- */
+    const iaBox = $('[data-ia]'), iaWrap = $('[data-ia-wrap]'), genP = $('[data-genp]');
+    if (iaWrap && navigator.gpu) { iaWrap.hidden = false; const sz = iaWrap.querySelector('[data-ia-size]'); if (sz) sz.textContent = '~' + MODEL_GB + ' GB'; }
+    const generateAI = async my => {
+      steps.forEach((x, k) => x.className = k === 0 ? 'now' : '');
+      genP.hidden = false; genP.textContent = 'Preparando la IA en tu dispositivo…';
+      try {
+        const texts = await aiNote(DATA[spec].map(d => d[1]), answers, r => {
+          if (my !== token) return;
+          const pc = Math.round((r.progress || 0) * 100);
+          genP.textContent = /fetch|param|cache|load/i.test(r.text || '') ? 'Descargando el modelo (solo la primera vez)… ' + pc + ' %' : 'Cargando el modelo… ' + pc + ' %';
+        });
+        if (my !== token) return;
+        steps.forEach(x => x.className = 'done'); genP.hidden = true;
+        buildNote(texts);
+      } catch (e) {
+        if (my !== token) return;
+        genP.hidden = true; iaFailed = true;
+        steps.forEach(x => x.className = 'done'); buildNote();
+      }
+    };
+    let iaFailed = false;
     const generate = () => {
       stopTimers(); const my = token;
       state = 'gen'; setButtons(); show('gen');
       steps.forEach(s => s.className = '');
+      if (iaBox && iaBox.checked && navigator.gpu && !iaFailed) { generateAI(my); return; }
       if (reduce) { buildNote(); return; }
       steps.forEach((s, i) => later(() => { if (my !== token) return; steps.forEach((x, k) => x.className = k < i ? 'done' : k === i ? 'now' : ''); }, i * 650));
       later(() => { steps.forEach(x => x.className = 'done'); }, steps.length * 650);
       later(buildNote, steps.length * 650 + 400);
     };
-    const buildNote = () => {
+    const buildNote = texts => {
       const d = DATA[spec], my = token;
       state = 'note'; doc.textContent = ''; audit.textContent = ''; sign.hidden = true;
       const faltan = [];
@@ -244,8 +304,8 @@
       d.forEach(([, titulo], i) => {
         const h = document.createElement('div'); h.className = 'h5'; h.textContent = titulo;
         const p = document.createElement('p');
-        const txt = answers[i];
-        if (words(txt) < 2) { faltan.push(titulo); p.className = 'ld-missing'; p.textContent = 'No mencionado en la consulta.'; }
+        const txt = (texts && texts[i]) || answers[i];
+        if (words(answers[i]) < 2) { faltan.push(titulo); p.className = 'ld-missing'; p.textContent = 'No mencionado en la consulta.'; }
         else (txt.match(/\S+/g)).forEach(w => {
           const s = document.createElement('span'); s.className = 'w' + (reduce ? ' on' : ''); s.textContent = w + ' '; p.appendChild(s);
           if (!reduce) { later(() => { if (my === token) s.classList.add('on'); }, delay); delay += 34; }
@@ -254,7 +314,7 @@
         doc.append(h, p);
       });
       const nota = document.createElement('p'); nota.className = 'ld-doc-note';
-      nota.textContent = 'Aquí la nota usa tus palabras, ordenadas por las secciones de la plantilla. En Ü Notes, la IA las redacta en lenguaje clínico y sugiere los códigos CIE-10.';
+      nota.textContent = texts ? 'Esta nota la redactó una IA abierta que corre en tu propio dispositivo, solo con lo que dijiste; nada se envió a un servidor. Donde la IA habría agregado algo que no dijiste, se dejaron tus palabras. Puede equivocarse: por eso un médico la revisa antes de firmar. En Ü Notes la redacción se ajusta a tu plantilla y sugiere los códigos CIE-10.' : (iaFailed ? 'No pudimos activar la IA en este dispositivo, así que la nota usa tus palabras, ordenadas por las secciones de la plantilla. ' : '') + 'Aquí la nota usa tus palabras, ordenadas por las secciones de la plantilla. En Ü Notes, la IA las redacta en lenguaje clínico y sugiere los códigos CIE-10.';
       doc.appendChild(nota);
       setButtons(); show('note');
       const showAudit = () => {

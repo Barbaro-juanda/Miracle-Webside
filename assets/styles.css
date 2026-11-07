@@ -3035,3 +3035,9 @@ html:not(.js) .stc{opacity:1;transform:none}
 .mira-stage .mira-glow{display:block;position:absolute;left:50%;top:62%;width:70%;aspect-ratio:1;margin:-35% 0 0 -35%;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--glow-strong) 30%,transparent),transparent);filter:blur(12px)}
 .mira-stage .mira-pd,.mira-stage .mira-cv{position:absolute;left:50%;top:50%;right:auto;bottom:auto;width:100%;height:100%;margin:-50% 0 0 -50%;object-fit:contain;transform:none;animation:none;filter:drop-shadow(0 0 26px color-mix(in srgb,var(--glow-strong) 26%,transparent))}
 .mira-stage .mira-chip.c1{left:0;top:30%}.mira-stage .mira-chip.c2{right:-2%;top:46%}.mira-stage .mira-chip.c3{left:4%;bottom:14%}
+
+/* Prueba: redacción con IA en el dispositivo */
+.ld-ia{display:flex;gap:10px;align-items:flex-start;margin-top:14px;padding:12px 14px;border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);border-radius:14px;background:color-mix(in srgb,var(--accent) 7%,transparent);font-size:.84rem;color:var(--doc-muted);cursor:pointer}
+.ld-ia input{margin-top:3px;accent-color:var(--accent);flex:none}
+.ld-ia b{display:block;color:var(--doc-ink,inherit);font-size:.9rem;margin-bottom:2px}
+.ld-gen-p{margin-top:12px;font-size:.88rem;color:var(--doc-muted)}
