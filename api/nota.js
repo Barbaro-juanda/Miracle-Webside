@@ -33,7 +33,8 @@ const reglas = voz => [
     ? '4. VOZ: lo que el profesional observa o decide va en impersonal técnico ("se observa…", "se acuerda…"); nunca "el médico" ni "el psiquiatra" como sujeto. En esta práctica el profesional no dictó examen ni plan: esas secciones llevan ' + NO
     : '4. VOZ: lo que el médico examina, concluye y decide va en primera persona ("Considero…", "Solicito…"); nunca "el médico" como sujeto. En esta práctica el médico no dictó examen, análisis ni plan: esas secciones llevan ' + NO,
   '5. Identificación del paciente: solo lo que la persona dijo de sí (nombre, edad); el documento y lo no dicho van como ' + NO,
-  '6. Escribe una a tres frases por sección, sin viñetas y sin títulos dentro del texto.',
+  '6. No precises ni cambies la localización, la causa ni la gravedad de lo dicho (si dijo "la mitad del pecho", no escribas "precordial"); solo pasa sus palabras a registro clínico.',
+  '7. Escribe una a tres frases por sección, sin viñetas y sin títulos dentro del texto.',
   'Recibirás un JSON con las secciones de la plantilla y lo dicho en cada pregunta. Responde solo un JSON {"secciones":[{"titulo":"…","texto":"…"}]} con exactamente las secciones de la plantilla, en el mismo orden.'
 ].join('\n');
 
