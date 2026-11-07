@@ -39,7 +39,7 @@ const reglas = voz => [
 
 const llamar = async (system, usuario) => {
   if (process.env.GEMINI_API_KEY) {
-    const modelo = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+    const modelo = process.env.GEMINI_MODEL || 'gemini-3.1-flash-lite';
     const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/' + modelo + ':generateContent', {
       method: 'POST', headers: {'content-type': 'application/json', 'x-goog-api-key': process.env.GEMINI_API_KEY},
       body: JSON.stringify({systemInstruction: {parts: [{text: system}]}, contents: [{role: 'user', parts: [{text: usuario}]}], generationConfig: {temperature: .2, responseMimeType: 'application/json', maxOutputTokens: 1800}})
@@ -83,7 +83,7 @@ module.exports = async (req, res) => {
     const PAL = {un: 1, uno: 1, una: 1, dos: 2, tres: 3, cuatro: 4, cinco: 5, seis: 6, siete: 7, ocho: 8, nueve: 9, diez: 10, once: 11, doce: 12, quince: 15, veinte: 20, treinta: 30, cuarenta: 40, cincuenta: 50, sesenta: 60, cien: 100};
     (fuente.match(/[a-záéíóúñ]+/g) || []).forEach(w => { if (PAL[w]) nums.add(String(PAL[w])); });
     const secciones = plantilla.secciones.map((titulo, i) => {
-      let texto = String(sal[i] && sal[i].texto || '').trim() || NO;
+      let texto = String(sal[i] && sal[i].texto || '').replace(/\s+([."”])/g, '$1').replace(/\s{2,}/g, ' ').trim() || NO;
       if (texto !== NO) { // una cifra que nadie dijo no pasa: se quita la frase que la trae
         const frases = texto.match(/[^.!?]+[.!?]?/g) || [texto];
         texto = frases.filter(f => (f.match(/\d+/g) || []).every(n => nums.has(n))).join(' ').trim() || NO;
