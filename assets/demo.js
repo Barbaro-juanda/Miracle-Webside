@@ -191,7 +191,7 @@
     };
     const setHint = () => {
       const m = {
-        intro: SR ? 'Usa el dictado de voz de tu navegador (Chrome o Edge) solo para esta práctica; Miracle no recibe ni guarda tu audio ni tus respuestas. En tus consultas, Miracle captura la conversación con MIRA.' : 'Esta práctica necesita el dictado de voz, que tu navegador no ofrece. Ábrela en Google Chrome o Microsoft Edge.',
+        intro: SR ? 'Usa el dictado de voz de tu navegador (Chrome o Edge) solo para esta práctica; Miracle no recibe tu audio. El texto de tus respuestas se envía a un servicio de IA para redactar la nota y no se guarda. En tus consultas, Miracle captura la conversación con MIRA.' : 'Esta práctica necesita el dictado de voz, que tu navegador no ofrece. Ábrela en Google Chrome o Microsoft Edge.',
         ask: 'Habla con calma y toca "Siguiente pregunta" cuando termines.',
         gen: '',
         note: 'Tus respuestas se enviaron a un servicio de IA solo para redactar la nota; no las guardamos.',
