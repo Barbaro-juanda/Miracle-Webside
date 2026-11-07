@@ -12,6 +12,10 @@
   const ua = navigator.userAgent;
   const IS_SAFARI = /safari/i.test(ua) && !/chrome|crios|android|edg/i.test(ua);
   const IS_ANDROID = /android/i.test(ua);
+  const IS_BRAVE = !!navigator.brave; // Brave no trae el servicio de dictado de Google: allí se graba la voz y se transcribe en /api/transcribir
+  const CAN_REC = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
+  let useRec = (IS_BRAVE || !SR) && CAN_REC;
+  const CAN = !!SR || CAN_REC;
   // En Android el micrófono solo lo puede tener una captura a la vez: si el medidor lo retiene, el dictado de Chrome se queda sordo.
   const DATA = {
     psiquiatria: [
@@ -86,7 +90,7 @@
         return {ok: false, name: e.name};
       }
       // En Safari y en Android el medidor y el dictado compiten por el micrófono: ahí solo se pide el permiso y se suelta.
-      if (IS_SAFARI || IS_ANDROID) { stream.getTracks().forEach(t => t.stop()); stream = null; await new Promise(r => setTimeout(r, 350)); return {ok: true, meter: false}; }
+      if ((IS_SAFARI || IS_ANDROID) && !useRec) { stream.getTracks().forEach(t => t.stop()); stream = null; await new Promise(r => setTimeout(r, 350)); return {ok: true, meter: false}; }
       try {
         ac = new (window.AudioContext || window.webkitAudioContext)();
         const an = ac.createAnalyser(); an.fftSize = 256;
@@ -108,17 +112,63 @@
     /* ---------- Dictado ---------- */
     const setStatus = (txt, bad) => { statusEl.textContent = txt; listenBox.classList.toggle('bad', !!bad); listenBox.hidden = false; };
     const setListenUI = on => {
-      micBtn.textContent = on ? 'Pausar micrófono' : (problem ? 'Reintentar micrófono' : 'Hablar');
+      micBtn.textContent = on ? (useRec ? 'Terminar y transcribir' : 'Pausar micrófono') : (problem ? 'Reintentar micrófono' : 'Hablar');
       root.classList.toggle('is-listening', on);
-      if (on) { listenBox.classList.remove('bad'); statusEl.textContent = 'Escuchando… responde en voz alta'; listenBox.hidden = false; }
+      if (on) { listenBox.classList.remove('bad'); statusEl.textContent = useRec ? 'Grabando… responde en voz alta y toca "Terminar y transcribir"' : 'Escuchando… responde en voz alta'; listenBox.hidden = false; }
       else if (!problem) listenBox.hidden = true;
     };
     const stopListen = () => {
-      listening = false;
+      listening = false; discardRec();
       if (rec) { rec.onend = null; rec.onresult = null; rec.onerror = null; rec.onstart = null; try { rec.abort(); } catch (e) {} rec = null; }
       stopMeter(); setListenUI(false);
     };
-    const fail = txt => { problem = txt; listening = false; if (rec) { rec.onend = null; try { rec.abort(); } catch (e) {} rec = null; } stopMeter(); setListenUI(false); setStatus(txt, true); };
+    const fail = txt => { problem = txt; listening = false; discardRec(); if (rec) { rec.onend = null; try { rec.abort(); } catch (e) {} rec = null; } stopMeter(); setListenUI(false); setStatus(txt, true); };
+
+    /* ---------- Modo grabación (Brave y navegadores sin dictado): se graba y se transcribe al terminar ---------- */
+    let mr = null, chunks = [], mrTimer = 0, transcribing = false;
+    const discardRec = () => {
+      clearTimeout(mrTimer); mrTimer = 0;
+      if (mr) { mr.ondataavailable = null; mr.onstop = null; try { if (mr.state !== 'inactive') mr.stop(); } catch (e) {} mr = null; }
+      chunks = [];
+    };
+    const blobB64 = blob => new Promise((ok, no) => { const f = new FileReader(); f.onload = () => ok(String(f.result).split(',')[1]); f.onerror = no; f.readAsDataURL(blob); });
+    const startRecorder = () => {
+      let rec2;
+      try {
+        const tipo = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4'].find(t => MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t));
+        rec2 = new MediaRecorder(stream, tipo ? {mimeType: tipo, audioBitsPerSecond: 32000} : {audioBitsPerSecond: 32000});
+      } catch (e) { fail('No pudimos grabar el audio en este navegador. Toca "Reintentar micrófono".'); return; }
+      mr = rec2; chunks = []; base = ta.value.trim() ? ta.value.trim() + ' ' : '';
+      rec2.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
+      rec2.start(1000); listening = true; problem = ''; setListenUI(true);
+      mrTimer = setTimeout(() => { if (mr === rec2) finishRec(); }, 45000); // clips cortos: una respuesta por pregunta
+    };
+    // Termina la grabación, la transcribe y deja el texto en la caja. Devuelve una promesa para poder esperarla.
+    const finishRec = () => new Promise(done => {
+      const r2 = mr; if (!r2) { done(); return; }
+      clearTimeout(mrTimer); mrTimer = 0; listening = false; transcribing = true;
+      const my = token, k = cur;
+      r2.onstop = async () => {
+        const mime = (r2.mimeType || 'audio/webm').split(';')[0], blob = new Blob(chunks, {type: r2.mimeType || mime});
+        mr = null; chunks = []; stopMeter(); setListenUI(false);
+        setStatus('Transcribiendo tu respuesta…');
+        try {
+          if (blob.size < 1500) throw new Error('vacio');
+          const res = await fetch('/api/transcribir', {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify({mime: r2.mimeType || mime, audio: await blobB64(blob)})});
+          if (!res.ok) throw new Error('http ' + res.status);
+          const j = await res.json();
+          if (my === token && state === 'ask' && cur === k) {
+            const t = (j.texto || '').trim();
+            if (t) { ta.value = base + t; listenBox.hidden = true; problem = ''; }
+            else { problem = 'No se oyó nada en la grabación. Revisa tu micrófono y toca "Reintentar micrófono".'; setListenUI(false); setStatus(problem, true); }
+          }
+        } catch (e) {
+          if (my === token && state === 'ask' && cur === k) { problem = 'No pudimos transcribir tu voz. Toca "Reintentar micrófono" o salta la pregunta.'; setListenUI(false); setStatus(problem, true); }
+        }
+        transcribing = false; done();
+      };
+      try { r2.stop(); } catch (e) { transcribing = false; mr = null; done(); }
+    });
 
     const startRec = () => {
       const r = new SR();
@@ -137,6 +187,7 @@
         if (e.error === 'no-speech' || e.error === 'aborted') return;
         if (e.error === 'not-allowed' || e.error === 'service-not-allowed') fail('El navegador bloqueó el micrófono. Pulsa el candado de la barra de direcciones, permite el micrófono y toca "Reintentar micrófono".');
         else if (e.error === 'audio-capture') fail('No encontramos un micrófono disponible. Revisa que esté conectado y que no lo use otra aplicación, y toca "Reintentar micrófono".');
+        else if ((e.error === 'network' || e.error === 'language-not-supported') && CAN_REC) { useRec = true; setTimeout(() => { if (state === 'ask') startListen(); }, 50); }
         else if (e.error === 'network' || e.error === 'language-not-supported') fail('El servicio de voz de este navegador no responde (' + e.error + '). Abre la página en Google Chrome o Microsoft Edge y toca "Reintentar micrófono".');
         else fail('El dictado se interrumpió (' + e.error + '). Toca "Reintentar micrófono".');
       };
@@ -145,6 +196,7 @@
       r.onend = () => {
         if (!(listening && rec === r)) return;
         if (Date.now() - startedAt < 1200) quickEnds++; else quickEnds = 0;
+        if (quickEnds >= 3 && CAN_REC) { useRec = true; stopListen(); setTimeout(() => { if (state === 'ask') startListen(); }, 50); return; }
         if (quickEnds >= 3) { fail('El dictado se corta apenas empieza' + (lastErr ? ' (' + lastErr + ')' : '') + '. Abre la página en Google Chrome o Microsoft Edge y toca "Reintentar micrófono".'); return; }
         base = ta.value.trim() ? ta.value.trim() + ' ' : '';
         later(() => { if (listening && rec === r) { startedAt = Date.now(); try { r.start(); } catch (e) {} } }, 250);
@@ -153,7 +205,7 @@
       try { r.start(); listening = true; problem = ''; setListenUI(true); } catch (e) { fail('No pudimos activar el dictado. Toca "Reintentar micrófono".'); }
     };
     const startListen = async () => {
-      if (!SR || state !== 'ask') return;
+      if (!CAN || state !== 'ask' || transcribing) return;
       stopListen(); problem = ''; quickEnds = 0; lastErr = '';
       setStatus('Pidiendo acceso al micrófono…');
       const my = token, k = cur;
@@ -164,7 +216,7 @@
           : 'El navegador bloqueó el micrófono. Pulsa el candado de la barra de direcciones, permite el micrófono y toca "Reintentar micrófono".');
         return;
       }
-      startRec();
+      if (useRec) startRecorder(); else startRec();
     };
     const stopSpeech = () => { if ('speechSynthesis' in window) speechSynthesis.cancel(); };
     const say = (text, done) => {
@@ -191,7 +243,7 @@
     };
     const setHint = () => {
       const m = {
-        intro: SR ? 'Usa el dictado de voz de tu navegador (Chrome o Edge) solo para esta práctica; Miracle no recibe tu audio. El texto de tus respuestas se envía a un servicio de IA para redactar la nota y no se guarda. En tus consultas, Miracle captura la conversación con MIRA.' : 'Esta práctica necesita el dictado de voz, que tu navegador no ofrece. Ábrela en Google Chrome o Microsoft Edge.',
+        intro: CAN ? (useRec ? 'Tu navegador no trae dictado de voz (como Brave): se graba tu voz solo mientras respondes y se envía a un servicio de IA para transcribirla. No se guarda. El texto también se envía a la IA para redactar la nota.' : 'Usa el dictado de voz de tu navegador (Chrome o Edge) solo para esta práctica; Miracle no recibe tu audio. El texto de tus respuestas se envía a un servicio de IA para redactar la nota y no se guarda. En tus consultas, Miracle captura la conversación con MIRA.') : 'Esta práctica necesita el dictado de voz, que tu navegador no ofrece. Ábrela en Google Chrome o Microsoft Edge.',
         ask: 'Habla con calma y toca "Siguiente pregunta" cuando termines.',
         gen: '',
         note: 'Tus respuestas se enviaron a un servicio de IA solo para redactar la nota; no las guardamos.',
@@ -203,7 +255,7 @@
       main.hidden = false; main.disabled = false; again.hidden = true; cta.hidden = true; redoBtn.hidden = true; micBtn.hidden = true; skipBtn.hidden = true;
       if (state === 'intro') {
         main.textContent = 'Empezar la práctica';
-        if (!SR) { main.hidden = true; cta.hidden = false; }
+        if (!CAN) { main.hidden = true; cta.hidden = false; }
       } else if (state === 'ask') {
         main.textContent = cur === DATA[spec].length - 1 ? 'Generar la nota' : 'Siguiente pregunta';
         micBtn.hidden = false; redoBtn.hidden = false; skipBtn.hidden = cur === DATA[spec].length - 1;
@@ -233,8 +285,11 @@
       setButtons(); show('ask');
       say(d[k][0], () => { if (my === token && state === 'ask' && cur === k) startListen(); });
     };
-    const next = () => {
-      stopListen(); stopSpeech();
+    const next = async () => {
+      stopSpeech();
+      if (mr) { main.disabled = true; await finishRec(); main.disabled = false; if (state !== 'ask') return; }
+      else if (transcribing) return;
+      stopListen();
       answers[cur] = clean(ta.value);
       if (cur + 1 < DATA[spec].length) ask(cur + 1); else generate();
     };
@@ -326,7 +381,7 @@
     });
     skipBtn.addEventListener('click', () => { if (state !== 'ask') return; ta.value = ''; answers[cur] = ''; next(); });
     redoBtn.addEventListener('click', () => { if (state !== 'ask') return; ta.value = ''; answers[cur] = ''; startListen(); });
-    micBtn.addEventListener('click', () => { if (listening) stopListen(); else startListen(); });
+    micBtn.addEventListener('click', () => { if (listening) { if (useRec) finishRec(); else stopListen(); } else startListen(); });
     again.addEventListener('click', reset);
     tabs.forEach(b => b.addEventListener('click', () => {
       if (b.dataset.spec === spec && state === 'intro') return;
